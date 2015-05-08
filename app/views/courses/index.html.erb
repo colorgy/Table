@@ -1,7 +1,24 @@
-<h1>Hi there</h1>
-<% @course.each do |c| %>
-	<h2><%= link_to c.course_name, c %></h2>
-	<h4><%= c.lecturer_name %></h4>
-	<h4><%= c.course_time %></h4>
-	<h4><%= c.course_code %></h4>
-<% end %>
+<h4>課程總覽</h4>
+<a class="waves-effect waves-light btn" href="<%= new_course_path %>">增加課程</a>
+<hr>
+<table>
+	<thead>
+		<th>課程名稱</th>
+		<th>教授</th>
+		<th>課程時間</th>
+		<th>課程代碼</th>
+	</thead>
+	<tbody>
+		<% @course.each do |c| %>
+			<tr>
+				<td><%= link_to c.course_name, c %></td>
+				<td><%= c.lecturer_name %></td>
+				<td><%= c.course_time %></td>
+				<td><%= c.course_code %></td>
+				<td>
+				<%= link_to 'Delete', course_path(c), method: :delete, data: { confirm: 'Are you sure?' } %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

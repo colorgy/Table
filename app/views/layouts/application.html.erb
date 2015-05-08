@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ColorgyCoursesSimulator</title>
+  <title>Colorgy選課模擬</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">選課模擬</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="<%= courses_path %>">課程總覽</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="<%= courses_path %>">課程總覽</a></li>
+      </ul>
+    </div>
+</nav>
+	<p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
 <%= yield %>
+
+<script>
+	$( document ).ready(function(){
+		 $(".button-collapse").sideNav();
+	})
+</script>
 
 </body>
 </html>
