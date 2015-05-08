@@ -1,0 +1,7 @@
+<h1>Hi there</h1>
+<% @course.each do |c| %>
+	<h2><%= link_to c.course_name, c %></h2>
+	<h4><%= c.lecturer_name %></h4>
+	<h4><%= c.course_time %></h4>
+	<h4><%= c.course_code %></h4>
+<% end %>
