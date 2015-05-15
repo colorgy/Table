@@ -16,6 +16,8 @@
         <ul class="right hide-on-med-and-down">
           <li><a href="<%= courses_path %>">課程總覽</a></li>
           <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
+          <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
+
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <li><a href="<%= courses_path %>">課程總覽</a></li>

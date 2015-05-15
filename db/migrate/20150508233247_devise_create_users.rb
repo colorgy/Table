@@ -3,11 +3,11 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table(:users) do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      # t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
+      # t.string   :reset_password_token
+      # t.datetime :reset_password_sent_at
 
       ## Rememberable
       t.datetime :remember_created_at
@@ -30,12 +30,34 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      # Colorgy core
+      t.integer :sid  # system id
+      t.integer :uuid
+      t.datetime :refreshed_at
+      t.string :core_access_token
+      t.string :core_refresh_token
+
+      # Colorgy data
+      t.string :username
+      t.string :name
+      t.string :avatar_url
+      t.string :cover_photo_url
+      t.string :gender
+      t.string :fbid
+
+      # Colorgy identity data
+      t.string :uid
+      t.string :identity
+      t.string :organization_code
+      t.string :department_code
 
       t.timestamps
     end
 
     add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
+    add_index :users, :sid,                  unique: true
+    add_index :users, :uuid,                 unique: true
+    # add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end
