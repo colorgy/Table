@@ -15,4 +15,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "materialize";
+
+@import "foundations/colors";
+@import "foundations/typography";
+@import "foundations/base";
+
+@import "partials/navbar";
 @import "main";

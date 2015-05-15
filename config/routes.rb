@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :courses
   root "courses#index"
 
+  resources :courses_simulator, only: [:index, :create, :destroy]
   # Example resource route with options:
   #   resources :products do
   #     member do

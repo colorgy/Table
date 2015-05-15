@@ -1,0 +1,280 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="course-search-field">
+				<div class="course-search-field-inner">
+					<form class="school-select-form">
+						<select class="browser-default">
+							<option value="" disabled selected>Choose your school</option>
+							<option value="1">台灣科技大學</option>
+							<option value="2">台灣大學</option>
+							<option value="3">清華大學</option>
+							<option value="3">交通大學</option>
+							<option value="3">政治大學</option>
+						</select>
+					</form>
+					<form class="course-search-form">
+						<input id="course-searchbox" class="course-searchbox" type="search" placeholder="Search..">
+					</form>
+				</div>
+			</div>
+			<div class="course-select-field">
+				<div class="simulator-search-result">
+					<% @course.each do |c| %>
+						<div class="course-select-item">
+							<div class="name"><%= link_to c.course_name, c %></div>
+							<div class="lecturer"><%= c.lecturer_name %></div>
+							<div class="course-code"><%= c.course_code %></div>
+							<div class="course-time"><%= c.course_time %></div>
+							<button class="add-to-simulator">+</button>
+							<div class="course-id" cid="<%= c.id %>"></div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			<div class="course-hasselect-field">
+				<div class="course-hasselect-field-inner">
+					<% @courses_simulator_items.each do |item| %>
+						<div class="course-hasselect-item">
+						  <div class="name"><%= item.course.course_name %></div>
+						  <div class="time"><%= item.course.course_time %></div>
+						  <button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>
+						  <div class="item-id" iid="<%= item.id %>"></div>
+					  	</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="simulator-table-field">
+				<table class="simulator-table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Mon</th>
+							<th>Tue</th>
+							<th>Wen</th>
+							<th>Thu</th>
+							<th>Fri</th>
+							<th>Sat</th>
+							<th>Sun</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="class1">
+							<td>1</td>
+							<td class="M1"></td>
+							<td class="T1"></td>
+							<td class="W1"></td>
+							<td class="R1"></td>
+							<td class="F1"></td>
+							<td class="S1"></td>
+							<td class="Sun1"></td>
+						</tr>
+						<tr class="class2">
+							<td>2</td>
+							<td class="M2"></td>
+							<td class="T2"></td>
+							<td class="W2"></td>
+							<td class="R2"></td>
+							<td class="F2"></td>
+							<td class="S2"></td>
+							<td class="Sun2"></td>
+						</tr>
+						<tr class="class3">
+							<td>3</td>
+							<td class="M3"></td>
+							<td class="T3"></td>
+							<td class="W3"></td>
+							<td class="R3"></td>
+							<td class="F3"></td>
+							<td class="S3"></td>
+							<td class="Sun3"></td>
+						</tr>
+						<tr class="class4">
+							<td>4</td>
+							<td class="M4"></td>
+							<td class="T4"></td>
+							<td class="W4"></td>
+							<td class="R4"></td>
+							<td class="F4"></td>
+							<td class="S4"></td>
+							<td class="Sun4"></td>
+						</tr>
+						<tr class="class5">
+							<td>5</td>
+							<td class="M5"></td>
+							<td class="T5"></td>
+							<td class="W5"></td>
+							<td class="R5"></td>
+							<td class="F5"></td>
+							<td class="S5"></td>
+							<td class="Sun5"></td>
+						</tr>
+						<tr class="class6">
+							<td>6</td>
+							<td class="M6"></td>
+							<td class="T6"></td>
+							<td class="W6"></td>
+							<td class="R6"></td>
+							<td class="F6"></td>
+							<td class="S6"></td>
+							<td class="Sun6"></td>
+						</tr>
+						<tr class="class7">
+							<td>7</td>
+							<td class="M7"></td>
+							<td class="T7"></td>
+							<td class="W7"></td>
+							<td class="R7"></td>
+							<td class="F7"></td>
+							<td class="S7"></td>
+							<td class="Sun7"></td>
+						</tr>
+						<tr class="class8">
+							<td>8</td>
+							<td class="M8"></td>
+							<td class="T8"></td>
+							<td class="W8"></td>
+							<td class="R8"></td>
+							<td class="F8"></td>
+							<td class="S8"></td>
+							<td class="Sun8"></td>
+						</tr>
+						<tr class="class9">
+							<td>9</td>
+							<td class="M9"></td>
+							<td class="T9"></td>
+							<td class="W9"></td>
+							<td class="R9"></td>
+							<td class="F9"></td>
+							<td class="S9"></td>
+							<td class="Sun9"></td>
+						</tr>
+						<tr class="class10">
+							<td>10</td>
+							<td class="M10"></td>
+							<td class="T10"></td>
+							<td class="W10"></td>
+							<td class="R10"></td>
+							<td class="F10"></td>
+							<td class="S10"></td>
+							<td class="Sun10"></td>
+						</tr>
+						<tr class="classA">
+							<td>A</td>
+							<td class="MA"></td>
+							<td class="TA"></td>
+							<td class="WA"></td>
+							<td class="RA"></td>
+							<td class="FA"></td>
+							<td class="SA"></td>
+							<td class="SunA"></td>
+						</tr>
+						<tr class="classB">
+							<td>B</td>
+							<td class="MB"></td>
+							<td class="TB"></td>
+							<td class="WB"></td>
+							<td class="RB"></td>
+							<td class="FB"></td>
+							<td class="SB"></td>
+							<td class="SunB"></td>
+						</tr>
+						<tr class="classC">
+							<td>C</td>
+							<td class="MC"></td>
+							<td class="TC"></td>
+							<td class="WC"></td>
+							<td class="RC"></td>
+							<td class="FC"></td>
+							<td class="SC"></td>
+							<td class="SunC"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+function CourseConflictTest(){
+	$('.simulator-table td').each(function(){
+		var coursecount = $(this).children('.simulator-table-course').length;
+		if (coursecount >= 2) {
+			$(this).children('.simulator-table-course').addClass('course-conflict');
+		};
+	});
+}
+
+function splitACourse() {
+	var courseItem = $('.course-hasselect-item');
+	courseItem.each(function(){
+		var course_name = $(this).children(".name").text();
+		var item_id = $(this).children(".item-id").attr('iid');
+		var course_times = $(this).children(".time").text().split(" ");
+		var counter = course_times.length;
+		console.log(counter);
+
+		for (var i = 0; i < counter; i++) {
+			var thisCourse = course_times[i]
+			console.log(thisCourse);
+			console.log(course_name);
+			$('.'+ thisCourse ).append('<div class="simulator-table-course" iid="' + item_id + '">' + course_name + '</div>')
+
+		};
+	})
+	CourseConflictTest();
+}
+splitACourse();
+
+$(document).ready(function() {
+
+	$('.add-to-simulator').click(function() {
+		course_id = $(this).siblings('.course-id').attr('cid');
+		$.post('/courses_simulator', {"courses_simulator[course_id]": course_id}, function(response) {
+			    var course = response["course"]
+				var course_name = course["course_name"];
+				var course_time = course["course_time"];
+				var course_times = course["course_time"].split(" ");
+				var counter = course_times.length;
+				var item = response["item"]
+				var item_id = item["id"]
+
+				for (var i = 0; i < counter; i++) {
+					var thisCourse = course_times[i];
+					$('.'+ thisCourse ).append('<div class="simulator-table-course" iid="' + item_id + '">' + course_name + '</div>');
+
+				};
+
+				$('.course-hasselect-field-inner').append(
+					'<div class="course-hasselect-item">' +
+					  '<div class="name">'+ course_name + '</div>' +
+					  '<div class="time">'+ course_time + '</div>' +
+					  '<button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>' +
+					  '<div class="item-id" iid="' + item_id + '"></div>' +
+				  	'</div>');
+
+				CourseConflictTest();
+		})
+	}).bind(this);
+
+
+});
+$(document).on('click','.remove-hasselect-course' , function() {
+     //code here ....
+ 	item_id = $(this).siblings('.item-id').attr('iid');
+	$.ajax({
+		url:'/courses_simulator/' + item_id,
+		type: 'DELETE',
+		success: function(response) {
+			var item = response["item"];
+			console.log(item);
+			$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
+			$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+			CourseConflictTest();
+		}
+	})
+});
+</script>
+

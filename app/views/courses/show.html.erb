@@ -13,6 +13,7 @@
 	    <div class="card-action">
 	      <%= link_to 'Edit', edit_course_path(@course) %>
 	      <%= link_to 'Delete', course_path(@course), method: :delete, data: { confirm: 'Are you sure?' } %>
+	      <%= link_to 'Add to simulator', courses_simulator_index_path('courses_simulator[course_id]' => @course.id), method: :post %>
 	    </div>
 	  </div>
 	</div>

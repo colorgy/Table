@@ -7,18 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">選課模擬</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="<%= courses_path %>">課程總覽</a></li>
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="<%= courses_path %>">課程總覽</a></li>
-      </ul>
+<div class="navigation-bar">
+  <nav>
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Colorgy Simulator</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="<%= courses_path %>">課程總覽</a></li>
+          <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="<%= courses_path %>">課程總覽</a></li>
+          <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
+</div>
 	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 <%= yield %>

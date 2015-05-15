@@ -1,0 +1,67 @@
+@import 'helpers/mixins';
+
+$border-radius: 5px;
+
+*:focus{
+	outline: none;
+}
+img{
+	width: 100%;
+}
+label{
+	color: $font;
+}
+a:hover{
+	text-decoration: none;
+	color: $black;
+}
+.clear{
+	clear: both;
+}
+.black-mask{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba( $black, .5);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 999;
+	opacity: 0;
+	visibility: hidden;
+	@include transition-all(0.5s);
+
+	&.active{
+		opacity: 1;
+		visibility: visible;
+	}
+}
+.wrapper{
+	padding-top: 50px;
+	@media screen and (max-width: 992px) {
+		padding-top: 0 !important;
+	}
+}
+// Grid System
+.container-fluid{
+	padding: 0;
+}
+.row.row-inner{
+	max-width: 1200px;
+}
+.row.row-inner-m{
+	max-width: 800px;
+}
+@media screen and (max-width: 768px){
+	.col-xs-6{
+		padding: 2px !important;
+	}
+}
+/*
+@media screen and (min-width: 1350px){
+	.col-md-3{
+		width: 20% !important;
+	}
+}
+*/
