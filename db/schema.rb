@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508235046) do
+ActiveRecord::Schema.define(version: 20150515161909) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "course_name"
     t.text     "course_time"
     t.text     "course_code"
     t.string   "lecturer_name"
+    t.integer  "credits"
+    t.string   "location"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -25,12 +27,23 @@ ActiveRecord::Schema.define(version: 20150508235046) do
   create_table "courses_simulator_items", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "course_id"
+    t.string   "semester"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "courses_simulator_items", ["course_id"], name: "index_courses_simulator_items_on_course_id"
   add_index "courses_simulator_items", ["user_id"], name: "index_courses_simulator_items_on_user_id"
+
+  create_table "user_followed_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "followed_user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "user_followed_users", ["followed_user_id"], name: "index_user_followed_users_on_followed_user_id"
+  add_index "user_followed_users", ["user_id"], name: "index_user_followed_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -57,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150508235046) do
     t.string   "department_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "followers_count",     default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

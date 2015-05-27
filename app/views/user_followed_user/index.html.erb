@@ -1,0 +1,8 @@
+<% @user.each do |u| %>
+	<%= u.name %>
+	<%= link_to 'Follow', user_followed_user_index_path('user_followed_users[user_id]' => u.id), method: :post %>
+<% end %>
+<% @user_followed_users.each do |a| %>
+	<%= a.name %>
+	<%= link_to 'Destroy', user_followed_user_path(a), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

@@ -4,6 +4,12 @@ class User < ActiveRecord::Base
   devise :trackable, :omniauthable,
          :omniauth_providers => [:colorgy]
   has_many :courses_simulator_items, class_name: CoursesSimulatorItem
+  has_many :user_followed_users
+  has_many :followed_users, class_name: :User, through: :user_followed_users,
+           source: :followed_user
+  has_many :user_followed_by_user, class_name: :UserFollowedUser, foreign_key: :followed_user_id
+  has_many :followers, class_name: :User, through: :user_followed_by_user,
+           source: :user
 
   def self.from_colorgy(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
@@ -22,5 +28,4 @@ class User < ActiveRecord::Base
 
     return user
   end
-
 end

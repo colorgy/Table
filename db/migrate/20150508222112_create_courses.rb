@@ -5,6 +5,8 @@ class CreateCourses < ActiveRecord::Migration
       t.text :course_time
       t.text :course_code
       t.string :lecturer_name
+      t.integer :credits
+      t.string :location
 
       t.timestamps null: false
     end

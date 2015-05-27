@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Colorgy選課模擬</title>
+  <title>TAPLE 推博</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= render 'partials/navbar' %>
+<!--
 <div class="navigation-bar">
   <nav>
     <div class="container">
@@ -16,8 +18,23 @@
         <ul class="right hide-on-med-and-down">
           <li><a href="<%= courses_path %>">課程總覽</a></li>
           <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
-          <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
-
+          <% if current_user.blank? %>
+            <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
+          <% else %>
+            <li class="nav-user-info">
+              <a href="#">
+                <div class="user-avatar">
+                <%= image_tag current_user.avatar_url %>
+                </div>
+                <div class="user-name">
+                  <%= current_user.name %>
+                </div>
+              </a>
+            </li>
+            <li>
+              <%= link_to("登出", "#{ENV['CORE_URL']}/logout") %>
+            </li>
+          <% end %>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <li><a href="<%= courses_path %>">課程總覽</a></li>
@@ -27,10 +44,21 @@
     </div>
   </nav>
 </div>
-	<p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+-->
+<p class="notice" style="display:none;"><%= notice %></p>
+<p class="alert" style="display:none;"><%= alert %></p>
 <%= yield %>
-
+<div class="mobile-bottom-nav">
+  <div class="mobile-nav-btn btn-1" id="calendar-trigger">
+    已選課表
+  </div>
+  <div class="mobile-nav-btn btn-2" id="select-trigger">
+    課程選擇
+  </div>
+  <div class="mobile-nav-btn btn-3" id="app-trigger">
+    APP下載
+  </div>
+</div>
 <script>
 	$( document ).ready(function(){
 		 $(".button-collapse").sideNav();

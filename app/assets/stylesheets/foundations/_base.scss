@@ -1,7 +1,16 @@
 @import 'helpers/mixins';
 
 $border-radius: 5px;
-
+.navbar-fixed{
+	height: auto;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999999 !important;
+	nav {
+	  position: relative;
+	}
+}
 *:focus{
 	outline: none;
 }
@@ -65,3 +74,197 @@ a:hover{
 	}
 }
 */
+.nav-user-info{
+	padding: 0px 8px;
+	.user-avatar{
+		display: inline-block;
+		img{
+			width: 30px;
+			height: 30px;
+			border-radius: 60px;
+			overflow: hidden;
+		}
+	}
+	.user-name{
+		color: $dark-gray;
+		display: inline-block;
+		padding-left: 8px;
+	}
+}
+
+.simulator-sidebar{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+//	width: 100%;
+//	max-width: 400px;
+//	min-width: 270px;
+	right: 0px;
+	top: 0;
+	background-color: $primary-gray;
+
+	.simulator-sidebar-inner{
+
+	}
+
+	.simulator-inner-layer2{
+		position: absolute;
+	}
+
+}
+.course-hasselect-field{
+	position: relative;
+	width: 100%;
+	height: 100%;
+//	width: 100%;
+//	max-width: 400px;
+//	min-width: 270px;
+	right: 0;
+	top: 0;
+	background-color: $primary-pink !important;
+	@include transition-all(0.5s);
+
+	&.active{
+		//@include translateX(-360px);
+	}
+
+	.course-hasselect-field-trigger{
+		position: absolute;
+		left: -35px;
+		top: 50%;
+		padding: 8px 0;
+		border-radius: 12px 0 0 12px;
+		@include translateY(-50%);
+		width: 40px;
+		height: auto;
+		cursor: pointer;
+		background-color: $primary-pink !important;
+		p{
+			font-size: 1em;
+			color: $white;
+			text-align: center;
+		}
+	}
+}
+.simulator-title{
+	font-size: 1.6em;
+	color: $secondary-pink;
+	text-align: center;
+}
+i.mdi-content-clear {
+  color: black;
+  font-size: 24px;
+}
+.simulator-sidebar-trigger{
+	background-color: rgb(74, 74, 74);
+	a{
+		color: $white !important;
+	}
+}
+.course-hasselect-field-trigger{
+	background-color: $primary-pink;
+	a{
+		color: $white !important;
+	}
+}
+.simulator-fixed{
+	@include transition-all(0.3s);
+	@media screen and (min-width: 992px){
+		position: fixed;
+		right: 15px;
+		top: 45px;
+		height: calc( 100% - 45px );
+		width: 35% !important;
+	}
+	@media screen and (max-width: 992px){
+		position: fixed;
+		width: 100%;
+		left: 0;
+		right: 0;
+		opacity: 0;
+		visibility: hidden;
+	}
+	&.active{
+		opacity: 1;
+		visibility: visible;
+	}
+}
+.simulator-fixed-calendar{
+	background-color: #fff;
+	@include transition-all(0.3s);
+	@media screen and (min-width: 992px){
+		width: 65% !important;
+	}
+	@media screen and (max-width: 992px){
+		position: fixed;
+		width: 100%;
+		left: 0;
+		right: 0;
+		opacity: 0;
+		visibility: hidden;
+		height: 100%;
+		overflow: scroll;
+	}
+	&.active{
+		opacity: 1;
+		visibility: visible;
+	}
+}
+.mobile-bottom-nav{
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	height: 60px;
+	background-color: #F89680;
+	text-align: center;
+	color: #fff;
+	opacity: 1;
+	visibility: visible;
+	@include transition-all(0.3s);
+
+	&.hide{
+		opacity: 0;
+		visibility: hidden;
+	}
+	.mobile-nav-btn{
+		padding: 10px 5px;
+
+		&.btn-1{
+			position: absolute;
+			width: 33.3333%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			cursor: pointer;
+		}
+		&.btn-2{
+			position: absolute;
+			width: 33.3333%;
+			height: 100%;
+			left: 33.33333%;
+			top: 0;
+			cursor: pointer;
+		}
+		&.btn-3{
+			position: absolute;
+			width: 33.3333%;
+			height: 100%;
+			left: 66.666666%;
+			top: 0;
+			cursor: pointer;
+		}
+	}
+	@media screen and (min-width: 992px){
+		opacity: 0;
+		visibility: hidden;
+	}
+	@media screen and (max-width: 992px){
+		opacity: 1;
+		visibility: visible;
+	}
+}
+.tabs .tab{
+	border-radius: 15px 3px 0 0;
+}

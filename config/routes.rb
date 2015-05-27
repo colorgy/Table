@@ -15,9 +15,11 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :courses
-  root "courses#index"
+  root "courses_simulator#index"
 
   resources :courses_simulator, only: [:index, :create, :destroy]
+  resources :user_followed_user, only: [:index, :create, :destroy]
+
   # Example resource route with options:
   #   resources :products do
   #     member do

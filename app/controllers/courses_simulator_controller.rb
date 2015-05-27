@@ -33,7 +33,8 @@ class CoursesSimulatorController < ApplicationController
       format.json { render json:
         {
           status: "Item was successfully destroyed.",
-          item: @courses_simulator_item
+          item: @courses_simulator_item,
+          course: @courses_simulator_item.course
         }
       }
     end

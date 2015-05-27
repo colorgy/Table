@@ -28,7 +28,7 @@ class CoursesController < ApplicationController
 
 	def update
 		@course = Course.find(params[:id])
-		if @course.update(params[:course].permit(:course_name, :course_time, :course_code, :lecturer_name))
+		if @course.update(params[:course].permit(:course_name, :course_time, :course_code, :lecturer_name, :credits, :location))
 	      redirect_to @course
 	    else
 	      render 'edit'
@@ -45,6 +45,6 @@ class CoursesController < ApplicationController
 
 	private
 		def course_params
-			params.require(:course).permit(:course_name, :course_time, :course_code, :lecturer_name)
+			params.require(:course).permit(:course_name, :course_time, :course_code, :lecturer_name, :credits, :location)
 		end
 end
