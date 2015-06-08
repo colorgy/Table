@@ -13,26 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20150515161909) do
 
-  create_table "courses", force: :cascade do |t|
-    t.string   "course_name"
-    t.text     "course_time"
-    t.text     "course_code"
-    t.string   "lecturer_name"
-    t.integer  "credits"
-    t.string   "location"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "courses_simulator_items", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "course_id"
-    t.string   "semester"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "course_code"
+    t.integer  "year"
+    t.integer  "term"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "courses_simulator_items", ["course_id"], name: "index_courses_simulator_items_on_course_id"
   add_index "courses_simulator_items", ["user_id"], name: "index_courses_simulator_items_on_user_id"
 
   create_table "user_followed_users", force: :cascade do |t|

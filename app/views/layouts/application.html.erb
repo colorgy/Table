@@ -16,7 +16,7 @@
         <a href="#!" class="brand-logo">Colorgy Simulator</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="<%= courses_path %>">課程總覽</a></li>
+          <li><a href="">課程總覽</a></li>
           <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
           <% if current_user.blank? %>
             <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
@@ -37,7 +37,7 @@
           <% end %>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-          <li><a href="<%= courses_path %>">課程總覽</a></li>
+          <li><a href="">課程總覽</a></li>
           <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
         </ul>
       </div>

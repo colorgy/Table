@@ -176,7 +176,7 @@ i.mdi-content-clear {
 		right: 15px;
 		top: 45px;
 		height: calc( 100% - 45px );
-		width: 35% !important;
+		width: 350px !important;
 	}
 	@media screen and (max-width: 992px){
 		position: fixed;
@@ -195,7 +195,7 @@ i.mdi-content-clear {
 	background-color: #fff;
 	@include transition-all(0.3s);
 	@media screen and (min-width: 992px){
-		width: 65% !important;
+		width: calc(100% - 350px) !important;
 	}
 	@media screen and (max-width: 992px){
 		position: fixed;

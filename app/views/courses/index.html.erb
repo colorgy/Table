@@ -10,16 +10,6 @@
 		<th>刪除課程</th>
 	</thead>
 	<tbody>
-		<% @course.each do |c| %>
-			<tr>
-				<td><%= link_to c.course_name, c %></td>
-				<td><%= c.lecturer_name %></td>
-				<td><%= c.course_time %></td>
-				<td><%= c.course_code %></td>
-				<td>
-				<%= link_to 'Delete', course_path(c), method: :delete, data: { confirm: 'Are you sure?' } %>
-				</td>
-			</tr>
-		<% end %>
+
 	</tbody>
 </table>

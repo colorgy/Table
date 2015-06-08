@@ -1,5 +1,5 @@
 <script>
-//Draggable
+/*
 	$(function(){
 		$( ".simulator-table-course" ).draggable({
 			revert: true,
@@ -43,12 +43,12 @@
 	        }
 	    })
 	});
-//
+*/
 </script>
 <div class="container-fuild" style="padding-top: 35px;">
 	<div class="row">
-		<div class="col-md-3 simulator-fixed" dataPage="mobile" id="select-page">
-			<div class="page-slider">
+		<div class="col-md-2 simulator-fixed" dataPage="mobile" id="select-page">
+			<div class="page-slider" style="margin-top: 24px;">
 				<ul class="tabs">
 					<li class="tab col s3 simulator-sidebar-trigger"><a class="active" href="#test1">課程選擇</a></li>
 					<li class="tab col s3 course-hasselect-field-trigger"><a href="#test2">已選課表(<span id="credits-total"></span>)</a></li>
@@ -77,19 +77,19 @@
 							</div>
 							<div class="course-select-field">
 								<div class="simulator-search-result">
-									<% @course.each do |c| %>
+									<!--
 										<div class="course-select-item">
-											<div class="name"><%= link_to c.course_name, c %></div>
-											<div class="lecturer"><%= c.lecturer_name %></div>
-											<div class="course-code"><%= c.course_code %></div>
+											<div class="name"> course_name </div>
+											<div class="lecturer">lecturer_name</div>
+											<div class="course-code">course_code</div>
 											<br>
-											<div class="course-time"><%= c.course_time %></div>
-											<div class="course-location"><%= c.location %></div>
-											<div class="course-credits"><%= c.credits %></div>
+											<div class="course-time">c.course_time</div>
+											<div class="course-location">c.location</div>
+											<div class="course-credits">c.credits</div>
 											<button class="add-to-simulator">+</button>
-											<div class="course-id" cid="<%= c.id %>"></div>
+											<div class="course-code" cid="c.id"></div>
 										</div>
-									<% end %>
+									-->
 								</div>
 							</div>
 						</div>
@@ -108,17 +108,17 @@
 							<% @courses_simulator_items.each do |item| %>
 								<div class="course-hasselect-item">
 								  <div class="name">
-								  	<%= link_to item.course.course_name, item.course %>
+								  	course_name
 								  </div>
-								  <div class="lecturer"><%= item.course.lecturer_name %></div>
-								  <div class="code"><%= item.course.course_code %></div>
+								  <div class="lecturer">lecturer_name</div>
+								  <div class="code">course_code</div>
 								  <br>
-								  <div class="time"><%= item.course.course_time %></div>
-								  <div class="location"><%= item.course.location %></div>
-								  <div class="credits"><%= item.course.credits %></div>
+								  <div class="time">course_time</div>
+								  <div class="location">course.location</div>
+								  <div class="credits">course.credits</div>
 								  <button class="remove-hasselect-course"><i class="mdi-content-clear" style="color:black;"></i></button>
 								  <div class="item-id" iid="<%= item.id %>"></div>
-								  <div class="item-course-id" icd="<%= item.course_id %>"></div>
+								  <div class="item-course-id" icd="<%= item.course_code %>"></div>
 							  	</div>
 							<% end %>
 						</div>
@@ -126,7 +126,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9 col-sm-6 simulator-fixed-calendar" dataPage="mobile" id="calendar-page">
+		<div class="col-md-10 col-sm-6 simulator-fixed-calendar" dataPage="mobile" id="calendar-page">
 			<div class="page-slider" style="padding-top: 24px;">
 				<h4 class="simulator-title" style="display:none;"><%= current_user.name %>的課表</h4>
 				<div class="garbage-can-field" id="garbage-can-delete">
@@ -153,103 +153,103 @@
 						<tbody>
 							<tr class="class1">
 								<td>1</td>
-								<td class="M1"></td>
-								<td class="T1"></td>
-								<td class="W1"></td>
-								<td class="R1"></td>
-								<td class="F1"></td>
-								<td class="S1"></td>
-								<td class="Sun1"></td>
+								<td class="M1 day1 period1"></td>
+								<td class="T1 day2 period1"></td>
+								<td class="W1 day3 period1"></td>
+								<td class="R1 day4 period4"></td>
+								<td class="F1 day5 period5"></td>
+								<td class="S1 day6 period6"></td>
+								<td class="Sun1 day7 period7"></td>
 							</tr>
 							<tr class="class2">
 								<td>2</td>
-								<td class="M2"></td>
-								<td class="T2"></td>
-								<td class="W2"></td>
-								<td class="R2"></td>
-								<td class="F2"></td>
-								<td class="S2"></td>
-								<td class="Sun2"></td>
+								<td class="M2 day1 period2"></td>
+								<td class="T2 day2 period2"></td>
+								<td class="W2 day3 period2"></td>
+								<td class="R2 day4 period2"></td>
+								<td class="F2 day5 period2"></td>
+								<td class="S2 day6 period2"></td>
+								<td class="Sun2 day7 period2"></td>
 							</tr>
 							<tr class="class3">
 								<td>3</td>
-								<td class="M3"></td>
-								<td class="T3"></td>
-								<td class="W3"></td>
-								<td class="R3"></td>
-								<td class="F3"></td>
-								<td class="S3"></td>
-								<td class="Sun3"></td>
+								<td class="M3 day1 period3"></td>
+								<td class="T3 day2 period3"></td>
+								<td class="W3 day3 period3"></td>
+								<td class="R3 day4 period3"></td>
+								<td class="F3 day5 period3"></td>
+								<td class="S3 day6 period3"></td>
+								<td class="Sun3 day7 period3"></td>
 							</tr>
 							<tr class="class4">
 								<td>4</td>
-								<td class="M4"></td>
-								<td class="T4"></td>
-								<td class="W4"></td>
-								<td class="R4"></td>
-								<td class="F4"></td>
-								<td class="S4"></td>
-								<td class="Sun4"></td>
+								<td class="M4 day1 period4"></td>
+								<td class="T4 day2 period4"></td>
+								<td class="W4 day3 period4"></td>
+								<td class="R4 day4 period4"></td>
+								<td class="F4 day5 period4"></td>
+								<td class="S4 day6 period4"></td>
+								<td class="Sun4 day7 period4"></td>
 							</tr>
 							<tr class="class5">
 								<td>5</td>
-								<td class="M5"></td>
-								<td class="T5"></td>
-								<td class="W5"></td>
-								<td class="R5"></td>
-								<td class="F5"></td>
-								<td class="S5"></td>
-								<td class="Sun5"></td>
+								<td class="M5 day1 period5"></td>
+								<td class="T5 day2 period5"></td>
+								<td class="W5 day3 period5"></td>
+								<td class="R5 day4 period5"></td>
+								<td class="F5 day5 period5"></td>
+								<td class="S5 day6 period5"></td>
+								<td class="Sun5 day7 period5"></td>
 							</tr>
 							<tr class="class6">
 								<td>6</td>
-								<td class="M6"></td>
-								<td class="T6"></td>
-								<td class="W6"></td>
-								<td class="R6"></td>
-								<td class="F6"></td>
-								<td class="S6"></td>
-								<td class="Sun6"></td>
+								<td class="M6 day1 period6"></td>
+								<td class="T6 day2 period6"></td>
+								<td class="W6 day3 period6"></td>
+								<td class="R6 day4 period6"></td>
+								<td class="F6 day5 period6"></td>
+								<td class="S6 day6 period6"></td>
+								<td class="Sun6 day7 period6"></td>
 							</tr>
 							<tr class="class7">
 								<td>7</td>
-								<td class="M7"></td>
-								<td class="T7"></td>
-								<td class="W7"></td>
-								<td class="R7"></td>
-								<td class="F7"></td>
-								<td class="S7"></td>
-								<td class="Sun7"></td>
+								<td class="M7 day1 period7"></td>
+								<td class="T7 day2 period7"></td>
+								<td class="W7 day3 period7"></td>
+								<td class="R7 day4 period7"></td>
+								<td class="F7 day5 period7"></td>
+								<td class="S7 day6 period7"></td>
+								<td class="Sun7 day7 period7"></td>
 							</tr>
 							<tr class="class8">
 								<td>8</td>
-								<td class="M8"></td>
-								<td class="T8"></td>
-								<td class="W8"></td>
-								<td class="R8"></td>
-								<td class="F8"></td>
-								<td class="S8"></td>
-								<td class="Sun8"></td>
+								<td class="M8 day1 period8"></td>
+								<td class="T8 day2 period8"></td>
+								<td class="W8 day3 period8"></td>
+								<td class="R8 day4 period8"></td>
+								<td class="F8 day5 period8"></td>
+								<td class="S8 day6 period8"></td>
+								<td class="Sun8 day7 period8"></td>
 							</tr>
 							<tr class="class9">
 								<td>9</td>
-								<td class="M9"></td>
-								<td class="T9"></td>
-								<td class="W9"></td>
-								<td class="R9"></td>
-								<td class="F9"></td>
-								<td class="S9"></td>
-								<td class="Sun9"></td>
+								<td class="M9 day1 period9"></td>
+								<td class="T9 day2 period9"></td>
+								<td class="W9 day3 period9"></td>
+								<td class="R9 day4 period9"></td>
+								<td class="F9 day5 period9"></td>
+								<td class="S9 day6 period9"></td>
+								<td class="Sun9 day7 period9"></td>
 							</tr>
 							<tr class="class10">
 								<td>10</td>
-								<td class="M10"></td>
-								<td class="T10"></td>
-								<td class="W10"></td>
-								<td class="R10"></td>
-								<td class="F10"></td>
-								<td class="S10"></td>
-								<td class="Sun10"></td>
+								<td class="M10 day1 period10"></td>
+								<td class="T10 day2 period10"></td>
+								<td class="W10 day3 period10"></td>
+								<td class="R10 day4 period10"></td>
+								<td class="F10 day5 period10"></td>
+								<td class="S10 day6 period10"></td>
+								<td class="Sun10 day7 period10"></td>
 							</tr>
 							<tr class="classA">
 								<td>A</td>
@@ -382,6 +382,7 @@ function CourseCreditsCounter(){
 //
 // 函式： 選擇課程之後會把已經課程在 選擇界面中 disable 掉。
 //
+/*
 function courseSelectItemDisabledTest(){
 	$('.course-select-item').removeClass('disabled');
 	$('.item-course-id').each(function(){
@@ -389,6 +390,7 @@ function courseSelectItemDisabledTest(){
 		$('.course-id[cid="' + icd + '"]').parent('.course-select-item').addClass('disabled');
 	})
 }
+*/
 //
 // 當一個 td 底下有超過一個課程之後，加入衝堂的css狀態，並且加上堆疊效果。
 //
@@ -433,91 +435,193 @@ function CourseConflictTest(){
 //
 //
 function splitACourse() {
+	var courseHasselectItem = $('.course-hasselect-item');
+	courseHasselectItem.each(function(){
+		var course_code = $(this).children(".item-course-id").attr('icd');
+		var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+				'filter[code]=' + course_code
+		$.get(getCourseUri, function(course_response){
+			var course = course_response[0];
+			console.log(course);
+			var course_name = course.name;
+			var course_lecturer = course.lecturer;
+			var course_general_code = course.general_code;
+			var credits = course.credits;
+			var course_code = course.code;
+
+			$(this).children('.name').html(course_name);
+			$(this).children('.lecturer').html(course_lecturer);
+			$(this).children('.code').html(course_general_code);
+			$(this).children('.credits').html(credits);
+
+		}.bind(this))
+	});
+
 	var courseItem = $('.course-hasselect-item');
 	courseItem.each(function(){
-		var course_name = $(this).children(".name").text();
-		var item_id = $(this).children(".item-id").attr('iid');
-		var course_times = $(this).children(".time").text().split(" ");
-		var counter = course_times.length;
-		console.log(counter);
+		var course_code = $(this).children(".item-course-id").attr('icd');
+		var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+				'filter[code]=' + course_code;
+		var item_id = $(this).children('.item-id').attr('iid');
 
-		for (var i = 0; i < counter; i++) {
-			var thisCourse = course_times[i]
-			console.log(thisCourse);
-			console.log(course_name);
-			$('<div class="simulator-table-course active" iid="' + item_id + '">' + course_name + '</div>').appendTo('.'+ thisCourse ).draggable({
-				revert: true,
-				start: function() {
-					$(this).removeClass('active');
-					$('.garbage-can-field').addClass('active');
-					$('.mobile-bottom-nav').addClass('hide');
-				},
-				drag: function() {
-				},
-				stop: function() {
-					$(this).addClass('active');
-					$('.garbage-can-field').removeClass('active');
-					$('.mobile-bottom-nav').removeClass('hide');
-				}
+		$.get(getCourseUri, function(course_response){
+
+			var course = course_response[0];
+			var course_name = course.name;
+			//var course_time = course["course_time"];
+			var course_lecturer = course.lecturer;
+			var course_general_code = course.general_code;
+			var course_code = course.code;
+			var credits = course.credits;
+			//var item_id = $(this).children(".item-id").attr('iid');
+			//var course_times = $(this).children(".time").text().split(" ");
+			//var counter = course_times.length;
+			for (var i = 1; i <= 9; i++) {
+				var thisCourse_day = course['day_' + i];
+				var thisCourse_period = course['period_' + i];
+				var thisCourse_location = course['location_' + i];
+				$('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+					/*
+					.draggable({
+						revert: true,
+						start: function() {
+							$(this).removeClass('active');
+							$('.garbage-can-field').addClass('active');
+							$('.mobile-bottom-nav').addClass('hide');
+						},
+						drag: function() {
+						},
+						stop: function() {
+							$(this).addClass('active');
+							$('.garbage-can-field').removeClass('active');
+							$('.mobile-bottom-nav').removeClass('hide');
+						}
+
+					});
+					*/
+
+				};
+				CourseConflictTest();
+				CourseCreditsCounter();
 
 			});
+			/*
+			$(".garbage-can-field").droppable({
+		        activeClass: "",
+		        hoverClass: "hover",
+		        accept: ".simulator-table-course",
+		        drop: function(event, ui) {
+				 	item_id = $(ui.draggable).attr('iid');
+					$.ajax({
+						url:'/courses_simulator/' + item_id,
+						type: 'DELETE',
+						success: function(response) {
+							var item = response["item"];
+							var course = response["course"];
+							var course_name = course.course_name;
 
-		};
-		$(".garbage-can-field").droppable({
-	        activeClass: "",
-	        hoverClass: "hover",
-	        accept: ".simulator-table-course",
-	        drop: function(event, ui) {
-			 	item_id = $(ui.draggable).attr('iid');
-				$.ajax({
-					url:'/courses_simulator/' + item_id,
-					type: 'DELETE',
-					success: function(response) {
-						var item = response["item"];
-						var course = response["course"];
-						var course_name = course.course_name;
-
-						$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-						console.log(item);
-						$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-						$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-						Materialize.toast('"' + course_name + '" 已經移出課表！', 100000);
-						CourseConflictTest();
-						CourseCreditsCounter();
-					}
-				})
-	        }
-	    })
-	})
-	CourseConflictTest();
-}
+							$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
+							console.log(item);
+							$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
+							$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+							Materialize.toast('"' + course_name + '" 已經移出課表！', 100000);
+							CourseConflictTest();
+							CourseCreditsCounter();
+						}
+					})
+		        }
+		    })
+			*/
+	});
+};
 
 splitACourse();
 CourseCreditsCounter();
-courseSelectItemDisabledTest()
+CourseConflictTest();
+//courseSelectItemDisabledTest();
 
 $(document).ready(function() {
 	$('ul.tabs').tabs();
-	$('.add-to-simulator').click(function() {
-		course_id = $(this).siblings('.course-id').attr('cid');
+});
+$(document).on({
+    mouseenter: function () {
+        //stuff to do on mouse enter
+        $('.simulator-table-course.on-hover').remove();
+        course_code = $(this).children('.course-id').attr('cid');
+        var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+				'filter[code]=' + course_code;
+		$.get(getCourseUri, function(course_response){
 
-		$.post('/courses_simulator', {"courses_simulator[course_id]": course_id}, function(response) {
-			    var course = response["course"]
-				var course_name = course["course_name"];
-				var course_time = course["course_time"];
-				var course_lecturer = course["lecturer_name"];
-				var course_code = course["course_code"]
-				var credits = course["credits"];
-				var location = course["location"]
-				var course_times = course["course_time"].split(" ");
-				var counter = course_times.length;
-				var item = response["item"]
-				var item_id = item["id"]
+			var course = course_response[0];
+			var course_name = course.name;
+			//var course_time = course["course_time"];
+			var course_lecturer = course.lecturer;
+			var course_general_code = course.general_code;
+			var course_code = course.code;
+			var credits = course.credits;
+			//var item_id = $(this).children(".item-id").attr('iid');
+			//var course_times = $(this).children(".time").text().split(" ");
+			//var counter = course_times.length;
+			for (var i = 1; i <= 9; i++) {
+				var thisCourse_day = course['day_' + i];
+				var thisCourse_period = course['period_' + i];
+				var thisCourse_location = course['location_' + i];
+				$('<div class="simulator-table-course active on-hover" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+				};
+				CourseConflictTest();
+			});
+    },
+    mouseleave: function () {
+        //stuff to do on mouse leave
+        $('.simulator-table-course.on-hover').remove();
+        CourseConflictTest();
+    }
+}, ".course-select-item");
 
-				$('.course-id[cid="' + course_id + '"]').parent('.course-select-item').addClass('disabled');
-				for (var i = 0; i < counter; i++) {
-					var thisCourse = course_times[i];
-					$('<div class="simulator-table-course active" iid="' + item_id + '">' + course_name + '</div>').appendTo('.'+ thisCourse ).draggable({
+$(document).on('click', '.add-to-simulator', function(){
+	course_code = $(this).siblings('.course-id').attr('cid');
+	console.log(course_code);
+
+	$.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
+
+			//var location = course["location"]
+			//var course_times = course["course_time"].split(" ");
+			//var counter = course_times.length;
+			var item = response["item"];
+			var item_id = item["id"];
+
+			var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+			'filter[code]=' + course_code;
+
+			$.get(getCourseUri , function(course_response){
+				var course = course_response[0]
+				var course_name = course.name;
+				//var course_time = course["course_time"];
+				var course_lecturer = course.lecturer;
+				var course_general_code = course.general_code;
+				var course_code = course.code;
+				var credits = course.credits;
+
+				$('.course-hasselect-field-inner').append(
+					'<div class="course-hasselect-item">' +
+					  '<div class="name">'+
+					   course_name + '</div>' +
+					  '<div class="lecturer">'+ course_lecturer + '</div>' +
+					  '<div class="code">'+ course_general_code + '</div>' +
+					  '<br>' +
+					  '<div class="time">'+ 'time' + '</div>' +
+					  '<div class="location">' + 'location' + '</div>' +
+					  '<div class="credits">' + credits + '</div>' +
+					  '<button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>' +
+					  '<div class="item-id" iid="' + item_id + '"></div>' +
+					  '<div class="item-course-id" icd="'+ course_code + '"></div>' + '</div>');
+				for (var i = 1; i <= 9; i++) {
+					var thisCourse_day = course['day_' + i];
+					var thisCourse_period = course['period_' + i];
+					var thisCourse_location = course['location_' + i];
+					$('<div class="simulator-table-course active" iid="' + item_id + '" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+						/*
+						.draggable({
 							revert: true,
 							start: function() {
 								$(this).removeClass('active');
@@ -533,56 +637,55 @@ $(document).ready(function() {
 							}
 
 						});
+						*/
 
 				};
-				$(".garbage-can-field").droppable({
-			        activeClass: "",
-			        hoverClass: "hover",
-			        accept: ".simulator-table-course",
-			        drop: function(event, ui) {
-					 	item_id = $(ui.draggable).attr('iid');
-						$.ajax({
-							url:'/courses_simulator/' + item_id,
-							type: 'DELETE',
-							success: function(response) {
-								var item = response["item"];
-								var course = response["course"];
-								var course_name = course.course_name;
-								$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-								console.log(item);
-								$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-								$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-								Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
-								CourseConflictTest();
-								CourseCreditsCounter();
-							}
-						})
-			        }
-			    })
-				$('.course-hasselect-field-inner').append(
-					'<div class="course-hasselect-item">' +
-					  '<div class="name"><a href="http://table.colorgy.dev/courses/'+
-					  course_id + '">' +
-					   course_name + '</a></div>' +
-					  '<div class="lecturer">'+ course_lecturer + '</div>' +
-					  '<div class="code">'+ course_code + '</div>' +
-					  '<br>' +
-					  '<div class="time">'+ course_time + '</div>' +
-					  '<div class="location">' + location + '</div>' +
-					  '<div class="credits">' + credits + '</div>' +
-					  '<button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>' +
-					  '<div class="item-id" iid="' + item_id + '"></div>' +
-				  	'</div>');
-
-				Materialize.toast('"' + course_name + '" 已經加入課表！', 2000000);
-
 				CourseConflictTest();
 				CourseCreditsCounter();
-		})
-	}).bind(this);
+				Materialize.toast('"' + course_name + '" 已經加入課表！', 2000);
+			});
 
+			//$('.course-id[cid="' + course_id + '"]').parent('.course-select-item').addClass('disabled');
+
+
+
+			/*
+			$(".garbage-can-field").droppable({
+		        activeClass: "",
+		        hoverClass: "hover",
+		        accept: ".simulator-table-course",
+		        drop: function(event, ui) {
+				 	item_id = $(ui.draggable).attr('iid');
+					$.ajax({
+						url:'/courses_simulator/' + item_id,
+						type: 'DELETE',
+						success: function(response) {
+							var item = response["item"];
+							var course = response["course"];
+							var course_name = course.course_name;
+							$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
+							console.log(item);
+							$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
+							$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+							Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
+							CourseConflictTest();
+							CourseCreditsCounter();
+						}
+					})
+		        }
+		    })*/
+
+
+
+
+
+			CourseConflictTest();
+			CourseCreditsCounter();
+
+	})
 
 });
+
 $(document).on('click','.remove-hasselect-course' , function() {
      //code here ....
  	item_id = $(this).siblings('.item-id').attr('iid');
@@ -591,18 +694,60 @@ $(document).on('click','.remove-hasselect-course' , function() {
 		type: 'DELETE',
 		success: function(response) {
 			var item = response["item"];
-			var course = response["course"];
-			var course_name = course.course_name;
 
-			$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
+			//$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
 			console.log(item);
 			$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
 			$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-			Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
+			Materialize.toast('這堂課已經移出課表！', 2000);
 			CourseConflictTest();
 			CourseCreditsCounter();
 		}
 	})
 });
-</script>
 
+$('#course-searchbox').on('input', function(){
+	var keyword = $('#course-searchbox').val();
+
+	if(keyword == ''){
+		$('.simulator-search-result').children('.course-select-item').remove();
+		console.log('Im empty.');
+	}
+	else{
+
+		var uri = 'https://colorgy.io:443/api/ntust/courses.json?'
+		+ 'filter[name]=like(%' + keyword + '%)';
+		console.log(uri);
+		var encode_uri = encodeURI(uri);
+		console.log(encode_uri);
+
+		$.get( encode_uri , function(response){
+			var counter = response.length - 1;
+			$('.simulator-search-result').children('.course-select-item').remove();
+			for( i=0 ; i <= counter ; i++ ){
+				var course = response[i];
+				var course_name = course.name;
+				var lecturer_name = course.lecturer;
+				var course_code = course.general_code;
+				var course_credits = course.credits;
+				var course_id = course.code;
+
+				 $('<div class="course-select-item">' +
+						'<div class="name">' + course_name + '</div>' +
+						'<div class="lecturer">' + lecturer_name +'</div>' +
+						'<div class="course-code">' + course_code + '</div>' +
+						'<br>' +
+						'<div class="course-time">c.course_time</div>' +
+						'<div class="course-location">c.location</div>' +
+						'<div class="course-credits">' + course.credits + '</div>'+
+						'<button class="add-to-simulator"></button>'+
+						'<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
+			}
+			console.log(response.length);
+		})
+		.fail(function() {
+			alert( "error" );
+		})
+	}
+});
+</script>

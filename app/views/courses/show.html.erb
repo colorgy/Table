@@ -29,10 +29,10 @@
 		  <span class="card-title">Card Title</span>
 		</div>
 		<div class="card-content">
-		  <h4><%= @course.course_name %></h4>
-		  <p>教授：<%= @course.lecturer_name %></p>
-		  <p>課程時間：<%= @course.course_time %></p>
-		  <p>課程代碼：<%= @course.course_code %></p>
+		  <h4>course name</h4>
+		  <p>教授： lecturer_name </p>
+		  <p>課程時間： @course.course_time </p>
+		  <p>課程代碼： @course.course_code </p>
 		  <hr>
 		  <div class="students-field">
 		  	<p>女弟子：</p>
@@ -40,11 +40,6 @@
 		  	<p>男弟子：</p>
 		  	<%= image_tag('students.png') %>
 		  </div>
-		</div>
-		<div class="card-action">
-		  <% link_to 'Edit', edit_course_path(@course) %>
-		  <% link_to 'Delete', course_path(@course), method: :delete, data: { confirm: 'Are you sure?' } %>
-		  <% link_to 'Add to simulator', courses_simulator_index_path('courses_simulator[course_id]' => @course.id), method: :post %>
 		</div>
 		</div>
 		<div class="fb-comments">

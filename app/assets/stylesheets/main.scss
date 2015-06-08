@@ -41,7 +41,7 @@ nav{
 	padding: 20px 0px;
 	.simulator-search-result{
 		//height: calc(100% - 195px );
-		height: auto;
+		height: 400px;
 		max-height: 500px;
 		width: 100%;
 		padding-bottom: 250px;
@@ -94,9 +94,11 @@ nav{
 				display: inline-block;
 				color: rgb(104, 104, 104);
 				margin-right: 5px;
+				display: none;
 			}
 			.location{
 				display: inline-block;
+				display: none;
 			}
 			.remove-hasselect-course{
 				position: absolute;
@@ -147,6 +149,7 @@ nav{
 	> .name{
 		font-size: 1.2em;
 		font-weight: 500;
+		color: #fff;
 		a{
 			color: $white;
 		}
@@ -168,11 +171,13 @@ nav{
 		color: rgb(104, 104, 104);
 		display: inline-block;
 		margin-right: 5px;
+		display: none !important;
 	}
 	> .course-location{
 		display: inline-block;
 		font-size: 0.9em;
 		color: rgb(104, 104, 104);
+		display: none !important;
 	}
 	> .add-to-simulator{
 		position: absolute;
@@ -191,6 +196,17 @@ nav{
 		a{
 			color: #fff !important;
 			font-size: 18px;
+		}
+		&:before{
+			content: '+';
+			width: 30px;
+			height: 30px;
+			top: 50%;
+			@include translateY(-50%);
+			right: 10px;
+			position: absolute;
+			color: $dark-gray;
+			text-align: center;
 		}
 	}
 	> .course-credits {
@@ -212,11 +228,11 @@ nav{
 	overflow-x: scroll;
 
 	table.simulator-table{
-		table-layout:fixed;
+		table-layout: fixed;
 		word-break:break-all;
 		word-wrap:break-word;
 		min-width: 550px;
-		max-width: 600px;
+		max-width: 800px;
 		margin-right: auto;
 		margin-left: auto;
 
@@ -255,10 +271,17 @@ nav{
 					&.course-conflict{
 						background-color: $secondary-pink;
 						color: #fff;
-						-webkit-animation: NAME_YOUR_ANIMATION 5s infinite; /* Safari 4+ */
-						-moz-animation:    NAME_YOUR_ANIMATION 5s infinite; /* Fx 5+ */
-						-o-animation:      NAME_YOUR_ANIMATION 5s infinite; /* Opera 12+ */
-						animation:         NAME_YOUR_ANIMATION 5s infinite;
+
+						//-webkit-animation: NAME_YOUR_ANIMATION 5s infinite; /* Safari 4+ */
+						//-moz-animation:    NAME_YOUR_ANIMATION 5s infinite; /* Fx 5+ */
+						//-o-animation:      NAME_YOUR_ANIMATION 5s infinite; /* Opera 12+ */
+						//animation:         NAME_YOUR_ANIMATION 5s infinite;
+					}
+					&.on-hover{
+						-webkit-animation: simulator_table_course_on_hover 0.8s infinite; /* Safari 4+ */
+						-moz-animation:    simulator_table_course_on_hover 0.8s infinite; /* Fx 5+ */
+						-o-animation:      simulator_table_course_on_hover 0.8s infinite; /* Opera 12+ */
+						animation:         simulator_table_course_on_hover 0.8s infinite;
 					}
 					&.course-conflict-pack {
 					  position: absolute;
@@ -272,10 +295,17 @@ nav{
 		}
 	}
 }
+/*
 @keyframes NAME_YOUR_ANIMATION {
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
+*/
+@keyframes simulator_table_course_on_hover {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
 .tabs .indicator{
 	display: none;
 }
