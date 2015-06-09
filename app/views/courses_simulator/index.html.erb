@@ -156,10 +156,10 @@
 								<td class="M1 day1 period1"></td>
 								<td class="T1 day2 period1"></td>
 								<td class="W1 day3 period1"></td>
-								<td class="R1 day4 period4"></td>
-								<td class="F1 day5 period5"></td>
-								<td class="S1 day6 period6"></td>
-								<td class="Sun1 day7 period7"></td>
+								<td class="R1 day4 period1"></td>
+								<td class="F1 day5 period1"></td>
+								<td class="S1 day6 period1"></td>
+								<td class="Sun1 day7 period1"></td>
 							</tr>
 							<tr class="class2">
 								<td>2</td>
@@ -715,7 +715,7 @@ $('#course-searchbox').on('input', function(){
 	}
 	else{
 
-		var uri = 'https://colorgy.io:443/api/ntust/courses.json?'
+		var uri = 'https://colorgy.io:443/api/ntust/courses.json?filter[year]=2015&filter[term]=1&'
 		+ 'filter[name]=like(%' + keyword + '%)';
 		console.log(uri);
 		var encode_uri = encodeURI(uri);

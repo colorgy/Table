@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>TAPLE 推博</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -62,7 +63,13 @@
 <script>
 	$( document ).ready(function(){
 		 $(".button-collapse").sideNav();
-	})
+	});
+  $('.mdi-navigation-menu').click(function(){
+    console.log('click!');
+    $('div[style="opacity: 1;"]').addClass('overlay-bug');
+    //  $('.overlay-bug')[0].remove();
+
+  })
 </script>
 
 </body>

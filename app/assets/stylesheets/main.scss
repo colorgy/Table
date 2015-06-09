@@ -21,7 +21,9 @@ nav{
 		}
 	}
 	.nav-wrapper{
-		display: none;
+		@media screen and (min-width: 992px){
+			display: none;
+		}
 	}
 }
 .course-searchbox{
