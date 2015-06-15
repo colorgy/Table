@@ -48,7 +48,7 @@
 <div class="container-fuild" style="padding-top: 35px;">
 	<div class="row">
 		<div class="col-md-2 simulator-fixed" dataPage="mobile" id="select-page">
-			<div class="page-slider" style="margin-top: 24px;">
+			<div class="page-slider" style="margin-top: 36px;">
 				<ul class="tabs">
 					<li class="tab col s3 simulator-sidebar-trigger"><a class="active" href="#test1">課程選擇</a></li>
 					<li class="tab col s3 course-hasselect-field-trigger"><a href="#test2">已選課表(<span id="credits-total"></span>)</a></li>
@@ -126,8 +126,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-10 col-sm-6 simulator-fixed-calendar" dataPage="mobile" id="calendar-page">
-			<div class="page-slider" style="padding-top: 24px;">
+		<div class="col-md-10 col-sm-6 simulator-fixed-calendar active" dataPage="mobile" id="calendar-page">
+			<div class="page-slider" style="padding-top: 36px;">
 				<h4 class="simulator-title" style="display:none;"><%= current_user.name %>的課表</h4>
 				<div class="garbage-can-field" id="garbage-can-delete">
 					<button class="garbage-can-delete"></button>
@@ -151,8 +151,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="class1">
-								<td>1</td>
+							<tr class="class0">
+								<td>0</td>
 								<td class="M1 day1 period1"></td>
 								<td class="T1 day2 period1"></td>
 								<td class="W1 day3 period1"></td>
@@ -161,8 +161,8 @@
 								<td class="S1 day6 period1"></td>
 								<td class="Sun1 day7 period1"></td>
 							</tr>
-							<tr class="class2">
-								<td>2</td>
+							<tr class="class1">
+								<td>1</td>
 								<td class="M2 day1 period2"></td>
 								<td class="T2 day2 period2"></td>
 								<td class="W2 day3 period2"></td>
@@ -171,8 +171,8 @@
 								<td class="S2 day6 period2"></td>
 								<td class="Sun2 day7 period2"></td>
 							</tr>
-							<tr class="class3">
-								<td>3</td>
+							<tr class="class2">
+								<td>2</td>
 								<td class="M3 day1 period3"></td>
 								<td class="T3 day2 period3"></td>
 								<td class="W3 day3 period3"></td>
@@ -181,8 +181,8 @@
 								<td class="S3 day6 period3"></td>
 								<td class="Sun3 day7 period3"></td>
 							</tr>
-							<tr class="class4">
-								<td>4</td>
+							<tr class="class3">
+								<td>3</td>
 								<td class="M4 day1 period4"></td>
 								<td class="T4 day2 period4"></td>
 								<td class="W4 day3 period4"></td>
@@ -191,8 +191,8 @@
 								<td class="S4 day6 period4"></td>
 								<td class="Sun4 day7 period4"></td>
 							</tr>
-							<tr class="class5">
-								<td>5</td>
+							<tr class="class4">
+								<td>4</td>
 								<td class="M5 day1 period5"></td>
 								<td class="T5 day2 period5"></td>
 								<td class="W5 day3 period5"></td>
@@ -201,8 +201,8 @@
 								<td class="S5 day6 period5"></td>
 								<td class="Sun5 day7 period5"></td>
 							</tr>
-							<tr class="class6">
-								<td>6</td>
+							<tr class="class5">
+								<td>5</td>
 								<td class="M6 day1 period6"></td>
 								<td class="T6 day2 period6"></td>
 								<td class="W6 day3 period6"></td>
@@ -211,8 +211,8 @@
 								<td class="S6 day6 period6"></td>
 								<td class="Sun6 day7 period6"></td>
 							</tr>
-							<tr class="class7">
-								<td>7</td>
+							<tr class="class6">
+								<td>6</td>
 								<td class="M7 day1 period7"></td>
 								<td class="T7 day2 period7"></td>
 								<td class="W7 day3 period7"></td>
@@ -221,8 +221,8 @@
 								<td class="S7 day6 period7"></td>
 								<td class="Sun7 day7 period7"></td>
 							</tr>
-							<tr class="class8">
-								<td>8</td>
+							<tr class="class7">
+								<td>7</td>
 								<td class="M8 day1 period8"></td>
 								<td class="T8 day2 period8"></td>
 								<td class="W8 day3 period8"></td>
@@ -231,8 +231,8 @@
 								<td class="S8 day6 period8"></td>
 								<td class="Sun8 day7 period8"></td>
 							</tr>
-							<tr class="class9">
-								<td>9</td>
+							<tr class="class8">
+								<td>8</td>
 								<td class="M9 day1 period9"></td>
 								<td class="T9 day2 period9"></td>
 								<td class="W9 day3 period9"></td>
@@ -241,8 +241,8 @@
 								<td class="S9 day6 period9"></td>
 								<td class="Sun9 day7 period9"></td>
 							</tr>
-							<tr class="class10">
-								<td>10</td>
+							<tr class="class9">
+								<td>9</td>
 								<td class="M10 day1 period10"></td>
 								<td class="T10 day2 period10"></td>
 								<td class="W10 day3 period10"></td>
@@ -251,35 +251,45 @@
 								<td class="S10 day6 period10"></td>
 								<td class="Sun10 day7 period10"></td>
 							</tr>
+							<tr class="class10">
+								<td>10</td>
+								<td class="MA day1 period11"></td>
+								<td class="TA day2 period11"></td>
+								<td class="WA day3 period11"></td>
+								<td class="RA day4 period11"></td>
+								<td class="FA day5 period11"></td>
+								<td class="SA day6 period11"></td>
+								<td class="SunA day7 period11"></td>
+							</tr>
 							<tr class="classA">
 								<td>A</td>
-								<td class="MA"></td>
-								<td class="TA"></td>
-								<td class="WA"></td>
-								<td class="RA"></td>
-								<td class="FA"></td>
-								<td class="SA"></td>
-								<td class="SunA"></td>
+								<td class="MB day1 period12"></td>
+								<td class="TB day2 period12"></td>
+								<td class="WB day3 period12"></td>
+								<td class="RB day4 period12"></td>
+								<td class="FB day5 period12"></td>
+								<td class="SB day6 period12"></td>
+								<td class="SunB day7period12"></td>
 							</tr>
 							<tr class="classB">
 								<td>B</td>
-								<td class="MB"></td>
-								<td class="TB"></td>
-								<td class="WB"></td>
-								<td class="RB"></td>
-								<td class="FB"></td>
-								<td class="SB"></td>
-								<td class="SunB"></td>
+								<td class="MC day1 period13"></td>
+								<td class="TC day2 period13"></td>
+								<td class="WC day3 period13"></td>
+								<td class="RC day4 period13"></td>
+								<td class="FC day5 period13"></td>
+								<td class="SC day6 period13"></td>
+								<td class="SunC day7 period13"></td>
 							</tr>
 							<tr class="classC">
 								<td>C</td>
-								<td class="MC"></td>
-								<td class="TC"></td>
-								<td class="WC"></td>
-								<td class="RC"></td>
-								<td class="FC"></td>
-								<td class="SC"></td>
-								<td class="SunC"></td>
+								<td class="MC day1 period14"></td>
+								<td class="TC day2 period14"></td>
+								<td class="WC day3 period14"></td>
+								<td class="RC day4 period14"></td>
+								<td class="FC day5 period14"></td>
+								<td class="SC day6 period14"></td>
+								<td class="SunC day7 period14"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -287,6 +297,28 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div id="modal1" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<h4 class="modal-course-name"></h4>
+		<p>課程代號： <span class="modal-course-general-code"></span></p>
+		<p>學分： <span class="modal-course-credits"></span></p>
+		<p>課程網站： <a class="modal-course-link" href="">前往課程網站</a></p>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+	</div>
+</div>
+<div class="mobile-bottom-nav">
+  <div class="mobile-nav-btn btn-1" id="calendar-trigger">
+    已選課表
+  </div>
+  <div class="mobile-nav-btn btn-2" id="select-trigger">
+    課程選擇
+  </div>
+  <div class="mobile-nav-btn btn-3" id="app-trigger">
+    APP下載
+  </div>
 </div>
 
 <script>
@@ -577,6 +609,32 @@ $(document).on({
         CourseConflictTest();
     }
 }, ".course-select-item");
+
+
+$(document).on('click', '.simulator-table-course', function(){
+	var course_code = $(this).attr('icd');
+	var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+			'filter[code]=' + course_code;
+	$.get(getCourseUri , function(course_response){
+		var course = course_response[0]
+		var course_name = course.name;
+		//var course_time = course["course_time"];
+		var course_lecturer = course.lecturer;
+		var course_general_code = course.general_code;
+		var course_code = course.code;
+		var credits = course.credits;
+		var website_url = course.url;
+
+		$('.modal-course-name').html(course_name);
+		$('.modal-course-general-code').html(course_general_code);
+		$('.modal-course-credits').html(credits);
+		$('.modal-course-link').attr('href', website_url);
+
+	})
+
+	$('#modal1').openModal();
+});
+
 
 $(document).on('click', '.add-to-simulator', function(){
 	course_code = $(this).siblings('.course-id').attr('cid');

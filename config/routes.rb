@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get '/ask-login' => 'pages#ask_login'
+  get '/app' => 'pages#app'
 
   resources :courses_simulator, only: [:index, :create, :destroy]
   resources :user_followed_user, only: [:index, :create, :destroy]

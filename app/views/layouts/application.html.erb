@@ -49,26 +49,12 @@
 <p class="notice" style="display:none;"><%= notice %></p>
 <p class="alert" style="display:none;"><%= alert %></p>
 <%= yield %>
-<div class="mobile-bottom-nav">
-  <div class="mobile-nav-btn btn-1" id="calendar-trigger">
-    已選課表
-  </div>
-  <div class="mobile-nav-btn btn-2" id="select-trigger">
-    課程選擇
-  </div>
-  <div class="mobile-nav-btn btn-3" id="app-trigger">
-    APP下載
-  </div>
-</div>
 <script>
 	$( document ).ready(function(){
 		 $(".button-collapse").sideNav();
 	});
-  $('.mdi-navigation-menu').click(function(){
-    console.log('click!');
-    $('div[style="opacity: 1;"]').addClass('overlay-bug');
-    //  $('.overlay-bug')[0].remove();
-
+  $('#sidenav-overlay').click(function(){
+    $('div[style="opacity: 1;"]').remove();
   })
 </script>
 

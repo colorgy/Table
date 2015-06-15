@@ -3,11 +3,11 @@
         <div class="top">
             <div class="top-bar">
                 <ul>
-                  <li><a href="<%= root_path %>">Taple 推博</a></li>
+                  <li><a href="<%= root_path %>">Colorgy Table</a></li>
                 </ul>
                 <ul class="right-ul">
-                    <li><a href="<%= courses_simulator_index_path %>">TAPLE 課程表</a></li>
-                    <li><a href="#">TAPLE 課表 APP</a></li>
+                    <li><a href="<%= courses_simulator_index_path %>">Table 選課模擬</a></li>
+                    <li><a href="<%= app_path %>">Table 課表 APP</a></li>
                     <% if current_user.blank? %>
                       <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
                     <% else %>
@@ -38,11 +38,9 @@
           </ul>
           <ul class="side-nav" id="mobile-demo">
             <li><a href="<%= courses_simulator_index_path %>">課程表</a></li>
+            <li><a href="<%= app_path %>">Table 課表 APP</a></li>
           </ul>
           <div class="clear" style="clear:both;"></div>
         </div>
     </nav>
 </div>
-<script>
-   $(".button-collapse").sideNav();
-</script>
