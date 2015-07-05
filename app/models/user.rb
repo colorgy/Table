@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
            source: :user
 
   def self.from_colorgy(auth)
-    user = where(:sid => auth.info.id).first_or_create! do |new_user|
-      new_user.uuid = auth.info.uuid
+    user = where(:id => auth.info.id).first_or_create! do |new_user|
+      new_user.email = auth[:info][:email]
     end
 
     attrs = %i(username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
