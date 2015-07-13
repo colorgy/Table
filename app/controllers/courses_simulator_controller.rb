@@ -1,5 +1,4 @@
 class CoursesSimulatorController < ApplicationController
-
   def index
     if current_user.blank?
       redirect_to ask_login_path
