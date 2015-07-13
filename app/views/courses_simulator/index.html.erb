@@ -47,31 +47,33 @@
 </script>
 <div class="container-fuild" style="padding-top: 35px;">
 	<div class="row">
-		<div class="col-md-2 simulator-fixed" dataPage="mobile" id="select-page">
-			<div class="page-slider" style="margin-top: 36px;">
+		<div class="col m2 s12 simulator-fixed" dataPage="mobile" id="select-page">
+			<form class="school-select-form">
+				<select class="browser-default">
+					<option value="" disabled selected>選擇學校</option>
+					<option value="1">台灣科技大學</option>
+					<option value="2">台灣大學</option>
+					<option value="3">清華大學</option>
+					<option value="3">交通大學</option>
+					<option value="3">政治大學</option>
+				</select>
+			</form>
+
+			<div class="page-slider" style="margin-top: 24px;">
+				<!--
 				<ul class="tabs">
 					<li class="tab col s3 simulator-sidebar-trigger"><a class="active" href="#test1">課程選擇</a></li>
 					<li class="tab col s3 course-hasselect-field-trigger"><a href="#test2">已選課表(<span id="credits-total"></span>)</a></li>
 				</ul>
-				<div id="test1" class="col s12" style="background-color: #4A4A4A;   height: 100%;">
+				-->
+
+				<div id="test1" class="col s12" style="height: 100%; margin-bottom: 24px;">
 					<div class="simulator-sidebar">
 						<div class="simulator-sidebar-inner">
 							<div class="course-search-field">
 								<div class="course-search-field-inner">
-									<!--
-									<form class="school-select-form">
-										<select class="browser-default">
-											<option value="" disabled selected>Choose your school</option>
-											<option value="1">台灣科技大學</option>
-											<option value="2">台灣大學</option>
-											<option value="3">清華大學</option>
-											<option value="3">交通大學</option>
-											<option value="3">政治大學</option>
-										</select>
-									</form>
-									-->
 									<form class="course-search-form">
-										<input id="course-searchbox" class="course-searchbox" type="search" placeholder="Search..">
+										<input id="course-searchbox" class="course-searchbox" type="search" placeholder="搜尋課程：打課名、代碼、老師名">
 									</form>
 								</div>
 							</div>
@@ -95,7 +97,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="test2" class="col s12" style="background-color: #F89680;   height: 100%;">
+				<div id="test2" class="col s12" style="height: 100%;">
 					<div class="course-hasselect-field" id="course-hasselect-field">
 						<!--<div class="course-hasselect-field-trigger" id="course-hasselect-field-trigger">
 							<p>已</p>
@@ -126,15 +128,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-10 col-sm-6 simulator-fixed-calendar active" dataPage="mobile" id="calendar-page">
-			<div class="page-slider" style="padding-top: 36px;">
+		<div class="col m10 s12 simulator-fixed-calendar active" dataPage="mobile" id="calendar-page">
+			<div class="page-slider">
 				<h4 class="simulator-title" style="display:none;"><%= current_user.name %>的課表</h4>
 				<div class="garbage-can-field" id="garbage-can-delete">
 					<button class="garbage-can-delete"></button>
 				</div>
+				<!--
 				<div class="import-to-mobile-field" style="float: right; margin-top: 5px;">
 					<button id="import-to-mobile" class="import-to-mobile">匯入手機GOGO<i class="mdi-content-send right"></i></button>
 				</div>
+				-->
 				<div style="clear: both;"></div>
 				<div class="simulator-table-field" style="padding-top: 0 !important;">
 					<table class="simulator-table">
@@ -348,7 +352,8 @@ $('#course-hasselect-field-trigger').click(function(){
 //
 $(document).on('mouseover' ,'.simulator-table td', function(e){
 	var coursecount = $(this).children('.simulator-table-course').length;
-	var tdHeight = (coursecount * 35) + 30 + (coursecount - 1);
+	console.log('有' + coursecount + '個課');
+	var tdHeight = (coursecount * 35) + 16 + (coursecount - 1);
 	var course_position = 0;
 	var first_course_position = (coursecount / 2 - 0.5 ) * 35 * -1;
 	if(coursecount >= 2){
@@ -359,13 +364,14 @@ $(document).on('mouseover' ,'.simulator-table td', function(e){
 			'top' : first_course_position + 'px'
 		});
 		for(i = 2; i <= coursecount ; i++ ){
-			course_position = 15 + ((i - 1)*35) + (i - 1);
+			course_position = 8 + ((i - 1)*35) + (i - 1);
+			console.log('hi there');
 			$(this).children('.simulator-table-course:nth-child(' + i + ')').css({
-				'transform' : '',
-				'-moz-transform' : '',
-				'-o-transform' : '',
-				'-ms-transform' : '',
-				'-webkit-transform' : '',
+				'transform' : 'rotate(0deg)',
+				'-moz-transform' : 'rotate(0deg)',
+				'-o-transform' : 'rotate(0deg)',
+				'-ms-transform' : 'rotate(0deg)',
+				'-webkit-transform' : 'rotate(0deg)',
 				'top' : course_position + 'px'
 			});
 		}
@@ -390,7 +396,7 @@ $(document).on('mouseout' ,'.simulator-table td',function(e){
 				'-o-transform' : 'rotate(' + degree + 'deg)',
 				'-ms-transform' : 'rotate(' + degree + 'deg)',
 				'-webkit-transform' : 'rotate(' + degree + 'deg)',
-				'top' : '15px'
+				'top' : '7.5px'
 			});
 		}
 	}
@@ -572,13 +578,18 @@ CourseCreditsCounter();
 CourseConflictTest();
 //courseSelectItemDisabledTest();
 
+
 $(document).ready(function() {
-	$('ul.tabs').tabs();
+	var window_width = $(window).outerWidth();
+	if( window_width < 992 ){
+		$('ul.tabs').tabs();
+	}
 });
+
+
 $(document).on({
     mouseenter: function () {
         //stuff to do on mouse enter
-        $('.simulator-table-course.on-hover').remove();
         course_code = $(this).children('.course-id').attr('cid');
         var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
 				'filter[code]=' + course_code;
@@ -591,6 +602,7 @@ $(document).on({
 			var course_general_code = course.general_code;
 			var course_code = course.code;
 			var credits = course.credits;
+			$('.simulator-table-course.on-hover').remove();
 			//var item_id = $(this).children(".item-id").attr('iid');
 			//var course_times = $(this).children(".time").text().split(" ");
 			//var counter = course_times.length;
@@ -598,7 +610,7 @@ $(document).on({
 				var thisCourse_day = course['day_' + i];
 				var thisCourse_period = course['period_' + i];
 				var thisCourse_location = course['location_' + i];
-				$('<div class="simulator-table-course active on-hover" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+				$('<div class="simulator-table-course active on-hover" icd="' + course_code + '">' + course_name + '</div>').css({ 'z-index' : '10000' }).appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
 				};
 				CourseConflictTest();
 			});
@@ -638,109 +650,121 @@ $(document).on('click', '.simulator-table-course', function(){
 
 $(document).on('click', '.add-to-simulator', function(){
 	course_code = $(this).siblings('.course-id').attr('cid');
-	console.log(course_code);
+	var ifReselect = true;
 
-	$.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
+	$('.item-course-id').each(function(){
+		if (course_code == $(this).attr('icd')) {
+			ifReselect = false;
+		}
+	})
 
-			//var location = course["location"]
-			//var course_times = course["course_time"].split(" ");
-			//var counter = course_times.length;
-			var item = response["item"];
-			var item_id = item["id"];
+	if(ifReselect){
 
-			var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
-			'filter[code]=' + course_code;
+		$.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
 
-			$.get(getCourseUri , function(course_response){
-				var course = course_response[0]
-				var course_name = course.name;
-				//var course_time = course["course_time"];
-				var course_lecturer = course.lecturer;
-				var course_general_code = course.general_code;
-				var course_code = course.code;
-				var credits = course.credits;
+				//var location = course["location"]
+				//var course_times = course["course_time"].split(" ");
+				//var counter = course_times.length;
+				var item = response["item"];
+				var item_id = item["id"];
 
-				$('.course-hasselect-field-inner').append(
-					'<div class="course-hasselect-item">' +
-					  '<div class="name">'+
-					   course_name + '</div>' +
-					  '<div class="lecturer">'+ course_lecturer + '</div>' +
-					  '<div class="code">'+ course_general_code + '</div>' +
-					  '<br>' +
-					  '<div class="time">'+ 'time' + '</div>' +
-					  '<div class="location">' + 'location' + '</div>' +
-					  '<div class="credits">' + credits + '</div>' +
-					  '<button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>' +
-					  '<div class="item-id" iid="' + item_id + '"></div>' +
-					  '<div class="item-course-id" icd="'+ course_code + '"></div>' + '</div>');
-				for (var i = 1; i <= 9; i++) {
-					var thisCourse_day = course['day_' + i];
-					var thisCourse_period = course['period_' + i];
-					var thisCourse_location = course['location_' + i];
-					$('<div class="simulator-table-course active" iid="' + item_id + '" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
-						/*
-						.draggable({
-							revert: true,
-							start: function() {
-								$(this).removeClass('active');
-								$('.garbage-can-field').addClass('active');
-								$('.mobile-bottom-nav').addClass('hide');
-							},
-							drag: function() {
-							},
-							stop: function() {
-								$(this).addClass('active');
-								$('.garbage-can-field').removeClass('active');
-								$('.mobile-bottom-nav').removeClass('hide');
+				var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+				'filter[code]=' + course_code;
+
+				$.get(getCourseUri , function(course_response){
+					var course = course_response[0]
+					var course_name = course.name;
+					//var course_time = course["course_time"];
+					var course_lecturer = course.lecturer;
+					var course_general_code = course.general_code;
+					var course_code = course.code;
+					var credits = course.credits;
+
+					$('.course-hasselect-field-inner').append(
+						'<div class="course-hasselect-item">' +
+						  '<div class="name">'+
+						   course_name + '</div>' +
+						  '<div class="lecturer">'+ course_lecturer + '</div>' +
+						  '<div class="code">'+ course_general_code + '</div>' +
+						  '<br>' +
+						  '<div class="time">'+ 'time' + '</div>' +
+						  '<div class="location">' + 'location' + '</div>' +
+						  '<div class="credits">' + credits + '</div>' +
+						  '<button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>' +
+						  '<div class="item-id" iid="' + item_id + '"></div>' +
+						  '<div class="item-course-id" icd="'+ course_code + '"></div>' + '</div>');
+					for (var i = 1; i <= 9; i++) {
+						var thisCourse_day = course['day_' + i];
+						var thisCourse_period = course['period_' + i];
+						var thisCourse_location = course['location_' + i];
+						$('<div class="simulator-table-course active" iid="' + item_id + '" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+							/*
+							.draggable({
+								revert: true,
+								start: function() {
+									$(this).removeClass('active');
+									$('.garbage-can-field').addClass('active');
+									$('.mobile-bottom-nav').addClass('hide');
+								},
+								drag: function() {
+								},
+								stop: function() {
+									$(this).addClass('active');
+									$('.garbage-can-field').removeClass('active');
+									$('.mobile-bottom-nav').removeClass('hide');
+								}
+
+							});
+							*/
+
+					};
+					CourseConflictTest();
+					CourseCreditsCounter();
+					flash.success('"' + course_name + '" 已經加入課表！');
+				});
+
+				//$('.course-id[cid="' + course_id + '"]').parent('.course-select-item').addClass('disabled');
+
+
+
+				/*
+				$(".garbage-can-field").droppable({
+			        activeClass: "",
+			        hoverClass: "hover",
+			        accept: ".simulator-table-course",
+			        drop: function(event, ui) {
+					 	item_id = $(ui.draggable).attr('iid');
+						$.ajax({
+							url:'/courses_simulator/' + item_id,
+							type: 'DELETE',
+							success: function(response) {
+								var item = response["item"];
+								var course = response["course"];
+								var course_name = course.course_name;
+								$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
+								console.log(item);
+								$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
+								$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+								Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
+								CourseConflictTest();
+								CourseCreditsCounter();
 							}
+						})
+			        }
+			    })*/
 
-						});
-						*/
 
-				};
+
+
+
 				CourseConflictTest();
 				CourseCreditsCounter();
-				Materialize.toast('"' + course_name + '" 已經加入課表！', 2000);
-			});
 
-			//$('.course-id[cid="' + course_id + '"]').parent('.course-select-item').addClass('disabled');
+		})
 
-
-
-			/*
-			$(".garbage-can-field").droppable({
-		        activeClass: "",
-		        hoverClass: "hover",
-		        accept: ".simulator-table-course",
-		        drop: function(event, ui) {
-				 	item_id = $(ui.draggable).attr('iid');
-					$.ajax({
-						url:'/courses_simulator/' + item_id,
-						type: 'DELETE',
-						success: function(response) {
-							var item = response["item"];
-							var course = response["course"];
-							var course_name = course.course_name;
-							$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-							console.log(item);
-							$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-							$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-							Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
-							CourseConflictTest();
-							CourseCreditsCounter();
-						}
-					})
-		        }
-		    })*/
-
-
-
-
-
-			CourseConflictTest();
-			CourseCreditsCounter();
-
-	})
+	}else{
+		flash.error('這堂課已經在你的課表內囉！');
+	}
 
 });
 
@@ -757,7 +781,7 @@ $(document).on('click','.remove-hasselect-course' , function() {
 			console.log(item);
 			$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
 			$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-			Materialize.toast('這堂課已經移出課表！', 2000);
+			flash.success('這堂課已經移出課表！');
 			CourseConflictTest();
 			CourseCreditsCounter();
 		}
@@ -808,4 +832,14 @@ $('#course-searchbox').on('input', function(){
 		})
 	}
 });
+
+$(document).mousemove(function(e){
+	if($(e.target).hasClass('course-select-item') || $(e.target).parent().hasClass('course-select-item')){
+	}
+	else{
+		$('.simulator-table-course.on-hover').remove();
+		//CourseConflictTest();
+	}
+})
+
 </script>

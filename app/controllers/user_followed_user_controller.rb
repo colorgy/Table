@@ -1,11 +1,12 @@
 class UserFollowedUserController < ApplicationController
 	def index
-		@user_followed_users = current_user.followed_users
+		@user_followed_users = current_user.user_followed_users
 		@user = User.all
 	end
 
 	def create
 		@user_followed_user = current_user.user_followed_users.new(user_followed_user_params)
+
 	    respond_to do |format|
 	      if @user_followed_user.save
 	        format.html { redirect_to :back, notice: 'Add to wish list successfully!' }

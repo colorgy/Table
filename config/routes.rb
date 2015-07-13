@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   resources :courses_simulator, only: [:index, :create, :destroy]
   resources :user_followed_user, only: [:index, :create, :destroy]
 
+  resources :course_users
+
   # Example resource route with options:
   #   resources :products do
   #     member do

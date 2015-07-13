@@ -13,13 +13,12 @@
  *= require_self
  *= require jquery-ui
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "materialize";
-
-@import "foundations/colors";
-@import "foundations/typography";
-@import "foundations/base";
-
-@import "partials/navbar";
+@import "materialize/materialize-all";
 @import "main";
+
+
+
+
+
+
+
