@@ -118,7 +118,7 @@
 								  <div class="time">course_time</div>
 								  <div class="location">course.location</div>
 								  <div class="credits">course.credits</div>
-								  <button class="remove-hasselect-course"><i class="mdi-content-clear" style="color:black;"></i></button>
+								  <button class="remove-hasselect-course"><i class="material-icons">clear</i></button>
 								  <div class="item-id" iid="<%= item.id %>"></div>
 								  <div class="item-course-id" icd="<%= item.course_code %>"></div>
 							  	</div>
@@ -304,10 +304,16 @@
 </div>
 <div id="modal1" class="modal modal-fixed-footer">
 	<div class="modal-content">
-		<h4 class="modal-course-name"></h4>
-		<p>課程代號： <span class="modal-course-general-code"></span></p>
-		<p>學分： <span class="modal-course-credits"></span></p>
-		<p>課程網站： <a class="modal-course-link" href="">前往課程網站</a></p>
+		<h5 class="under-line-title"><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+		<p>
+			學分： <span class="modal-course-credits"></span></br>
+			課程代號： <span class="modal-course-general-code"></span></br>
+			課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
+		</p>
+		<div class="users-on-course-list" id="users-on-course-list">
+			<ul>
+			</ul>
+		</div>
 	</div>
 	<div class="modal-footer">
 		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
@@ -352,7 +358,6 @@ $('#course-hasselect-field-trigger').click(function(){
 //
 $(document).on('mouseover' ,'.simulator-table td', function(e){
 	var coursecount = $(this).children('.simulator-table-course').length;
-	console.log('有' + coursecount + '個課');
 	var tdHeight = (coursecount * 35) + 16 + (coursecount - 1);
 	var course_position = 0;
 	var first_course_position = (coursecount / 2 - 0.5 ) * 35 * -1;
@@ -365,7 +370,6 @@ $(document).on('mouseover' ,'.simulator-table td', function(e){
 		});
 		for(i = 2; i <= coursecount ; i++ ){
 			course_position = 8 + ((i - 1)*35) + (i - 1);
-			console.log('hi there');
 			$(this).children('.simulator-table-course:nth-child(' + i + ')').css({
 				'transform' : 'rotate(0deg)',
 				'-moz-transform' : 'rotate(0deg)',
@@ -480,7 +484,6 @@ function splitACourse() {
 				'filter[code]=' + course_code
 		$.get(getCourseUri, function(course_response){
 			var course = course_response[0];
-			console.log(course);
 			var course_name = course.name;
 			var course_lecturer = course.lecturer;
 			var course_general_code = course.general_code;
@@ -640,9 +643,24 @@ $(document).on('click', '.simulator-table-course', function(){
 		$('.modal-course-name').html(course_name);
 		$('.modal-course-general-code').html(course_general_code);
 		$('.modal-course-credits').html(credits);
+		$('.modal-course-lecturer').html(course_lecturer);
 		$('.modal-course-link').attr('href', website_url);
 
-	})
+	});
+
+	var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+
+	$.get(getUserCourseUri , function(users_response){
+		console.log(users_response);
+		$('#users-on-course-list li').remove();
+		$.each( users_response , function(u, user){
+			console.log(user.name);
+			var user_avatar_url = user.avatar_url;
+			var user_fb_id = user.fbid;
+
+			$('<li><a href="https://www.facebook.com/' + user_fb_id +'" target="_blank"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+		})
+	});
 
 	$('#modal1').openModal();
 });
@@ -690,7 +708,7 @@ $(document).on('click', '.add-to-simulator', function(){
 						  '<div class="time">'+ 'time' + '</div>' +
 						  '<div class="location">' + 'location' + '</div>' +
 						  '<div class="credits">' + credits + '</div>' +
-						  '<button class="remove-hasselect-course"><i class="mdi-content-clear"></i></button>' +
+						  '<button class="remove-hasselect-course"><i class="material-icons">clear</i></button>' +
 						  '<div class="item-id" iid="' + item_id + '"></div>' +
 						  '<div class="item-course-id" icd="'+ course_code + '"></div>' + '</div>');
 					for (var i = 1; i <= 9; i++) {
@@ -793,15 +811,12 @@ $('#course-searchbox').on('input', function(){
 
 	if(keyword == ''){
 		$('.simulator-search-result').children('.course-select-item').remove();
-		console.log('Im empty.');
 	}
 	else{
 
 		var uri = 'https://colorgy.io:443/api/ntust/courses.json?filter[year]=2015&filter[term]=1&'
 		+ 'filter[name]=like(%' + keyword + '%)';
-		console.log(uri);
 		var encode_uri = encodeURI(uri);
-		console.log(encode_uri);
 
 		$.get( encode_uri , function(response){
 			var counter = response.length - 1;
@@ -822,10 +837,9 @@ $('#course-searchbox').on('input', function(){
 						'<div class="course-time">c.course_time</div>' +
 						'<div class="course-location">c.location</div>' +
 						'<div class="course-credits">' + course.credits + '</div>'+
-						'<button class="add-to-simulator"></button>'+
+						'<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
 						'<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
 			}
-			console.log(response.length);
 		})
 		.fail(function() {
 			alert( "error" );
@@ -834,7 +848,7 @@ $('#course-searchbox').on('input', function(){
 });
 
 $(document).mousemove(function(e){
-	if($(e.target).hasClass('course-select-item') || $(e.target).parent().hasClass('course-select-item')){
+	if($(e.target).hasClass('course-select-item') || $(e.target).parents().hasClass('course-select-item')){
 	}
 	else{
 		$('.simulator-table-course.on-hover').remove();

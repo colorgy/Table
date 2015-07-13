@@ -20,11 +20,14 @@ nav{
 			}
 		}
 	}
-	.nav-wrapper{
-		@media screen and (min-width: 992px){
-			display: none;
-		}
-	}
+}
+i{
+	vertical-align: middle;
+	color: $dark-gray;
+}
+.list-icon{
+  display: inline-block !important;
+  margin-right: 5px;
 }
 
 .container-fuild{
@@ -118,9 +121,9 @@ nav{
 				border: 0;
 				padding-top: 2.5px;
 				border-left: 40px #D8D8D8 solid !important ;
-				a{
-					color: #fff !important;
-					font-size: 18px;
+
+				> i{
+					color: #E76E5A;
 				}
 			}
 			> .credits {
@@ -202,25 +205,14 @@ nav{
 		padding-top: 3.5px;
 		border-left: 40px #ffffff solid !important;
 		font-size: 2em;
-		a{
-			color: #fff !important;
-			font-size: 18px;
-		}
-		&:before{
-			content: '+';
-			width: 30px;
-			height: 30px;
-			top: calc(50% - 5px );
-			@include translateY(-50%);
-			right: 10px;
-			position: absolute;
-			color: $dark-gray;
-			text-align: center;
+
+		> i {
+			color: #E76E5A;
 		}
 	}
 	> .course-credits {
 		position: absolute;
-		top: 50%;
+		top: calc(50% + 4px);
 		right: 67px;
 		transform: translateY(-50%);
 		z-index: 1;
@@ -751,5 +743,19 @@ i.mdi-content-clear {
 .school-select-form{
 	> select {
 		border: 1px solid #d3d2d2;
+	}
+}
+.spinner-red-only{
+	border-color: $secondary-color;
+}
+
+.users-on-course-list {
+	li{
+		height: 45px;
+		width: 45px;
+		border: 1px solid #eee;
+		display: inline-block;
+		float: left;
+		border-radius: 2px;
 	}
 }

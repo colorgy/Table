@@ -1,44 +1,93 @@
-<nav>
+<nav class="colorgy-nav">
     <div class="top">
         <div class="top-bar">
             <ul>
-              <li><a href="<%= root_path %>">Colorgy Table</a></li>
-            </ul>
-            <ul class="right-ul">
-                <li><a href="<%= courses_simulator_index_path %>">Table 選課模擬</a></li>
-                <li><a href="<%= app_path %>">Table 課表 APP</a></li>
+                <li>
+                  <a href="/ColorgyV2-frontend/user-guide.html">
+                    常見問題
+                  </a>
+                </li>
                 <% if current_user.blank? %>
-                  <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
+                <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li></li>
                 <% else %>
-                  <li><a href="">Hi, <%= current_user.name %> :D</a></li>
+                <li class="nav-bar-drop-down">
+                  <a href="">
+                    Hi, 劉政軒<i class="material-icons list-icon">expand_more</i>
+
+                  </a>
+                  <ul class="drop-down-list">
+                    <li>
+                      <a href="#">登出</a>
+                    </li>
+                  </ul>
+                </li>
                 <% end %>
             </ul>
         </div>
     </div>
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo">TAPLE</a>
-      <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      <a href="/ColorgyV2-frontend" class="brand-logo"><%= image_tag('TABLE.svg') %></a>
+      <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">dehaze</i></a>
       <ul class="right hide-on-med-and-down main-nav">
-        <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
-        <% if current_user.blank? %>
-          <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
-        <% else %>
-          <li class="nav-user-info">
-            <a href="#">
-              <div class="user-avatar">
-              <%= image_tag current_user.avatar_url %>
-              </div>
-              <div class="user-name">
-                <%= current_user.name %>
-              </div>
-            </a>
-          </li>
-        <% end %>
+        <li class="group-up">
+          <a href="<%= courses_simulator_index_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="主揪或是班代可以在這邊選擇課程&書籍開團讓同學們跟團喲！">
+            <i class="material-icons list-icon">send</i>
+            我要排課
+          </a>
+        </li>
+        <li>
+          <a href="<%= app_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！">
+            <i class="material-icons list-icon">view_list</i>
+            APP 介紹
+          </a>
+        </li>
+        <li class="nav-bar-drop-down">
+          <a href="#">
+            <i class="material-icons list-icon">more_vert</i>
+          </a>
+        </li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
-        <li><a href="<%= courses_simulator_index_path %>">課程表</a></li>
-        <li><a href="<%= app_path %>">Table 課表 APP</a></li>
+        <li id="personal-menu"><div class="personal-avatar"></div><a href="#personal-menu">個人工具列<i class="material-icons personal-menu-trigger" style="display: inline-block;">keyboard_arrow_down</i></a></li>
+        <ul class="personal-menu-collapse" style="display: none;">
+            <li>
+              <a href="/ColorgyV2-frontend/cart.html">
+                <i class="material-icons list-icon">shopping_cart</i>
+                前往結帳 (<span class="cart-item-counts">0</span>)
+              </a>
+            </li>
+            <li>
+              <a href="/ColorgyV2-frontend/orders.html">
+                訂單查詢
+              </a>
+            </li>
+            <li>
+              <a href="/ColorgyV2-frontend/leader-group-index.html">
+                主揪介面
+              </a>
+            </li>
+            <li>
+              <a href="/ColorgyV2-frontend/user-guide.html">
+                常見問題
+              </a>
+            </li>
+        </ul>
+        <li><a href="/ColorgyV2-frontend/groupon.html">開始揪團</a></li>
+        <li><a href="/ColorgyV2-frontend/book-browser.html">我要買書</a></li>
+        <li><a href="/ColorgyV2-frontend/follow-group.html">即時跟團 (0)</a></li>
       </ul>
       <div class="clear" style="clear:both;"></div>
     </div>
 </nav>
+<script>
+  $(".button-collapse").sideNav();
+  $('#personal-menu').click(function(){
+    $('.personal-menu-collapse').slideToggle(500);
+    if($('.personal-menu-trigger').html() == 'keyboard_arrow_down'){
+      $('.personal-menu-trigger').html('keyboard_arrow_up');
+    }
+    else{
+      $('.personal-menu-trigger').html('keyboard_arrow_down');
+    }
+  })
+</script>

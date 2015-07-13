@@ -189,7 +189,7 @@ nav{
 
 nav.colorgy-nav{
   height: auto;
-  background-color: transparent;
+  background-color: #ffffff;
   box-shadow: none;
   .top{
     overflow: hidden;
@@ -219,7 +219,6 @@ nav.colorgy-nav{
     }
   }
   .nav-wrapper{
-    z-index: -1;
     height: auto;
     margin-top: -1px;
     padding-left: 20px;
@@ -234,17 +233,17 @@ nav.colorgy-nav{
     .brand-logo{
       max-width: 130px;
       @media screen and (min-width: 992px){
-        padding: 2px 0;
+        padding: 8px 0;
       }
       @media screen and (max-width: 992px){
-        padding: 0 0;
+        padding: 8px 0;
       }
     }
     ul.main-nav{
       li{
         a{
           position: relative;
-          color: #eee;
+          color: $dark-gray;
           padding: 0 20px;
         }
       }
@@ -300,6 +299,8 @@ ul.personal-menu-collapse{
     position: absolute;
     background-color: #222;
     display: none;
+    z-index: 998;
+    min-width: 140px;
     li{
       float: none;
       border: 0 !important;
