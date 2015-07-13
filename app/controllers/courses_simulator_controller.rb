@@ -3,12 +3,12 @@ class CoursesSimulatorController < ApplicationController
     if current_user.blank?
       redirect_to ask_login_path
     else
-      @courses_simulator_items = current_user.courses_simulator_items
+      @user_courses = current_user.user_courses
     end
   end
 
   def create
-    @courses_simulator_item = current_user.courses_simulator_items.new(courses_simulator_params)
+    @courses_simulator_item = current_user.user_courses.new(courses_simulator_params)
 
     respond_to do |format|
       if @courses_simulator_item.save
@@ -26,7 +26,7 @@ class CoursesSimulatorController < ApplicationController
   end
 
   def destroy
-    @courses_simulator_item = current_user.courses_simulator_items.find(params[:id])
+    @courses_simulator_item = current_user.user_courses.find(params[:id])
     @courses_simulator_item.destroy
     respond_to do |format|
       # format.html { redirect_to :back, notice: 'Item was successfully destroyed.' }
@@ -42,7 +42,7 @@ class CoursesSimulatorController < ApplicationController
   private
 
   def courses_simulator_params
-    params.require(:courses_simulator).permit(:course_code)
+    params.require(:courses_simulator).permit(:course_code, :course_organization_code)
   end
 end
 

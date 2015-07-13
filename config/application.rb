@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ColorgyCoursesSimulator
+module Table
   class Application < Rails::Application
     Dotenv::Railtie.load if defined? Dotenv::Railtie
 
