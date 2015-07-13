@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :user_followed_user, only: [:index, :create, :destroy]
 
   resources :course_users
+  resources :users
 
   # Example resource route with options:
   #   resources :products do
