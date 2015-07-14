@@ -24,5 +24,19 @@ module Table
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    case ENV['LOGGER']
+    when 'stdout'
+      require 'rails_stdout_logging/rails'
+      config.logger = RailsStdoutLogging::Rails.heroku_stdout_logger
+    when 'remote'
+      # Send logs to a remote server
+      if !ENV['REMOTE_LOGGER_HOST'].blank? && !ENV['REMOTE_LOGGER_PORT'].blank?
+        config.logger = \
+        RemoteSyslogLogger.new(ENV['REMOTE_LOGGER_HOST'], ENV['REMOTE_LOGGER_PORT'],
+                               local_hostname: "#{ENV['APP_NAME'].underscore}-#{Rails.application.class.parent_name.underscore}-#{Socket.gethostname}".gsub(' ', '_'),
+                               program: ('rails-' + Rails.application.class.parent_name.underscore))
+      end
+    end
   end
 end

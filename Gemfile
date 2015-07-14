@@ -54,3 +54,6 @@ group :development, :test do
   gem 'spring'
 end
 
+# Logger
+gem 'remote_syslog_logger'
+gem 'rails_stdout_logging', :require => false
