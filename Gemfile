@@ -55,7 +55,7 @@ gem 'hirb', :require => false
 gem 'hirb-unicode', :require => false
 
 # Development tools
-group :development, :test do
+group :development do
   gem 'spring'
   gem 'rails-erd'
   gem 'railroady'
