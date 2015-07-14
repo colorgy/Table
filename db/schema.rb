@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515161909) do
+ActiveRecord::Schema.define(version: 20150714070654) do
 
   create_table "user_courses", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,10 +21,12 @@ ActiveRecord::Schema.define(version: 20150515161909) do
     t.integer  "term"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "uuid"
   end
 
   add_index "user_courses", ["term"], name: "index_user_courses_on_term"
   add_index "user_courses", ["user_id"], name: "index_user_courses_on_user_id"
+  add_index "user_courses", ["uuid"], name: "index_user_courses_on_uuid", unique: true
   add_index "user_courses", ["year"], name: "index_user_courses_on_year"
 
   create_table "user_followed_users", force: :cascade do |t|
