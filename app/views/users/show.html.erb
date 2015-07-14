@@ -189,7 +189,23 @@
   	</div>
 <% end %>
 
-
+<div id="modal1" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<h5 class="under-line-title"><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+		<p>
+			學分： <span class="modal-course-credits"></span></br>
+			課程代號： <span class="modal-course-general-code"></span></br>
+			課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
+		</p>
+		<div class="users-on-course-list" id="users-on-course-list">
+			<ul>
+			</ul>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
+	</div>
+</div>
 
 <script>
 
@@ -402,7 +418,78 @@ function splitACourse() {
 	});
 };
 
+function CountPeopleInSameClass(){
+	var maleTotal = 0;
+	var femaleTotal = 0;
+
+	$('.item-course-id').each(function(){
+		var course_code = $(this).attr('icd');
+		var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+		$.get(getUserCourseUri , function(users_response){
+			console.log(users_response);
+			$.each( users_response , function(u, user){
+				console.log(user.gender);
+				if (user.gender == 'male') {
+					maleTotal = maleTotal + 1;
+				}
+				if (user.gender == 'female'){
+					femaleTotal = femaleTotal + 1;
+				};
+			})
+		});
+	})
+
+	console.log('男生同班：' + maleTotal);
+	console.log('女生同班：' + femaleTotal);
+
+
+}
+
+$(document).on('click', '.simulator-table-course', function(){
+	var course_code = $(this).attr('icd');
+	var item_id = $(this).attr('iid');
+	var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+			'filter[code]=' + course_code;
+	$.get(getCourseUri , function(course_response){
+		var course = course_response[0]
+		var course_name = course.name;
+		//var course_time = course["course_time"];
+		var course_lecturer = course.lecturer;
+		var course_general_code = course.general_code;
+		var course_code = course.code;
+		var credits = course.credits;
+		var website_url = course.url;
+
+		$('.modal-course-name').html(course_name);
+		$('.modal-course-general-code').html(course_general_code);
+		$('.modal-course-credits').html(credits);
+		$('.modal-course-lecturer').html(course_lecturer);
+		$('.modal-course-link').attr('href', website_url);
+		$('#modal-del-btn').attr('iid', item_id);
+		$('#modal1').openModal();
+
+	});
+
+	var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+
+	$.get(getUserCourseUri , function(users_response){
+		console.log(users_response);
+		$('#users-on-course-list li').remove();
+		$.each( users_response , function(u, user){
+			console.log(user.name);
+			var user_avatar_url = user.avatar_url;
+			var user_fb_id = user.fbid;
+			var user_id = user.id
+
+			$('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+		})
+	});
+});
+
+
+
 splitACourse();
 CourseCreditsCounter();
 CourseConflictTest();
+CountPeopleInSameClass()
 </script>
