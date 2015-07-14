@@ -73,7 +73,10 @@
 							<div class="course-search-field">
 								<div class="course-search-field-inner">
 									<form class="course-search-form">
-										<input id="course-searchbox" class="course-searchbox" type="search" placeholder="搜尋課程：打課名、代碼、老師名">
+										<input id="course-searchbox" class="course-searchbox" type="search" placeholder="搜尋課名、代碼、老師名">
+										<label for="course-searchbox">
+											<i class="material-icons">search</i>
+										</label>
 									</form>
 								</div>
 							</div>
@@ -316,7 +319,8 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
+		<a class="modal-action btn-flat" cid="" id="modal-del-btn">刪除</a>
 	</div>
 </div>
 <div class="mobile-bottom-nav">
@@ -329,6 +333,9 @@
   <div class="mobile-nav-btn btn-3" id="app-trigger">
     APP下載
   </div>
+</div>
+<div id="simulator-help-btn" class="simulator-help-btn">
+	<a href="#"><i class="material-icons">help_outline</i></a>
 </div>
 
 <script>
@@ -628,6 +635,7 @@ $(document).on({
 
 $(document).on('click', '.simulator-table-course', function(){
 	var course_code = $(this).attr('icd');
+	var item_id = $(this).attr('iid');
 	var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
 			'filter[code]=' + course_code;
 	$.get(getCourseUri , function(course_response){
@@ -645,6 +653,8 @@ $(document).on('click', '.simulator-table-course', function(){
 		$('.modal-course-credits').html(credits);
 		$('.modal-course-lecturer').html(course_lecturer);
 		$('.modal-course-link').attr('href', website_url);
+		$('#modal-del-btn').attr('iid', item_id);
+		$('#modal1').openModal();
 
 	});
 
@@ -661,8 +671,6 @@ $(document).on('click', '.simulator-table-course', function(){
 			$('<li><a href="https://www.facebook.com/' + user_fb_id +'" target="_blank"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
 		})
 	});
-
-	$('#modal1').openModal();
 });
 
 
@@ -784,6 +792,26 @@ $(document).on('click', '.add-to-simulator', function(){
 		flash.error('這堂課已經在你的課表內囉！');
 	}
 
+});
+$(document).on('click','#modal-del-btn' , function() {
+     //code here ....
+ 	item_id = $(this).attr('iid');
+	$.ajax({
+		url:'/courses_simulator/' + item_id,
+		type: 'DELETE',
+		success: function(response) {
+			var item = response["item"];
+
+			//$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
+			console.log(item);
+			$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
+			$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+			flash.success('這堂課已經移出課表！');
+			CourseConflictTest();
+			CourseCreditsCounter();
+			$('#modal1').closeModal();
+		}
+	})
 });
 
 $(document).on('click','.remove-hasselect-course' , function() {

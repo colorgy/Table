@@ -37,7 +37,6 @@ i{
 .course-searchbox{
 	border: 1px transparent solid !important;
 	height: 2.5rem !important;
-	width: calc(100% - 10px ) !important;
 	padding-left: 10px !important;
 	background-color: #fff !important;
 	&:focus{
@@ -87,6 +86,7 @@ i{
 				font-size: 1em;
 				font-weight: 500;
 				color: darken(rgb(104, 104, 104) , 15%);
+				max-width: 125px;
 			}
 			.lecturer{
 				display: inline-block;
@@ -160,6 +160,7 @@ i{
 		font-size: 1em;
 		font-weight: 500;
 		color: darken(#868383 , 15%);
+		max-width: 125px;
 		a{
 			color: #868383;
 		}
@@ -266,6 +267,18 @@ i{
 					padding: 6px 0;
 					z-index: 1000;
 					cursor: pointer;
+
+					> .simulator-table-course-del{
+						position: absolute;
+						top: 0px;
+						right: 0px;
+						color: rgb(255, 255, 255);
+						width: 18px;
+						height: 18px;
+						background-color: rgb(242, 102, 71);
+						border-radius: 40px;
+					}
+
 					&.active{
 						@include transition-all(0.5s);
 					}
@@ -576,10 +589,18 @@ a:hover{
 	border-radius: 4px;
 	border: 1px solid rgb(211, 210, 210);
 
-	.simulator-sidebar-inner{
-
+	&::before{
+		content: '加課程吧';
+		position: absolute;
+		left: -8px;
+		top: -16px;
+		background-color: $secondary-color;
+		padding: 4px 16px;
+		color: #fff;
+		border-radius: 2px;
+		font-size: 14px;
+		box-shadow: 1px 1px 1px rgba(0,0,0,.2);
 	}
-
 	.simulator-inner-layer2{
 		position: absolute;
 	}
@@ -599,6 +620,19 @@ a:hover{
 	border-radius: 4px;
 	padding: 24px 16px;
 	border: 1px solid #d3d2d2;
+
+	&::before{
+		content: '已選課程';
+		position: absolute;
+		left: -8px;
+		top: -16px;
+		background-color: rgb(244, 244, 244);
+		padding: 4px 16px;
+		color: #717071;
+		border-radius: 2px;
+		font-size: 14px;
+		box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+	}
 
 	&.active{
 		//@include translateX(-360px);
@@ -758,4 +792,27 @@ i.mdi-content-clear {
 		float: left;
 		border-radius: 2px;
 	}
+}
+.course-search-form{
+	position: relative;
+	> .course-searchbox{
+		padding-left: 32px !important;
+		width: calc(100% - 32px ) !important;
+	}
+	> label{
+		position: absolute;
+		top: 9px;
+		left: 9px;
+	}
+}
+.simulator-help-btn{
+	position: fixed;
+	right: 16px;
+	bottom: 16px;
+
+	i{
+		font-size: 40px !important;
+		color: $secondary-color;
+	}
+
 }
