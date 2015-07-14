@@ -47,6 +47,13 @@ gem 'factory_girl_rails', '~> 4.5.0'
 gem 'faker'
 gem 'timecop'
 
+# Use Pry as the Rails console
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'awesome_print', :require => false
+gem 'hirb', :require => false
+gem 'hirb-unicode', :require => false
+
 # Development tools
 group :development, :test do
   gem 'spring'
