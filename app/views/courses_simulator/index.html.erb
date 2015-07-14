@@ -667,8 +667,9 @@ $(document).on('click', '.simulator-table-course', function(){
 			console.log(user.name);
 			var user_avatar_url = user.avatar_url;
 			var user_fb_id = user.fbid;
+			var user_id = user.id
 
-			$('<li><a href="https://www.facebook.com/' + user_fb_id +'" target="_blank"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+			$('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
 		})
 	});
 });
