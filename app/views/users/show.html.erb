@@ -1,1 +1,408 @@
-<%= @user.name %>
+<section class="user-panel">
+	<div class="cover-photo" style="background-image: url('<%= @user.cover_photo_url %>');">
+		<div class="user-info">
+			<div class="avatar" id="user-avatar">
+				<%= image_tag @user.avatar_url %>
+			</div>
+			<h4 class="user-name"><%= @user.name %></h4>
+		</div>
+	</div>
+	<div class="actions-bar">
+		<div class="inner">
+			<ul class="pull-right">
+				<li><a>Pin 他/她</a></li>
+				<li><a>Facebook</a></li>
+			</ul>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	<div class="user">
+		<div class="row">
+			<div class="col m12 s12">
+				<div class="simulator-table-field">
+					<table class="simulator-table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>一</th>
+								<th>二</th>
+								<th>三</th>
+								<th>四</th>
+								<th>五</th>
+								<th>六</th>
+								<th>日</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="class0">
+								<td>0</td>
+								<td class="M1 day1 period1"></td>
+								<td class="T1 day2 period1"></td>
+								<td class="W1 day3 period1"></td>
+								<td class="R1 day4 period1"></td>
+								<td class="F1 day5 period1"></td>
+								<td class="S1 day6 period1"></td>
+								<td class="Sun1 day7 period1"></td>
+							</tr>
+							<tr class="class1">
+								<td>1</td>
+								<td class="M2 day1 period2"></td>
+								<td class="T2 day2 period2"></td>
+								<td class="W2 day3 period2"></td>
+								<td class="R2 day4 period2"></td>
+								<td class="F2 day5 period2"></td>
+								<td class="S2 day6 period2"></td>
+								<td class="Sun2 day7 period2"></td>
+							</tr>
+							<tr class="class2">
+								<td>2</td>
+								<td class="M3 day1 period3"></td>
+								<td class="T3 day2 period3"></td>
+								<td class="W3 day3 period3"></td>
+								<td class="R3 day4 period3"></td>
+								<td class="F3 day5 period3"></td>
+								<td class="S3 day6 period3"></td>
+								<td class="Sun3 day7 period3"></td>
+							</tr>
+							<tr class="class3">
+								<td>3</td>
+								<td class="M4 day1 period4"></td>
+								<td class="T4 day2 period4"></td>
+								<td class="W4 day3 period4"></td>
+								<td class="R4 day4 period4"></td>
+								<td class="F4 day5 period4"></td>
+								<td class="S4 day6 period4"></td>
+								<td class="Sun4 day7 period4"></td>
+							</tr>
+							<tr class="class4">
+								<td>4</td>
+								<td class="M5 day1 period5"></td>
+								<td class="T5 day2 period5"></td>
+								<td class="W5 day3 period5"></td>
+								<td class="R5 day4 period5"></td>
+								<td class="F5 day5 period5"></td>
+								<td class="S5 day6 period5"></td>
+								<td class="Sun5 day7 period5"></td>
+							</tr>
+							<tr class="class5">
+								<td>5</td>
+								<td class="M6 day1 period6"></td>
+								<td class="T6 day2 period6"></td>
+								<td class="W6 day3 period6"></td>
+								<td class="R6 day4 period6"></td>
+								<td class="F6 day5 period6"></td>
+								<td class="S6 day6 period6"></td>
+								<td class="Sun6 day7 period6"></td>
+							</tr>
+							<tr class="class6">
+								<td>6</td>
+								<td class="M7 day1 period7"></td>
+								<td class="T7 day2 period7"></td>
+								<td class="W7 day3 period7"></td>
+								<td class="R7 day4 period7"></td>
+								<td class="F7 day5 period7"></td>
+								<td class="S7 day6 period7"></td>
+								<td class="Sun7 day7 period7"></td>
+							</tr>
+							<tr class="class7">
+								<td>7</td>
+								<td class="M8 day1 period8"></td>
+								<td class="T8 day2 period8"></td>
+								<td class="W8 day3 period8"></td>
+								<td class="R8 day4 period8"></td>
+								<td class="F8 day5 period8"></td>
+								<td class="S8 day6 period8"></td>
+								<td class="Sun8 day7 period8"></td>
+							</tr>
+							<tr class="class8">
+								<td>8</td>
+								<td class="M9 day1 period9"></td>
+								<td class="T9 day2 period9"></td>
+								<td class="W9 day3 period9"></td>
+								<td class="R9 day4 period9"></td>
+								<td class="F9 day5 period9"></td>
+								<td class="S9 day6 period9"></td>
+								<td class="Sun9 day7 period9"></td>
+							</tr>
+							<tr class="class9">
+								<td>9</td>
+								<td class="M10 day1 period10"></td>
+								<td class="T10 day2 period10"></td>
+								<td class="W10 day3 period10"></td>
+								<td class="R10 day4 period10"></td>
+								<td class="F10 day5 period10"></td>
+								<td class="S10 day6 period10"></td>
+								<td class="Sun10 day7 period10"></td>
+							</tr>
+							<tr class="class10">
+								<td>10</td>
+								<td class="MA day1 period11"></td>
+								<td class="TA day2 period11"></td>
+								<td class="WA day3 period11"></td>
+								<td class="RA day4 period11"></td>
+								<td class="FA day5 period11"></td>
+								<td class="SA day6 period11"></td>
+								<td class="SunA day7 period11"></td>
+							</tr>
+							<tr class="classA">
+								<td>A</td>
+								<td class="MB day1 period12"></td>
+								<td class="TB day2 period12"></td>
+								<td class="WB day3 period12"></td>
+								<td class="RB day4 period12"></td>
+								<td class="FB day5 period12"></td>
+								<td class="SB day6 period12"></td>
+								<td class="SunB day7period12"></td>
+							</tr>
+							<tr class="classB">
+								<td>B</td>
+								<td class="MC day1 period13"></td>
+								<td class="TC day2 period13"></td>
+								<td class="WC day3 period13"></td>
+								<td class="RC day4 period13"></td>
+								<td class="FC day5 period13"></td>
+								<td class="SC day6 period13"></td>
+								<td class="SunC day7 period13"></td>
+							</tr>
+							<tr class="classC">
+								<td>C</td>
+								<td class="MC day1 period14"></td>
+								<td class="TC day2 period14"></td>
+								<td class="WC day3 period14"></td>
+								<td class="RC day4 period14"></td>
+								<td class="FC day5 period14"></td>
+								<td class="SC day6 period14"></td>
+								<td class="SunC day7 period14"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<% @courses_simulator_items.each do |item| %>
+	<div class="course-hasselect-item">
+	  <div class="item-id" iid="<%= item.id %>"></div>
+	  <div class="item-course-id" icd="<%= item.course_code %>"></div>
+  	</div>
+<% end %>
+
+
+
+<script>
+
+//
+// 製作當滑鼠移到 td 上方時，底下被選的課程會從原本被堆疊的狀態展開。
+// 反之，當滑鼠移開時，課程會收起來。
+//
+$(document).on('mouseover' ,'.simulator-table td', function(e){
+	var coursecount = $(this).children('.simulator-table-course').length;
+	var tdHeight = (coursecount * 35) + 16 + (coursecount - 1);
+	var course_position = 0;
+	var first_course_position = (coursecount / 2 - 0.5 ) * 35 * -1;
+	if(coursecount >= 2){
+		$(this).css({
+			'height' : tdHeight + 'px'
+		})
+		$(this).children('.simulator-table-course:nth-child(1)').css({
+			'top' : first_course_position + 'px'
+		});
+		for(i = 2; i <= coursecount ; i++ ){
+			course_position = 8 + ((i - 1)*35) + (i - 1);
+			$(this).children('.simulator-table-course:nth-child(' + i + ')').css({
+				'transform' : 'rotate(0deg)',
+				'-moz-transform' : 'rotate(0deg)',
+				'-o-transform' : 'rotate(0deg)',
+				'-ms-transform' : 'rotate(0deg)',
+				'-webkit-transform' : 'rotate(0deg)',
+				'top' : course_position + 'px'
+			});
+		}
+	}
+})
+$(document).on('mouseout' ,'.simulator-table td',function(e){
+	var coursecount = $(this).children('.simulator-table-course').length;
+	if(coursecount >= 2){
+		$(this).css({
+			'height' : ''
+		})
+		$(this).children('.simulator-table-course:nth-child(1)').css({
+			'top' : ''
+		});
+		var degreebase = 7.5;
+		var degree = 0;
+		for(i = 2; i <= coursecount ; i++ ){
+			degree = degreebase * (i - 1);
+			$(this).children('.simulator-table-course:nth-child(' + i + ')').css({
+				'transform' : 'rotate(' + degree + 'deg)',
+				'-moz-transform' : 'rotate(' + degree + 'deg)',
+				'-o-transform' : 'rotate(' + degree + 'deg)',
+				'-ms-transform' : 'rotate(' + degree + 'deg)',
+				'-webkit-transform' : 'rotate(' + degree + 'deg)',
+				'top' : '7.5px'
+			});
+		}
+	}
+})
+
+//
+// 函式： 計算所有已選課程的學分數，並且 append 到統計裡面。
+//
+function CourseCreditsCounter(){
+	var creditsTotal = 0;
+
+	$('.credits').each(function(){
+		var number = parseInt($(this).text());
+		//numbers.push(number);
+		creditsTotal = creditsTotal + number;
+	})
+	$('#credits-total').html('');
+	$('#credits-total').append(creditsTotal);
+}
+
+
+//
+// 當一個 td 底下有超過一個課程之後，加入衝堂的css狀態，並且加上堆疊效果。
+//
+function CourseConflictTest(){
+	$('.simulator-table td').each(function(){
+		var coursecount = $(this).children('.simulator-table-course').length;
+		$(this).children('.simulator-table-course:nth-child(1)').removeClass('course-conflict-pack').css({
+				'transform' : '',
+				'-moz-transform' : '',
+				'-o-transform' : '',
+				'-ms-transform' : '',
+				'-webkit-transform' : '',
+				'top' : '0'
+			});
+		if (coursecount >= 2) {
+			$(this).children('.simulator-table-course').addClass('course-conflict');
+			var degreebase = 7.5;
+			var degree = 0;
+			for( i = 2; i <= coursecount ; i ++){
+				degree = degreebase * (i - 1);
+				$(this).children('.simulator-table-course:nth-child(' + i +')').addClass('course-conflict-pack').css({
+					'transform' : 'rotate(' + degree + 'deg)',
+					'-moz-transform' : 'rotate(' + degree + 'deg)',
+					'-o-transform' : 'rotate(' + degree + 'deg)',
+					'-ms-transform' : 'rotate(' + degree + 'deg)',
+					'-webkit-transform' : 'rotate(' + degree + 'deg)'
+				});
+			};
+		}else{
+			$(this).children('.simulator-table-course:nth-child(1)').removeClass('course-conflict').css({
+				'transform' : '',
+				'-moz-transform' : '',
+				'-o-transform' : '',
+				'-ms-transform' : '',
+				'-webkit-transform' : ''
+			});
+		}
+	});
+}
+function splitACourse() {
+	var courseHasselectItem = $('.course-hasselect-item');
+	courseHasselectItem.each(function(){
+		var course_code = $(this).children(".item-course-id").attr('icd');
+		var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+				'filter[code]=' + course_code
+		$.get(getCourseUri, function(course_response){
+			var course = course_response[0];
+			var course_name = course.name;
+			var course_lecturer = course.lecturer;
+			var course_general_code = course.general_code;
+			var credits = course.credits;
+			var course_code = course.code;
+
+			$(this).children('.name').html(course_name);
+			$(this).children('.lecturer').html(course_lecturer);
+			$(this).children('.code').html(course_general_code);
+			$(this).children('.credits').html(credits);
+
+		}.bind(this))
+	});
+
+	var courseItem = $('.course-hasselect-item');
+	courseItem.each(function(){
+		var course_code = $(this).children(".item-course-id").attr('icd');
+		var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+				'filter[code]=' + course_code;
+		var item_id = $(this).children('.item-id').attr('iid');
+
+		$.get(getCourseUri, function(course_response){
+
+			var course = course_response[0];
+			var course_name = course.name;
+			//var course_time = course["course_time"];
+			var course_lecturer = course.lecturer;
+			var course_general_code = course.general_code;
+			var course_code = course.code;
+			var credits = course.credits;
+			//var item_id = $(this).children(".item-id").attr('iid');
+			//var course_times = $(this).children(".time").text().split(" ");
+			//var counter = course_times.length;
+			for (var i = 1; i <= 9; i++) {
+				var thisCourse_day = course['day_' + i];
+				var thisCourse_period = course['period_' + i];
+				var thisCourse_location = course['location_' + i];
+				$('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+					/*
+					.draggable({
+						revert: true,
+						start: function() {
+							$(this).removeClass('active');
+							$('.garbage-can-field').addClass('active');
+							$('.mobile-bottom-nav').addClass('hide');
+						},
+						drag: function() {
+						},
+						stop: function() {
+							$(this).addClass('active');
+							$('.garbage-can-field').removeClass('active');
+							$('.mobile-bottom-nav').removeClass('hide');
+						}
+
+					});
+					*/
+
+				};
+				CourseConflictTest();
+				CourseCreditsCounter();
+
+			});
+			/*
+			$(".garbage-can-field").droppable({
+		        activeClass: "",
+		        hoverClass: "hover",
+		        accept: ".simulator-table-course",
+		        drop: function(event, ui) {
+				 	item_id = $(ui.draggable).attr('iid');
+					$.ajax({
+						url:'/courses_simulator/' + item_id,
+						type: 'DELETE',
+						success: function(response) {
+							var item = response["item"];
+							var course = response["course"];
+							var course_name = course.course_name;
+
+							$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
+							console.log(item);
+							$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
+							$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+							Materialize.toast('"' + course_name + '" 已經移出課表！', 100000);
+							CourseConflictTest();
+							CourseCreditsCounter();
+						}
+					})
+		        }
+		    })
+			*/
+	});
+};
+
+splitACourse();
+CourseCreditsCounter();
+CourseConflictTest();
+</script>

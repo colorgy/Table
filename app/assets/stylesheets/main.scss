@@ -816,3 +816,81 @@ i.mdi-content-clear {
 	}
 
 }
+
+// User show
+
+.user-panel{
+	> .cover-photo{
+		position: relative;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		min-height: 240px;
+		width: 100%;
+
+		&::before{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,.4);
+			z-index: 1;
+		}
+
+		> .user-info{
+			position: relative;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		.avatar{
+			width: 180px;
+			height: 180px;
+			position: absolute;
+			top: 80px;
+			left: 80px;
+			border-radius: 2px;
+			overflow: hidden;
+			border: 4px solid #fff;
+			z-index: 2;
+		}
+
+		.user-name{
+			position: absolute;
+			left: 280px;
+			top: 176px;
+			color: #fff;
+			text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+			z-index: 2;
+		}
+	}
+
+	> .actions-bar{
+		border-bottom: 1px solid #eee;
+		background-color: #ffffff;
+
+		> .inner{
+			max-width: 880px;
+			margin: 0 auto;
+		}
+		ul{
+			padding: 0 16px;
+
+			&.pull-right{
+				float: right;
+			}
+			&.pull-left{
+				float: left;
+			}
+		}
+		li{
+			display: inline-block;
+			margin: 0 8px;
+
+		}
+	}
+}
