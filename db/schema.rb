@@ -11,18 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515161909) do
+ActiveRecord::Schema.define(version: 20150714070654) do
 
-  create_table "courses_simulator_items", force: :cascade do |t|
+  create_table "user_courses", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "course_code"
+    t.string   "course_organization_code"
     t.integer  "year"
     t.integer  "term"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "uuid"
   end
 
-  add_index "courses_simulator_items", ["user_id"], name: "index_courses_simulator_items_on_user_id"
+  add_index "user_courses", ["term"], name: "index_user_courses_on_term"
+  add_index "user_courses", ["user_id"], name: "index_user_courses_on_user_id"
+  add_index "user_courses", ["uuid"], name: "index_user_courses_on_uuid", unique: true
+  add_index "user_courses", ["year"], name: "index_user_courses_on_year"
 
   create_table "user_followed_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -42,7 +47,6 @@ ActiveRecord::Schema.define(version: 20150515161909) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "sid"
     t.integer  "uuid"
     t.datetime "refreshed_at"
     t.string   "core_access_token"
@@ -63,7 +67,6 @@ ActiveRecord::Schema.define(version: 20150515161909) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["sid"], name: "index_users_on_sid", unique: true
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true
 
 end

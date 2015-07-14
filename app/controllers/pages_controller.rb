@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
-	def index
+  def index
+  end
 
-	end
-
-	def ask_login
-
-	end
+  def ask_login
+  end
 end

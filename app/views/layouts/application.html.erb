@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Colorgy TABLE</title>
+  <title>Colorgy Table - 提醒你上課的好幫手</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
@@ -35,7 +35,7 @@
               </a>
             </li>
             <li>
-              <%= link_to("登出", "#{ENV['CORE_URL']}/logout") %>
+              <%= link_to("登出", sign_out_url) %>
             </li>
           <% end %>
         </ul>
@@ -65,5 +65,6 @@
 -->
 <%= yield %>
 
+<%= render 'partials/google_analytics' %>
 </body>
 </html>

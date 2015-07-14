@@ -1,0 +1,37 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+# 2 space indentation by default
+[*]
+indent_style = space
+indent_size = 2
+
+# Tab indentation for stylesheets (no size specified)
+[**.css]
+indent_style = tab
+
+[**.scss]
+indent_style = tab
+
+# Don't trim trailing whitespace for markdown files
+[**.md]
+trim_trailing_whitespace = false
+
+[**.markdown]
+trim_trailing_whitespace = false
+
+[**.slim]
+trim_trailing_whitespace = false
+
+[**.erb]
+trim_trailing_whitespace = false

@@ -31,7 +31,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       # Colorgy core
-      t.integer :sid  # system id
       t.integer :uuid
       t.datetime :refreshed_at
       t.string :core_access_token
@@ -55,7 +54,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     end
 
     add_index :users, :email,                unique: true
-    add_index :users, :sid,                  unique: true
     add_index :users, :uuid,                 unique: true
     # add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true

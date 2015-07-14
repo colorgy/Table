@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -43,14 +44,53 @@ gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'omniauth-colorgy-oauth2'
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+# Model factory and tools
+gem 'factory_girl_rails', '~> 4.5.0'
+gem 'faker'
+gem 'timecop'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+# Use Pry as the Rails console
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'awesome_print', :require => false
+gem 'hirb', :require => false
+gem 'hirb-unicode', :require => false
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+# Development tools
+group :development do
   gem 'spring'
+  gem 'rails-erd'
+  gem 'railroady'
+  gem 'byebug'
+  gem 'better_errors', '~> 2.0.0'
+  gem 'binding_of_caller', '~> 0.7.2'
+  gem 'meta_request'
+  gem 'letter_opener'
+  # gem 'guard-livereload', require: false
+  # gem 'growl_notify', require: false
 end
 
+# RSpec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'selenium-webdriver'
+  gem 'spring-commands-rspec'
+  gem 'shoulda-matchers', require: false
+  gem 'rspec-its', require: false
+  gem 'rspec-retry', require: false
+  gem 'simplecov', '~> 0.9.1', require: false
+  gem 'coveralls', require: false
+  gem 'capybara-webkit', '>= 1.2.0'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner'
+  gem 'formulaic'
+  gem 'launchy'
+  gem 'webmock', require: false
+end
+
+# Logger
+gem 'remote_syslog_logger'
+gem 'rails_stdout_logging', :require => false
+
+# Monitoring Tools
+gem 'newrelic_rpm'
