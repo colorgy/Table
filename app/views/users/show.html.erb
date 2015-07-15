@@ -10,7 +10,21 @@
 	<div class="actions-bar">
 		<div class="inner">
 			<ul class="pull-right">
-				<li><a>Pin 他/她</a></li>
+        <% if current_user.id == @user.id %>
+          <li><a href="<%= user_followed_user_index_path %>">我追蹤的同學</a></li>
+        <% else %>
+  				<li id="follow-unfollow-btn">
+            <% if !current_user.followed_users.include?(@user) %>
+              <a id="follow-user-btn" user-id="<%= @user.id %>">Follow</a>
+            <% else %>
+              <% @user_followed_users.each do |user_followed_user| %>
+                <% if user_followed_user.followed_user_id == @user.id  %>
+                  <a id="unfollow-user-btn" ufui="<%= user_followed_user.id %>">Unfollow</a>
+                <% end %>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
 				<li><a>Facebook</a></li>
 			</ul>
 			<div style="clear: both;"></div>
@@ -19,6 +33,7 @@
 	<div class="user">
 		<div class="row">
 			<div class="col m12 s12">
+        <p style="text-align: center; margin: 16px 0 0 0;"><%= @user.name %>的課表</p>
 				<div class="simulator-table-field">
 					<table class="simulator-table">
 						<thead>
@@ -207,7 +222,43 @@
 	</div>
 </div>
 
+<% @user_followed_users.each do |user_followed_user| %>
+  <% next if user_followed_user.followed_user.blank? %>
+  <%= user_followed_user.followed_user.name %>
+  <%= link_to 'Destroy', user_followed_user_path(user_followed_user), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
 <script>
+
+$(document).on('click', '#follow-user-btn',function(){
+  var user_id = $(this).attr('user-id');
+  var user_name = '<%= @user.name %>';
+  $.post('/user_followed_user', {"user_followed_users[followed_user_id]": user_id},
+    function(response){
+      var user_followed_user = response["user_followed_user"];
+      console.log(user_followed_user["id"]);
+      var user_followed_user_id = user_followed_user["id"];
+      $('#follow-user-btn').remove();
+      $('<a id="unfollow-user-btn" ufui="' + user_followed_user_id +'">Unfollow</a>').appendTo('#follow-unfollow-btn');
+      flash.success('成功追蹤' + user_name);
+
+    })
+  // Post End
+})
+
+$(document).on('click', '#unfollow-user-btn',function(){
+  var user_followed_user_id = $(this).attr('ufui');
+  $.ajax({
+    url:'/user_followed_user/' + user_followed_user_id,
+    type: 'DELETE',
+    success: function(response) {
+      var user_id = '<%= @user.id %>';
+      $('#unfollow-user-btn').remove();
+      $('<a id="follow-user-btn" user-id="' + user_id +'">Follow</a>').appendTo('#follow-unfollow-btn');
+      flash.success('已經取消追蹤');
+    }
+  })
+})
 
 //
 // 製作當滑鼠移到 td 上方時，底下被選的課程會從原本被堆疊的狀態展開。
