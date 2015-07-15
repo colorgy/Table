@@ -636,6 +636,7 @@ $(document).on({
 
 
 $(document).on('click', '.simulator-table-course', function(){
+  $('#preloader-wrapper').addClass('active');
   var course_code = $(this).attr('icd');
   var item_id = $(this).attr('iid');
   var school_code = '<%= current_user.organization_code.downcase %>';
@@ -674,11 +675,13 @@ $(document).on('click', '.simulator-table-course', function(){
 
       $('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
     })
+    $('#preloader-wrapper').removeClass('active');
   });
 });
 
 
 $(document).on('click', '.add-to-simulator', function(){
+  $('#preloader-wrapper').addClass('active');
   course_code = $(this).siblings('.course-id').attr('cid');
   var ifReselect = true;
 
@@ -787,13 +790,14 @@ $(document).on('click', '.add-to-simulator', function(){
 
 
 
-
+        $('#preloader-wrapper').removeClass('active');
         CourseConflictTest();
         CourseCreditsCounter();
 
     })
 
   }else{
+    $('#preloader-wrapper').removeClass('active');
     flash.error('這堂課已經在你的課表內囉！');
   }
 
@@ -820,7 +824,8 @@ $(document).on('click','#modal-del-btn' , function() {
 });
 
 $(document).on('click','.remove-hasselect-course' , function() {
-     //code here ....
+
+  $('#preloader-wrapper').addClass('active');   
   item_id = $(this).siblings('.item-id').attr('iid');
   $.ajax({
     url:'/courses_simulator/' + item_id,
@@ -832,6 +837,7 @@ $(document).on('click','.remove-hasselect-course' , function() {
       console.log(item);
       $('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
       $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
+      $('#preloader-wrapper').removeClass('active');
       flash.success('這堂課已經移出課表！');
       CourseConflictTest();
       CourseCreditsCounter();
@@ -842,6 +848,7 @@ $(document).on('click','.remove-hasselect-course' , function() {
 
 
 $('#course-searchbox').on('input', function(){
+  $('#preloader-wrapper').addClass('active');
   var keyword = $('#course-searchbox').val();
   var search_method = $('#search-method-select option:selected').attr('value');
   var school_code = '<%= current_user.organization_code.downcase %>';
@@ -849,11 +856,13 @@ $('#course-searchbox').on('input', function(){
   console.log(search_method);
 
   if (school_code == '') {
+    $('#preloader-wrapper').removeClass('active');
     flash.error('請先選擇學校');
   }else{
 
     if(keyword == ''){
       $('.simulator-search-result').children('.course-select-item').remove();
+      $('#preloader-wrapper').removeClass('active');
     }
     else{
 
@@ -883,10 +892,12 @@ $('#course-searchbox').on('input', function(){
               '<div class="course-credits">' + course.credits + '</div>'+
               '<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
               '<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
+           $('#preloader-wrapper').removeClass('active');
         }
       })
       .fail(function() {
-        alert( "error" );
+        flash.error( "連結資料庫失敗，請確認自己的網路或是回報錯誤給 Colorgy ，如造成任何不便我們很抱歉。" );
+        $('#preloader-wrapper').removeClass('active');
       })
     }
     
