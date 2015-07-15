@@ -48,16 +48,7 @@
 <div class="container-fuild" style="padding-top: 35px;">
   <div class="row">
     <div class="col m2 s12 simulator-fixed" dataPage="mobile" id="select-page">
-      <form class="school-select-form">
-        <select class="browser-default">
-          <option value="" disabled selected>選擇學校</option>
-          <option value="1">台灣科技大學</option>
-          <option value="2">台灣大學</option>
-          <option value="3">清華大學</option>
-          <option value="3">交通大學</option>
-          <option value="3">政治大學</option>
-        </select>
-      </form>
+      <p>你的學校是： <%= current_user.organization_code %></p>
 
       <div class="page-slider" style="margin-top: 24px;">
         <!--
@@ -72,8 +63,15 @@
             <div class="simulator-sidebar-inner">
               <div class="course-search-field">
                 <div class="course-search-field-inner">
+                  <form class="search-method-select-form">
+                    <select class="browser-default" id="search-method-select">
+                      <option value="name" selected>課程名稱搜尋</option>
+                      <option value="lecturer">老師名字搜尋</option>
+                      <option value="general_code">課程代碼搜尋</option>
+                    </select>
+                  </form>
                   <form class="course-search-form">
-                    <input id="course-searchbox" class="course-searchbox" type="search" placeholder="搜尋課名、代碼、老師名">
+                    <input id="course-searchbox" class="course-searchbox" type="search" placeholder="選擇上方搜尋方式並輸入關鍵字">
                     <label for="course-searchbox">
                       <i class="material-icons">search</i>
                     </label>
@@ -487,7 +485,9 @@ function splitACourse() {
   var courseHasselectItem = $('.course-hasselect-item');
   courseHasselectItem.each(function(){
     var course_code = $(this).children(".item-course-id").attr('icd');
-    var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+    var school_code = '<%= current_user.organization_code.downcase %>';
+
+    var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code
     $.get(getCourseUri, function(course_response){
       var course = course_response[0];
@@ -507,8 +507,9 @@ function splitACourse() {
 
   var courseItem = $('.course-hasselect-item');
   courseItem.each(function(){
+    var school_code = '<%= current_user.organization_code.downcase %>';
     var course_code = $(this).children(".item-course-id").attr('icd');
-    var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+    var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code;
     var item_id = $(this).children('.item-id').attr('iid');
 
@@ -601,7 +602,8 @@ $(document).on({
     mouseenter: function () {
         //stuff to do on mouse enter
         course_code = $(this).children('.course-id').attr('cid');
-        var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+        var school_code = '<%= current_user.organization_code.downcase %>';
+        var getCourseUri = 'https://colorgy.io/api/v1/' + school_code + '/courses.json?' +
         'filter[code]=' + course_code;
     $.get(getCourseUri, function(course_response){
 
@@ -636,7 +638,8 @@ $(document).on({
 $(document).on('click', '.simulator-table-course', function(){
   var course_code = $(this).attr('icd');
   var item_id = $(this).attr('iid');
-  var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+  var school_code = '<%= current_user.organization_code.downcase %>';
+  var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
       'filter[code]=' + course_code;
   $.get(getCourseUri , function(course_response){
     var course = course_response[0]
@@ -694,8 +697,9 @@ $(document).on('click', '.add-to-simulator', function(){
         //var counter = course_times.length;
         var item = response["item"];
         var item_id = item["id"];
+        var school_code = '<%= current_user.organization_code.downcase %>';
 
-        var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
+        var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code;
 
         $.get(getCourseUri , function(course_response){
@@ -835,45 +839,59 @@ $(document).on('click','.remove-hasselect-course' , function() {
   })
 });
 
+
+
 $('#course-searchbox').on('input', function(){
   var keyword = $('#course-searchbox').val();
+  var search_method = $('#search-method-select option:selected').attr('value');
+  var school_code = '<%= current_user.organization_code.downcase %>';
 
-  if(keyword == ''){
-    $('.simulator-search-result').children('.course-select-item').remove();
-  }
-  else{
+  console.log(search_method);
 
-    var uri = 'https://colorgy.io:443/api/ntust/courses.json?filter[year]=2015&filter[term]=1&'
-    + 'filter[name]=like(%' + keyword + '%)';
-    var encode_uri = encodeURI(uri);
+  if (school_code == '') {
+    flash.error('請先選擇學校');
+  }else{
 
-    $.get( encode_uri , function(response){
-      var counter = response.length - 1;
+    if(keyword == ''){
       $('.simulator-search-result').children('.course-select-item').remove();
-      for( i=0 ; i <= counter ; i++ ){
-        var course = response[i];
-        var course_name = course.name;
-        var lecturer_name = course.lecturer;
-        var course_code = course.general_code;
-        var course_credits = course.credits;
-        var course_id = course.code;
+    }
+    else{
 
-         $('<div class="course-select-item">' +
-            '<div class="name">' + course_name + '</div>' +
-            '<div class="lecturer">' + lecturer_name +'</div>' +
-            '<div class="course-code">' + course_code + '</div>' +
-            '<br>' +
-            '<div class="course-time">c.course_time</div>' +
-            '<div class="course-location">c.location</div>' +
-            '<div class="course-credits">' + course.credits + '</div>'+
-            '<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
-            '<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
-      }
-    })
-    .fail(function() {
-      alert( "error" );
-    })
+      var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
+      + 'filter['+ search_method +']=like(%' + keyword + '%)';
+      console.log(uri);
+      var encode_uri = encodeURI(uri);
+
+      $.get( encode_uri , function(response){
+        var counter = response.length - 1;
+        $('.simulator-search-result').children('.course-select-item').remove();
+        for( i=0 ; i <= counter ; i++ ){
+          var course = response[i];
+          var course_name = course.name;
+          var lecturer_name = course.lecturer;
+          var course_code = course.general_code;
+          var course_credits = course.credits;
+          var course_id = course.code;
+
+           $('<div class="course-select-item">' +
+              '<div class="name">' + course_name + '</div>' +
+              '<div class="lecturer">' + lecturer_name +'</div>' +
+              '<div class="course-code">' + course_code + '</div>' +
+              '<br>' +
+              '<div class="course-time">c.course_time</div>' +
+              '<div class="course-location">c.location</div>' +
+              '<div class="course-credits">' + course.credits + '</div>'+
+              '<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
+              '<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
+        }
+      })
+      .fail(function() {
+        alert( "error" );
+      })
+    }
+    
   }
+
 });
 
 $(document).mousemove(function(e){

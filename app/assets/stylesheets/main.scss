@@ -35,10 +35,11 @@ i{
 	margin: 0 auto;
 }
 .course-searchbox{
-	border: 1px transparent solid !important;
-	height: 2.5rem !important;
+	border: 1px rgb(211, 210, 210) solid !important;
+	height: 30px !important;
 	padding-left: 10px !important;
 	background-color: #fff !important;
+	border-radius: 5px !important;
 	&:focus{
 		border: 1px solid $primary-color !important;
 		box-shadow: none !important;
@@ -774,9 +775,14 @@ i.mdi-content-clear {
 .tabs .tab{
 	border-radius: 15px 3px 0 0;
 }
-.school-select-form{
+.search-method-select-form{
+	width: 100%;
+	margin-bottom: 8px;
+
 	> select {
 		border: 1px solid #d3d2d2;
+		height: 32px;
+		color: #717071;
 	}
 }
 .spinner-red-only{
@@ -797,12 +803,12 @@ i.mdi-content-clear {
 	position: relative;
 	> .course-searchbox{
 		padding-left: 32px !important;
-		width: calc(100% - 32px ) !important;
+		width: calc(100% - 34px ) !important;
 	}
 	> label{
 		position: absolute;
-		top: 9px;
-		left: 9px;
+		top: 7px;
+		left: 7px;
 	}
 }
 .simulator-help-btn{
