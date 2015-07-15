@@ -5,14 +5,19 @@
                 <li>
                   <a href="https://colorgy.io">回 Colorgy 首頁</a>
                 </li>
+                <% if current_user.blank? %>
+                <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
+                <% else %>
                 <li>
-                  <a href="#">
-                    常見問題
+                  <a href="<%= user_path(current_user.id) %>">
+                    個人頁面
                   </a>
                 </li>
-                <% if current_user.blank? %>
-                <li><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
-                <% else %>
+                <li>
+                  <a href="<%= user_followed_user_index_path %>">
+                    我追蹤的同學
+                  </a>
+                </li>
                 <li class="nav-bar-drop-down">
                   <a href="">
                     Hi, <%= current_user.name %><i class="material-icons list-icon">expand_more</i>
@@ -32,10 +37,16 @@
       <a href="<%= root_path %>" class="brand-logo"><%= image_tag('TABLE.svg') %></a>
       <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">dehaze</i></a>
       <ul class="right hide-on-med-and-down main-nav">
-        <li class="group-up">
+        <li>
           <a href="<%= courses_simulator_index_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊選課、排課，然後看有哪些同學跟你一起上課唷！">
             <i class="material-icons list-icon">dashboard</i>
             我要排課
+          </a>
+        </li>
+        <li>
+          <a href="<%= users_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊尋找各校的同學，看他們選了哪些課或是追蹤他們唷！">
+            <i class="material-icons list-icon">face</i>
+            找同學們
           </a>
         </li>
         <li>
@@ -53,7 +64,7 @@
       <ul class="side-nav" id="mobile-demo">
 
         <% if current_user.blank? %>
-          <li><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
+          <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
         <% else %>
           <li id="personal-menu">
             <div class="personal-avatar"><%= image_tag current_user.avatar_url %></div>
@@ -73,6 +84,7 @@
           </ul>
         <% end %>
         <li><a href="<%= courses_simulator_index_path %>">我要排課</a></li>
+        <li><a href="<%= users_path %>">找同學們</a></li>
         <li><a href="<%= app_path %>">APP 下載</a></li>
         <li><a href="<%= sign_out_url %>">登出</a></li>
       </ul>
@@ -89,5 +101,8 @@
     else{
       $('.personal-menu-trigger').html('keyboard_arrow_down');
     }
+  })
+  $('.login-btn').click(function(){
+    $('#perloader-wrapper').addClass('active');
   })
 </script>
