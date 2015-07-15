@@ -1,13 +1,50 @@
-<div style="padding-top: 100px;">
-<% @user.each do |u| %>
-	<%= u.name %>
-	<% if !current_user.followed_users.include?(u) %>
-		<%= link_to 'Follow', user_followed_user_index_path('user_followed_users[followed_user_id]' => u.id), method: :post %>
-	<% end %>
-<% end %>
-<% @user_followed_users.each do |user_followed_user| %>
-	<% next if user_followed_user.followed_user.blank? %>
-	<%= user_followed_user.followed_user.name %>
-	<%= link_to 'Destroy', user_followed_user_path(user_followed_user), method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
-</div>
+<%= javascript_include_tag 'pages' %>
+<section class="user-panel">
+  <div class="cover-photo" style="background-image: url('<%= current_user.cover_photo_url %>');">
+    <div class="user-info">
+      <div class="avatar" id="user-avatar">
+        <%= image_tag current_user.avatar_url %>
+      </div>
+      <h4 class="user-name"><%= current_user.name %></h4>
+    </div>
+  </div>
+  <div class="actions-bar">
+    <div class="inner">
+      <ul class="pull-right">
+        <li><a href="<%= user_path(@current_user.id) %>"><i class="material-icons list-icon">arrow_back</i>回個人頁面</a></li>
+        <li><a>Facebook</a></li>
+      </ul>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+  <div class="user">
+    <div class="row">
+      <div class="col m12 s12">
+        <div class="current-user-followed-users isotope">
+          <div class="grid-sizer"></div>
+          <% @user_followed_users.each do |user_followed_user| %>
+            <% next if user_followed_user.followed_user.blank? %>
+            <div class="followed-user-item">
+              <div class="followed-user-item-avatar">
+                <%= image_tag user_followed_user.followed_user.avatar_url  %>
+              </div>
+              <%= user_followed_user.followed_user.name %>
+              <%= link_to 'Destroy', user_followed_user_path(user_followed_user), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  $( function() {
+    // init Isotope
+    var $container = $('.isotope').imagesLoaded(function(){
+      $container.isotope({
+        itemSelector: '.followed-user-item',
+        columnWidth: '.grid-sizer',
+      });
+    });
+  })
+</script>
