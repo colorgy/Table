@@ -25,11 +25,13 @@
           <% @user_followed_users.each do |user_followed_user| %>
             <% next if user_followed_user.followed_user.blank? %>
             <div class="followed-user-item">
-              <div class="followed-user-item-avatar">
-                <%= image_tag user_followed_user.followed_user.avatar_url  %>
-              </div>
-              <%= user_followed_user.followed_user.name %>
-              <%= link_to 'Destroy', user_followed_user_path(user_followed_user), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <a href="<%= user_path(user_followed_user.followed_user) %>">
+                <div class="followed-user-item-avatar">
+                  <%= image_tag user_followed_user.followed_user.avatar_url  %>
+                </div>
+                <%= user_followed_user.followed_user.name %>
+                <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>">取消追蹤</a>
+              </a>
             </div>
           <% end %>
         </div>
@@ -46,5 +48,16 @@
         columnWidth: '.grid-sizer',
       });
     });
+  })
+  $(document).on('click', '.unfollow-user-btn',function(){
+    var user_followed_user_id = $(this).attr('ufui');
+    $.ajax({
+      url:'/user_followed_user/' + user_followed_user_id,
+      type: 'DELETE',
+      success: function(response) {
+        //flash.success('已經取消追蹤');
+        location.reload();
+      }
+    })
   })
 </script>

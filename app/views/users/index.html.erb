@@ -13,16 +13,16 @@
         <div class="card-action">
           <% if current_user.id == user.id %>
           <% else %>
-            <% if !current_user.followed_users.include?(@user) %>
-              <a id="follow-user-btn" user-id="<%= user.id %>" user-name="<%= user.name %>"><i class="material-icons">favorite_border</i></a>
+            <% if !current_user.followed_users.include?(user) %>
+              <a class="follow-user-btn" user-id="<%= user.id %>"><i class="material-icons">favorite_border</i></a>
             <% else %>
               <% @user_followed_users.each do |user_followed_user| %>
-                <% if user_followed_user.followed_user_id == @user.id  %>
-                  <a id="unfollow-user-btn" ufui="<%= user_followed_user.id %>"><i class="material-icons">favorite</i></a>
+                <% if user_followed_user.followed_user_id == user.id  %>
+                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>"><i class="material-icons">favorite</i></a>
                 <% end %>
               <% end %>
             <% end %>
-          <% end %>  
+          <% end %>
           <a href="<%= user_path(user) %>"><i class="material-icons">forward</i></a>
         </div>
       </div>
@@ -30,30 +30,29 @@
   </div>
 </section>
 <script>
-  $(document).on('click', '#follow-user-btn',function(){
+  $(document).on('click', '.follow-user-btn',function(){
     var user_id = $(this).attr('user-id');
-    var user_name = $(this).attr('user-name');
     $.post('/user_followed_user', {"user_followed_users[followed_user_id]": user_id},
       function(response){
         var user_followed_user = response["user_followed_user"];
         console.log(user_followed_user["id"]);
         var user_followed_user_id = user_followed_user["id"];
         var followed_user_id = user_followed_user["followed_user_id"];
-        $('#follow-user-btn').replaceWith('<a id="unfollow-user-btn" ufui="' + user_followed_user_id + '" user-id="' + followed_user_id +'"><i class="material-icons">favorite</i></a>').appendTo('#follow-unfollow-btn');
-        flash.success('成功追蹤' + user_name);
+        $('a[user-id="' + user_id + '"]').replaceWith('<a class="unfollow-user-btn" ufui="' + user_followed_user_id + '" user-id="' + followed_user_id +'"><i class="material-icons">favorite</i></a>');
+        flash.success('成功追蹤');
 
       })
     // Post End
   })
 
-  $(document).on('click', '#unfollow-user-btn',function(){
+  $(document).on('click', '.unfollow-user-btn',function(){
     var user_followed_user_id = $(this).attr('ufui');
     var user_id = $(this).attr('user-id');
     $.ajax({
       url:'/user_followed_user/' + user_followed_user_id,
       type: 'DELETE',
       success: function(response) {
-        $('#unfollow-user-btn').replaceWith('<a id="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a>');
+        $('a[user-id="' + user_id +'"]').replaceWith('<a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a>');
         flash.success('已經取消追蹤');
       }
     })
