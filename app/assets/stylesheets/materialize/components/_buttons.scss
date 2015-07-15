@@ -13,6 +13,9 @@
   // Gets rid of tap active state
   -webkit-tap-highlight-color: transparent;
 }
+.btn{
+	text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+}
 // Disabled shared style
 .btn.disabled, .btn-floating.disabled, .btn-large.disabled, .btn:disabled, .btn-large:disabled, .btn-floating:disabled {
   background-color: $button-bg-color-disabled !important;

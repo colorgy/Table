@@ -32,7 +32,7 @@ $badge-bg-color: $secondary-color !default;
 
 /*** Buttons ***/
 $button-bg-color-disabled: #DFDFDF !default;
-$button-color: $primary-color !default;
+$button-color: $secondary-color !default;
 $button-color-disabled: #9F9F9F !default;
 $button-color-flat: #222 !default;
 $button-color-raised: #fff !default;
@@ -118,7 +118,7 @@ $navbar-height: 64px !default;
 $navbar-height-mobile: 56px !default;
 $navbar-font-color: #fff !default;
 $navbar-brand-font-size: 2.1rem !default;
-$navbar-top-bar-bg-color : #000 !default;
+$navbar-top-bar-bg-color : #444 !default;
 
 /*** SideNav ***/
 $sidenav-bg-color: rgba(0,0,0,.5) !default;

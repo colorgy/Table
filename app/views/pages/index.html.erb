@@ -1,2 +1,293 @@
-<h1>我是首頁</h1>
-<h2>之後再做</h2>
+<%= stylesheet_link_tag 'pages' %>
+<%= javascript_include_tag 'pages' %>
+<header>
+  <div class="header-mask"></div>
+  <div class="header-slogan">
+    <h2>安排你的課表並查看一起上課的同學</h2>
+    <p>搶先體驗專屬學生的各種便利服務</p>
+  </div>
+  <div class="header-call-to-action">
+      <a href="https://colorgy.io/login" class="btn btn--large">立即註冊 / 登入</a>
+      <!--<p><div class="fb-page" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true" data-show-posts="false"></div></p>-->
+  </div>
+  <div class="row row-inner-s" style="margin-top: 48px;">
+    <div class="col m4 s12">
+      <div class="service">
+        <i class="material-icons">dashboard</i>
+        <p>模擬你的選課</p>
+        <small>還在用紙筆安排你的課表嗎？簡單搜尋課程並直接加入你的課表吧！</small>
+      </div>
+    </div>
+    <div class="col m4 s12">
+      <div class="service">
+        <i class="material-icons">face</i>
+        <p>尋找一起上課的同學</p>
+        <small>想知道跟你一起上課的有誰嗎？想知道心儀的對象或是厲害的學長姐都修什麼課嗎？</small>
+      </div>
+    </div>
+    <div class="col m4 s12">
+      <div class="service">
+        <i class="material-icons">person_add</i>
+        <p>蒐集想要關注的對象</p>
+        <small>關注你想要關注的人，加入你的關注清單！</small>
+      </div>
+    </div>
+  </div>
+  <div class="slideshow-3d" style="display:none;">
+    <div class="slideshow-3d-inner">
+      <div class="layer layer1">
+        <%= image_tag('table-img.png') %>
+      </div>
+      <div class="layer layer2">
+        <%= image_tag('books-img.png') %>
+      </div>
+      <div class="layer layer3">
+        <%= image_tag('paper-img.png') %>
+      </div>
+    </div>
+  </div>
+  <div class="arrow-down">
+    <i class="material-icons">keyboard_arrow_down</i></br>
+    <i class="material-icons" style="margin-top: -20px;">keyboard_arrow_down</i>
+  </div>
+</header>
+<section id="colorgy-table-section" class="colorgy-table-section service-intro-box table">
+  <div class="container">
+    <div class="row">
+      <div class="col m6 s12">
+        <div class="info table" id="table-anchor">
+          <div class="title table">
+            <h3>TABLE 行動課程表</h3>
+          </div>
+          <p class="description">排課表、課程提醒、課堂聊天室</p>
+          <p>
+            <span class="sub-title"><i class="material-icons">view_quilt</i><font style="font-weight:700;">排課表</font></span>
+            同步各校課程資料，告訴你哪些課衝堂了，還能看到哪些帥哥美女選了什麼課，選完課匯入到 TABLE APP 帶著走，選課排課更輕鬆</br></br>
+            <span class="sub-title"><i class="material-icons">phonelink_ring</i><font style="font-weight:700;">課程提醒</font></span>
+            常常忘了在哪上課、老師是誰嗎？讓 Table 隨時提醒你，找教室沒煩惱</br></br>
+            <span class="sub-title"><i class="material-icons">chat</i><font style="font-weight:700;">課堂聊天室</font></span>
+            想跟同一堂課的同學們聊天嗎？課程聊天室讓你上課不再無聊，討論報告、上課內容更容易。</br></br>
+          </p>
+          <div class="call-to-action">
+            <a href="https://colorgy.io/login" class="btn">立即註冊</a>
+          </div>
+        </div>
+      </div>
+      <div class="col m6 s12">
+        <div class="box-image table">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="cooperating-departments" class="cooperating-departments">
+  <div class="container">
+    <div class="row">
+      <div class="col m12 s12">
+        <h4>全台灣超過<span> 60 個系會</span> 跟 Colorgy 合作</h4>
+        <p>強烈徵求各大學系會與我們合作，和我們ㄧ起努力，讓大學教科書市場越來越透明！<br>如果需要任何Colorgy的服務，也歡迎聯繫，讓我們了解你的需求！</p>
+        <a href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank"><button class="btn" style="margin-top: 24px;">聯絡 Colorgy</button></a>
+        <!--
+        <div class="departments isotope">
+          <div class="grid-sizer"></div>
+          <div class="element-item department-item">
+            <div class="department-logo">
+              <%= image_tag('departments/ncku-cs.jpg') %>
+            </div>
+            <p class="department-name"></p>
+          </div>
+          <div class="element-item department-item">
+            <div class="department-logo">
+              <%= image_tag('departments/ncku-ba.jpg') %>
+            </div>
+            <p class="department-name"></p>
+          </div>
+          <div class="element-item department-item">
+            <div class="department-logo">
+              <%= image_tag('departments/ncku-es.jpg') %>
+            </div>
+            <p class="department-name"></p>
+          </div>
+          <div class="element-item department-item">
+            <div class="department-logo">
+              <%= image_tag('departments/ncku-me.jpg') %>
+            </div>
+            <p class="department-name"></p>
+          </div>
+        </div>
+        -->
+        <div class="departments isotope">
+          <div class="departments-list element-item">
+            <h5>台科大</h5>
+            <ul>
+              <li>電機系</li>
+              <li>電子系</li>
+              <li>機械系</li>
+              <li>企管系</li>
+              <li>資工系</li>
+              <li>化工系</li>
+              <li>營建系</li>
+              <li>資管系</li>
+              <li>工管系</li>
+              <li>電資學士班</li>
+              <li>工程學士班</li>
+              <li>管理學士班</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>成大</h5>
+            <ul>
+              <li>學生會</li>
+              <li>電機系</li>
+              <li>資工系</li>
+              <li>數學系</li>
+              <li>光電系</li>
+              <li>機械系</li>
+              <li>土木系</li>
+              <li>船舶系</li>
+              <li>測量系</li>
+              <li>企管系</li>
+              <li>資源系</li>
+              <li>會計系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>交大</h5>
+            <ul>
+              <li>學生會</li>
+              <li>電工系</li>
+              <li>土木系</li>
+              <li>外語系</li>
+              <li>應用數學系</li>
+              <li>應用化學系</li>
+              <li>電子物理學系</li>
+              <li>運輸與物流管理學系</li>
+              <li>工業工程與管理學系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>中央</h5>
+            <ul>
+              <li>學生會</li>
+              <li>電機系</li>
+              <li>化材系</li>
+              <li>物理系</li>
+              <li>化學系</li>
+              <li>光電系</li>
+              <li>機械系</li>
+              <li>企管系</li>
+              <li>財金系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>中山</h5>
+            <ul>
+              <li>學生會</li>
+              <li>電機系</li>
+              <li>機電系</li>
+              <li>企管系</li>
+              <li>資管系</li>
+              <li>光電系</li>
+              <li>材光系</li>
+              <li>海科系</li>
+              <li>海工系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>台大</h5>
+            <ul>
+              <li>資工系</li>
+              <li>國企系</li>
+              <li>工管系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>清大</h5>
+            <ul>
+              <li>電機系</li>
+              <li>動機系</li>
+              <li>物理系</li>
+              <li>材料系</li>
+              <li>財金系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>中興</h5>
+            <ul>
+              <li>資工系</li>
+              <li>企管系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>中正</h5>
+            <ul>
+              <li>電機系</li>
+            </ul>
+          </div>
+          <div class="departments-list element-item">
+            <h5>政大</h5>
+            <ul>
+              <li>企管系</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="keep-mention" class="keep-mention">
+  <div class="container">
+    <div class="row" style="margin-bottom: -6px;">
+      <div class="col m7 s12">
+        <div class="text">
+          <h4>隨時保持關注</h4>
+          <p>我們的服務即將於 2015 年 8 月全面啟動，<br>想要關注 Colorgy 的動態消息，你可以按 <a href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">Colorgy 粉絲專頁</a>讚、<a href="https://colorgy.io/login">註冊登入</a>成會員，或是下載我們的 TABLE APP ，我們會發送推播消息給你。</p>
+          <div class="buttons">
+            <a class="ios-download" href="https://itunes.apple.com/tw/app/colorgytable/id998230121?l=zh&mt=8" target="_blank"><%= image_tag('appstore.png') %></a>
+          </div>
+        </div>
+      </div>
+      <div class="col m5 s12">
+        <div class="app-img">
+          <%= image_tag ('app-index.png') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="sign-up-section" class="sign-up-section">
+  <div class="container">
+    <div class="row">
+      <div class="col m12 s12">
+        <h4>免費註冊登入</h4>
+        <p>你還在等什麼？快點體驗 Colorgy 吧！</p>
+        <a href="https://colorgy.io/login" class="btn btn--extralarge">註冊 / 登入</a>
+        <p><div class="fb-page" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true" data-show-posts="false"></div></p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  $( function() {
+    // init Isotope
+    var $container = $('.isotope').imagesLoaded(function(){
+      $container.isotope({
+        itemSelector: '.element-item',
+        columnWidth: '.grid-sizer',
+      });
+    });
+  })
+
+  $(window).scroll(function(){
+    var window_height = $(window).height();
+    var window_pos = $(window).scrollTop() + window_height;
+    var table_pos = $('#table-anchor').offset().top;
+
+    if( window_pos > table_pos ){
+      $('.info.table').addClass('active');
+      $('.box-image.table').addClass('active');
+    }
+
+  })
+</script>

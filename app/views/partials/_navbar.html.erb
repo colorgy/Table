@@ -3,6 +3,9 @@
         <div class="top-bar">
             <ul>
                 <li>
+                  <a href="https://colorgy.io">回 Colorgy 首頁</a>
+                </li>
+                <li>
                   <a href="#">
                     常見問題
                   </a>
@@ -17,7 +20,7 @@
                   </a>
                   <ul class="drop-down-list">
                     <li>
-                      <a>登出</a>
+                      <a href="<%= sign_out_url %>">登出</a>
                     </li>
                   </ul>
                 </li>
@@ -31,13 +34,13 @@
       <ul class="right hide-on-med-and-down main-nav">
         <li class="group-up">
           <a href="<%= courses_simulator_index_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊選課、排課，然後看有哪些同學跟你一起上課唷！">
-            <i class="material-icons list-icon">send</i>
+            <i class="material-icons list-icon">dashboard</i>
             我要排課
           </a>
         </li>
         <li>
-          <a href="<%= app_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！">
-            <i class="material-icons list-icon">view_list</i>
+          <a href="<%= app_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="下載 APP 版的 TABLE ，把課表帶著走吧！">
+            <i class="material-icons list-icon">phone_iphone</i>
             APP 下載
           </a>
         </li>
@@ -71,7 +74,7 @@
         <% end %>
         <li><a href="<%= courses_simulator_index_path %>">我要排課</a></li>
         <li><a href="<%= app_path %>">APP 下載</a></li>
-        <li><a>登出</a></li>
+        <li><a href="<%= sign_out_url %>">登出</a></li>
       </ul>
       <div class="clear" style="clear:both;"></div>
     </div>
