@@ -83,6 +83,17 @@ i{
 			margin-bottom: 8px;
 			color: #fff;
 
+			&:hover{
+				.remove-hasselect-course i{
+					color: #E76E5A;
+					transform: scale(1.3);
+					-webkit-transform: scale(1.3);
+					-o-transform: scale(1.3);
+					-moz-transform: scale(1.3);
+					-ms-transform: scale(1.3);
+				}
+			}
+
 			.name{
 				font-size: 1em;
 				font-weight: 500;
@@ -124,7 +135,8 @@ i{
 				border-left: 40px #D8D8D8 solid !important ;
 
 				> i{
-					color: #E76E5A;
+					color: $primary-color;
+					@include transition-all(0.5s);
 				}
 			}
 			> .credits {
@@ -155,6 +167,17 @@ i{
 		-webkit-filter: grayscale(90%);
 		-o-filter: grayscale(90%);
 		-moz-filter: grayscale(90%);
+	}
+
+	&:hover{
+		.add-to-simulator i{
+			transform: scale(1.4);
+			-webkit-transform: scale(1.4);
+			-moz-transform: scale(1.4);
+			-o-transform: scale(1.4);
+			-ms-transform: scale(1.4);
+			color: #E76E5A;
+		}
 	}
 
 	> .name{
@@ -209,7 +232,8 @@ i{
 		font-size: 2em;
 
 		> i {
-			color: #E76E5A;
+			color: $primary-color;
+			@include transition-all(0.5s);
 		}
 	}
 	> .course-credits {
@@ -900,3 +924,67 @@ i.mdi-content-clear {
 		}
 	}
 }
+
+.preloader-wrapper{
+  position: fixed !important;
+  right: 30px;
+  top: 120px;
+  z-index: 1000;
+}
+
+.current-user-followed-users{
+	max-width: 880px;
+	margin: 16px auto;
+}
+
+.users-search-result{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+.user-item{
+	margin: 1%;
+	.user-info{
+		background-color: rgba(30,30,30,.5);
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding: 8px !important;
+		font-size: 1.2em !important;
+	}
+
+	.card-action{
+		text-align: right;
+		padding: 8px;
+		> a{
+			margin-right: 0;
+			margin-left: 8px;
+			> i{
+				font-size: 24px !important;
+			}
+		}
+	}
+}
+
+/* Isotope */
+/* clear fix */
+.isotope:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+/* ---- .element-item ---- */
+.grid-sizer{
+  width: 18%;
+}
+.followed-user-item{
+	margin: 1%;
+	> .followed-user-item-avatar{
+
+	}
+}
+
+
+@media screen and (min-width: 1425px ){  .followed-user-item { width: 23%; } .user-item{ width: 18%; } }
+@media (max-width: 1425px ) and (min-width: 800px ){ .followed-user-item, .user-item{ width: 23%; } }
+@media (max-width: 800px ) and (min-width: 320px ){ .followed-user-item, .user-item{ width: 48%; } }
+@media screen and (max-width: 508px){  .followed-user-item, .user-item{ width: 48%; } }
