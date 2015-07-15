@@ -222,11 +222,6 @@
 	</div>
 </div>
 
-<% @user_followed_users.each do |user_followed_user| %>
-  <% next if user_followed_user.followed_user.blank? %>
-  <%= user_followed_user.followed_user.name %>
-  <%= link_to 'Destroy', user_followed_user_path(user_followed_user), method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
 
 <script>
 
