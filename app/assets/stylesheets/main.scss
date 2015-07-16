@@ -60,6 +60,17 @@ i{
 		overflow-y: auto;
 	}
 }
+.simulator-search-result-blank-message {
+  text-align: left;
+  padding: 0 16px;
+  font-size: 1em;
+  color: #333;
+}
+.colorgy-fans-page-link{
+	color: $primary-color;
+	font-weight: 700;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
 .course-hasselect-field{
 
 	> .course-hasselect-field-inner{
@@ -640,7 +651,7 @@ a:hover{
 //	min-width: 270px;
 	right: 0;
 	top: 0;
-	background-color: $primary-color !important;
+	background-color: #F4F4F4 !important;
 	@include transition-all(0.5s);
 	border-radius: 4px;
 	padding: 24px 16px;
@@ -651,9 +662,9 @@ a:hover{
 		position: absolute;
 		left: -8px;
 		top: -16px;
-		background-color: rgb(244, 244, 244);
+		background-color: #FAB2A6;
 		padding: 4px 16px;
-		color: #717071;
+		color: #fff;
 		border-radius: 2px;
 		font-size: 14px;
 		box-shadow: 1px 1px 1px rgba(0,0,0,.2);
@@ -934,6 +945,7 @@ i.mdi-content-clear {
 
 .current-user-followed-users{
 	max-width: 880px;
+	min-height: 250px;
 	margin: 16px auto;
 }
 
@@ -963,6 +975,14 @@ i.mdi-content-clear {
 			}
 		}
 	}
+}
+
+.follow-user-btn{
+	cursor: pointer;
+}
+
+.unfollow-user-btn{
+	cursor: pointer;
 }
 
 /* Isotope */
