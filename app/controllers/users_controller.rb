@@ -13,4 +13,21 @@ class UsersController < ApplicationController
       @user_followed_users = current_user.user_followed_users
     end
   end
+
+  def search
+    name = "%" + params[:name] + "%"
+    @found_user = User.where("name LIKE ?", name)
+
+    respond_to do |format|
+      if @found_user
+        format.json { render json:
+          {
+            found_user: @found_user
+          }
+        }
+      else
+        format.json {render json: { status: "failed" }}
+      end
+    end
+  end
 end
