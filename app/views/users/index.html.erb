@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'pages' %>
 <section class="users">  
   <div class="search-bar search-bar--center" style="margin: 16px auto; text-align:center;">
-    <form class="user-search-form">
+    <form class="user-search-form" action="/search-users" method="get" id="chat_form">
       <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字並按下 '搜尋'">
       <label for="user-searchbox" class="active">
         <i class="material-icons">search</i>
@@ -94,39 +94,57 @@
       });
     });
     // End init
-    $('#remove-first').on('click', function(){
-      $container.isotope( 'remove', $('.user-item') ).isotope('layout');
-    })
-    /*
-    $container.on( 'click', '.user-item', function() {
-      // remove clicked element
-      $container.isotope( 'remove', this )
-      // layout remaining item elements
-        .isotope('layout');
-    });
-    */
 
-    $('#search-btn').click(function(){
+
+    // Search Functions
+
+    function GetUserSearchResult(event, keyword){
+        
+        var encode_uri = '/search-users?name=' + keyword;
+        //var encode_uri = encodeURI(uri);
+        $.get( encode_uri , function(user_response){
+            var user = user_response["found_user"];
+            var user_counts = user_response["found_user"].length;
+            $container.isotope( 'remove', $('.user-item') ).isotope('layout');
+            for( i=0 ; i<=user_counts-1 ; i++){
+              var current_user_id = parseInt('<%= current_user.id %>');
+              var user_id = user[i].id;
+              var user_name = user[i].name;
+              var user_avatar_url = user[i].avatar_url;
+              var user_organization_code = user[i].organization_code;
+              var user_followers_count = user[i].followers_count;
+
+              if( current_user_id == user_id ){
+                $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + user_organization_code  + '</span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '<a href="'+ '/user/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');
+              }
+              else{
+                $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + user_organization_code  + '</span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '</a><a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a><a href="'+ '/users/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');  
+              }
+              console.log(user[i]);
+              $container.append( $user_item ).isotope( 'appended', $user_item );
+            }
+            UsersFollowedUsersCheck();
+            window.location.hash = '?name=' + keyword;
+        });
+    }
+
+    var hash = window.location.hash;
+    if(hash.slice(0,7) == '#?name='){
+      var keyword = hash.replace('#?name=','');
+      $('#user-searchbox').val(keyword);
+      GetUserSearchResult(event , keyword);
+    }
+
+    $('#search-btn').click(function(event){
       var keyword = $('#user-searchbox').val();
-      var uri = '/search-users?name=' + keyword;
-      var encode_uri = encodeURI(uri);
-      $.get( encode_uri , function(user_response){
-          var user = user_response["found_user"];
-          var user_counts = user_response["found_user"].length;
-          $container.isotope( 'remove', $('.user-item') ).isotope('layout');
-          for( i=0 ; i<=user_counts-1 ; i++){
-            var user_id = user[i].id;
-            var user_name = user[i].name;
-            var user_avatar_url = user[i].avatar_url;
-            var user_organization_code = user[i].organization_code;
-            var user_followers_count = user[i].followers_count;
-
-            console.log(user[i]);
-            $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + user_organization_code  + '</span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '</a><a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a><a href="'+ '/user/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');
-            $container.append( $user_item ).isotope( 'appended', $user_item );
-          }
-          UsersFollowedUsersCheck();
-      });
+      GetUserSearchResult(event , keyword);
     })
+
+    $('#chat_form').bind('submit',function(event){
+      var keyword = $('#user-searchbox').val();
+      GetUserSearchResult(event , keyword)
+      return false;
+    })
+    // Search Functions End
   })
 </script>
