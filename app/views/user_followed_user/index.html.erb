@@ -24,6 +24,7 @@
           <div class="grid-sizer"></div>
           <% if @user_followed_users.count == 0 %>
             <div style="min-height: 300px; text-align: center;">
+              <i class="material-icons" style="font-size: 40px !important;">face</i>
               <p>還沒有追蹤任何同學唷！</p>
               <a href="<%= users_path %>"><button class="btn">搜尋同學</button></a>
             </div>
