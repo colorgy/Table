@@ -124,7 +124,11 @@
               $container.append( $user_item ).isotope( 'appended', $user_item ).isotope('layout');
             }
             UsersFollowedUsersCheck();
-            window.location.hash = '?name=' + keyword;
+            if(keyword==''){
+              window.location.hash = '';
+            }else{
+              window.location.hash = '?name=' + keyword;
+            }
         });
     }
 
