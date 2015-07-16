@@ -124,6 +124,7 @@
               $container.append( $user_item ).isotope( 'appended', $user_item ).isotope('layout');
             }
             UsersFollowedUsersCheck();
+            $('#perloader-wrapper').removeClass('active');
             if(keyword==''){
               window.location.hash = '';
             }else{
@@ -134,17 +135,20 @@
 
     var hash = window.location.hash;
     if(hash.slice(0,7) == '#?name='){
+      $('#perloader-wrapper').addClass('active');
       var keyword = hash.replace('#?name=','');
       $('#user-searchbox').val(keyword);
       GetUserSearchResult(event , keyword);
     }
 
     $('#search-btn').click(function(event){
+      $('#perloader-wrapper').addClass('active');
       var keyword = $('#user-searchbox').val();
       GetUserSearchResult(event , keyword);
     })
 
     $('#chat_form').bind('submit',function(event){
+      $('#perloader-wrapper').addClass('active');
       var keyword = $('#user-searchbox').val();
       GetUserSearchResult(event , keyword)
       return false;
