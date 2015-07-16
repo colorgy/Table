@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def search
     name = "%" + params[:name] + "%"
-    @found_user = User.where("name LIKE ?", name)
+    @found_user = User.where("lower(name) LIKE ?", name.downcase)
 
     respond_to do |format|
       if @found_user
