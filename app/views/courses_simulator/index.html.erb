@@ -665,7 +665,6 @@ $(document).on('click', '.simulator-table-course', function(){
   var getUserCourseUri = '<%= course_users_path %>/' + course_code;
 
   $.get(getUserCourseUri , function(users_response){
-    console.log(users_response);
     $('#users-on-course-list li').remove();
     $.each( users_response , function(u, user){
       console.log(user.name);

@@ -1,14 +1,13 @@
 <%= javascript_include_tag 'pages' %>
 <section class="users">  
-  <div class="search-bar search-bar--center">
+  <div class="search-bar search-bar--center" style="margin: 16px auto; text-align:center;">
     <form class="user-search-form">
-      <input id="user-searchbox" class="user-searchbox" type="search" placeholder="選擇上方搜尋方式並輸入關鍵字">
+      <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字並按下 '搜尋'">
       <label for="user-searchbox" class="active">
         <i class="material-icons">search</i>
       </label>
     </form>
-    <button class="btn" id="remove-first">Remove First</button>
-    <button id="search-btn">search</button>
+    <button id="search-btn" class="btn">搜尋</button>
   </div>
   <div class="users-search-result isotope" id="users-search-result">
     <div class="grid-sizer"></div>
