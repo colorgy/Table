@@ -1,5 +1,13 @@
 <%= javascript_include_tag 'pages' %>
-<section class="users">
+<section class="users">  
+  <div class="search-bar search-bar--center">
+    <form class="user-search-form">
+      <input id="user-searchbox" class="user-searchbox" type="search" placeholder="選擇上方搜尋方式並輸入關鍵字">
+      <label for="user-searchbox" class="active">
+        <i class="material-icons">search</i>
+      </label>
+    </form>
+  </div>
   <div class="users-search-result isotope" id="users-search-result">
     <div class="grid-sizer"></div>
     <% @users.each do |user| %>
@@ -11,6 +19,9 @@
           </a>
         </div>
         <div class="card-action">
+          <a class="user-item-followers-count">
+            <i class="material-icons">face</i><%= user.followers_count %>
+          </a>
           <% if current_user.id == user.id %>
           <% else %>
             <% if !current_user.followed_users.include?(user) %>

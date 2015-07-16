@@ -34,17 +34,7 @@ i{
 	max-width: 1400px;
 	margin: 0 auto;
 }
-.course-searchbox{
-	border: 1px rgb(211, 210, 210) solid !important;
-	height: 30px !important;
-	padding-left: 10px !important;
-	background-color: #fff !important;
-	border-radius: 5px !important;
-	&:focus{
-		border: 1px solid $primary-color !important;
-		box-shadow: none !important;
-	}
-}
+
 .course-select-field{
 	background-color: transparent;
 	padding: 8px 0px;
@@ -838,6 +828,36 @@ i.mdi-content-clear {
 	> .course-searchbox{
 		padding-left: 32px !important;
 		width: calc(100% - 34px ) !important;
+		border: 1px rgb(211, 210, 210) solid !important;
+		height: 30px !important;
+		padding-left: 10px !important;
+		background-color: #fff !important;
+		border-radius: 5px !important;
+		&:focus{
+			border: 1px solid $primary-color !important;
+			box-shadow: none !important;
+		}
+	}
+	> label{
+		position: absolute;
+		top: 7px;
+		left: 7px;
+	}
+}
+.user-search-form{
+	position: relative;
+	> .user-searchbox{
+		padding-left: 32px !important;
+		width: calc(100% - 34px ) !important;
+		border: 1px rgb(211, 210, 210) solid !important;
+		height: 30px !important;
+		padding-left: 32px !important;
+		background-color: #fff !important;
+		border-radius: 5px !important;
+		&:focus{
+			border: 1px solid $primary-color !important;
+			box-shadow: none !important;
+		}
 	}
 	> label{
 		position: absolute;
@@ -971,6 +991,15 @@ i.mdi-content-clear {
 			margin-left: 8px;
 			> i{
 				font-size: 24px !important;
+			}
+		}
+
+		> .user-item-followers-count{
+			float: left;
+
+			> i{
+				vertical-align: bottom;
+				margin-right: 4px;
 			}
 		}
 	}
