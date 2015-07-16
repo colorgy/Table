@@ -1,13 +1,13 @@
 <%= javascript_include_tag 'pages' %>
 <section class="users">  
-  <div class="search-bar search-bar--center" style="margin: 16px auto; text-align:center;">
-    <form class="user-search-form" action="/search-users" method="get" id="chat_form">
-      <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字並按下 '搜尋'">
+  <div class="search-bar search-bar--center user-search-bar">
+    <form class="user-search-form" action="/search-users" method="get" id="chat_form" style="display: inline-block;">
+      <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字" style="height: 33px !important;">
       <label for="user-searchbox" class="active">
         <i class="material-icons">search</i>
       </label>
     </form>
-    <button id="search-btn" class="btn">搜尋</button>
+    <button id="search-btn" class="btn" style="display: inline-block; vertical-align: top;">搜尋</button>
   </div>
   <div class="users-search-result isotope" id="users-search-result">
     <div class="grid-sizer"></div>
@@ -41,11 +41,11 @@
     <% end %>
   </div>
 </section>
-<div class="current-user-followed-users">
-  <% @user_followed_users.each do |item| %>
-    <div class="user-followed-users-item" followed-user-id="<%= item.followed_user_id %>" item-id="<%= item.id %>"></div>
-  <% end %>
-</div>
+<% @user_followed_users.each do |item| %>
+  <div class="user-followed-users-item" followed-user-id="<%= item.followed_user_id %>" item-id="<%= item.id %>"></div>
+<% end %>
+
+
 <script>
 
   function UsersFollowedUsersCheck(){

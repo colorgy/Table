@@ -970,7 +970,7 @@ i.mdi-content-clear {
 
 .users-search-result{
 	max-width: 1200px;
-	margin: 0 auto;
+	margin: 24px auto;
 }
 .user-item{
 	margin: 1%;
@@ -1011,6 +1011,19 @@ i.mdi-content-clear {
 
 .unfollow-user-btn{
 	cursor: pointer;
+}
+
+section.users{
+	padding-bottom: 160px;
+}
+
+.user-search-bar{
+	width: 100%;
+  margin: 0 auto;
+  padding: 16px 0 4px 0;
+  text-align: center;
+  max-width: 100% !important;
+  background-color: #8E8E8E;
 }
 
 /* Isotope */
