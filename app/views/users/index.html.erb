@@ -38,6 +38,7 @@
         console.log(user_followed_user["id"]);
         var user_followed_user_id = user_followed_user["id"];
         var followed_user_id = user_followed_user["followed_user_id"];
+        console.log(followed_user_id);
         $('a[user-id="' + user_id + '"]').replaceWith('<a class="unfollow-user-btn" ufui="' + user_followed_user_id + '" user-id="' + followed_user_id +'"><i class="material-icons">favorite</i></a>');
         flash.success('成功追蹤');
 

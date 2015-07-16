@@ -231,7 +231,6 @@ $(document).on('click', '#follow-user-btn',function(){
   $.post('/user_followed_user', {"user_followed_users[followed_user_id]": user_id},
     function(response){
       var user_followed_user = response["user_followed_user"];
-      console.log(user_followed_user["id"]);
       var user_followed_user_id = user_followed_user["id"];
       $('#follow-user-btn').remove();
       $('<a id="unfollow-user-btn" ufui="' + user_followed_user_id +'">Unfollow</a>').appendTo('#follow-unfollow-btn');

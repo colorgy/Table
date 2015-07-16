@@ -22,17 +22,24 @@
       <div class="col m12 s12">
         <div class="current-user-followed-users isotope">
           <div class="grid-sizer"></div>
-          <% @user_followed_users.each do |user_followed_user| %>
-            <% next if user_followed_user.followed_user.blank? %>
-            <div class="followed-user-item">
-              <a href="<%= user_path(user_followed_user.followed_user) %>">
-                <div class="followed-user-item-avatar">
-                  <%= image_tag user_followed_user.followed_user.avatar_url  %>
-                </div>
-                <%= user_followed_user.followed_user.name %>
-                <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>">取消追蹤</a>
-              </a>
+          <% if @user_followed_users.count == 0 %>
+            <div style="min-height: 300px; text-align: center;">
+              <p>還沒有追蹤任何同學唷！</p>
+              <a href="<%= users_path %>"><button class="btn">搜尋同學</button></a>
             </div>
+          <% else %>
+            <% @user_followed_users.each do |user_followed_user| %>
+              <% next if user_followed_user.followed_user.blank? %>
+              <div class="followed-user-item">
+                <a href="<%= user_path(user_followed_user.followed_user) %>">
+                  <div class="followed-user-item-avatar">
+                    <%= image_tag user_followed_user.followed_user.avatar_url  %>
+                  </div>
+                  <%= user_followed_user.followed_user.name %>
+                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>">取消追蹤</a>
+                </a>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>
