@@ -58,6 +58,7 @@
   }
 
   $(document).on('click', '.follow-user-btn',function(){
+    $('#preloader-wrapper').addClass('active');
     var user_id = $(this).attr('user-id');
     $.post('/user_followed_user', {"user_followed_users[followed_user_id]": user_id},
       function(response){
@@ -68,12 +69,14 @@
         console.log(followed_user_id);
         $('a[user-id="' + user_id + '"]').replaceWith('<a class="unfollow-user-btn" ufui="' + user_followed_user_id + '" user-id="' + followed_user_id +'"><i class="material-icons">favorite</i></a>');
         flash.success('成功追蹤');
+        $('#preloader-wrapper').removeClass('active');
 
       })
     // Post End
   })
 
   $(document).on('click', '.unfollow-user-btn',function(){
+    $('#preloader-wrapper').addClass('active');
     var user_followed_user_id = $(this).attr('ufui');
     var user_id = $(this).attr('user-id');
     $.ajax({
@@ -82,6 +85,7 @@
       success: function(response) {
         $('a[user-id="' + user_id +'"]').replaceWith('<a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a>');
         flash.success('已經取消追蹤');
+        $('#preloader-wrapper').removeClass('active');
       }
     })
   })

@@ -226,6 +226,7 @@
 <script>
 
 $(document).on('click', '#follow-user-btn',function(){
+  $('#preloader-wrapper').addClass('active');
   var user_id = $(this).attr('user-id');
   var user_name = '<%= @user.name %>';
   $.post('/user_followed_user', {"user_followed_users[followed_user_id]": user_id},
@@ -235,12 +236,14 @@ $(document).on('click', '#follow-user-btn',function(){
       $('#follow-user-btn').remove();
       $('<a id="unfollow-user-btn" ufui="' + user_followed_user_id +'"><i class="material-icons">favorite</i>取消追蹤</a>').appendTo('#follow-unfollow-btn');
       flash.success('成功追蹤' + user_name);
+      $('#preloader-wrapper').removeClass('active');
 
     })
   // Post End
 })
 
 $(document).on('click', '#unfollow-user-btn',function(){
+  $('#preloader-wrapper').addClass('active');
   var user_followed_user_id = $(this).attr('ufui');
   $.ajax({
     url:'/user_followed_user/' + user_followed_user_id,
@@ -250,6 +253,7 @@ $(document).on('click', '#unfollow-user-btn',function(){
       $('#unfollow-user-btn').remove();
       $('<a id="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i>追蹤</a>').appendTo('#follow-unfollow-btn');
       flash.success('已經取消追蹤');
+      $('#preloader-wrapper').removeClass('active');
     }
   })
 })
@@ -491,6 +495,7 @@ function CountPeopleInSameClass(){
 }
 
 $(document).on('click', '.simulator-table-course', function(){
+  $('#preloader-wrapper').addClass('active');
 	var course_code = $(this).attr('icd');
 	var item_id = $(this).attr('iid');
 	var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
@@ -527,6 +532,7 @@ $(document).on('click', '.simulator-table-course', function(){
 			var user_id = user.id
 
 			$('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+      $('#preloader-wrapper').removeClass('active');
 		})
 	});
 });
