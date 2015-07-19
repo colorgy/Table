@@ -3,7 +3,7 @@
         <div class="top-bar">
             <ul>
                 <li>
-                  <a href="https://colorgy.io">回 Colorgy 首頁</a>
+                  <a href="https://colorgy.io" target="_blank">回 Colorgy 首頁</a>
                 </li>
                 <% if current_user.blank? %>
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>

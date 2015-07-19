@@ -830,7 +830,6 @@ i.mdi-content-clear {
 		width: calc(100% - 34px ) !important;
 		border: 1px rgb(211, 210, 210) solid !important;
 		height: 30px !important;
-		padding-left: 10px !important;
 		background-color: #fff !important;
 		border-radius: 5px !important;
 		&:focus{
@@ -1023,7 +1022,7 @@ section.users{
   padding: 16px 0 4px 0;
   text-align: center;
   max-width: 100% !important;
-  background-color: #8E8E8E;
+  background-color: #E4E4E4;
 }
 
 /* Isotope */
@@ -1042,7 +1041,7 @@ section.users{
 }
 
 
-@media screen and (min-width: 1425px ){  .followed-user-item { width: 23%; } .user-item{ width: 18%; } }
+@media screen and (min-width: 1425px ){  .followed-user-item { width: 31%; } .user-item{ width: 18%; } }
 @media (max-width: 1425px ) and (min-width: 800px ){ .followed-user-item, .user-item{ width: 23%; } }
 @media (max-width: 800px ) and (min-width: 320px ){ .followed-user-item, .user-item{ width: 48%; } }
 @media screen and (max-width: 508px){  .followed-user-item, .user-item{ width: 48%; } }

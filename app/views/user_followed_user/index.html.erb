@@ -1,13 +1,5 @@
 <%= javascript_include_tag 'pages' %>
 <section class="user-panel">
-  <div class="cover-photo" style="background-image: url('<%= current_user.cover_photo_url %>');">
-    <div class="user-info">
-      <div class="avatar" id="user-avatar">
-        <%= image_tag current_user.avatar_url %>
-      </div>
-      <h4 class="user-name"><%= current_user.name %></h4>
-    </div>
-  </div>
   <div class="actions-bar">
     <div class="inner">
       <ul class="pull-right">
