@@ -1,6 +1,11 @@
 class UserFollowedUserController < ApplicationController
   def index
-    @user_followed_users = current_user.user_followed_users
+    if current_user
+      @user_followed_users = current_user.user_followed_users
+    else
+      flash[:error] = "請先登入才能進行此操作"
+      redirect_to root_path
+    end
   end
 
   def create

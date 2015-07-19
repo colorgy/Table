@@ -1,10 +1,11 @@
 class CoursesSimulatorController < ApplicationController
   def index
     if current_user.blank?
-      redirect_to ask_login_path
+      flash[:error] = "請先登入才能進行此操作"
+      redirect_to landing_page_path
     else
       if current_user.organization_code.blank?
-        redirect_to ask_login_path
+        redirect_to landing_page_path
       else
         @user_courses = current_user.user_courses
       end
