@@ -30,7 +30,7 @@
             <% else %>
               <% @user_followed_users.each do |user_followed_user| %>
                 <% if user_followed_user.followed_user_id == user.id  %>
-                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>"><i class="material-icons">favorite</i></a>
+                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>" user-id="<%= user_followed_user.followed_user_id %>"><i class="material-icons">favorite</i></a>
                 <% end %>
               <% end %>
             <% end %>
