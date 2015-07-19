@@ -73,19 +73,6 @@
               </div>
               <div class="course-select-field">
                 <div class="simulator-search-result">
-                  <!--
-                    <div class="course-select-item">
-                      <div class="name"> course_name </div>
-                      <div class="lecturer">lecturer_name</div>
-                      <div class="course-code">course_code</div>
-                      <br>
-                      <div class="course-time">c.course_time</div>
-                      <div class="course-location">c.location</div>
-                      <div class="course-credits">c.credits</div>
-                      <button class="add-to-simulator">+</button>
-                      <div class="course-code" cid="c.id"></div>
-                    </div>
-                  -->
                 </div>
               </div>
             </div>
@@ -93,13 +80,6 @@
         </div>
         <div class="col s12 simulator-fixed" style="height: 100%;" dataPage="mobile" id="has-selected-page">
           <div class="course-hasselect-field" id="course-hasselect-field">
-            <!--<div class="course-hasselect-field-trigger" id="course-hasselect-field-trigger">
-              <p>已</p>
-              <p>選</p>
-              <p>課</p>
-              <p>表</p>
-              <p></p>
-            </div>-->
             <div class="course-hasselect-field-inner">
               <% @user_courses.each do |item| %>
                 <div class="course-hasselect-item">
@@ -433,18 +413,7 @@ function CourseCreditsCounter(){
   $('#credits-total').append(creditsTotal);
 }
 
-//
-// 函式： 選擇課程之後會把已經課程在 選擇界面中 disable 掉。
-//
-/*
-function courseSelectItemDisabledTest(){
-  $('.course-select-item').removeClass('disabled');
-  $('.item-course-id').each(function(){
-    var icd = $(this).attr('icd');
-    $('.course-id[cid="' + icd + '"]').parent('.course-select-item').addClass('disabled');
-  })
-}
-*/
+
 //
 // 當一個 td 底下有超過一個課程之後，加入衝堂的css狀態，並且加上堆疊效果。
 //

@@ -781,9 +781,9 @@ nav.colorgy-nav.not-on-top{
   }
 }
 
-@media screen and (min-width: 1425px ){  .element-item { width: 23%; } .element-item.w2{ width: 23% !important; } }
-@media (max-width: 1425px ) and (min-width: 800px ){ .element-item{ width: 31.333333%; } }
-@media (max-width: 800px ) and (min-width: 320px ){ .element-item{ width: 48%; } }
+@media screen and (min-width: 1425px ){  .element-item { width: 14.6%; } .element-item.w2{ width: 23% !important; } }
+@media (max-width: 1425px ) and (min-width: 800px ){ .element-item{ width: 23%; } }
+@media (max-width: 800px ) and (min-width: 508px ){ .element-item{ width: 31.333%; } }
 @media screen and (max-width: 508px){  .element-item{ width: 48%; } }
 .element-item > * {
   margin: 0;
