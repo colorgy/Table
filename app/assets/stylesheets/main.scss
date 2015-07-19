@@ -704,7 +704,7 @@ i.mdi-content-clear {
 }
 .simulator-fixed{
 	padding: 0 16px !important;
-	@include transition-all(0.3s);
+	//@include transition-all(0.8s);
 	@media screen and (min-width: 992px) {
 		width: 320px !important;
 	}
@@ -713,8 +713,13 @@ i.mdi-content-clear {
 		width: 100%;
 		left: 0;
 		right: 0;
+		bottom: 0;
+		top: 56px;
 		opacity: 0;
 		visibility: hidden;
+		overflow: auto;
+		background: #fcfcfc;
+		padding: 56px 8px 150px 8px !important;
 	}
 	&.active{
 		opacity: 1;
@@ -724,19 +729,23 @@ i.mdi-content-clear {
 .simulator-fixed-calendar{
 	background-color: transparent;
 	padding: 0 8px;
-	@include transition-all(0.3s);
+	//@include transition-all(0.8s);
 	@media screen and (min-width: 992px){
 		width: calc(100% - 336px) !important;
 	}
 	@media screen and (max-width: 992px){
 		position: fixed;
 		width: 100%;
+		top: 56px;
 		left: 0;
 		right: 0;
+		bottom: 0;
 		opacity: 0;
 		visibility: hidden;
 		height: 100%;
-		overflow: scroll;
+		overflow: auto;
+		background: #fcfcfc;
+		padding-bottom: 150px !important;
 	}
 	&.active{
 		opacity: 1;
@@ -761,6 +770,11 @@ i.mdi-content-clear {
 	}
 	.mobile-nav-btn{
 		padding: 10px 5px;
+
+		> i{
+			display: block;
+			color: #fff;
+		}
 
 		&.btn-1{
 			position: absolute;
@@ -1023,6 +1037,19 @@ section.users{
   text-align: center;
   max-width: 100% !important;
   background-color: #E4E4E4;
+}
+
+.mobile-add-course-btn{
+  position: fixed;
+  top: 2px;
+  right: 2px;
+  padding: 10px;
+  cursor: pointer;
+
+	> i {
+		color: $darker-gray;
+		font-size: 28px !important;
+	}
 }
 
 /* Isotope */

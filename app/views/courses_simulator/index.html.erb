@@ -47,7 +47,7 @@
 </script>
 <div class="container-fuild" style="padding-top: 35px;">
   <div class="row">
-    <div class="col m2 s12 simulator-fixed" dataPage="mobile" id="select-page">
+    <div class="col m2 s12">
       <p>你的學校是： <%= current_user.organization_code %></p>
 
       <div class="page-slider" style="margin-top: 24px;">
@@ -58,7 +58,7 @@
         </ul>
         -->
 
-        <div id="test1" class="col s12" style="height: 100%; margin-bottom: 24px;">
+        <div class="col s12 simulator-fixed" style="height: 100%; margin-bottom: 24px;" dataPage="mobile" id="select-page">
           <div class="simulator-sidebar">
             <div class="simulator-sidebar-inner">
               <div class="course-search-field">
@@ -98,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div id="test2" class="col s12" style="height: 100%;">
+        <div class="col s12 simulator-fixed" style="height: 100%;" dataPage="mobile" id="has-selected-page">
           <div class="course-hasselect-field" id="course-hasselect-field">
             <!--<div class="course-hasselect-field-trigger" id="course-hasselect-field-trigger">
               <p>已</p>
@@ -323,17 +323,23 @@
 </div>
 <div class="mobile-bottom-nav">
   <div class="mobile-nav-btn btn-1" id="calendar-trigger">
+    <i class="material-icons">dashboard</i>
     已選課表
   </div>
   <div class="mobile-nav-btn btn-2" id="select-trigger">
+    <i class="material-icons">search</i>
     課程選擇
   </div>
-  <div class="mobile-nav-btn btn-3" id="app-trigger">
-    APP下載
+  <div class="mobile-nav-btn btn-3" id="has-selected-trigger">
+    <i class="material-icons">view_list</i>
+    已選課程
   </div>
 </div>
 <div id="simulator-help-btn" class="simulator-help-btn">
   <a href="#"><i class="material-icons">help_outline</i></a>
+</div>
+<div class="mobile-add-course-btn" id="select-trigger2">
+  <i class="material-icons">add</i>
 </div>
 
 <script>
@@ -348,6 +354,14 @@
     $('#select-trigger').click(function(){
       $('div[dataPage = "mobile"]').removeClass('active');
       $('#select-page').addClass('active');
+    })
+    $('#select-trigger2').click(function(){
+      $('div[dataPage = "mobile"]').removeClass('active');
+      $('#select-page').addClass('active');
+    })
+    $('#has-selected-trigger').click(function(){
+      $('div[dataPage = "mobile"]').removeClass('active');
+      $('#has-selected-page').addClass('active');
     })
   })
 
