@@ -1,6 +1,20 @@
 <%= javascript_include_tag 'pages' %>
 <section class="users">  
   <div class="search-bar search-bar--center user-search-bar">
+    <select class="browser-default school-filter" id="school-filter">
+      <option value="all" selected>全部學校</option>
+      <option value="NTUST">台灣科技大學</option>
+      <option value="NTU">台灣大學</option>
+      <option value="CGU">長庚大學</option>
+      <option value="CYCU">中原大學</option>
+      <option value="FJU">輔仁大學</option>
+      <option value="NTHU">清華大學</option>
+      <option value="NTNU">臺灣師範大學</option>
+      <option value="NTPU">臺北大學</option>
+      <option value="TKU">淡江大學</option>
+      <option value="TTU">大同大學</option>
+      <option value="YZU">元智大學</option>
+    </select>
     <form class="user-search-form" action="/search-users" method="get" id="chat_form" style="display: inline-block;">
       <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字" style="height: 33px !important;">
       <label for="user-searchbox" class="active">
@@ -16,7 +30,7 @@
         <div class="card-image">
           <a href="<%= user_path(user) %>">
             <%= image_tag user.avatar_url %>
-            <span class="card-title user-info"><%= user.name %> <%= user.organization_code %></span>
+            <span class="card-title user-info"><%= user.name %> <span class="user-organization-code"><%= user.organization_code %></span></span>
           </a>
         </div>
         <div class="card-action">
@@ -100,6 +114,25 @@
     // End init
 
 
+    // School Filter
+
+    function SchoolFilter(selected_school_code) {
+
+      if (selected_school_code == 'all') {
+        $container.isotope({ filter: function(){ return $(this)  } });
+      }else{
+        $container.isotope({
+          filter: function() {
+            var user_school_code = $(this).find('.user-organization-code').text();
+            console.log('user-school-code:'+user_school_code);
+            // return true to show, false to hide
+            return user_school_code == selected_school_code;
+          }
+        })        
+      }
+
+    }
+
     // Search Functions
 
     function GetUserSearchResult(event, keyword){
@@ -110,7 +143,8 @@
             var user = user_response["found_user"];
             var user_counts = user_response["found_user"].length;
             $container.isotope( 'remove', $('.user-item') ).isotope('layout');
-            for( i=0 ; i<=user_counts-1 ; i++){
+            
+            for( i=0 ; i<=user_counts - 1 ; i++){
               var current_user_id = parseInt('<%= current_user.id %>');
               var user_id = user[i].id;
               var user_name = user[i].name;
@@ -119,15 +153,16 @@
               var user_followers_count = user[i].followers_count;
 
               if( current_user_id == user_id ){
-                $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + user_organization_code  + '</span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '<a href="'+ '/user/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');
+                $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + '<span class="user-organization-code">' + user_organization_code  + '</span></span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '<a href="'+ '/user/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');
               }
               else{
-                $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + user_organization_code  + '</span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '</a><a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a><a href="'+ '/users/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');  
+                $user_item = $('<div class="card user-item"><div class="card-image"><a href="/user/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name + ' ' + '<span class="user-organization-code">' + user_organization_code  + '</span></span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '</a><a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a><a href="'+ '/users/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');  
               }
-              console.log(user[i]);
-              $container.append( $user_item ).isotope( 'appended', $user_item ).isotope('layout');
+              $container.isotope( 'insert', $user_item );
+
             }
             UsersFollowedUsersCheck();
+
             $('#perloader-wrapper').removeClass('active');
             if(keyword==''){
               window.location.hash = '';
@@ -144,6 +179,11 @@
       $('#user-searchbox').val(keyword);
       GetUserSearchResult(event , keyword);
     }
+
+    $('#school-filter').change(function(){
+      var selected_school_code = $('#school-filter option:selected').val();
+      SchoolFilter(selected_school_code);
+    })
 
     $('#search-btn').click(function(event){
       $('#perloader-wrapper').addClass('active');
