@@ -1,10 +1,17 @@
 <%= javascript_include_tag 'pages' %>
 <section class="user-panel">
+  <div class="cover-photo" style="background-image: url('<%= @current_user.cover_photo_url %>');">
+    <div class="user-info">
+      <div class="avatar" id="user-avatar">
+        <%= image_tag @current_user.avatar_url %>
+      </div>
+      <h4 class="user-name"><%= @current_user.name %><span class="breadcrumb">的追蹤</span></h4>
+    </div>
+  </div>
   <div class="actions-bar">
     <div class="inner">
       <ul class="pull-right">
         <li><a href="<%= user_path(@current_user.id) %>"><i class="material-icons list-icon">arrow_back</i>回個人頁面</a></li>
-        <li><a>Facebook</a></li>
       </ul>
       <div style="clear: both;"></div>
     </div>

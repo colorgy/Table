@@ -3,6 +3,7 @@ body{
 }
 a{
 	color: $dark-gray;
+	cursor: pointer;
 }
 a:hover, a:focus{
 	text-decoration: none;
@@ -905,8 +906,14 @@ i.mdi-content-clear {
 		background-position: center;
 		background-size: cover;
 		background-repeat: no-repeat;
-		min-height: 240px;
 		width: 100%;
+		@media screen and (min-width: 600px) {
+			min-height: 240px;
+		}
+
+		@media screen and (max-width: 600px) {
+			min-height: 160px;
+		}
 
 		&::before{
 			content: '';
@@ -928,24 +935,44 @@ i.mdi-content-clear {
 		}
 
 		.avatar{
-			width: 180px;
-			height: 180px;
 			position: absolute;
-			top: 80px;
-			left: 80px;
 			border-radius: 2px;
 			overflow: hidden;
 			border: 4px solid #fff;
 			z-index: 2;
+			@media screen and (min-width: 600px) {
+				width: 180px;
+				height: 180px;
+				top: 80px;
+				left: 80px;
+			}
+
+			@media screen and (max-width: 600px) {
+				width: 88px;
+				height: 88px;
+				top: 88px;
+				left: 16px;
+			}
+
 		}
 
 		.user-name{
 			position: absolute;
-			left: 280px;
-			top: 176px;
 			color: #fff;
 			text-shadow: 2px 2px 2px rgba(0,0,0,.2);
 			z-index: 2;
+			@media screen and (min-width: 600px) {
+				left: 280px;
+				top: 176px;
+			}
+
+			@media screen and (max-width: 600px) {
+				left: 120px;
+				top: 96px;
+			}
+		 	> .breadcrumb{
+		 		font-size: 20px;
+		 	}
 		}
 	}
 
@@ -970,6 +997,10 @@ i.mdi-content-clear {
 		li{
 			display: inline-block;
 			margin: 0 8px;
+
+			i{
+				margin-right: 4px;
+			}
 
 		}
 	}
@@ -1042,6 +1073,23 @@ i.mdi-content-clear {
 
 .unfollow-user-btn{
 	cursor: pointer;
+}
+.facebook-link-with-icon{
+	position: relative;
+	padding-left: 20px;
+
+	&::before{
+		content: ' ';
+		background-image: image-url('facebook.png');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		position: absolute;
+		width: 18px;
+		height: 18px;
+		left: 0;
+		top: 1px;
+	}
 }
 
 section.users{

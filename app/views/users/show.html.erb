@@ -11,21 +11,21 @@
 		<div class="inner">
 			<ul class="pull-right">
         <% if current_user.id == @user.id %>
-          <li><a href="<%= user_followed_user_index_path %>">我追蹤的同學</a></li>
+          <li><a href="<%= user_followed_user_index_path %>"><i class="material-icons">people</i>我的追蹤</a></li>
         <% else %>
   				<li id="follow-unfollow-btn">
             <% if !current_user.followed_users.include?(@user) %>
-              <a id="follow-user-btn" user-id="<%= @user.id %>">Follow</a>
+              <a id="follow-user-btn" user-id="<%= @user.id %>"><i class="material-icons">favorite_border</i>追蹤</a>
             <% else %>
               <% @user_followed_users.each do |user_followed_user| %>
                 <% if user_followed_user.followed_user_id == @user.id  %>
-                  <a id="unfollow-user-btn" ufui="<%= user_followed_user.id %>">Unfollow</a>
+                  <a id="unfollow-user-btn" ufui="<%= user_followed_user.id %>"><i class="material-icons">favorite</i>取消追蹤</a>
                 <% end %>
               <% end %>
             <% end %>
           </li>
         <% end %>
-				<li><a>Facebook</a></li>
+				<li><a class="facebook-link-with-icon" href="https://www.facebook.com/<%= @user.fbid %>" target="_blank">臉書</a></li>
 			</ul>
 			<div style="clear: both;"></div>
 		</div>
@@ -233,7 +233,7 @@ $(document).on('click', '#follow-user-btn',function(){
       var user_followed_user = response["user_followed_user"];
       var user_followed_user_id = user_followed_user["id"];
       $('#follow-user-btn').remove();
-      $('<a id="unfollow-user-btn" ufui="' + user_followed_user_id +'">Unfollow</a>').appendTo('#follow-unfollow-btn');
+      $('<a id="unfollow-user-btn" ufui="' + user_followed_user_id +'"><i class="material-icons">favorite</i>取消追蹤</a>').appendTo('#follow-unfollow-btn');
       flash.success('成功追蹤' + user_name);
 
     })
@@ -248,7 +248,7 @@ $(document).on('click', '#unfollow-user-btn',function(){
     success: function(response) {
       var user_id = '<%= @user.id %>';
       $('#unfollow-user-btn').remove();
-      $('<a id="follow-user-btn" user-id="' + user_id +'">Follow</a>').appendTo('#follow-unfollow-btn');
+      $('<a id="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i>追蹤</a>').appendTo('#follow-unfollow-btn');
       flash.success('已經取消追蹤');
     }
   })
