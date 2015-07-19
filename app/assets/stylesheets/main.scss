@@ -977,9 +977,20 @@ i.mdi-content-clear {
 
 .preloader-wrapper{
   position: fixed !important;
-  right: 30px;
-  top: 120px;
+  @media screen and (max-width: 992px) {
+	  left: calc(50% - 24px);
+  	bottom: 64px;
+  }
+  @media screen and (min-width: 992px) {
+	  left: calc(50% - 24px);
+  	bottom: 64px;
+  }
+  visibility: hidden;
   z-index: 1000;
+
+  &.active{
+  	visibility: visible;
+  }
 }
 
 .current-user-followed-users{
