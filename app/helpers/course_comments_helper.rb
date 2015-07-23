@@ -1,0 +1,2 @@
+module CourseCommentsHelper
+end
