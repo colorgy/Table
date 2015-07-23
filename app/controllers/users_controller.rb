@@ -4,7 +4,7 @@ class UsersController < ApplicationController
       flash[:error] = "請先登入才能進行此操作"
       redirect_to landing_page_path
     else
-      @users = User.all
+      @users = User.all.paginate(:page => params[:page], :per_page => 25)
       @user_followed_users = current_user.user_followed_users
     end
   end
