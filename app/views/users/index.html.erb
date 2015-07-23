@@ -58,6 +58,7 @@
       </div>
     <% end %>
   </div>
+  <%= will_paginate %>
 </section>
 <% @user_followed_users.each do |item| %>
   <div class="user-followed-users-item" followed-user-id="<%= item.followed_user_id %>" item-id="<%= item.id %>"></div>
