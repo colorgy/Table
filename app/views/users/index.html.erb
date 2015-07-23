@@ -29,7 +29,11 @@
       <div class="card user-item">
         <div class="card-image">
           <a href="<%= user_path(user) %>">
-            <%= image_tag user.avatar_url %>
+            <% if user.avatar_url != '' && user.avatar_url %>
+              <%= image_tag user.avatar_url %>
+            <% else %>
+              <%= image_tag ('http://placehold.it/500x500') %>
+            <% end %>
             <span class="card-title user-info"><%= user.name %> <span class="user-organization-code"><%= user.organization_code %></span></span>
           </a>
         </div>
