@@ -8,7 +8,9 @@ a{
 a:hover, a:focus{
 	text-decoration: none;
 }
-
+a.active{
+	border-bottom: 2px solid $primary-color;
+}
 nav{
 	background-color: #fff;
 	.brand-logo{
@@ -348,10 +350,6 @@ i{
   0%   { transform: scale(1); }
   100% { transform: scale(1.1); }
 }
-
-.tabs .indicator{
-	display: none;
-}
 .garbage-can-field{
 	z-index: 999;
 	background-color: $secondary-color;
@@ -437,6 +435,10 @@ i{
 	position: absolute !important;
 	min-height: 100%;
 	max-height: 100% !important;
+
+	> p{
+		padding: 0 16px;
+	}
 }
 .app-intro{
 	padding: 100px 0;
@@ -833,8 +835,8 @@ i.mdi-content-clear {
 
 .users-on-course-list {
 	li{
-		height: 45px;
-		width: 45px;
+		height: 50px;
+		width: 50px;
 		border: 1px solid #eee;
 		display: inline-block;
 		float: left;
@@ -1106,6 +1108,14 @@ section.users{
 	padding-bottom: 160px;
 	min-height: 565px;
 }
+.user-avatar{
+	> img{
+		width: 40px;
+		height: 40px;
+		border-radius: 160px;
+		overflow: hidden;
+	}
+}
 
 .user-search-bar{
 	width: 100%;
@@ -1131,6 +1141,10 @@ section.users{
 		color: $darker-gray;
 		font-size: 28px !important;
 	}
+
+	@media screen and (min-width: 992px) {
+		display: none;
+	}
 }
 .school-filter{
 	max-width: 180px;
@@ -1144,6 +1158,38 @@ section.users{
 		margin: 4px auto 8px auto;
 		max-width: 300px;
 	}
+}
+
+.create-course-comment-form{
+  padding: 32px 16px;
+  border: 1px solid #C1C1C1;
+  margin: 16px 0;
+
+  > .user-info{
+  	> .user-avatar{
+			text-align: left;
+			padding: 0 8px;
+			vertical-align: middle;
+			display: inline-block;
+  	}
+  	> .user-name{
+			text-align: left;
+			padding: 0 8px;
+			font-size: 20px;
+			color: $darker-gray;
+			display: inline-block;
+			vertical-align: middle;
+  	}
+  }
+
+  > #form-submit{
+  	margin-top: 16px;
+  }
+}
+
+#modal-del-btn{
+	background-color: rgb(223, 103, 103);
+  color: #fff;
 }
 
 /* Isotope */

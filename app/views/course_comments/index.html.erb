@@ -1,0 +1,13 @@
+<% @course_comments.each do |course_comment| %>
+  <div class="course_comments">
+    <ul>
+      <li><%= course_comment.course_general_code %></li>
+      <li><%= course_comment.course_year %></li>
+      <li><%= course_comment.course_term %></li>
+      <li><%= course_comment.title %></li>
+      <li><%= course_comment.body %></li>
+      <li><%= course_comment.rating %></li>
+      <li><%= course_comment.user_id %></li>
+    </ul>
+  </div>
+<% end %>

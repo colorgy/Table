@@ -277,16 +277,37 @@
   </div>
 </div>
 <div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-title">
+    <h5><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+  </div>
   <div class="modal-content">
-    <h5 class="under-line-title"><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+    <h5 class="under-line-title">詳細資訊</h5>
     <p>
       學分： <span class="modal-course-credits"></span></br>
       課程代號： <span class="modal-course-general-code"></span></br>
       課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
     </p>
-    <div class="users-on-course-list" id="users-on-course-list">
-      <ul>
-      </ul>
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s4"><a class="active" href="#modal-selected-users">同班同學</a></li>
+          <li class="tab col s4"><a href="#modal-course-comments">課程評論</a></li>
+          <li class="tab col s4"><a href="#modal-course-wiki">課程維基</a></li>
+        </ul>
+      </div>
+      <div id="modal-selected-users" class="col s12">
+        <div class="users-on-course-list" id="users-on-course-list">
+          <ul>
+          </ul>
+        </div>
+      </div>
+      <div id="modal-course-comments" class="col s12">
+        <%= render "course_comments/form" %>
+        <div id="course-comments">
+          
+        </div>
+      </div>
+      <div id="modal-course-wiki" class="col s12"><p style="text-align: center;">敬請期待</p></div>
     </div>
   </div>
   <div class="modal-footer">
@@ -621,6 +642,8 @@ $(document).on('click', '.simulator-table-course', function(){
   $.get(getCourseUri , function(course_response){
     var course = course_response[0]
     var course_name = course.name;
+    var course_year = course.year;
+    var course_term = course.term;
     //var course_time = course["course_time"];
     var course_lecturer = course.lecturer;
     var course_general_code = course.general_code;
@@ -634,6 +657,9 @@ $(document).on('click', '.simulator-table-course', function(){
     $('.modal-course-lecturer').html(course_lecturer);
     $('.modal-course-link').attr('href', website_url);
     $('#modal-del-btn').attr('iid', item_id);
+    $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('year', course_year);
+    $('#modal1').attr('term', course_term);
     $('#modal1').openModal();
 
   });
@@ -889,5 +915,7 @@ $(document).mousemove(function(e){
     $('.simulator-table-course.on-hover').remove();
   }
 })
-
+ $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
 </script>

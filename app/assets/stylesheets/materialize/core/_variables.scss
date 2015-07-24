@@ -130,9 +130,9 @@ $slider-bg-color-light: color('grey', 'lighten-2') !default;
 $slider-indicator-color: color('green', 'base') !default;
 
 /*** Tabs ***/
-$tabs-underline-color: $primary-color-light !default;
-$tabs-text-color: $primary-color !default;
-$tabs-bg-color: #fff !default;
+$tabs-underline-color: $primary-color !default;
+$tabs-text-color: $darker-gray !default;
+$tabs-bg-color: transparent !default;
 
 /*** Tables ***/
 $table-border-color: #d0d0d0 !default;

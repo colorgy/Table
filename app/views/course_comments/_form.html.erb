@@ -1,0 +1,40 @@
+<form id="create-course-comment-form" class="create-course-comment-form">
+  <div class="user-info">
+    <span class="user-avatar"><%= image_tag current_user.avatar_url %></span><span class="user-name"><%= current_user.name %></span>
+  </div>
+  <div class="input-field">
+    <textarea id="course_comment_body" class="materialize-textarea"></textarea>
+    <label for="course_comment_body">評論</label>
+  </div>
+  <div class="g-recaptcha" data-sitekey="6LcBNwoTAAAAAOaUWmoboPHjcu__oIxhvgRUmEpK"></div>
+  <button id="form-submit" class="btn">Submit</button>
+</form>
+<script type="text/javascript">
+  var onloadCallback = function() {
+      grecaptcha.render('html_element', {
+        'sitekey' : 'your_site_key',
+        'callback' : 'correctCaptcha'
+      });
+    };
+
+  var correctCaptcha = function(response) {
+      alert(response);
+  };
+
+  $('#form-submit').click(function(){
+    var course_general_code = $('#modal1').attr('course-general-code');;
+    var course_year = $('#modal1').attr('year');
+    var course_term = $('#modal1').attr('term');
+    var body = $('#course_comment_body').val();
+    var rating = $('#course_comment_rating').val();
+    var user_id = parseInt('<%= current_user.id %>');
+
+    $.post('/course_comments', {"course_comment[course_general_code]": course_general_code, "course_comment[course_year]": course_year, "course_comment[course_term]": course_term, "course_comment[title]": title, "course_comment[body]": body, "course_comment[rating]": rating, "course_comment[user_id]": user_id}, function(response) {
+
+        console.log(response);
+      
+    })
+
+    return false;
+  })
+</script>
