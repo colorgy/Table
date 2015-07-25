@@ -9,7 +9,7 @@ a:hover, a:focus{
 	text-decoration: none;
 }
 a.active{
-	color: $primary-color;
+	color: #FAB2A6 !important;
 	border-bottom: 2px solid $primary-color;
 }
 nav{
@@ -1218,32 +1218,43 @@ section.users{
 }
 
 .course-comment{
+	background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 2px;
   padding: 8px 16px;
   margin: 32px auto 16px auto;
   max-width: 600px;
   width: 100%;
 	> .user-info{
 		> .user-avatar{
-			vertical-align: middle;
+			vertical-align: bottom;
 			display: inline-block;
 		}
 		> .user-name{
-			vertical-align: middle;
+			vertical-align: bottom;
 			display: inline-block;
 			margin-left: 8px;
 			font-size: 16px;
 		}
 
 		> .course-comment-rating{
+			vertical-align: bottom;
 			display: inline-block;
+			margin-left: 4px;
 			> i{
 
 			}
 		}
+
+		> small{
+			vertical-align: bottom;
+			margin-left: 4px;
+		}
 	}
 
 	> .course-comment-body{
-
+	  padding: 8px 16px 16px 16px;
+	  font-size: 16px;
 	}
 }
 
