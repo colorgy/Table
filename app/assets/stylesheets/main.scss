@@ -1109,6 +1109,7 @@ section.users{
 	min-height: 565px;
 }
 .user-avatar{
+	display: inline-block;
 	> img{
 		width: 40px;
 		height: 40px;
@@ -1164,8 +1165,12 @@ section.users{
   padding: 32px 16px;
   border: 1px solid #C1C1C1;
   margin: 16px 0;
+  background-color: #ffffff;
+  border-radius: 2px;
 
   > .user-info{
+  	margin-bottom: 24px;
+
   	> .user-avatar{
 			text-align: left;
 			padding: 0 8px;
@@ -1182,13 +1187,93 @@ section.users{
   	}
   }
 
-  > #form-submit{
+  > .form-submit{
   	margin-top: 16px;
+  	display: block;
+  	margin: 16px auto;
+  }
+}
+
+.course-comment{
+	padding: 8px 16px;
+  margin: 8px 0 16px 0;
+	> .user-info{
+		> .user-avatar{
+			vertical-align: middle;
+			display: inline-block;
+		}
+		> .user-name{
+			vertical-align: middle;
+			display: inline-block;
+			margin-left: 8px;
+			font-size: 16px;
+		}
+
+		> .course-comment-rating{
+			display: inline-block;
+			> i{
+
+			}
+		}
+	}
+
+	> .course-comment-body{
+
+	}
+}
+
+.course-comment-form-container{
+	position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 1005;
+  background-color: rgba(0,0,0,.6);
+	opacity: 0;
+	visibility: hidden;
+
+	&.active{
+		opacity: 1;
+		visibility: visible;
+	}
+
+	> .create-course-comment-form{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 90%;
+		height: 90%;
+		transform: translate(-50%, -50%);
+		max-height: 400px;
+		max-width: 600px;
+		margin: 0 auto;
+  	overflow: auto;
+	}
+}
+.course-comment-form-container-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1001;
+
+  > i {
+		font-size: 45px !important;
+		color: #FEFEFE;
   }
 }
 
 #modal-del-btn{
 	background-color: rgb(223, 103, 103);
+  color: #fff;
+}
+#modal-course-comment-btn {
+  background-color: rgb(87, 133, 195);
+  color: #fff;
+}
+#modal-add-btn {
+  background-color: $secondary-color;
   color: #fff;
 }
 
