@@ -4,7 +4,8 @@ class CreateCourseComments < ActiveRecord::Migration
       t.string :course_general_code
       t.string :course_year
       t.string :course_term
-      t.string :title
+      t.string :user_avatar_url
+      t.string :user_name
       t.text :body
       t.integer :rating
       t.integer :user_id
