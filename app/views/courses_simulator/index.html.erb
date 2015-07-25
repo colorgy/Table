@@ -1,50 +1,3 @@
-<script>
-/*
-  $(function(){
-    $( ".simulator-table-course" ).draggable({
-      revert: true,
-      start: function() {
-        $(this).removeClass('active');
-        $('.garbage-can-field').addClass('active');
-        $('.mobile-bottom-nav').addClass('hide');
-      },
-      drag: function() {
-      },
-      stop: function() {
-        $(this).addClass('active');
-        $('.garbage-can-field').removeClass('active');
-        $('.mobile-bottom-nav').removeClass('hide');
-      }
-
-    });
-    $(".garbage-can-field").droppable({
-          activeClass: "",
-          hoverClass: "hover",
-          accept: ".simulator-table-course",
-          drop: function(event, ui) {
-        item_id = $(ui.draggable).attr('iid');
-        $.ajax({
-          url:'/courses_simulator/' + item_id,
-          type: 'DELETE',
-          success: function(response) {
-            var item = response["item"];
-            var course = response["course"];
-            var course_name = course.course_name;
-
-            $('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-            console.log(item);
-            $('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-            $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-            Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
-            CourseConflictTest();
-            CourseCreditsCounter();
-          }
-        })
-          }
-      })
-  });
-*/
-</script>
 <div class="container-fuild" style="padding-top: 35px;">
   <div class="row">
     <div class="col m2 s12 controll-panel-container">
@@ -277,21 +230,42 @@
   </div>
 </div>
 <div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-title">
+    <h5><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+  </div>
   <div class="modal-content">
-    <h5 class="under-line-title"><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+    <h5 class="under-line-title">詳細資訊</h5>
     <p>
       學分： <span class="modal-course-credits"></span></br>
       課程代號： <span class="modal-course-general-code"></span></br>
       課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
     </p>
-    <div class="users-on-course-list" id="users-on-course-list">
-      <ul>
-      </ul>
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s4"><a class="active" href="#modal-selected-users">同班同學</a></li>
+          <li class="tab col s4"><a href="#modal-course-comments">課程評論</a></li>
+          <li class="tab col s4"><a href="#modal-course-wiki">課程維基</a></li>
+        </ul>
+      </div>
+      <div id="modal-selected-users" class="col s12">
+        <div class="users-on-course-list" id="users-on-course-list">
+          <ul>
+          </ul>
+        </div>
+      </div>
+      <div id="modal-course-comments" class="col s12"> 
+        <div id="course-comments">
+        </div>
+      </div>
+      <div id="modal-course-wiki" class="col s12"><p style="text-align: center;">敬請期待</p></div>
     </div>
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
-    <a class="modal-action btn-flat" cid="" id="modal-del-btn">刪除</a>
+    <a class="modal-action btn-flat" cid="" id="modal-del-btn">移除此課</a>
+    <a class="modal-action btn-flat" cid="" id="modal-add-btn">加入課表</a>
+    <a class="modal-action btn-flat" id="modal-course-comment-btn">評論此課</a>
   </div>
 </div>
 <div class="mobile-bottom-nav">
@@ -314,8 +288,19 @@
 <div class="mobile-add-course-btn" id="select-trigger2">
   <i class="material-icons">add</i>
 </div>
+<div class="course-comment-form-container" id="course-comment-form-container">
+  <a id="course-comment-form-container-close" class="course-comment-form-container-close"><i class="material-icons">close</i></a>
+  <%= render "course_comments/form" %>
+</div>
 
 <script>
+
+  $('#modal-course-comment-btn').click(function(){
+    $('.course-comment-form-container').addClass('active');
+  })
+  $('#course-comment-form-container-close').click(function(){
+    $('.course-comment-form-container').removeClass('active');
+  })
 // Mobile Mode Nav Control
 // 手機模式下方的選單，點擊一個btn之後可以讓其他btn失效，達成tabs的效果。
   $(window).load(function(){
@@ -397,6 +382,37 @@ $(document).on('mouseout' ,'.simulator-table td',function(e){
     }
   }
 })
+
+//
+
+function CourseCommentCounter(){
+  var count = $('.course-comment').length;
+  if (count == 0){
+    $('#course-comments').html('<p class="course-comment-empty-message" style="text-align: center;"><i class="material-icons">face</i>目前沒有評論唷！可以按下方 "評論此課" 按鈕進行評論</p>');
+  }
+  else{
+    $('.course-comment-empty-message').remove();
+  }
+}
+
+// 
+
+function CourseCommentRatingRenderStar(){
+  $('.course-comment-rating').each(function(){
+    var rating = $(this).attr('rating');
+    var rating_count = parseInt(rating);
+    var unrating_count = 5 - rating_count;
+
+    $(this).html('');
+
+    for(i = 1; i<= rating_count ; i++){
+      $(this).append('<i class="material-icons">star</i>');
+    }
+    for(j = 1; j<= unrating_count ; j++){
+      $(this).append('<i class="material-icons">star_border</i>');
+    }
+  })
+}
 
 //
 // 函式： 計算所有已選課程的學分數，並且 append 到統計裡面。
@@ -506,57 +522,11 @@ function splitACourse() {
         var thisCourse_period = course['period_' + i];
         var thisCourse_location = course['location_' + i];
         $('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
-          /*
-          .draggable({
-            revert: true,
-            start: function() {
-              $(this).removeClass('active');
-              $('.garbage-can-field').addClass('active');
-              $('.mobile-bottom-nav').addClass('hide');
-            },
-            drag: function() {
-            },
-            stop: function() {
-              $(this).addClass('active');
-              $('.garbage-can-field').removeClass('active');
-              $('.mobile-bottom-nav').removeClass('hide');
-            }
-
-          });
-          */
-
         };
         CourseConflictTest();
         CourseCreditsCounter();
 
       });
-      /*
-      $(".garbage-can-field").droppable({
-            activeClass: "",
-            hoverClass: "hover",
-            accept: ".simulator-table-course",
-            drop: function(event, ui) {
-          item_id = $(ui.draggable).attr('iid');
-          $.ajax({
-            url:'/courses_simulator/' + item_id,
-            type: 'DELETE',
-            success: function(response) {
-              var item = response["item"];
-              var course = response["course"];
-              var course_name = course.course_name;
-
-              $('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-              console.log(item);
-              $('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-              $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-              Materialize.toast('"' + course_name + '" 已經移出課表！', 100000);
-              CourseConflictTest();
-              CourseCreditsCounter();
-            }
-          })
-            }
-        })
-      */
   });
 };
 
@@ -611,9 +581,32 @@ $(document).on({
 }, ".course-select-item");
 
 
+//
+// 點選已排課表開啟 modal
+//
+
 $(document).on('click', '.simulator-table-course', function(){
   $('#preloader-wrapper').addClass('active');
+  $('.course-comment').remove();
   var course_code = $(this).attr('icd');
+
+
+  var ifselected = false;
+
+  $('.item-course-id').each(function(){
+    if (course_code == $(this).attr('icd')) {
+      ifselected = true;
+    }
+  })
+
+  if (ifselected) {
+    $('#modal-add-btn').addClass('hide');
+    $('#modal-del-btn').removeClass('hide');
+  }else{
+    $('#modal-add-btn').removeClass('hide');
+    $('#modal-del-btn').addClass('hide');
+  };
+
   var item_id = $(this).attr('iid');
   var school_code = '<%= current_user.organization_code.downcase %>';
   var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
@@ -621,6 +614,8 @@ $(document).on('click', '.simulator-table-course', function(){
   $.get(getCourseUri , function(course_response){
     var course = course_response[0]
     var course_name = course.name;
+    var course_year = course.year;
+    var course_term = course.term;
     //var course_time = course["course_time"];
     var course_lecturer = course.lecturer;
     var course_general_code = course.general_code;
@@ -634,7 +629,36 @@ $(document).on('click', '.simulator-table-course', function(){
     $('.modal-course-lecturer').html(course_lecturer);
     $('.modal-course-link').attr('href', website_url);
     $('#modal-del-btn').attr('iid', item_id);
+    $('#modal1').attr('course-code', course_code);
+    $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('year', course_year);
+    $('#modal1').attr('term', course_term);
     $('#modal1').openModal();
+
+
+
+    var course_general_code = $('#modal1').attr('course-general-code');
+    var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
+
+
+    $.get(getCourseCommentsUri , function(comments_response){
+      console.log(comments_response["course_comments"]);
+      $.each(comments_response["course_comments"], function(u, comment){
+        var comment_body = comment.body;
+        var comment_rating = comment.rating;
+        var comment_user_id = comment.user_id;
+        var comment_user_name = comment.user_name;
+        var comment_user_avatar_url = comment.user_avatar_url;
+        var comment_create_time = comment.created_at.substr(0,10);
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+
+      })
+      CourseCommentRatingRenderStar();
+      CourseCommentCounter();
+    })
+
+
 
   });
 
@@ -643,18 +667,120 @@ $(document).on('click', '.simulator-table-course', function(){
   $.get(getUserCourseUri , function(users_response){
     $('#users-on-course-list li').remove();
     $.each( users_response , function(u, user){
-      console.log(user.name);
       var user_avatar_url = user.avatar_url;
       var user_fb_id = user.fbid;
-      var user_id = user.id
+      var user_id = user.id;
 
       $('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
     })
     $('#preloader-wrapper').removeClass('active');
   });
+
+
+
+});
+
+//
+// 點選搜尋到的課程列表中的 "課程名稱" 開啟 modal
+//
+
+$(document).on('click', '.course-select-item .name', function(){
+  $('#preloader-wrapper').addClass('active');
+  $('.course-comment').remove();
+  var course_code = $(this).siblings('.course-id').attr('cid');
+
+  var ifselected = false;
+
+  $('.item-course-id').each(function(){
+    if (course_code == $(this).attr('icd')) {
+      ifselected = true;
+    }
+  })
+
+  if (ifselected) {
+    $('#modal-add-btn').addClass('hide');
+    $('#modal-del-btn').removeClass('hide');
+  }else{
+    $('#modal-add-btn').removeClass('hide');
+    $('#modal-del-btn').addClass('hide');
+  };
+
+
+  var school_code = '<%= current_user.organization_code.downcase %>';
+  var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
+      'filter[code]=' + course_code;
+  $.get(getCourseUri , function(course_response){
+    var course = course_response[0]
+    var course_name = course.name;
+    var course_year = course.year;
+    var course_term = course.term;
+    //var course_time = course["course_time"];
+    var course_lecturer = course.lecturer;
+    var course_general_code = course.general_code;
+    var course_code = course.code;
+    var credits = course.credits;
+    var website_url = course.url;
+
+    $('.modal-course-name').html(course_name);
+    $('.modal-course-general-code').html(course_general_code);
+    $('.modal-course-credits').html(credits);
+    $('.modal-course-lecturer').html(course_lecturer);
+    $('.modal-course-link').attr('href', website_url);
+    $('#modal1').attr('course-code', course_code);
+    $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('year', course_year);
+    $('#modal1').attr('term', course_term);
+    $('#modal1').openModal();
+
+
+
+    var course_general_code = $('#modal1').attr('course-general-code');
+    var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
+
+
+    $.get(getCourseCommentsUri , function(comments_response){
+      console.log(comments_response["course_comments"]);
+      $.each(comments_response["course_comments"], function(u, comment){
+        var comment_body = comment.body;
+        var comment_rating = comment.rating;
+        var comment_user_id = comment.user_id;
+        var comment_user_name = comment.user_name;
+        var comment_user_avatar_url = comment.user_avatar_url;
+        var comment_create_time = comment.created_at.substr(0,10);
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+
+      })
+      CourseCommentRatingRenderStar();
+      CourseCommentCounter();
+    })
+
+
+
+  });
+
+  var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+
+  $.get(getUserCourseUri , function(users_response){
+    $('#users-on-course-list li').remove();
+    $.each( users_response , function(u, user){
+      var user_avatar_url = user.avatar_url;
+      var user_fb_id = user.fbid;
+      var user_id = user.id;
+
+      $('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+    })
+    $('#preloader-wrapper').removeClass('active');
+  });
+
+
+
 });
 
 
+//
+// 從搜尋到的課程列表中加入課程
+//
 $(document).on('click', '.add-to-simulator', function(){
   $('#preloader-wrapper').addClass('active');
   course_code = $(this).siblings('.course-id').attr('cid');
@@ -669,10 +795,6 @@ $(document).on('click', '.add-to-simulator', function(){
   if(ifReselect){
 
     $.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
-
-        //var location = course["location"]
-        //var course_times = course["course_time"].split(" ");
-        //var counter = course_times.length;
         var item = response["item"];
         var item_id = item["id"];
         var school_code = '<%= current_user.organization_code.downcase %>';
@@ -707,63 +829,12 @@ $(document).on('click', '.add-to-simulator', function(){
             var thisCourse_period = course['period_' + i];
             var thisCourse_location = course['location_' + i];
             $('<div class="simulator-table-course active" iid="' + item_id + '" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
-              /*
-              .draggable({
-                revert: true,
-                start: function() {
-                  $(this).removeClass('active');
-                  $('.garbage-can-field').addClass('active');
-                  $('.mobile-bottom-nav').addClass('hide');
-                },
-                drag: function() {
-                },
-                stop: function() {
-                  $(this).addClass('active');
-                  $('.garbage-can-field').removeClass('active');
-                  $('.mobile-bottom-nav').removeClass('hide');
-                }
-
-              });
-              */
 
           };
           CourseConflictTest();
           CourseCreditsCounter();
           flash.success('"' + course_name + '" 已經加入課表！');
         });
-
-        //$('.course-id[cid="' + course_id + '"]').parent('.course-select-item').addClass('disabled');
-
-
-
-        /*
-        $(".garbage-can-field").droppable({
-              activeClass: "",
-              hoverClass: "hover",
-              accept: ".simulator-table-course",
-              drop: function(event, ui) {
-            item_id = $(ui.draggable).attr('iid');
-            $.ajax({
-              url:'/courses_simulator/' + item_id,
-              type: 'DELETE',
-              success: function(response) {
-                var item = response["item"];
-                var course = response["course"];
-                var course_name = course.course_name;
-                $('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-                console.log(item);
-                $('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-                $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-                Materialize.toast('"' + course_name + '" 已經移出課表！', 2000);
-                CourseConflictTest();
-                CourseCreditsCounter();
-              }
-            })
-              }
-          })*/
-
-
-
 
         $('#preloader-wrapper').removeClass('active');
         CourseConflictTest();
@@ -777,6 +848,82 @@ $(document).on('click', '.add-to-simulator', function(){
   }
 
 });
+
+//
+// 從 Modal footer 中的按鈕加入課程
+//
+
+$(document).on('click', '#modal-add-btn', function(){
+  $('#preloader-wrapper').addClass('active');
+  course_code = $('#modal1').attr('course-code');
+  var ifReselect = true;
+
+  $('.item-course-id').each(function(){
+    if (course_code == $(this).attr('icd')) {
+      ifReselect = false;
+    }
+  })
+
+  if(ifReselect){
+
+    $.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
+        var item = response["item"];
+        var item_id = item["id"];
+        var school_code = '<%= current_user.organization_code.downcase %>';
+
+        var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
+        'filter[code]=' + course_code;
+
+        $.get(getCourseUri , function(course_response){
+          var course = course_response[0]
+          var course_name = course.name;
+          //var course_time = course["course_time"];
+          var course_lecturer = course.lecturer;
+          var course_general_code = course.general_code;
+          var course_code = course.code;
+          var credits = course.credits;
+
+          $('.course-hasselect-field-inner').append(
+            '<div class="course-hasselect-item">' +
+              '<div class="name">'+
+               course_name + '</div>' +
+              '<div class="lecturer">'+ course_lecturer + '</div>' +
+              '<div class="code">'+ course_general_code + '</div>' +
+              '<br>' +
+              '<div class="time">'+ 'time' + '</div>' +
+              '<div class="location">' + 'location' + '</div>' +
+              '<div class="credits">' + credits + '</div>' +
+              '<button class="remove-hasselect-course"><i class="material-icons">clear</i></button>' +
+              '<div class="item-id" iid="' + item_id + '"></div>' +
+              '<div class="item-course-id" icd="'+ course_code + '"></div>' + '</div>');
+          for (var i = 1; i <= 9; i++) {
+            var thisCourse_day = course['day_' + i];
+            var thisCourse_period = course['period_' + i];
+            var thisCourse_location = course['location_' + i];
+            $('<div class="simulator-table-course active" iid="' + item_id + '" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+
+          };
+          CourseConflictTest();
+          CourseCreditsCounter();
+          flash.success('"' + course_name + '" 已經加入課表！');
+          $('#modal1').closeModal();
+        });
+
+        $('#preloader-wrapper').removeClass('active');
+        CourseConflictTest();
+        CourseCreditsCounter();
+
+    })
+
+  }else{
+    $('#preloader-wrapper').removeClass('active');
+    flash.error('這堂課已經在你的課表內囉！');
+  }
+
+});
+
+
+
 $(document).on('click','#modal-del-btn' , function() {
      //code here ....
   item_id = $(this).attr('iid');
@@ -785,9 +932,6 @@ $(document).on('click','#modal-del-btn' , function() {
     type: 'DELETE',
     success: function(response) {
       var item = response["item"];
-
-      //$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-      console.log(item);
       $('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
       $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
       flash.success('這堂課已經移出課表！');
@@ -807,9 +951,6 @@ $(document).on('click','.remove-hasselect-course' , function() {
     type: 'DELETE',
     success: function(response) {
       var item = response["item"];
-
-      //$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-      console.log(item);
       $('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
       $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
       $('#preloader-wrapper').removeClass('active');
@@ -827,8 +968,6 @@ $('#course-searchbox').on('input', function(){
   var keyword = $('#course-searchbox').val();
   var search_method = $('#search-method-select option:selected').attr('value');
   var school_code = '<%= current_user.organization_code.downcase %>';
-
-  console.log(search_method);
 
   if(keyword == ''){
     $('.simulator-search-result').children('.course-select-item').remove();
@@ -889,5 +1028,7 @@ $(document).mousemove(function(e){
     $('.simulator-table-course.on-hover').remove();
   }
 })
-
+ $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
 </script>

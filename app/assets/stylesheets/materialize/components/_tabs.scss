@@ -23,7 +23,11 @@
       display: block;
       width: 100%;
       height: 100%;
-      @include transition( color .28s ease);
+      transition: color .28s ease, border-bottom 2s;
+      -webkit-transition: color .28s ease, border-bottom 2s;
+      -moz-transition: color .28s ease, border-bottom 2s;
+      -o-transition: color .28s ease, border-bottom 2s;
+      -ms-transition: color .28s ease, border-bottom 2s;
       &:hover {
         color: lighten($tabs-text-color, 20%);
       }

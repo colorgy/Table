@@ -1,0 +1,86 @@
+<form id="create-course-comment-form" class="create-course-comment-form">
+  <div class="user-info">
+    <span class="user-avatar"><%= image_tag current_user.avatar_url %></span><span class="user-name"><%= current_user.name %></span>
+  </div>
+  <div class="input-field">
+    <textarea id="course_comment_body" class="materialize-textarea"></textarea>
+    <label for="course_comment_body">評論</label>
+  </div>
+  <div class="rating-field">
+    <label for="rating">你願意給這堂課幾分呢？</label>
+    <select class="browser-default" id="rating">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <button id="form-submit" class="btn form-submit">提交評論</button>
+</form>
+<script type="text/javascript">
+  function CourseCommentCounter(){
+    var count = $('.course-comment').length;
+    if (count == 0){
+      $('#course-comments').html('<p class="course-comment-empty-message" style="text-align: center;"><i class="material-icons">face</i>目前沒有評論唷！可以按下方 "評論此課" 按鈕進行評論</p>');
+    }
+    else{
+      $('.course-comment-empty-message').remove();
+    }
+  }
+
+
+  function CourseCommentRatingRenderStar(){
+    $('.course-comment-rating').each(function(){
+      var rating = $(this).attr('rating');
+      var rating_count = parseInt(rating);
+      var unrating_count = 5 - rating_count;
+
+      $(this).html('');
+
+      for(i = 1; i<= rating_count ; i++){
+        $(this).append('<i class="material-icons">star</i>');
+      }
+      for(j = 1; j<= unrating_count ; j++){
+        $(this).append('<i class="material-icons">star_border</i>');
+      }
+    })
+  }
+
+  $('#form-submit').click(function(){
+    var course_general_code = $('#modal1').attr('course-general-code');;
+    var course_year = $('#modal1').attr('year');
+    var course_term = $('#modal1').attr('term');
+    var body = $('#course_comment_body').val();
+    //var rating = $('#course_comment_rating').val();
+    var rating = $('#rating option:selected').val();
+    var user_id = parseInt('<%= current_user.id %>');
+    var user_avatar_url = ('<%= current_user.avatar_url %>');
+    var user_name = ('<%= current_user.name %>');
+
+    $.post('/course_comments', {"course_comment[course_general_code]": course_general_code, "course_comment[course_year]": course_year, "course_comment[course_term]": course_term, "course_comment[body]": body, "course_comment[rating]": rating, "course_comment[user_id]": user_id, "course_comment[user_avatar_url]": user_avatar_url, "course_comment[user_name]": user_name}, function(response) {
+
+        var comment = response["course_comment"];
+        var comment_body = comment.body;
+        var comment_rating = comment.rating;
+        var comment_user_id = comment.user_id;
+        var comment_user_name = comment.user_name;
+        var comment_user_avatar_url = comment.user_avatar_url;
+        var comment_create_time = comment.created_at.substr(0,10);
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+
+        
+        flash.success('成功添加評論！');
+        CourseCommentRatingRenderStar();
+        CourseCommentCounter();
+        $('.course-comment-form-container').removeClass('active');
+        $('#course_comment_body').val('');
+        $('#rating').val(1);
+      
+    })
+
+    
+    return false;
+  })
+</script>

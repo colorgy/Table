@@ -24,7 +24,9 @@ Rails.application.routes.draw do
 
   resources :course_users
   resources :users
+  resources :course_comments
   get 'search-users' => 'users#search'
+  get 'search-course-comments' => 'course_comments#search'
 
   # Example resource route with options:
   #   resources :products do
