@@ -741,6 +741,8 @@ $(document).on('click', '.course-select-item .name', function(){
   if (ifselected) {
     $('#modal-add-btn').addClass('hide');
     $('#modal-del-btn').removeClass('hide');
+    var item_id = $('.item-course-id[icd="' + course_code +'"]').siblings('.item-id').attr('iid');
+    $('#modal-del-btn').attr('iid',item_id);
   }else{
     $('#modal-add-btn').removeClass('hide');
     $('#modal-del-btn').addClass('hide');
@@ -825,7 +827,8 @@ $(document).on('click', '.course-hasselect-item .name', function(){
   $('#preloader-wrapper').addClass('active');
   $('.course-comment').remove();
   var course_code = $(this).siblings('.item-course-id').attr('icd');
-
+  var item_id = $(this).siblings('.item-id').attr('iid');
+  $('#modal-del-btn').attr('iid', item_id);
   var ifselected = false;
 
   $('.item-course-id').each(function(){
