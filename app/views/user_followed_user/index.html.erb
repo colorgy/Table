@@ -35,9 +35,17 @@
                   <div class="followed-user-item-avatar">
                     <%= image_tag user_followed_user.followed_user.avatar_url  %>
                   </div>
-                  <%= user_followed_user.followed_user.name %>
-                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>">取消追蹤</a>
                 </a>
+                <div class="followed-user-item-content">
+                  <p>
+                    <a href="<%= user_path(user_followed_user.followed_user) %>"><span class="followed-user-item-name"><%= user_followed_user.followed_user.name %></span></a><br>
+                    <span class="followed-user-item-organization-code"><%= user_followed_user.followed_user.organization_code %></span>
+                  </p>
+                </div>
+                <div class="followed-user-item-action">
+                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>">取消追蹤</a>
+                  <a class="fb-btn" href="https://www.facebook.com/<%= user_followed_user.followed_user.fbid %>" target="_blank">facebook</a>
+                </div>
               </div>
             <% end %>
           <% end %>

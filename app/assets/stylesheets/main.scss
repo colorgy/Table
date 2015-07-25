@@ -9,6 +9,7 @@ a:hover, a:focus{
 	text-decoration: none;
 }
 a.active{
+	color: $primary-color;
 	border-bottom: 2px solid $primary-color;
 }
 nav{
@@ -1283,7 +1284,7 @@ section.users{
   color: #fff;
 }
 #modal-course-comment-btn {
-  background-color: rgb(87, 133, 195);
+  background-color: $dark-gray;
   color: #fff;
 }
 #modal-add-btn {
@@ -1302,9 +1303,11 @@ section.users{
   	margin: 0;
   	color: #fff;
   	text-align: center;
-
+  	font-size: 16px;
 
   	> span{
+			margin-right: 8px;
+
 	  	> i{
 				vertical-align: middle;
 				display: inline-block;
@@ -1312,21 +1315,77 @@ section.users{
 			> span{
 				vertical-align: middle;
 				display: inline-block;
-				margin-left: 4px;
-				margin-right: 8px;
 				color: $dark-gray;
 				padding-top: 2px;
 			}
 	  	> img{
 	  		display: inline-block;
 	  		vertical-align: middle;
-	  		width: 18px;
-				margin-left: 4px;
+	  		width: 16px;
 	  	}
   	}
 
   }
 }
+.colorgy-badges{
+  background-color: #fff;
+  color: rgb(68, 68, 68);
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0 2px;
+  border-radius: 2px;
+  margin: 0 8px;
+  position: relative;
+
+  > strong{
+		position: absolute;
+		top: -6px;
+		display: inline-block;
+		left: 3px;
+  }
+}
+.followed-user-item{
+	background-color: #fff;
+
+	> .followed-user-item-content{
+		padding: 8px 16px 8px 16px;
+
+		> p{
+			margin: 0;
+			font-size: 16px;
+
+			.followed-user-item-name{
+				font-size: 24px;
+				color: $darker-gray;
+			}
+
+			.followed-user-item-organization-code{
+				font-size: 14px;
+				color: $dark-gray;
+			}
+		}
+	}
+
+	> .followed-user-item-action{
+		padding: 8px 16px;
+		text-align: right;
+		border-top: 1px solid #eee;
+
+		> .unfollow-user-btn{
+			padding: 2px 4px;
+			color: #fff;
+			background-color: #df6767;
+			border-radius: 2px;
+		}
+		> .fb-btn{
+			padding: 2px 4px;
+			color: #fff;
+			background-color: #3B5998;
+			border-radius: 2px;
+		}
+	}
+}
+
 
 /* Isotope */
 /* clear fix */
