@@ -149,7 +149,7 @@ i{
 			}
 			> .credits {
 			  position: absolute;
-			  top: 50%;
+			  top: calc(50% + 4px);
 			  right: 67px;
 			  transform: translateY(-50%);
 			  z-index: 1;
@@ -1346,6 +1346,7 @@ section.users{
 }
 .followed-user-item{
 	background-color: #fff;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.2);
 
 	> .followed-user-item-content{
 		padding: 8px 16px 8px 16px;
