@@ -1,8 +1,25 @@
+<div class="statistics-panel">
+  <p class="statistics">
+    <span class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="你的學校代碼">
+      <span><%= current_user.organization_code %></span>
+    </span>
+    <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="目前修課的學分數">
+      <i class="material-icons">star</i>
+      <span class="credits-total">20</span>
+    </span>
+    <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="與你同班的女生數">
+      <%= image_tag ('female.png') %>
+      <span class="female-counter">100</span>
+    </span>
+    <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="與你同班的男生數">
+      <%= image_tag ('male.png') %>
+      <span class="male-counter">100</span>
+    </span>
+  </p>
+</div>
 <div class="container-fuild" style="padding-top: 35px;">
   <div class="row">
     <div class="col m2 s12 controll-panel-container">
-      <p>你的學校是： <%= current_user.organization_code %></p>
-
       <div class="page-slider" style="margin-top: 24px;">
         <div class="col s12 simulator-fixed" style="height: 100%; margin-bottom: 24px;" dataPage="mobile" id="select-page">
           <div class="simulator-sidebar">
@@ -58,14 +75,15 @@
     <div class="col m10 s12 simulator-fixed-calendar active" dataPage="mobile" id="calendar-page">
       <div class="page-slider">
         <h4 class="simulator-title" style="display:none;"><%= current_user.name %>的課表</h4>
+        <!--
         <div class="garbage-can-field" id="garbage-can-delete">
           <button class="garbage-can-delete"></button>
         </div>
-        <!--
         <div class="import-to-mobile-field" style="float: right; margin-top: 5px;">
           <button id="import-to-mobile" class="import-to-mobile">匯入手機GOGO<i class="mdi-content-send right"></i></button>
         </div>
         -->
+        
         <div style="clear: both;"></div>
         <div class="simulator-table-field" style="padding-top: 0 !important;">
           <table class="simulator-table">
@@ -289,7 +307,6 @@
   <i class="material-icons">add</i>
 </div>
 <div class="course-comment-form-container" id="course-comment-form-container">
-  <a id="course-comment-form-container-close" class="course-comment-form-container-close"><i class="material-icons">close</i></a>
   <%= render "course_comments/form" %>
 </div>
 
@@ -413,23 +430,6 @@ function CourseCommentRatingRenderStar(){
     }
   })
 }
-
-//
-// 函式： 計算所有已選課程的學分數，並且 append 到統計裡面。
-//
-function CourseCreditsCounter(){
-  var creditsTotal = 0;
-
-  $('.credits').each(function(){
-    var number = parseInt($(this).text());
-    //numbers.push(number);
-    creditsTotal = creditsTotal + number;
-  })
-  $('#credits-total').html('');
-  $('#credits-total').append(creditsTotal);
-}
-
-
 //
 // 當一個 td 底下有超過一個課程之後，加入衝堂的css狀態，並且加上堆疊效果。
 //
@@ -470,9 +470,51 @@ function CourseConflictTest(){
   });
 }
 
-//
-//
-//
+function getStatistics(){
+  var male_total = 0;
+  var female_total = 0;
+  var credits_total = 0;
+
+  $('.course-hasselect-item').each(function(){
+    var male_counter = parseInt($(this).children('.item-course-id').attr('male-counter'));
+    var female_counter = parseInt($(this).children('.item-course-id').attr('female-counter'));
+    var credits_counter = parseInt($(this).children('.credits').text());
+    male_total = male_total + male_counter;
+    female_total = female_total + female_counter;
+    credits_total = credits_total + credits_counter;
+  })
+
+  $('.credits-total').html(credits_total);
+  $('.female-counter').html(female_total);
+  $('.male-counter').html(male_total);
+}
+
+function getCourseUsers(){
+
+  if($('.item-course-id').length > 0){
+    $('.item-course-id').each(function(){
+      var course_code = $(this).attr('icd');
+      var url = '<%= course_users_path %>' + '/' + course_code;
+      console.log(url);
+
+      $.get(url, function(response){
+        male_count = response["course_male_counter"];
+        female_count = response["course_female_counter"];
+
+        $(this).attr('male-counter', male_count);
+        $(this).attr('female-counter', female_count);
+        getStatistics();
+
+      }.bind(this))
+    })
+  }else{
+    $('.credits-total').html(0);
+    $('.female-counter').html(0);
+    $('.male-counter').html(0);
+  }
+
+}
+
 function splitACourse() {
   var courseHasselectItem = $('.course-hasselect-item');
   courseHasselectItem.each(function(){
@@ -524,16 +566,15 @@ function splitACourse() {
         $('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
         };
         CourseConflictTest();
-        CourseCreditsCounter();
+        getCourseUsers();
 
       });
   });
 };
 
 splitACourse();
-CourseCreditsCounter();
 CourseConflictTest();
-//courseSelectItemDisabledTest();
+getCourseUsers();
 
 
 $(document).ready(function() {
@@ -666,7 +707,7 @@ $(document).on('click', '.simulator-table-course', function(){
 
   $.get(getUserCourseUri , function(users_response){
     $('#users-on-course-list li').remove();
-    $.each( users_response , function(u, user){
+    $.each( users_response["course_users"] , function(u, user){
       var user_avatar_url = user.avatar_url;
       var user_fb_id = user.fbid;
       var user_id = user.id;
@@ -763,7 +804,7 @@ $(document).on('click', '.course-select-item .name', function(){
 
   $.get(getUserCourseUri , function(users_response){
     $('#users-on-course-list li').remove();
-    $.each( users_response , function(u, user){
+    $.each( users_response["course_users"] , function(u, user){
       var user_avatar_url = user.avatar_url;
       var user_fb_id = user.fbid;
       var user_id = user.id;
@@ -776,6 +817,103 @@ $(document).on('click', '.course-select-item .name', function(){
 
 
 });
+//
+// 點選已選擇的課程列表中的 "課程名稱" 開啟 modal
+//
+
+$(document).on('click', '.course-hasselect-item .name', function(){
+  $('#preloader-wrapper').addClass('active');
+  $('.course-comment').remove();
+  var course_code = $(this).siblings('.item-course-id').attr('icd');
+
+  var ifselected = false;
+
+  $('.item-course-id').each(function(){
+    if (course_code == $(this).attr('icd')) {
+      ifselected = true;
+    }
+  })
+
+  if (ifselected) {
+    $('#modal-add-btn').addClass('hide');
+    $('#modal-del-btn').removeClass('hide');
+  }else{
+    $('#modal-add-btn').removeClass('hide');
+    $('#modal-del-btn').addClass('hide');
+  };
+
+
+  var school_code = '<%= current_user.organization_code.downcase %>';
+  var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
+      'filter[code]=' + course_code;
+  $.get(getCourseUri , function(course_response){
+    var course = course_response[0]
+    var course_name = course.name;
+    var course_year = course.year;
+    var course_term = course.term;
+    //var course_time = course["course_time"];
+    var course_lecturer = course.lecturer;
+    var course_general_code = course.general_code;
+    var course_code = course.code;
+    var credits = course.credits;
+    var website_url = course.url;
+
+    $('.modal-course-name').html(course_name);
+    $('.modal-course-general-code').html(course_general_code);
+    $('.modal-course-credits').html(credits);
+    $('.modal-course-lecturer').html(course_lecturer);
+    $('.modal-course-link').attr('href', website_url);
+    $('#modal1').attr('course-code', course_code);
+    $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('year', course_year);
+    $('#modal1').attr('term', course_term);
+    $('#modal1').openModal();
+
+
+
+    var course_general_code = $('#modal1').attr('course-general-code');
+    var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
+
+
+    $.get(getCourseCommentsUri , function(comments_response){
+      console.log(comments_response["course_comments"]);
+      $.each(comments_response["course_comments"], function(u, comment){
+        var comment_body = comment.body;
+        var comment_rating = comment.rating;
+        var comment_user_id = comment.user_id;
+        var comment_user_name = comment.user_name;
+        var comment_user_avatar_url = comment.user_avatar_url;
+        var comment_create_time = comment.created_at.substr(0,10);
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+
+      })
+      CourseCommentRatingRenderStar();
+      CourseCommentCounter();
+    })
+
+
+
+  });
+
+  var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+
+  $.get(getUserCourseUri , function(users_response){
+    $('#users-on-course-list li').remove();
+    $.each( users_response["course_users"] , function(u, user){
+      var user_avatar_url = user.avatar_url;
+      var user_fb_id = user.fbid;
+      var user_id = user.id;
+
+      $('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+    })
+    $('#preloader-wrapper').removeClass('active');
+  });
+
+
+
+});
+
 
 
 //
@@ -832,13 +970,13 @@ $(document).on('click', '.add-to-simulator', function(){
 
           };
           CourseConflictTest();
-          CourseCreditsCounter();
+          getCourseUsers();
+          
           flash.success('"' + course_name + '" 已經加入課表！');
         });
 
         $('#preloader-wrapper').removeClass('active');
         CourseConflictTest();
-        CourseCreditsCounter();
 
     })
 
@@ -904,14 +1042,13 @@ $(document).on('click', '#modal-add-btn', function(){
 
           };
           CourseConflictTest();
-          CourseCreditsCounter();
+          getCourseUsers();
           flash.success('"' + course_name + '" 已經加入課表！');
           $('#modal1').closeModal();
         });
 
         $('#preloader-wrapper').removeClass('active');
         CourseConflictTest();
-        CourseCreditsCounter();
 
     })
 
@@ -936,7 +1073,8 @@ $(document).on('click','#modal-del-btn' , function() {
       $('.simulator-table-course[iid="' + item["id"] + '"]').remove();
       flash.success('這堂課已經移出課表！');
       CourseConflictTest();
-      CourseCreditsCounter();
+      
+      getCourseUsers();
       $('#modal1').closeModal();
     }
   })
@@ -956,7 +1094,7 @@ $(document).on('click','.remove-hasselect-course' , function() {
       $('#preloader-wrapper').removeClass('active');
       flash.success('這堂課已經移出課表！');
       CourseConflictTest();
-      CourseCreditsCounter();
+      getCourseUsers();
     }
   })
 });

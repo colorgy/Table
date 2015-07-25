@@ -205,25 +205,54 @@
 <% end %>
 
 <div id="modal1" class="modal modal-fixed-footer">
-	<div class="modal-content">
-		<h5 class="under-line-title"><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
-		<p>
-			學分： <span class="modal-course-credits"></span></br>
-			課程代號： <span class="modal-course-general-code"></span></br>
-			課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
-		</p>
-		<div class="users-on-course-list" id="users-on-course-list">
-			<ul>
-			</ul>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
-	</div>
+  <div class="modal-title">
+    <h5><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
+  </div>
+  <div class="modal-content">
+    <h5 class="under-line-title">詳細資訊</h5>
+    <p>
+      學分： <span class="modal-course-credits"></span></br>
+      課程代號： <span class="modal-course-general-code"></span></br>
+      課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
+    </p>
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s4"><a class="active" href="#modal-selected-users">同班同學</a></li>
+          <li class="tab col s4"><a href="#modal-course-comments">課程評論</a></li>
+          <li class="tab col s4"><a href="#modal-course-wiki">課程維基</a></li>
+        </ul>
+      </div>
+      <div id="modal-selected-users" class="col s12">
+        <div class="users-on-course-list" id="users-on-course-list">
+          <ul>
+          </ul>
+        </div>
+      </div>
+      <div id="modal-course-comments" class="col s12"> 
+        <div id="course-comments">
+        </div>
+      </div>
+      <div id="modal-course-wiki" class="col s12"><p style="text-align: center;">敬請期待</p></div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
+    <a class="modal-action btn-flat" id="modal-course-comment-btn">評論此課</a>
+  </div>
+</div>
+<div class="course-comment-form-container" id="course-comment-form-container">
+  <%= render "course_comments/form" %>
 </div>
 
-
 <script>
+
+$('#modal-course-comment-btn').click(function(){
+  $('.course-comment-form-container').addClass('active');
+})
+$('#course-comment-form-container-close').click(function(){
+  $('.course-comment-form-container').removeClass('active');
+})
 
 $(document).on('click', '#follow-user-btn',function(){
   $('#preloader-wrapper').addClass('active');
@@ -313,22 +342,6 @@ $(document).on('mouseout' ,'.simulator-table td',function(e){
 })
 
 //
-// 函式： 計算所有已選課程的學分數，並且 append 到統計裡面。
-//
-function CourseCreditsCounter(){
-	var creditsTotal = 0;
-
-	$('.credits').each(function(){
-		var number = parseInt($(this).text());
-		//numbers.push(number);
-		creditsTotal = creditsTotal + number;
-	})
-	$('#credits-total').html('');
-	$('#credits-total').append(creditsTotal);
-}
-
-
-//
 // 當一個 td 底下有超過一個課程之後，加入衝堂的css狀態，並且加上堆疊效果。
 //
 function CourseConflictTest(){
@@ -367,180 +380,211 @@ function CourseConflictTest(){
 		}
 	});
 }
+
 function splitACourse() {
-	var courseHasselectItem = $('.course-hasselect-item');
-	courseHasselectItem.each(function(){
-		var course_code = $(this).children(".item-course-id").attr('icd');
-		var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
-				'filter[code]=' + course_code
-		$.get(getCourseUri, function(course_response){
-			var course = course_response[0];
-			var course_name = course.name;
-			var course_lecturer = course.lecturer;
-			var course_general_code = course.general_code;
-			var credits = course.credits;
-			var course_code = course.code;
+  var courseHasselectItem = $('.course-hasselect-item');
+  courseHasselectItem.each(function(){
+    var course_code = $(this).children(".item-course-id").attr('icd');
+    var school_code = '<%= current_user.organization_code.downcase %>';
 
-			$(this).children('.name').html(course_name);
-			$(this).children('.lecturer').html(course_lecturer);
-			$(this).children('.code').html(course_general_code);
-			$(this).children('.credits').html(credits);
+    var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
+        'filter[code]=' + course_code
+    $.get(getCourseUri, function(course_response){
+      var course = course_response[0];
+      var course_name = course.name;
+      var course_lecturer = course.lecturer;
+      var course_general_code = course.general_code;
+      var credits = course.credits;
+      var course_code = course.code;
 
-		}.bind(this))
-	});
+      $(this).children('.name').html(course_name);
+      $(this).children('.lecturer').html(course_lecturer);
+      $(this).children('.code').html(course_general_code);
+      $(this).children('.credits').html(credits);
 
-	var courseItem = $('.course-hasselect-item');
-	courseItem.each(function(){
-		var course_code = $(this).children(".item-course-id").attr('icd');
-		var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
-				'filter[code]=' + course_code;
-		var item_id = $(this).children('.item-id').attr('iid');
+    }.bind(this))
+  });
 
-		$.get(getCourseUri, function(course_response){
+  var courseItem = $('.course-hasselect-item');
+  courseItem.each(function(){
+    var school_code = '<%= current_user.organization_code.downcase %>';
+    var course_code = $(this).children(".item-course-id").attr('icd');
+    var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
+        'filter[code]=' + course_code;
+    var item_id = $(this).children('.item-id').attr('iid');
 
-			var course = course_response[0];
-			var course_name = course.name;
-			//var course_time = course["course_time"];
-			var course_lecturer = course.lecturer;
-			var course_general_code = course.general_code;
-			var course_code = course.code;
-			var credits = course.credits;
-			//var item_id = $(this).children(".item-id").attr('iid');
-			//var course_times = $(this).children(".time").text().split(" ");
-			//var counter = course_times.length;
-			for (var i = 1; i <= 9; i++) {
-				var thisCourse_day = course['day_' + i];
-				var thisCourse_period = course['period_' + i];
-				var thisCourse_location = course['location_' + i];
-				$('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
-					/*
-					.draggable({
-						revert: true,
-						start: function() {
-							$(this).removeClass('active');
-							$('.garbage-can-field').addClass('active');
-							$('.mobile-bottom-nav').addClass('hide');
-						},
-						drag: function() {
-						},
-						stop: function() {
-							$(this).addClass('active');
-							$('.garbage-can-field').removeClass('active');
-							$('.mobile-bottom-nav').removeClass('hide');
-						}
+    $.get(getCourseUri, function(course_response){
 
-					});
-					*/
+      var course = course_response[0];
+      var course_name = course.name;
+      //var course_time = course["course_time"];
+      var course_lecturer = course.lecturer;
+      var course_general_code = course.general_code;
+      var course_code = course.code;
+      var credits = course.credits;
+      //var item_id = $(this).children(".item-id").attr('iid');
+      //var course_times = $(this).children(".time").text().split(" ");
+      //var counter = course_times.length;
+      for (var i = 1; i <= 9; i++) {
+        var thisCourse_day = course['day_' + i];
+        var thisCourse_period = course['period_' + i];
+        var thisCourse_location = course['location_' + i];
+        $('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+        };
+        CourseConflictTest();
+        getCourseUsers();
 
-				};
-				CourseConflictTest();
-				CourseCreditsCounter();
-
-			});
-			/*
-			$(".garbage-can-field").droppable({
-		        activeClass: "",
-		        hoverClass: "hover",
-		        accept: ".simulator-table-course",
-		        drop: function(event, ui) {
-				 	item_id = $(ui.draggable).attr('iid');
-					$.ajax({
-						url:'/courses_simulator/' + item_id,
-						type: 'DELETE',
-						success: function(response) {
-							var item = response["item"];
-							var course = response["course"];
-							var course_name = course.course_name;
-
-							$('.course-id[cid="' + item.course_id + '"]').parent('.course-select-item').removeClass('disabled');
-							console.log(item);
-							$('.item-id[iid=' + item["id"] +']').parent('.course-hasselect-item').remove();
-							$('.simulator-table-course[iid="' + item["id"] + '"]').remove();
-							Materialize.toast('"' + course_name + '" 已經移出課表！', 100000);
-							CourseConflictTest();
-							CourseCreditsCounter();
-						}
-					})
-		        }
-		    })
-			*/
-	});
+      });
+  });
 };
 
-function CountPeopleInSameClass(){
-	var maleTotal = 0;
-	var femaleTotal = 0;
+function getStatistics(){
+  var male_total = 0;
+  var female_total = 0;
+  var credits_total = 0;
 
-	$('.item-course-id').each(function(){
-		var course_code = $(this).attr('icd');
-		var getUserCourseUri = '<%= course_users_path %>/' + course_code;
-		$.get(getUserCourseUri , function(users_response){
-			console.log(users_response);
-			$.each( users_response , function(u, user){
-				console.log(user.gender);
-				if (user.gender == 'male') {
-					maleTotal = maleTotal + 1;
-				}
-				if (user.gender == 'female'){
-					femaleTotal = femaleTotal + 1;
-				};
-			})
-		});
-	})
+  $('.course-hasselect-item').each(function(){
+    var male_counter = parseInt($(this).children('.item-course-id').attr('male-counter'));
+    var female_counter = parseInt($(this).children('.item-course-id').attr('female-counter'));
+    var credits_counter = parseInt($(this).children('.credits').text());
+    male_total = male_total + male_counter;
+    female_total = female_total + female_counter;
+    credits_total = credits_total + credits_counter;
+  })
 
-	console.log('男生同班：' + maleTotal);
-	console.log('女生同班：' + femaleTotal);
+  $('.credits-total').html(credits_total);
+  $('.female-counter').html(female_total);
+  $('.male-counter').html(male_total);
+}
 
+function getCourseUsers(){
+
+  if($('.item-course-id').length > 0){
+    $('.item-course-id').each(function(){
+      var course_code = $(this).attr('icd');
+      var url = '<%= course_users_path %>' + '/' + course_code;
+      console.log(url);
+
+      $.get(url, function(response){
+        male_count = response["course_male_counter"];
+        female_count = response["course_female_counter"];
+
+        $(this).attr('male-counter', male_count);
+        $(this).attr('female-counter', female_count);
+        getStatistics();
+
+      }.bind(this))
+    })
+  }else{
+    $('.credits-total').html(0);
+    $('.female-counter').html(0);
+    $('.male-counter').html(0);
+  }
 
 }
 
+//
+// 點選已排課表開啟 modal
+//
+
 $(document).on('click', '.simulator-table-course', function(){
   $('#preloader-wrapper').addClass('active');
-	var course_code = $(this).attr('icd');
-	var item_id = $(this).attr('iid');
-	var getCourseUri = 'https://colorgy.io:443/api/ntust/courses.json?' +
-			'filter[code]=' + course_code;
-	$.get(getCourseUri , function(course_response){
-		var course = course_response[0]
-		var course_name = course.name;
-		//var course_time = course["course_time"];
-		var course_lecturer = course.lecturer;
-		var course_general_code = course.general_code;
-		var course_code = course.code;
-		var credits = course.credits;
-		var website_url = course.url;
+  $('.course-comment').remove();
+  var course_code = $(this).attr('icd');
 
-		$('.modal-course-name').html(course_name);
-		$('.modal-course-general-code').html(course_general_code);
-		$('.modal-course-credits').html(credits);
-		$('.modal-course-lecturer').html(course_lecturer);
-		$('.modal-course-link').attr('href', website_url);
-		$('#modal-del-btn').attr('iid', item_id);
-		$('#modal1').openModal();
 
-	});
+  var ifselected = false;
 
-	var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+  $('.item-course-id').each(function(){
+    if (course_code == $(this).attr('icd')) {
+      ifselected = true;
+    }
+  })
 
-	$.get(getUserCourseUri , function(users_response){
-		console.log(users_response);
-		$('#users-on-course-list li').remove();
-		$.each( users_response , function(u, user){
-			console.log(user.name);
-			var user_avatar_url = user.avatar_url;
-			var user_fb_id = user.fbid;
-			var user_id = user.id
+  if (ifselected) {
+    $('#modal-add-btn').addClass('hide');
+    $('#modal-del-btn').removeClass('hide');
+  }else{
+    $('#modal-add-btn').removeClass('hide');
+    $('#modal-del-btn').addClass('hide');
+  };
 
-			$('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
-      $('#preloader-wrapper').removeClass('active');
-		})
-	});
+  var item_id = $(this).attr('iid');
+  var school_code = '<%= current_user.organization_code.downcase %>';
+  var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
+      'filter[code]=' + course_code;
+  $.get(getCourseUri , function(course_response){
+    var course = course_response[0]
+    var course_name = course.name;
+    var course_year = course.year;
+    var course_term = course.term;
+    //var course_time = course["course_time"];
+    var course_lecturer = course.lecturer;
+    var course_general_code = course.general_code;
+    var course_code = course.code;
+    var credits = course.credits;
+    var website_url = course.url;
+
+    $('.modal-course-name').html(course_name);
+    $('.modal-course-general-code').html(course_general_code);
+    $('.modal-course-credits').html(credits);
+    $('.modal-course-lecturer').html(course_lecturer);
+    $('.modal-course-link').attr('href', website_url);
+    $('#modal-del-btn').attr('iid', item_id);
+    $('#modal1').attr('course-code', course_code);
+    $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('year', course_year);
+    $('#modal1').attr('term', course_term);
+    $('#modal1').openModal();
+
+
+
+    var course_general_code = $('#modal1').attr('course-general-code');
+    var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
+
+
+    $.get(getCourseCommentsUri , function(comments_response){
+      console.log(comments_response["course_comments"]);
+      $.each(comments_response["course_comments"], function(u, comment){
+        var comment_body = comment.body;
+        var comment_rating = comment.rating;
+        var comment_user_id = comment.user_id;
+        var comment_user_name = comment.user_name;
+        var comment_user_avatar_url = comment.user_avatar_url;
+        var comment_create_time = comment.created_at.substr(0,10);
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+
+      })
+      CourseCommentRatingRenderStar();
+      CourseCommentCounter();
+    })
+
+
+
+  });
+
+  var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+
+  $.get(getUserCourseUri , function(users_response){
+    $('#users-on-course-list li').remove();
+    $.each( users_response["course_users"] , function(u, user){
+      var user_avatar_url = user.avatar_url;
+      var user_fb_id = user.fbid;
+      var user_id = user.id;
+
+      $('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+    })
+    $('#preloader-wrapper').removeClass('active');
+  });
+
+
+
 });
-
 
 
 splitACourse();
 CourseCreditsCounter();
 CourseConflictTest();
-CountPeopleInSameClass()
+getCourseUsers();
 </script>

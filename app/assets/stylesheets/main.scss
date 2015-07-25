@@ -79,7 +79,7 @@ i{
 			position: relative;
 			width: 100%;
 			max-width: 100%;
-			background-color: #ECE7E7;
+			background-color: #fff;
 			border-radius: 2px;
 			overflow: hidden;
 			margin-bottom: 8px;
@@ -101,6 +101,11 @@ i{
 				font-weight: 500;
 				color: darken(rgb(104, 104, 104) , 15%);
 				max-width: 125px;
+				cursor: pointer;
+
+				&:hover{
+					color: $secondary-color;
+				}
 			}
 			.lecturer{
 				display: inline-block;
@@ -134,7 +139,7 @@ i{
 				text-align: center;
 				border: 0;
 				padding-top: 2.5px;
-				border-left: 40px #D8D8D8 solid !important ;
+				border-left: 40px #fff solid !important ;
 
 				> i{
 					color: $primary-color;
@@ -187,8 +192,10 @@ i{
 		font-weight: 500;
 		color: darken(#868383 , 15%);
 		max-width: 125px;
-		a{
-			color: #868383;
+		cursor: pointer;
+
+		&:hover{
+			color: $secondary-color;
 		}
 	}
 
@@ -590,7 +597,7 @@ a:hover{
 		img{
 			width: 30px;
 			height: 30px;
-			border-radius: 60px;
+			border-radius: 2px;
 			overflow: hidden;
 		}
 	}
@@ -1113,7 +1120,7 @@ section.users{
 	> img{
 		width: 40px;
 		height: 40px;
-		border-radius: 160px;
+		border-radius: 2px;
 		overflow: hidden;
 	}
 }
@@ -1185,6 +1192,11 @@ section.users{
 			display: inline-block;
 			vertical-align: middle;
   	}
+  	> small{
+  		display: inline-block;
+		  vertical-align: sub;
+		  margin-left: 8px;
+  	}
   }
 
   > .form-submit{
@@ -1195,8 +1207,10 @@ section.users{
 }
 
 .course-comment{
-	padding: 8px 16px;
-  margin: 8px 0 16px 0;
+  padding: 8px 16px;
+  margin: 32px auto 16px auto;
+  max-width: 600px;
+  width: 100%;
 	> .user-info{
 		> .user-avatar{
 			vertical-align: middle;
@@ -1260,7 +1274,7 @@ section.users{
 
   > i {
 		font-size: 45px !important;
-		color: #FEFEFE;
+		color: #444;
   }
 }
 
@@ -1275,6 +1289,43 @@ section.users{
 #modal-add-btn {
   background-color: $secondary-color;
   color: #fff;
+}
+.statistics-panel{
+  background-color: #F4F4F4;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #E0E0E0;
+
+  > .statistics{
+  	margin: 0;
+  	color: #fff;
+  	text-align: center;
+
+
+  	> span{
+	  	> i{
+				vertical-align: middle;
+				display: inline-block;
+	  	}
+			> span{
+				vertical-align: middle;
+				display: inline-block;
+				margin-left: 4px;
+				margin-right: 8px;
+				color: $dark-gray;
+				padding-top: 2px;
+			}
+	  	> img{
+	  		display: inline-block;
+	  		vertical-align: middle;
+	  		width: 18px;
+				margin-left: 4px;
+	  	}
+  	}
+
+  }
 }
 
 /* Isotope */

@@ -6,7 +6,27 @@ class CourseUsersController < ApplicationController
     else
   		@courses_simulator_item = UserCourse.includes(:user).where(course_code: params[:id])
   		@users = @courses_simulator_item.map(&:user)
-  		render json: @users
+      course_male_counter = 0
+      course_female_counter = 0
+
+      @users.each do |u|
+        if u.gender == 'male'
+          course_male_counter = course_male_counter + 1
+        else
+          if u.gender == 'female'
+            course_female_counter = course_female_counter + 1
+          end
+        end
+      end
+
+      respond_to do |format|
+        format.json {  render json: {
+          course_users: @users,
+          course_male_counter: course_male_counter,
+          course_female_counter: course_female_counter
+          }
+        }
+      end
   	end
   end
 end

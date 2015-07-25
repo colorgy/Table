@@ -1,4 +1,6 @@
 <form id="create-course-comment-form" class="create-course-comment-form">
+
+  <a id="course-comment-form-container-close" class="course-comment-form-container-close"><i class="material-icons">close</i></a>
   <div class="user-info">
     <span class="user-avatar"><%= image_tag current_user.avatar_url %></span><span class="user-name"><%= current_user.name %></span>
   </div>
@@ -77,6 +79,7 @@
         $('.course-comment-form-container').removeClass('active');
         $('#course_comment_body').val('');
         $('#rating').val(1);
+        $('ul.tabs').tabs('select_tab', 'modal-course-comments');
       
     })
 
