@@ -29,6 +29,12 @@ i{
 	vertical-align: middle;
 	color: $dark-gray;
 }
+
+@media screen and (max-width: 600px) {
+	.btn, .btn-flat{
+		padding: 0.4rem 1.6rem;
+	}
+}
 .list-icon{
   display: inline-block !important;
   margin-right: 5px;
@@ -264,11 +270,15 @@ i{
 	margin-right: 420px;
 	overflow-x: auto;
 
+	@media screen and (max-width: 600px) {
+		padding: 24px 4px 20px 4px;
+	}
+
 	table.simulator-table{
 		table-layout: fixed;
 		word-break:break-all;
 		word-wrap:break-word;
-		min-width: 550px;
+		min-width: 450px;
 		max-width: 880px;
 		margin-right: auto;
 		margin-left: auto;
@@ -1371,6 +1381,12 @@ section.users{
 		padding: 8px 16px;
 		text-align: right;
 		border-top: 1px solid #eee;
+
+		> a{
+			@media screen and (max-width: 600px) {
+				margin: 2px 0;
+			}
+		}
 
 		> .unfollow-user-btn{
 			padding: 2px 4px;
