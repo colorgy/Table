@@ -5,25 +5,30 @@
                 <li>
                   <a href="https://colorgy.io" target="_blank">回 Colorgy 首頁</a>
                 </li>
+                <li>
+                  <a href="<%= app_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="下載 APP 版的 TABLE ，把課表帶著走吧！">
+                    APP 下載
+                  </a>
+                </li>
                 <% if current_user.blank? %>
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
                 <% else %>
-                <li>
-                  <a href="<%= user_path(current_user.id) %>">
-                    個人頁面
-                  </a>
-                </li>
-                <li>
-                  <a href="<%= user_followed_user_index_path %>">
-                    我追蹤的同學
-                  </a>
-                </li>
                 <li class="nav-bar-drop-down">
                   <a href="">
-                    Hi, <%= current_user.name %><i class="material-icons list-icon">expand_more</i>
+                    Hi, <%= current_user.name %> ( <span class="current-user-followed-user-count"><%= current_user.followed_users.count %></span> ) <i class="material-icons list-icon" style="color: #fff;">expand_more</i>
 
                   </a>
-                  <ul class="drop-down-list">
+                  <ul class="drop-down-list" style="margin-top: -1px;">
+                    <li>
+                      <a href="<%= user_followed_user_index_path %>">
+                        我追蹤的同學( <span class="current-user-followed-user-count"><%= current_user.followed_users.count %></span> )
+                      </a>
+                    </li>
+                    <li>
+                      <a href="<%= user_path(current_user.id) %>">
+                        個人頁面
+                      </a>
+                    </li>
                     <li>
                       <a href="<%= sign_out_url %>">登出</a>
                     </li>
@@ -47,12 +52,6 @@
           <a href="<%= users_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊尋找各校的同學，看他們選了哪些課或是追蹤他們唷！">
             <i class="material-icons list-icon">face</i>
             找同學們
-          </a>
-        </li>
-        <li>
-          <a href="<%= app_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="下載 APP 版的 TABLE ，把課表帶著走吧！">
-            <i class="material-icons list-icon">phone_iphone</i>
-            APP 下載
           </a>
         </li>
         <li class="nav-bar-drop-down">
