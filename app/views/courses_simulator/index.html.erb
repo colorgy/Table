@@ -1099,7 +1099,9 @@ $(document).on('click','.remove-hasselect-course' , function() {
   })
 });
 
-
+//
+// 課程 Search Box 搜尋事件 
+//
 
 $('#course-searchbox').on('input', function(){
   $('#preloader-wrapper').addClass('active');
@@ -1158,6 +1160,71 @@ $('#course-searchbox').on('input', function(){
   }
 
 });
+
+$('#search-method-select').on('change', function(){
+  $('#preloader-wrapper').addClass('active');
+  var keyword = $('#course-searchbox').val();
+  var search_method = $('#search-method-select option:selected').attr('value');
+  var school_code = '<%= current_user.organization_code.downcase %>';
+
+  if(keyword == ''){
+    $('.simulator-search-result').children('.course-select-item').remove();
+    $('#simulator-search-result-blank-message').remove();
+    $('#preloader-wrapper').removeClass('active');
+  }
+  else{
+    console.log('search!');
+    console.log(search_method);
+
+    var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
+    + 'filter['+ search_method +']=like(%' + keyword + '%)';
+    var encode_uri = encodeURI(uri);
+
+    $.get( encode_uri , function(response){
+
+      $('#simulator-search-result-blank-message').remove();
+
+      if(response.length == 0){
+        $('.simulator-search-result').children('.course-select-item').remove();
+        $('<p id="simulator-search-result-blank-message" class="simulator-search-result-blank-message">“搜尋不到結果”</br>請輸入完整關鍵字或確認上方搜尋方式。如發現有缺課等問題歡迎聯繫 <a class="colorgy-fans-page-link" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">Colorgy</a></p>').appendTo('.simulator-search-result');
+      }
+      else{
+        $('#simulator-search-result-blank-message').remove();
+        $('.simulator-search-result').children('.course-select-item').remove();
+        var counter = response.length - 1;
+        for( i=0 ; i <= counter ; i++ ){
+          var course = response[i];
+          var course_name = course.name;
+          var lecturer_name = course.lecturer;
+          var course_code = course.general_code;
+          var course_credits = course.credits;
+          var course_id = course.code;
+
+           $('<div class="course-select-item">' +
+              '<div class="name">' + course_name + '</div>' +
+              '<div class="lecturer">' + lecturer_name +'</div>' +
+              '<div class="course-code">' + course_code + '</div>' +
+              '<br>' +
+              '<div class="course-time">c.course_time</div>' +
+              '<div class="course-location">c.location</div>' +
+              '<div class="course-credits">' + course.credits + '</div>'+
+              '<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
+              '<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
+           $('#preloader-wrapper').removeClass('active');
+        }
+      }
+    })
+    .fail(function() {
+      flash.error( "連結資料庫失敗，請確認自己的網路或是回報錯誤給 Colorgy ，如造成任何不便我們很抱歉。" );
+      $('#preloader-wrapper').removeClass('active');
+    })
+  }
+
+});
+
+
+// 搜尋事件 End
+
 
 $(document).mousemove(function(e){
   if($(e.target).hasClass('course-select-item') || $(e.target).parents().hasClass('course-select-item')){
