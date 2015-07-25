@@ -2,7 +2,11 @@
 	<div class="cover-photo" style="background-image: url('<%= @user.cover_photo_url %>');">
 		<div class="user-info">
 			<div class="avatar" id="user-avatar">
-				<%= image_tag @user.avatar_url %>
+        <% if @user.avatar_url != '' && @user.avatar_url %>
+          <%= image_tag @user.avatar_url %>
+        <% else %>
+          <%= image_tag ('https://placehold.it/500x500') %>
+        <% end %>
 			</div>
 			<h4 class="user-name"><%= @user.name %><hr><span class="breadcrumb">的個人頁面</span></h4>
 		</div>

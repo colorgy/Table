@@ -32,7 +32,7 @@
             <% if user.avatar_url != '' && user.avatar_url %>
               <%= image_tag user.avatar_url %>
             <% else %>
-              <%= image_tag ('http://placehold.it/500x500') %>
+              <%= image_tag ('https://placehold.it/500x500') %>
             <% end %>
             <span class="card-title user-info"><%= user.name %> <span class="user-organization-code"><%= user.organization_code %></span></span>
           </a>
@@ -204,4 +204,5 @@
     })
     // Search Functions End
   })
+
 </script>
