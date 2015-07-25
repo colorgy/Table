@@ -1226,6 +1226,8 @@ section.users{
   max-width: 600px;
   width: 100%;
 	> .user-info{
+	  border-bottom: 1px solid #ddd;
+
 		> .user-avatar{
 			vertical-align: bottom;
 			display: inline-block;
@@ -1412,6 +1414,9 @@ section.users{
 			border-radius: 2px;
 		}
 	}
+}
+.course-comment-empty-message{
+	margin-top: 56px;
 }
 
 
