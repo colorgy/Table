@@ -1,69 +1,31 @@
-<div class="container-fuild app-intro">
-	<div class="row">
-		<div class="row-inner">
-			<div class="col-md-4">
-				<div class="app-img">
-					<%= image_tag ('app-intro-page/app1.png') %>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="info info-right">
-					<div class="title page-title">
-						Colorgy Table
-					</div>
-					<div class="description">
-						ㄧ手掌握，專屬於你的行動課表！
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bg bg-pink">
-
-		</div>
-	</div>
-	<hr>
-	<div class="row">
-		<div class="row-inner">
-			<div class="col-md-8">
-				<div class="info">
-					<div class="title">
-						讓你帶的走的便利！
-					</div>
-					<div class="description">
-						找不到教室的你，從此不必再擔心！<br>
-						視覺化的個人課程、絕不讓你在校園內成為迷途羔羊！<br>
-						透過雲端儲存，從電腦編輯到手機檢視，都能輕鬆搞定！<br>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="app-img">
-					<%= image_tag ('app-intro-page/app2.png') %>
-				</div>
-			</div>
-		</div>
-	</div>
-	<hr>
-	<div class="row">
-		<div class="row-inner">
-			<div class="col-md-4">
-				<div class="app-img">
-					<%= image_tag ('app-intro-page/app3.png') %>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="info info-right">
-					<div class="title">
-						新增課程，彈指之間
-					</div>
-					<div class="description">
-						Colorgy Table 透過整合各校課程，讓每位使用者能夠輕鬆新增、編輯課表內容。隨時更新你的生活步調！
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bg bg-gray">
-
-		</div>
-	</div>
-</div>
+<%= stylesheet_link_tag 'pages' %>
+<%= javascript_include_tag 'pages' %>
+<section id="colorgy-table-section" class="colorgy-table-section service-intro-box table">
+  <div class="container">
+    <div class="row">
+      <div class="col m6 s12">
+        <div class="info table active" id="table-anchor">
+          <div class="title table">
+            <h3>下載 TABLE 行動課程表</h3>
+          </div>
+          <p class="description">排課表、課程提醒、課堂聊天室</p>
+          <div class="call-to-action" style="margin-top: -16px;margin-bottom: 48px;">
+            <a class="ios-download" href="https://itunes.apple.com/tw/app/colorgytable/id998230121?l=zh&mt=8" target="_blank"><%= image_tag('appstore.png') %></a>
+          </div>
+          <p>
+            <span class="sub-title"><i class="material-icons">view_quilt</i><font style="font-weight:700;">排課表</font></span>
+            同步各校課程資料，告訴你哪些課衝堂了，還能看到哪些帥哥美女選了什麼課，選完課匯入到 TABLE APP 帶著走，選課排課更輕鬆</br></br>
+            <span class="sub-title"><i class="material-icons">phonelink_ring</i><font style="font-weight:700;">課程提醒</font></span>
+            常常忘了在哪上課、老師是誰嗎？讓 Table 隨時提醒你，找教室沒煩惱</br></br>
+            <span class="sub-title"><i class="material-icons">chat</i><font style="font-weight:700;">課堂聊天室</font></span>
+            想跟同一堂課的同學們聊天嗎？課程聊天室讓你上課不再無聊，討論報告、上課內容更容易。</br></br>
+          </p>
+        </div>
+      </div>
+      <div class="col m6 s12">
+        <div class="box-image table active">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
