@@ -11,8 +11,8 @@ class UsersController < ApplicationController
 
   def show
     if current_user.blank?
-      flash[:error] = "請先登入才能進行此操作"
-      redirect_to landing_page_path
+      @user = User.find(params[:id])
+      @user_courses = UserCourse.where(user_id: params[:id])
     else
       @user = User.find(params[:id])
       @user_courses = UserCourse.where(user_id: params[:id])

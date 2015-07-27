@@ -14,20 +14,24 @@
 	<div class="actions-bar">
 		<div class="inner">
 			<ul class="pull-right">
-        <% if current_user.id == @user.id %>
-          <li><a href="<%= user_followed_user_index_path %>"><i class="material-icons">people</i>我的追蹤</a></li>
+        <% if current_user.blank? %>
+          <a onclick="flash.error('你必須登入才能進行此操作')"><i class="material-icons">favorite_border</i>追蹤</a>
         <% else %>
-  				<li id="follow-unfollow-btn">
-            <% if !current_user.followed_users.include?(@user) %>
-              <a id="follow-user-btn" user-id="<%= @user.id %>"><i class="material-icons">favorite_border</i>追蹤</a>
-            <% else %>
-              <% @user_followed_users.each do |user_followed_user| %>
-                <% if user_followed_user.followed_user_id == @user.id  %>
-                  <a id="unfollow-user-btn" ufui="<%= user_followed_user.id %>"><i class="material-icons">favorite</i>取消追蹤</a>
+          <% if current_user.id == @user.id %>
+            <li><a href="<%= user_followed_user_index_path %>"><i class="material-icons">people</i>我的追蹤</a></li>
+          <% else %>
+            <li id="follow-unfollow-btn">
+              <% if !current_user.followed_users.include?(@user) %>
+                <a id="follow-user-btn" user-id="<%= @user.id %>"><i class="material-icons">favorite_border</i>追蹤</a>
+              <% else %>
+                <% @user_followed_users.each do |user_followed_user| %>
+                  <% if user_followed_user.followed_user_id == @user.id  %>
+                    <a id="unfollow-user-btn" ufui="<%= user_followed_user.id %>"><i class="material-icons">favorite</i>取消追蹤</a>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
         <% end %>
 				<li><a class="facebook-link-with-icon" href="https://www.facebook.com/<%= @user.fbid %>" target="_blank">臉書</a></li>
 			</ul>
@@ -250,7 +254,9 @@
   </div>
 </div>
 <div class="course-comment-form-container" id="course-comment-form-container">
-  <%= render "course_comments/form" %>
+  <% if !current_user.blank? %>
+    <%= render "course_comments/form" %>
+  <% end %>
 </div>
 
 <script>
@@ -393,7 +399,7 @@ function splitACourse() {
   var courseHasselectItem = $('.course-hasselect-item');
   courseHasselectItem.each(function(){
     var course_code = $(this).children(".item-course-id").attr('icd');
-    var school_code = '<%= current_user.organization_code.downcase %>';
+    var school_code = '<%= @user.organization_code.downcase %>';
 
     var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code
@@ -415,7 +421,7 @@ function splitACourse() {
 
   var courseItem = $('.course-hasselect-item');
   courseItem.each(function(){
-    var school_code = '<%= current_user.organization_code.downcase %>';
+    var school_code = '<%= @user.organization_code.downcase %>';
     var course_code = $(this).children(".item-course-id").attr('icd');
     var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code;
@@ -518,7 +524,7 @@ $(document).on('click', '.simulator-table-course', function(){
   };
 
   var item_id = $(this).attr('iid');
-  var school_code = '<%= current_user.organization_code.downcase %>';
+  var school_code = '<%= @user.organization_code.downcase %>';
   var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
       'filter[code]=' + course_code;
   $.get(getCourseUri , function(course_response){
