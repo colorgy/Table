@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'html2canvas' %>
 <div class="statistics-panel">
   <p class="statistics">
     <span class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="你的學校代碼">
@@ -15,6 +16,7 @@
       <%= image_tag ('male.png') %>
       <span class="male-counter">100</span>
     </span>
+    <a id="share-simulator-btn"><i class="material-icons">share</i>Share</a>
   </p>
 </div>
 <div class="container-fuild" style="padding-top: 35px;">
@@ -74,15 +76,6 @@
     </div>
     <div class="col m10 s12 simulator-fixed-calendar active" dataPage="mobile" id="calendar-page">
       <div class="page-slider">
-        <h4 class="simulator-title" style="display:none;"><%= current_user.name %>的課表</h4>
-        <!--
-        <div class="garbage-can-field" id="garbage-can-delete">
-          <button class="garbage-can-delete"></button>
-        </div>
-        <div class="import-to-mobile-field" style="float: right; margin-top: 5px;">
-          <button id="import-to-mobile" class="import-to-mobile">匯入手機GOGO<i class="mdi-content-send right"></i></button>
-        </div>
-        -->
         
         <div style="clear: both;"></div>
         <div class="simulator-table-field" style="padding-top: 0 !important;">
@@ -315,6 +308,30 @@
 </div>
 
 <script>
+  image_url = null;
+  function initShare() {
+    _origin = window.location.origin + "<%= user_path(current_user) %>";
+    url = "https://www.facebook.com/sharer/sharer.php?"
+      + "u=" + encodeURIComponent(_origin);
+    window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
+  }
+
+  $('#share-simulator-btn').click(function(){
+    html2canvas($('.simulator-table') , {
+      onrendered: function(canvas) {
+        imagestring = canvas.toDataURL("image/png");
+        $.post('/upload', {"image": imagestring, 'user_id': <%= current_user.id %>}, function(data) {
+          image_url = data["simulator_image_url"];
+          console.log('Post success');
+          console.log(image_url);
+          //$('#canvas-result-inner').attr('href', image_url);
+          //$('#canvas-result-inner').attr('target', '_blank');
+        });
+      }
+    });
+    initShare();
+  })
+
 
   $('#modal-course-comment-btn').click(function(){
     $('.course-comment-form-container').addClass('active');
