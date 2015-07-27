@@ -11,27 +11,31 @@ class UsersController < ApplicationController
 
   def show
     if current_user.blank?
-      if !@user.organization_code || current_user.organization_code == ''
+      @user = User.find(params[:id])
+      if @user.organization_code.blank? || @user.organization_code == ''
         flash[:error] = "這位使用者沒有進行 email 認證，沒有個人頁面"
         redirect_to users_path
       else
-        @user = User.find(params[:id])
         @user_courses = UserCourse.where(user_id: params[:id])
       end
     else
-      if !current_user.organization_code || current_user.organization_code == ''
-        flash[:error] = "請先進行 email 認證"
-        redirect_to 'https://colorgy.io/my_account/emails/new'
+      if current_user.organization_code.blank? || current_user.organization_code == ''
+        flash[:error] = "你沒有驗證學校 email，請至 https://colorgy.io/my_account/emails/new 進行驗證再回來～"
+        redirect_to users_path
       else
         @user = User.find(params[:id])
-        @user_courses = UserCourse.where(user_id: params[:id])
-        @user_followed_users = current_user.user_followed_users
+        if @user.organization_code.blank? || @user.organization_code == ''
+          flash[:error] = "這位使用者沒有進行 email 認證，沒有個人頁面"
+          redirect_to users_path
+        else
+          @user_courses = UserCourse.where(user_id: params[:id])
+          @user_followed_users = current_user.user_followed_users
+        end
       end
     end
   end
 
   def search
-
     if current_user.blank?
       flash[:error] = "請先登入才能進行此操作"
       redirect_to landing_page_path
