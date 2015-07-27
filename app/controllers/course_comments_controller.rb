@@ -1,6 +1,4 @@
 class CourseCommentsController < ApplicationController
-
-
   def index
     if current_user.blank?
       flash[:error] = "請先登入才能進行此操作"
