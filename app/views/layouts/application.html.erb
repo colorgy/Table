@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.png' %>
-  <meta property="og:image" content="<%= current_user && current_user.simulator_image_url %>"/>
+  <meta property="og:image" content="<%= @user && @user.simulator_image_url %>"/>
   <meta property="og:title" content="" />
   <meta property="og:description" content="" />
   <meta property="og:url" content="" />
