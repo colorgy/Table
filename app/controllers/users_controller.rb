@@ -11,12 +11,22 @@ class UsersController < ApplicationController
 
   def show
     if current_user.blank?
-      @user = User.find(params[:id])
-      @user_courses = UserCourse.where(user_id: params[:id])
+      if !@user.organization_code || current_user.organization_code == ''
+        flash[:error] = "這位使用者沒有進行 email 認證，沒有個人頁面"
+        redirect_to users_path
+      else
+        @user = User.find(params[:id])
+        @user_courses = UserCourse.where(user_id: params[:id])
+      end
     else
-      @user = User.find(params[:id])
-      @user_courses = UserCourse.where(user_id: params[:id])
-      @user_followed_users = current_user.user_followed_users
+      if !current_user.organization_code || current_user.organization_code == ''
+        flash[:error] = "請先進行 email 認證"
+        redirect_to 'https://colorgy.io/my_account/emails/new'
+      else
+        @user = User.find(params[:id])
+        @user_courses = UserCourse.where(user_id: params[:id])
+        @user_followed_users = current_user.user_followed_users
+      end
     end
   end
 

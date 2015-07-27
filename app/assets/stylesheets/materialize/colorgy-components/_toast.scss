@@ -23,7 +23,7 @@
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	width: 300px;
+	min-width: 100%;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -263,8 +263,9 @@ button.toast-close-button {
 
 	&.toast-top-center {
 		top: 64px;
-		right: calc(50% - 150px);
-		width: 300px;
+		right: 50%;
+		transform: translateX(50%);
+		max-width: 500px;
 	}
 
 	&.toast-bottom-center {
@@ -307,7 +308,8 @@ button.toast-close-button {
 
 	&.toast-top-center > div,
 	&.toast-bottom-center > div {
-		width: 300px;
+		width: 100%;
+		max-width: 500px;
 		margin-left: auto;
 		margin-right: auto;
 	}

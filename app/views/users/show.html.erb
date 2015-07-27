@@ -399,7 +399,7 @@ function splitACourse() {
   var courseHasselectItem = $('.course-hasselect-item');
   courseHasselectItem.each(function(){
     var course_code = $(this).children(".item-course-id").attr('icd');
-    var school_code = '<%= @user.organization_code.downcase %>';
+    var school_code = '<%= @user.organization_code.try(:downcase) %>';
 
     var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code
