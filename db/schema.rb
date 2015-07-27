@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727025125) do
+ActiveRecord::Schema.define(version: 20150727092242) do
 
   create_table "course_comments", force: :cascade do |t|
     t.string   "course_general_code"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20150727025125) do
     t.integer  "user_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "organization_code"
+    t.string   "course_lecturer"
+    t.string   "course_name"
   end
 
   create_table "user_courses", force: :cascade do |t|

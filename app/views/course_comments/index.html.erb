@@ -1,13 +1,145 @@
-<% @course_comments.each do |course_comment| %>
-  <div class="course_comments">
-    <ul>
-      <li><%= course_comment.course_general_code %></li>
-      <li><%= course_comment.course_year %></li>
-      <li><%= course_comment.course_term %></li>
-      <li><%= course_comment.title %></li>
-      <li><%= course_comment.body %></li>
-      <li><%= course_comment.rating %></li>
-      <li><%= course_comment.user_id %></li>
-    </ul>
-  </div>
-<% end %>
+<%= javascript_include_tag 'pages' %>
+ <div class="search-bar search-bar--center user-search-bar">
+  <select class="browser-default school-filter" id="search-method">
+    <option value="course_name" selected>課程名稱</option>
+    <option value="course_lecturer">老師名稱</option>
+    <option value="course_general_code">課程代碼</option>
+  </select>
+  <form class="user-search-form" action="/search-users" method="get" id="chat_form" style="display: inline-block;">
+    <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字" style="height: 33px !important;">
+    <label for="user-searchbox" class="active">
+      <i class="material-icons">search</i>
+    </label>
+  </form>
+  <button id="search-btn" class="btn" style="display: inline-block; vertical-align: top;">搜尋</button>
+</div>
+<div class="course-comments-list isotope">
+  <div class="grid-sizer"></div>
+  <% @course_comments.each do |course_comment| %>
+    <div class="course-comment">
+      <div class="user-avatar">
+        <%= image_tag User.find(course_comment.user_id).avatar_url %>
+      </div>
+      <div class="user-name">
+        <%= User.find(course_comment.user_id).name %>
+      </div>
+      <div class="course-comment-rating" rating="<%= course_comment.rating %>">
+      </div>
+      <div class="created-at">
+        <small><%= 'commented@' + course_comment.created_at.strftime("%Y-%m-%d") %></small>
+      </div>
+      <div class="course-info">
+        <span class="course-info-title">課程：</span><span class="course-year hide"><%= course_comment.course_year %></span><span class="course-term hide"><%= course_comment.course_term %></span>
+        <span class="course-lecturer"></span>
+        <span class="course-name"></span>
+        <span class="course-general-code"><%= course_comment.course_general_code %></span>
+      </div>
+      <div class="course-comment-body">
+        <%= course_comment.body %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  var course_organization_code = '<%= current_user.organization_code.downcase %>';
+  CourseCommentRatingRenderStar();
+  CommentsFetchCourseInfo();
+
+  function CourseCommentRatingRenderStar(){
+    $('.course-comment-rating').each(function(){
+      var rating = $(this).attr('rating');
+      var rating_count = parseInt(rating);
+      var unrating_count = 5 - rating_count;
+
+      $(this).html('');
+
+      for(i = 1; i<= rating_count ; i++){
+        $(this).append('<i class="material-icons">star</i>');
+      }
+      for(j = 1; j<= unrating_count ; j++){
+        $(this).append('<i class="material-icons">star_border</i>');
+      }
+    })
+  }
+  function CommentsFetchCourseInfo(){  
+    $('.course-info').each(function(){
+      var course_general_code = $(this).children('.course-general-code').text();
+      var course_year = $(this).children('.course-year').text();
+      var course_term = $(this).children('.course-term').text();
+      var get_course_uri = 'https://colorgy.io/api/v1/'+ course_organization_code +'/courses.json?' + 'filter[general_code]='+course_general_code+'&filter[year]=' + course_year + '&filter[term]=' + course_term;
+      $.get(get_course_uri, function(course_response){
+        var course = course_response[0];
+        var course_name = course.name;
+        var course_lecturer = course.lecturer;
+        $(this).children('.course-name').html(course_name);
+        $(this).children('.course-lecturer').html(course_lecturer);
+      }.bind(this));
+    })
+  }
+
+  $(document).ready(function() {
+    // init Isotope
+    var $container = $('.isotope').imagesLoaded(function(){
+      $container.isotope({
+        itemSelector: '.course-comment',
+        columnWidth: '.grid-sizer',
+      });
+    });
+    // End init
+
+
+    // Search Functions
+
+    function GetCourseCommentsSearchResult(event, keyword){
+        var method = $('#search-method').val();
+        console.log(method);
+        var encode_uri = '/search-course-comments?' + method +'=' + keyword;
+
+        $.get( encode_uri , function(course_comments_response){
+            console.log(course_comments_response);
+            var course_comments = course_comments_response["course_comments"];
+            var comments_counts = course_comments_response["course_comments"].length;
+
+            $container.isotope( 'remove', $('.course-comment') ).isotope('layout');
+            
+            for( i=0 ; i<=comments_counts - 1 ; i++){
+              var course_name = course_comments[i].course_name;
+              var course_lecturer = course_comments[i].course_lecturer;
+              var course_general_code = course_comments[i].course_general_code;
+              var course_year = course_comments[i].course_year;
+              var course_term = course_comments[i].course_term;
+              var user_avatar_url = course_comments[i].user_avatar_url;
+              var user_name = course_comments[i].user_name;
+              var comment_body = course_comments[i].body;
+              var comment_rating = course_comments[i].rating;
+              var comment_created_at = course_comments[i].created_at;
+              console.log(user_avatar_url);
+
+              $comment_item = $('<div class="course-comment"><div class="user-avatar"><img src="' + user_avatar_url +'"></div><div class="user-name">' + user_name + '</div><div class="course-comment-rating" rating="' + comment_rating +'"></div><div class="created-at"><small>commented@' + comment_created_at + '</small></div><div class="course-info"><span class="course-info-title">課程：</span><span class="course-year hide">' + course_year + '</span><span class="course-term hide">' + course_term + '</span><span class="course-lecturer">' + course_lecturer + '</span><span class="course-name">' + course_name + '</span><span class="course-general-code">' + course_general_code + '</span></div><div class="course-comment-body">' + comment_body + '</div></div>');  
+        
+              $container.isotope( 'insert', $comment_item );
+
+            }
+
+            $('#perloader-wrapper').removeClass('active');
+            //CommentsFetchCourseInfo();
+        });
+    }
+
+    $('#search-btn').click(function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetCourseCommentsSearchResult(event , keyword);
+      console.log('search start');
+    })
+
+    $('#chat_form').bind('submit',function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetCourseCommentsSearchResult(event , keyword);
+      console.log('search start');
+      return false;
+    })
+    // Search Functions End
+  })
+</script>

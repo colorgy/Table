@@ -54,6 +54,12 @@
             找同學們
           </a>
         </li>
+        <li>
+          <a href="<%= course_comments_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="課程評論列表，看同學們都推薦哪些課程！">
+            <i class="material-icons list-icon">comment</i>
+            課程評論
+          </a>
+        </li>
         <li class="nav-bar-drop-down">
           <a href="#">
             <i class="material-icons list-icon">more_vert</i>
@@ -84,6 +90,7 @@
         <% end %>
         <li><a href="<%= courses_simulator_index_path %>">我要排課</a></li>
         <li><a href="<%= users_path %>">找同學們</a></li>
+        <li><a href="<%= course_comments_path %>">課程評論</a></li>
         <li><a href="<%= app_path %>">APP 下載</a></li>
         <li><a href="<%= sign_out_url %>">登出</a></li>
       </ul>

@@ -852,6 +852,8 @@ i.mdi-content-clear {
 }
 
 .users-on-course-list {
+	padding-top: 24px;
+
 	li{
 		height: 50px;
 		width: 50px;
@@ -1222,8 +1224,7 @@ section.users{
   border: 1px solid #eee;
   border-radius: 2px;
   padding: 8px 16px;
-  margin: 32px auto 16px auto;
-  max-width: 600px;
+  margin: 24px auto 8px auto;
   width: 100%;
 	> .user-info{
 	  border-bottom: 1px solid #ddd;
@@ -1418,7 +1419,33 @@ section.users{
 .course-comment-empty-message{
 	margin-top: 56px;
 }
+.course-comments-list{
+	margin: 0 auto 80px auto;
+	max-width: 600px;
+  width: 100%;
 
+	.course-comment{
+
+		> .user-name{
+			display: inline-block;
+	    font-size: 1.6em;
+      margin-left: 4px;
+		}
+
+		> .course-comment-rating{
+			display: inline-block;
+		}
+
+		> .created-at{
+			display: inline-block;
+		}
+		> .course-info{
+			color: $dark-gray;
+			border-bottom: 1px solid #ddd;
+	    padding: 4px 8px;
+		}
+	}
+}
 
 /* Isotope */
 /* clear fix */

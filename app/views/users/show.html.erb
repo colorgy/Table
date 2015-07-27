@@ -254,7 +254,7 @@
   </div>
 </div>
 <div class="course-comment-form-container" id="course-comment-form-container">
-  <% if !current_user.blank? %>
+  <% if !current_user.blank?  && (current_user.organization_code == @user.organization_code) %>
     <%= render "course_comments/form" %>
   <% end %>
 </div>
