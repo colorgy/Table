@@ -9,7 +9,7 @@ a:hover, a:focus{
 	text-decoration: none;
 }
 a.active{
-	color: #FAB2A6 !important;
+	color: $secondary-color !important;
 	border-bottom: 2px solid $primary-color;
 }
 nav{
@@ -671,7 +671,7 @@ a:hover{
 		position: absolute;
 		left: -8px;
 		top: -16px;
-		background-color: #FAB2A6;
+		background-color: $secondary-color;
 		padding: 4px 16px;
 		color: #fff;
 		border-radius: 2px;
@@ -992,7 +992,7 @@ i.mdi-content-clear {
 			z-index: 2;
 			> small{
 				font-size: 50%;
-				background-color: pink;
+				background-color: $primary-color;
 				padding: 4px 8px;
 				display: inline-block;
 				line-height: 100%;
@@ -1082,7 +1082,7 @@ i.mdi-content-clear {
     position: absolute;
     left: 0;
     top: 0;
-    background-color: #FAB2A6;
+    background-color: $primary-color;
     color: #fff;
     z-index: 1;
     padding: 2px 6px;
@@ -1466,7 +1466,63 @@ section.users{
 		}
 	}
 }
+// Will Pagination
 
+.pagination {
+
+	text-align: center;
+	margin: 80px 0 24px 0;
+
+  > a, span{
+  	color: #444;
+  	display: inline-block;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    line-height: 30px;
+    border-radius: 2px;
+    text-align: center;
+  }
+
+  em{
+  	color: #fff;
+  	background-color: $primary-color;
+		display: inline-block;
+		font-size: 1.2rem;
+		padding: 0 10px;
+		line-height: 30px;
+		border-radius: 2px;
+		text-align: center;
+		font-style: inherit;
+
+  }
+
+  .disabled{
+    cursor: default;
+    color: #999;
+  }
+
+
+  li.pages ul li {
+    display: inline-block;
+    float: none;
+  }
+}
+@media #{$medium-and-down} {
+  .pagination {
+    width: 100%;
+
+    li.prev,
+    li.next {
+      width: 10%;
+    }
+
+    li.pages {
+      width: 80%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
 /* Isotope */
 /* clear fix */
 .isotope:after {
