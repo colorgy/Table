@@ -18,11 +18,11 @@ p{
 // End
 
 /*** Colors ***/
-$primary-color: #F78888 !default; //#F9CCC2
+$primary-color: #F89680 !default; //#F9CCC2
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: #F78888 !default; //#FAB2A6
+$secondary-color: #F89680 !default; //#FAB2A6
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
 $link-color: color("light-blue", "darken-1") !default;
