@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+
+//= require replace_error_image_url
 //= require materialize-sprockets
 //= require ./colorgy/components/toast.js
 //= require ./colorgy/components/message_bar.js
-//= require replace_error_image_url

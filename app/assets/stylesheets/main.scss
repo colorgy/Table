@@ -43,6 +43,7 @@ i{
 .container-fuild{
 	max-width: 1400px;
 	margin: 0 auto;
+	padding: 0 24px;
 }
 
 .course-select-field{
@@ -738,7 +739,7 @@ i.mdi-content-clear {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		top: 56px;
+		top: 80px;
 		opacity: 0;
 		visibility: hidden;
 		overflow: auto;
@@ -760,7 +761,7 @@ i.mdi-content-clear {
 	@media screen and (max-width: 992px){
 		position: fixed;
 		width: 100% !important;
-		top: 56px;
+		top: 72px;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -1341,7 +1342,8 @@ section.users{
   padding: 0 16px;
   width: 100%;
   margin: 0 auto;
-  border: 1px solid #E0E0E0;
+  position: relative;
+  z-index: 30;
 
   > .statistics{
   	margin: 0;
