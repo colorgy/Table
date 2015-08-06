@@ -1197,6 +1197,7 @@ section.users{
   right: 2px;
   padding: 10px;
   cursor: pointer;
+  z-index: 998;
 
 	> i {
 		color: $darker-gray;

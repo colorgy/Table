@@ -138,9 +138,9 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
-    <a class="modal-action btn-flat" cid="" id="modal-del-btn">移除</a>
-    <a class="modal-action btn-flat" cid="" id="modal-add-btn">加課</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="LeanOverlayClose()">關閉</a>
+    <a class="modal-action btn-flat" cid="" id="modal-del-btn" onclick="LeanOverlayClose()">移除</a>
+    <a class="modal-action btn-flat" cid="" id="modal-add-btn" onclick="LeanOverlayClose()">加課</a>
     <a class="modal-action btn-flat" id="modal-course-comment-btn">評論</a>
   </div>
 </div>
@@ -169,6 +169,11 @@
 </div>
 
 <script>
+  function LeanOverlayClose(){
+    $('div[id="lean-overlay"]').remove();
+    $('div[class="lean-overlay"]').remove();
+  }
+
   image_url = null;
   function initShare() {
     _origin = window.location.origin + "<%= user_path(current_user) %>";
@@ -518,7 +523,7 @@ $(document).on({
         var thisCourse_day = course['day_' + i];
         var thisCourse_period = course['period_' + i];
         var thisCourse_location = course['location_' + i];
-        $('<div class="simulator-table-course active on-hover" icd="' + course_code + '">' + course_name + '</div>').css({ 'z-index' : '10000' }).appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+        $('<div class="simulator-table-course active on-hover" icd="' + course_code + '">' + course_name + '</div>').css({ 'z-index' : '998' }).appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
         };
         CourseConflictTest();
       });
@@ -535,6 +540,7 @@ $(document).on({
 //
 
 $(document).on('click', '.simulator-table-course', function(){
+  
   $('#preloader-wrapper').addClass('active');
   $('.course-comment').remove();
   var course_code = $(this).attr('icd');
@@ -595,6 +601,7 @@ $(document).on('click', '.simulator-table-course', function(){
       }
     };
 
+    
     $('.modal-course-name').html(course_name);
     $('.modal-course-general-code').html(course_general_code);
     $('.modal-course-credits').html(credits);
@@ -645,9 +652,6 @@ $(document).on('click', '.simulator-table-course', function(){
   });
 });
 
-function hi(getCourseNodeUri){
-  alert(getCourseNodeUri);
-}
 //
 // 點選搜尋到的課程列表中的 "課程名稱" 開啟 modal
 //
@@ -765,6 +769,7 @@ $(document).on('click', '.course-select-item .name', function(){
 //
 
 $(document).on('click', '.course-hasselect-item .name', function(){
+  
   $('#preloader-wrapper').addClass('active');
   $('.course-comment').remove();
   var course_code = $(this).siblings('.item-course-id').attr('icd');
