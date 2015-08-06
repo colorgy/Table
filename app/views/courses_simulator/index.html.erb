@@ -16,13 +16,14 @@
       <%= image_tag ('male.png') %>
       <span class="male-counter">100</span>
     </span>
-    <a id="share-simulator-btn"><i class="material-icons">share</i>Share</a>
+    <a id="share-simulator-btn" class="btn btn--small"><i class="material-icons">share</i>分享課表</a>
   </p>
+  <div style="clear: both;"></div>
 </div>
-<div class="container-fuild" style="padding-top: 35px;">
+<div class="container-fuild" style="padding-top: 16px;">
   <div class="row">
     <div class="col m2 s12 controll-panel-container">
-      <div class="page-slider" style="margin-top: 24px;">
+      <div class="page-slider" style="margin-top: 48px;">
         <div class="col s12 simulator-fixed" style="height: 100%; margin-bottom: 24px;" dataPage="mobile" id="select-page">
           <div class="simulator-sidebar">
             <div class="simulator-sidebar-inner">
@@ -79,160 +80,20 @@
         
         <div style="clear: both;"></div>
         <div class="simulator-table-field" style="padding-top: 0 !important;">
-          <table class="simulator-table">
+          <table class="simulator-table" id="simulator-table">
             <thead>
               <tr>
                 <th></th>
-                <th>一</th>
-                <th>二</th>
-                <th>三</th>
-                <th>四</th>
-                <th>五</th>
-                <th>六</th>
-                <th>日</th>
+                <th class="th1">一</th>
+                <th class="th2">二</th>
+                <th class="th3">三</th>
+                <th class="th4">四</th>
+                <th class="th5">五</th>
+                <th class="th6">六</th>
+                <th class="th7">日</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="class0">
-                <td>0</td>
-                <td class="M1 day1 period1"></td>
-                <td class="T1 day2 period1"></td>
-                <td class="W1 day3 period1"></td>
-                <td class="R1 day4 period1"></td>
-                <td class="F1 day5 period1"></td>
-                <td class="S1 day6 period1"></td>
-                <td class="Sun1 day7 period1"></td>
-              </tr>
-              <tr class="class1">
-                <td>1</td>
-                <td class="M2 day1 period2"></td>
-                <td class="T2 day2 period2"></td>
-                <td class="W2 day3 period2"></td>
-                <td class="R2 day4 period2"></td>
-                <td class="F2 day5 period2"></td>
-                <td class="S2 day6 period2"></td>
-                <td class="Sun2 day7 period2"></td>
-              </tr>
-              <tr class="class2">
-                <td>2</td>
-                <td class="M3 day1 period3"></td>
-                <td class="T3 day2 period3"></td>
-                <td class="W3 day3 period3"></td>
-                <td class="R3 day4 period3"></td>
-                <td class="F3 day5 period3"></td>
-                <td class="S3 day6 period3"></td>
-                <td class="Sun3 day7 period3"></td>
-              </tr>
-              <tr class="class3">
-                <td>3</td>
-                <td class="M4 day1 period4"></td>
-                <td class="T4 day2 period4"></td>
-                <td class="W4 day3 period4"></td>
-                <td class="R4 day4 period4"></td>
-                <td class="F4 day5 period4"></td>
-                <td class="S4 day6 period4"></td>
-                <td class="Sun4 day7 period4"></td>
-              </tr>
-              <tr class="class4">
-                <td>4</td>
-                <td class="M5 day1 period5"></td>
-                <td class="T5 day2 period5"></td>
-                <td class="W5 day3 period5"></td>
-                <td class="R5 day4 period5"></td>
-                <td class="F5 day5 period5"></td>
-                <td class="S5 day6 period5"></td>
-                <td class="Sun5 day7 period5"></td>
-              </tr>
-              <tr class="class5">
-                <td>5</td>
-                <td class="M6 day1 period6"></td>
-                <td class="T6 day2 period6"></td>
-                <td class="W6 day3 period6"></td>
-                <td class="R6 day4 period6"></td>
-                <td class="F6 day5 period6"></td>
-                <td class="S6 day6 period6"></td>
-                <td class="Sun6 day7 period6"></td>
-              </tr>
-              <tr class="class6">
-                <td>6</td>
-                <td class="M7 day1 period7"></td>
-                <td class="T7 day2 period7"></td>
-                <td class="W7 day3 period7"></td>
-                <td class="R7 day4 period7"></td>
-                <td class="F7 day5 period7"></td>
-                <td class="S7 day6 period7"></td>
-                <td class="Sun7 day7 period7"></td>
-              </tr>
-              <tr class="class7">
-                <td>7</td>
-                <td class="M8 day1 period8"></td>
-                <td class="T8 day2 period8"></td>
-                <td class="W8 day3 period8"></td>
-                <td class="R8 day4 period8"></td>
-                <td class="F8 day5 period8"></td>
-                <td class="S8 day6 period8"></td>
-                <td class="Sun8 day7 period8"></td>
-              </tr>
-              <tr class="class8">
-                <td>8</td>
-                <td class="M9 day1 period9"></td>
-                <td class="T9 day2 period9"></td>
-                <td class="W9 day3 period9"></td>
-                <td class="R9 day4 period9"></td>
-                <td class="F9 day5 period9"></td>
-                <td class="S9 day6 period9"></td>
-                <td class="Sun9 day7 period9"></td>
-              </tr>
-              <tr class="class9">
-                <td>9</td>
-                <td class="M10 day1 period10"></td>
-                <td class="T10 day2 period10"></td>
-                <td class="W10 day3 period10"></td>
-                <td class="R10 day4 period10"></td>
-                <td class="F10 day5 period10"></td>
-                <td class="S10 day6 period10"></td>
-                <td class="Sun10 day7 period10"></td>
-              </tr>
-              <tr class="class10">
-                <td>10</td>
-                <td class="MA day1 period11"></td>
-                <td class="TA day2 period11"></td>
-                <td class="WA day3 period11"></td>
-                <td class="RA day4 period11"></td>
-                <td class="FA day5 period11"></td>
-                <td class="SA day6 period11"></td>
-                <td class="SunA day7 period11"></td>
-              </tr>
-              <tr class="classA">
-                <td>A</td>
-                <td class="MB day1 period12"></td>
-                <td class="TB day2 period12"></td>
-                <td class="WB day3 period12"></td>
-                <td class="RB day4 period12"></td>
-                <td class="FB day5 period12"></td>
-                <td class="SB day6 period12"></td>
-                <td class="SunB day7period12"></td>
-              </tr>
-              <tr class="classB">
-                <td>B</td>
-                <td class="MC day1 period13"></td>
-                <td class="TC day2 period13"></td>
-                <td class="WC day3 period13"></td>
-                <td class="RC day4 period13"></td>
-                <td class="FC day5 period13"></td>
-                <td class="SC day6 period13"></td>
-                <td class="SunC day7 period13"></td>
-              </tr>
-              <tr class="classC">
-                <td>C</td>
-                <td class="MC day1 period14"></td>
-                <td class="TC day2 period14"></td>
-                <td class="WC day3 period14"></td>
-                <td class="RC day4 period14"></td>
-                <td class="FC day5 period14"></td>
-                <td class="SC day6 period14"></td>
-                <td class="SunC day7 period14"></td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -245,12 +106,12 @@
     <h5><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
   </div>
   <div class="modal-content">
-    <h5 class="under-line-title">詳細資訊</h5>
-    <p>
-      學分： <span class="modal-course-credits"></span></br>
-      課程代號： <span class="modal-course-general-code"></span></br>
-      課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
-    </p>
+    <ul class="collection">
+      <li class="collection-item">學分： <span class="modal-course-credits"></span></li>
+      <li class="collection-item">課程代號： <span class="modal-course-general-code"></span></li>
+      <li class="collection-item">課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a></li>
+      <li class="collection-item">課程地點： <span class="modal-course-location"></span></li>
+    </ul>
     <div class="row">
       <div class="col s12">
         <ul class="tabs">
@@ -322,8 +183,6 @@
         imagestring = canvas.toDataURL("image/png");
         $.post('/upload', {"image": imagestring, 'user_id': <%= current_user.id %>}, function(data) {
           image_url = data["simulator_image_url"];
-          console.log('Post success');
-          console.log(image_url);
           //$('#canvas-result-inner').attr('href', image_url);
           //$('#canvas-result-inner').attr('target', '_blank');
         });
@@ -421,7 +280,27 @@ $(document).on('mouseout' ,'.simulator-table td',function(e){
   }
 })
 
-//
+// Fetch 課表的課堂節次資料
+
+function FetchCourseNode(){
+
+  var school_code = '<%= current_user.organization_code.downcase %>';
+  var getCourseUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json';
+  $.get(getCourseUri, function(data_response){
+
+    for(i=0 ; i <= data_response.length - 1 ; i++){
+      var course_node = data_response[i];
+      var course_node_order = course_node.order;
+      var course_node_code = course_node.code;
+
+      $('<tr class="class' + course_node_code + '"><td>' + course_node_code + '</td><td class="M0 day1 period' + course_node_order +'"></td><td class="T0 day2 period'+ course_node_order +'"></td><td class="W0 day3 period'+ course_node_order +'"></td><td class="R0 day4 period'+ course_node_order +'"></td><td class="F0 day5 period'+ course_node_order +'"></td><td class="S0 day6 period'+ course_node_order +'"></td><td class="Sun0 day7 period'+ course_node_order +'"></td></tr>').prependTo('#simulator-table tbody');
+
+    }
+  })
+
+}
+
+// 檢測課程評論的數量，如果等於0的話放入評論數是零的訊息
 
 function CourseCommentCounter(){
   var count = $('.course-comment').length;
@@ -433,7 +312,7 @@ function CourseCommentCounter(){
   }
 }
 
-// 
+// 把課程評論的評分，依照數字換成星星圖像。
 
 function CourseCommentRatingRenderStar(){
   $('.course-comment-rating').each(function(){
@@ -490,7 +369,9 @@ function CourseConflictTest(){
     }
   });
 }
-
+//
+// 取得統計數據，統計目前的學分數、一起上課的男生女生數。
+//
 function getStatistics(){
   var male_total = 0;
   var female_total = 0;
@@ -518,13 +399,13 @@ function getStatistics(){
   $('.credits-total').html(credits_total);
 }
 
+
 function getCourseUsers(){
 
   if($('.item-course-id').length > 0){
     $('.item-course-id').each(function(){
       var course_code = $(this).attr('icd');
       var url = '<%= course_users_path %>' + '/' + course_code;
-      console.log(url);
 
       $.get(url, function(response){
         male_count = response["course_male_counter"];
@@ -601,10 +482,10 @@ function splitACourse() {
   });
 };
 
+FetchCourseNode();
 splitACourse();
 CourseConflictTest();
 getCourseUsers();
-
 
 $(document).ready(function() {
   var window_width = $(window).outerWidth();
@@ -612,7 +493,6 @@ $(document).ready(function() {
     $('ul.tabs').tabs();
   }
 });
-
 
 $(document).on({
     mouseenter: function () {
@@ -649,7 +529,6 @@ $(document).on({
         CourseConflictTest();
     }
 }, ".course-select-item");
-
 
 //
 // 點選已排課表開啟 modal
@@ -692,6 +571,29 @@ $(document).on('click', '.simulator-table-course', function(){
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
+    $('.modal-course-location').html('');
+
+    // Course location
+    for (var i = 1 ; i <= 9; i++) {
+      var thisCourse_day = course['day_' + i];
+      if(thisCourse_day != '' && thisCourse_day != null){
+
+        var thisCourse_period = course['period_' + i];
+        var thisCourse_location = course['location_' + i];
+        var getCourseNodeUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+        console.log(getCourseNodeUri);
+        
+        $.get(getCourseNodeUri, function(data_response){
+          console.log(getCourseNodeUri);
+          var thisCourse_day = parseInt(getCourseNodeUri.split('#')[1]);
+          var data_response = data_response[0];
+          var thisCourse_node = data_response.code;
+          var location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day + ' 第' + thisCourse_node + '節' + ' (' + thisCourse_location +  ')</span>');
+          $('.modal-course-location').append(location_string);
+
+        });
+      }
+    };
 
     $('.modal-course-name').html(course_name);
     $('.modal-course-general-code').html(course_general_code);
@@ -712,7 +614,6 @@ $(document).on('click', '.simulator-table-course', function(){
 
 
     $.get(getCourseCommentsUri , function(comments_response){
-      console.log(comments_response["course_comments"]);
       $.each(comments_response["course_comments"], function(u, comment){
         var comment_body = comment.body;
         var comment_rating = comment.rating;
@@ -727,9 +628,6 @@ $(document).on('click', '.simulator-table-course', function(){
       CourseCommentRatingRenderStar();
       CourseCommentCounter();
     })
-
-
-
   });
 
   var getUserCourseUri = '<%= course_users_path %>/' + course_code;
@@ -745,11 +643,11 @@ $(document).on('click', '.simulator-table-course', function(){
     })
     $('#preloader-wrapper').removeClass('active');
   });
-
-
-
 });
 
+function hi(getCourseNodeUri){
+  alert(getCourseNodeUri);
+}
 //
 // 點選搜尋到的課程列表中的 "課程名稱" 開啟 modal
 //
@@ -792,6 +690,27 @@ $(document).on('click', '.course-select-item .name', function(){
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
+    $('.modal-course-location').html('');
+
+    // Course location
+    for (var i = 1 ; i <= 9; i++) {
+      var thisCourse_day = course['day_' + i];
+      if(thisCourse_day != '' && thisCourse_day != null){
+
+        var thisCourse_period = course['period_' + i];
+        var thisCourse_location = course['location_' + i];
+        var getCourseNodeUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+        
+        $.get(getCourseNodeUri, function(data_response){
+          var thisCourse_day = parseInt(getCourseNodeUri.split('#')[1]);
+          var data_response = data_response[0];
+          var thisCourse_node = data_response.code;
+          var location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day + ' 第' + thisCourse_node + '節' + ' (' + thisCourse_location +  ')</span>');
+          $('.modal-course-location').append(location_string);
+
+        });
+      }
+    };
 
     $('.modal-course-name').html(course_name);
     $('.modal-course-general-code').html(course_general_code);
@@ -811,7 +730,6 @@ $(document).on('click', '.course-select-item .name', function(){
 
 
     $.get(getCourseCommentsUri , function(comments_response){
-      console.log(comments_response["course_comments"]);
       $.each(comments_response["course_comments"], function(u, comment){
         var comment_body = comment.body;
         var comment_rating = comment.rating;
@@ -826,9 +744,6 @@ $(document).on('click', '.course-select-item .name', function(){
       CourseCommentRatingRenderStar();
       CourseCommentCounter();
     })
-
-
-
   });
 
   var getUserCourseUri = '<%= course_users_path %>/' + course_code;
@@ -844,9 +759,6 @@ $(document).on('click', '.course-select-item .name', function(){
     })
     $('#preloader-wrapper').removeClass('active');
   });
-
-
-
 });
 //
 // 點選已選擇的課程列表中的 "課程名稱" 開啟 modal
@@ -889,6 +801,28 @@ $(document).on('click', '.course-hasselect-item .name', function(){
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
+    $('.modal-course-location').html('');
+
+    // Course location
+    for (var i = 1 ; i <= 9; i++) {
+      var thisCourse_day = course['day_' + i];
+
+      if(thisCourse_day != '' && thisCourse_day != null){
+        var thisCourse_period = course['period_' + i];
+        var thisCourse_location = course['location_' + i];
+        var getCourseNodeUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+        
+        $.get(getCourseNodeUri, function(data_response){
+          console.log(getCourseNodeUri);
+          var thisCourse_day = parseInt(getCourseNodeUri.split('#')[1]);
+          var data_response = data_response[0];
+          var thisCourse_node = data_response.code;
+          var location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day + ' 第' + thisCourse_node + '節' + ' (' + thisCourse_location +  ')</span>');
+          $('.modal-course-location').append(location_string);
+
+        });
+      }
+    };
 
     $('.modal-course-name').html(course_name);
     $('.modal-course-general-code').html(course_general_code);
@@ -908,7 +842,6 @@ $(document).on('click', '.course-hasselect-item .name', function(){
 
 
     $.get(getCourseCommentsUri , function(comments_response){
-      console.log(comments_response["course_comments"]);
       $.each(comments_response["course_comments"], function(u, comment){
         var comment_body = comment.body;
         var comment_rating = comment.rating;
@@ -923,9 +856,6 @@ $(document).on('click', '.course-hasselect-item .name', function(){
       CourseCommentRatingRenderStar();
       CourseCommentCounter();
     })
-
-
-
   });
 
   var getUserCourseUri = '<%= course_users_path %>/' + course_code;
@@ -941,9 +871,6 @@ $(document).on('click', '.course-hasselect-item .name', function(){
     })
     $('#preloader-wrapper').removeClass('active');
   });
-
-
-
 });
 
 
@@ -1205,8 +1132,6 @@ $('#search-method-select').on('change', function(){
     $('#preloader-wrapper').removeClass('active');
   }
   else{
-    console.log('search!');
-    console.log(search_method);
 
     var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
     + 'filter['+ search_method +']=like(%' + keyword + '%)';

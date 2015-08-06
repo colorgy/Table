@@ -37,7 +37,6 @@ button:hover a{
 }
 a:hover{
   text-decoration: none;
-  color: $black;
 }
 
 ::-webkit-input-placeholder { color: #717071 !important;  }
@@ -71,13 +70,6 @@ input:-moz-placeholder { color: #717071 !important; }
   &.active{
     opacity: 1;
     visibility: visible;
-  }
-}
-.wrapper{
-  padding-top: 32px;
-  padding-bottom: 100px;
-  @media screen and (max-width: 992px) {
-    padding-top: 0 !important;
   }
 }
 // Grid System

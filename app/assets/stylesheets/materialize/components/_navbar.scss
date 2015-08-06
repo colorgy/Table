@@ -103,7 +103,7 @@ nav {
       }
     }
     a {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: $navbar-font-color;
       display: block;
       padding: 0 15px;
@@ -195,7 +195,7 @@ nav.colorgy-nav{
     overflow: hidden;
     padding: 0 !important;
     .top-bar{
-      height: 35px;
+      height: 28px;
       background-color: $navbar-top-bar-bg-color;
       ul{
         float: right;
@@ -210,7 +210,7 @@ nav.colorgy-nav{
       }
       a{
         padding: 0px 20px !important;
-        line-height: 35px;
+        line-height: 28px;
         color: #D8D8D8;
         &:hover{
           color: #FFF;
@@ -231,12 +231,14 @@ nav.colorgy-nav{
       line-height: initial !important;
     }
     .brand-logo{
-      max-width: 130px;
+      max-width: 120px;
+      height: 100%;
+      line-height: 1;
       @media screen and (min-width: 992px){
-        padding: 8px 0;
+        padding: 4px 0;
       }
       @media screen and (max-width: 992px){
-        padding: 8px 0;
+        padding: 4px 0;
       }
     }
     ul.main-nav{

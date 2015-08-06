@@ -41,7 +41,7 @@ i{
 }
 
 .container-fuild{
-	max-width: 1400px;
+	max-width: 1280px;
 	margin: 0 auto;
 	padding: 0 24px;
 }
@@ -263,13 +263,17 @@ i{
 	}
 }
 .simulator-table-field{
-	padding: 24px 24px 20px 24px;
+	padding: 24px 16px 20px 16px;
 	background-color: transparent;
 	//width: calc(100% - 450px );
 	width: 100%;
 	margin-left: auto;
 	margin-right: 420px;
 	overflow-x: auto;
+	min-width: 450px;
+	max-width: 880px;
+	margin-right: auto;
+	margin-left: auto;
 
 	@media screen and (max-width: 600px) {
 		padding: 24px 4px 20px 4px;
@@ -311,7 +315,7 @@ i{
 					border: 1px solid rgb(230, 230, 230);
 					margin: 0px 0px;
 					padding: 6px 0;
-					z-index: 1000;
+					z-index: 997;
 					cursor: pointer;
 
 					> .simulator-table-course-del{
@@ -359,6 +363,18 @@ i{
 		}
 	}
 }
+
+#share-simulator-btn{
+	background-color: $dark-gray;
+	font-size: 14px;
+	padding: 0.2rem 1rem;
+
+	> i {
+		font-size: 14px !important;
+		margin-right: 8px;
+	}
+}
+
 /*
 @keyframes NAME_YOUR_ANIMATION {
   0%   { opacity: 0; }
@@ -458,6 +474,10 @@ i{
 	> p{
 		padding: 0 16px;
 	}
+
+	> .collection{
+		margin: 16px 0;
+	}
 }
 .app-intro{
 	padding: 100px 0;
@@ -550,7 +570,6 @@ label{
 }
 a:hover{
 	text-decoration: none;
-	color: $black;
 }
 .clear{
 	clear: both;
@@ -575,9 +594,9 @@ a:hover{
 	}
 }
 .wrapper{
-	padding-top: 50px;
+	padding-top: 75px;
 	@media screen and (max-width: 992px) {
-		padding-top: 0 !important;
+		padding-top: 48px !important;
 	}
 }
 // Grid System
@@ -744,7 +763,7 @@ i.mdi-content-clear {
 		visibility: hidden;
 		overflow: auto;
 		background: #fcfcfc;
-		padding: 24px 8px 150px 8px !important;
+		padding: 40px 8px 150px 8px !important;
 	}
 	&.active{
 		opacity: 1;
@@ -1323,6 +1342,16 @@ section.users{
 		color: #444;
   }
 }
+.collection-item{
+	color: $dark-gray;
+}
+.modal-course-location-item {
+    border: 1px solid $dark-gray;
+    margin: 0 4px;
+    padding: 4px;
+    color: $dark-gray;
+    border-radius: 2px;
+}
 
 #modal-del-btn{
 	background-color: rgb(223, 103, 103);
@@ -1337,13 +1366,12 @@ section.users{
   color: #fff;
 }
 .statistics-panel{
-  background-color: #F4F4F4;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 0 16px;
+  padding: 6px 0;
   width: 100%;
   margin: 0 auto;
   position: relative;
   z-index: 30;
+  background-color: #F4F4F4;
 
   > .statistics{
   	margin: 0;
@@ -1357,6 +1385,7 @@ section.users{
 	  	> i{
 				vertical-align: middle;
 				display: inline-block;
+				font-size: 14px !important;
 	  	}
 			> span{
 				vertical-align: middle;
@@ -1367,7 +1396,7 @@ section.users{
 	  	> img{
 	  		display: inline-block;
 	  		vertical-align: middle;
-	  		width: 16px;
+	  		width: 12px;
 	  	}
   	}
 

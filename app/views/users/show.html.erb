@@ -477,7 +477,6 @@ function getCourseUsers(){
     $('.item-course-id').each(function(){
       var course_code = $(this).attr('icd');
       var url = '<%= course_users_path %>' + '/' + course_code;
-      console.log(url);
 
       $.get(url, function(response){
         male_count = response["course_male_counter"];
@@ -558,7 +557,6 @@ $(document).on('click', '.simulator-table-course', function(){
 
 
     $.get(getCourseCommentsUri , function(comments_response){
-      console.log(comments_response["course_comments"]);
       $.each(comments_response["course_comments"], function(u, comment){
         var comment_body = comment.body;
         var comment_rating = comment.rating;

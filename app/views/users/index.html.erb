@@ -87,10 +87,8 @@
     $.post('/user_followed_user', {"user_followed_users[followed_user_id]": user_id},
       function(response){
         var user_followed_user = response["user_followed_user"];
-        console.log(user_followed_user["id"]);
         var user_followed_user_id = user_followed_user["id"];
         var followed_user_id = user_followed_user["followed_user_id"];
-        console.log(followed_user_id);
         $('a[user-id="' + user_id + '"]').replaceWith('<a class="unfollow-user-btn" ufui="' + user_followed_user_id + '" user-id="' + followed_user_id +'"><i class="material-icons">favorite</i></a>');
         flash.success('成功追蹤');
         $('#preloader-wrapper').removeClass('active');
@@ -134,7 +132,7 @@
         $container.isotope({
           filter: function() {
             var user_school_code = $(this).find('.user-organization-code').text();
-            console.log('user-school-code:'+user_school_code);
+            
             // return true to show, false to hide
             return user_school_code == selected_school_code;
           }
@@ -148,7 +146,7 @@
     function GetUserSearchResult(event, keyword){
         
         var encode_uri = '/search-users?name=' + keyword;
-        console.log(encode_uri);
+        
         //var encode_uri = encodeURI(uri);
         $.get( encode_uri , function(user_response){
             var user = user_response["found_user"];

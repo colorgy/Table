@@ -114,8 +114,8 @@ $element-top-margin: $gutter-width/3 !default;
 $element-bottom-margin: ($gutter-width*2)/3 !default;
 
 /*** Navbar ***/
-$navbar-height: 64px !default;
-$navbar-height-mobile: 56px !default;
+$navbar-height: 48px !default;
+$navbar-height-mobile: 48px !default;
 $navbar-font-color: #fff !default;
 $navbar-brand-font-size: 2.1rem !default;
 $navbar-top-bar-bg-color : #444 !default;
@@ -131,7 +131,7 @@ $slider-indicator-color: color('green', 'base') !default;
 
 /*** Tabs ***/
 $tabs-underline-color: $primary-color !default;
-$tabs-text-color: $darker-gray !default;
+$tabs-text-color: $dark-gray !default;
 $tabs-bg-color: transparent !default;
 
 /*** Tables ***/

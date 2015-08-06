@@ -54,6 +54,10 @@
     background-color: lighten($button-color, 5%);
     @extend .z-depth-1-half;
   }
+
+  > i{
+  	color: $button-color-raised;
+  }
 }
 
 // Floating button
@@ -167,6 +171,10 @@ button.btn-floating {
     @extend .z-depth-1-half;
   }
 
+}
+
+.btn--small{
+	padding: 0.1rem 1rem;
 }
 
 // Large button
