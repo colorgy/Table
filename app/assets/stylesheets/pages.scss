@@ -253,24 +253,26 @@ header{
 		right: 0;
 		left: 0;
 		bottom: 0;
-		background-color: rgba(255, 206, 195, 0.2);
+		background-color: rgba(0, 0, 0, 0.1);
 	}
 
 	> .header-slogan{
 		position: relative;
 		color: #eee;
 		text-align: center;
-		padding-top: 144px;
+		padding-top: 160px;
 
 		> h2{
 			text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+			font-size: 3rem;
 			@media screen and (max-width: 600px) {
-				font-size: 2em;
+				font-size: 1.8rem;
 			}
 		}
 
 		> p {
 			text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+			font-size: 1.4em;
 			@media screen and (max-width: 600px) {
 				font-size: 1em;
 			}
