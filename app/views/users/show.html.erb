@@ -1,3 +1,15 @@
+<% if current_user.blank? %>
+  <div class="notification-banner background-image bottom ask-login dark hide">
+    <a class="close-btn"><i class="material-icons">close</i></a>
+    <div class="banner-content">
+      <h4 class="banner-title">您也想要安排自己的課表嗎？</h4>
+      <p class="banner-description">Colorgy Table 讓你可以預覽自己的課表，而且還能看到朋友們選了哪些課<br>現在馬上加入！一起來選課吧！</p>
+    </div>
+    <div class="banner-action">
+      <a class="btn">我也要排課！</a>
+    </div>
+  </div>
+<% end %>
 <section class="user-panel">
 	<div class="cover-photo" style="background-image: url('<%= @user.cover_photo_url %>');">
 		<div class="user-info">
@@ -41,7 +53,6 @@
 	<div class="user">
 		<div class="row">
 			<div class="col m12 s12">
-        <p style="text-align: center; margin: 16px 0 0 0;"><%= @user.name %>的課表</p>
 				<div class="simulator-table-field">
 					<table class="simulator-table">
 						<thead>
@@ -120,6 +131,23 @@
 </div>
 
 <script>
+
+$('.close-btn').click(function(){
+  $(this).parent('div').remove();
+})
+
+<% if current_user.blank? %>
+  var windowPosition;
+  $(window).scroll(function(){
+    windowPosition = $(window).scrollTop();
+
+    if(windowPosition > 100){
+      $('.notification-banner').addClass('active').removeClass('hide');
+    }else{
+      $('.notification-banner').addClass('hide').removeClass('active');
+    }
+  })
+<% end %>
 
 $('#modal-course-comment-btn').click(function(){
   $('.course-comment-form-container').addClass('active');
@@ -228,7 +256,7 @@ function FetchCourseNode(){
       var course_node_order = course_node.order;
       var course_node_code = course_node.code;
 
-      $('<tr class="class' + course_node_code + '"><td>' + course_node_code + '</td><td class="M0 day1 period' + course_node_order +'"></td><td class="T0 day2 period'+ course_node_order +'"></td><td class="W0 day3 period'+ course_node_order +'"></td><td class="R0 day4 period'+ course_node_order +'"></td><td class="F0 day5 period'+ course_node_order +'"></td><td class="S0 day6 period'+ course_node_order +'"></td><td class="Sun0 day7 period'+ course_node_order +'"></td></tr>').prependTo('#simulator-table tbody');
+      $('<tr class="class' + course_node_code + '"><td>' + course_node_code + '</td><td class="M0 day1 period' + course_node_order +'"></td><td class="T0 day2 period'+ course_node_order +'"></td><td class="W0 day3 period'+ course_node_order +'"></td><td class="R0 day4 period'+ course_node_order +'"></td><td class="F0 day5 period'+ course_node_order +'"></td><td class="S0 day6 period'+ course_node_order +'"></td><td class="Sun0 day7 period'+ course_node_order +'"></td></tr>').prependTo('.simulator-table tbody');
 
     }
   })

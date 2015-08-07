@@ -1,31 +1,14 @@
 <%= javascript_include_tag 'html2canvas' %>
-<div class="statistics-panel">
-  <p class="statistics">
-    <span class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="你的學校代碼">
-      <span><%= current_user.organization_code %></span>
-    </span>
-    <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="目前修課的學分數">
-      <i class="material-icons">star</i>
-      <span class="credits-total">20</span>
-    </span>
-    <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="與你同班的女生數">
-      <%= image_tag ('female.png') %>
-      <span class="female-counter">100</span>
-    </span>
-    <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="與你同班的男生數">
-      <%= image_tag ('male.png') %>
-      <span class="male-counter">100</span>
-    </span>
-    <a id="share-simulator-btn" class="btn btn--small"><i class="material-icons">share</i>分享課表</a>
-  </p>
-  <div style="clear: both;"></div>
-</div>
-<div class="container-fuild" style="padding-top: 16px;">
+<div class="container-fuild" style="padding-top: 24px;">
   <div class="row">
     <div class="col m2 s12 controll-panel-container">
       <div class="page-slider" style="margin-top: 48px;">
         <div class="col s12 simulator-fixed" style="height: 100%; margin-bottom: 24px;" dataPage="mobile" id="select-page">
           <div class="simulator-sidebar">
+            <div class="block-label">
+              <span class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="你的學校代碼"><%= current_user.organization_code %></span> - 
+              加課程吧
+            </div>
             <div class="simulator-sidebar-inner">
               <div class="course-search-field">
                 <div class="course-search-field-inner">
@@ -53,6 +36,21 @@
         </div>
         <div class="col s12 simulator-fixed" style="height: 100%;" dataPage="mobile" id="has-selected-page">
           <div class="course-hasselect-field" id="course-hasselect-field">
+            <div class="block-label">
+              已選課程 - 
+              <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="目前修課的學分數">
+                <i class="material-icons">star</i>
+                <span class="credits-total">20</span>
+              </span>
+              <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="與你同班的女生數">
+                <%= image_tag ('female.png') %>
+                <span class="female-counter">100</span>
+              </span>
+              <span  class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="與你同班的男生數">
+                <%= image_tag ('male.png') %>
+                <span class="male-counter">100</span>
+              </span>
+            </div>
             <div class="course-hasselect-field-inner">
               <% @user_courses.each do |item| %>
                 <div class="course-hasselect-item">
@@ -80,6 +78,7 @@
         
         <div style="clear: both;"></div>
         <div class="simulator-table-field" style="padding-top: 0 !important;">
+          <a class="share-simulator-btn btn btn--small"><i class="material-icons">share</i>分享課表</a>
           <table class="simulator-table" id="simulator-table">
             <thead>
               <tr>
@@ -164,6 +163,7 @@
 <div class="mobile-add-course-btn" id="select-trigger2">
   <i class="material-icons">add</i>
 </div>
+<a class="share-simulator-btn btn btn--small mobile"><i class="material-icons">share</i></a>
 <div class="course-comment-form-container" id="course-comment-form-container">
   <%= render "course_comments/form" %>
 </div>
@@ -182,7 +182,7 @@
     window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
   }
 
-  $('#share-simulator-btn').click(function(){
+  $('.share-simulator-btn').click(function(){
     html2canvas($('.simulator-table') , {
       onrendered: function(canvas) {
         imagestring = canvas.toDataURL("image/png");

@@ -107,7 +107,7 @@ i{
 			.name{
 				font-size: 1em;
 				font-weight: 500;
-				color: darken(rgb(104, 104, 104) , 15%);
+				color: $dark-gray;
 				max-width: 125px;
 				cursor: pointer;
 
@@ -293,6 +293,7 @@ i{
 			padding: 8px 4px;
 			text-align: center;
 			position: relative;
+			color: $dark-gray;
 			@include transition-all(0.6s);
 		}
 		thead{
@@ -364,14 +365,38 @@ i{
 	}
 }
 
-#share-simulator-btn{
+.share-simulator-btn{
 	background-color: $dark-gray;
 	font-size: 14px;
 	padding: 0.2rem 1rem;
+	float: right;
 
 	> i {
 		font-size: 14px !important;
 		margin-right: 8px;
+	}
+
+	@media screen and (max-width: 992px) {
+		display: none;
+	}
+
+	&.mobile{
+		display: block;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    right: 40px;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 10px;
+
+    > i {
+    	color: $dark-gray;
+    	font-size: 20px !important;
+    }
+		@media screen and (min-width: 992px) {
+			display: none;
+		}
 	}
 }
 
@@ -477,6 +502,11 @@ i{
 
 	> .collection{
 		margin: 16px 0;
+	}
+
+	.tabs > li{
+		width: auto !important;
+		padding: 0 24px;
 	}
 }
 .app-intro{
@@ -653,8 +683,7 @@ a:hover{
 	border-radius: 4px;
 	border: 1px solid rgb(211, 210, 210);
 
-	&::before{
-		content: '加課程吧';
+	> .block-label{
 		position: absolute;
 		left: -8px;
 		top: -16px;
@@ -686,8 +715,7 @@ a:hover{
 	border: 1px solid #d3d2d2;
 	min-height: 300px;
 
-	&::before{
-		content: '已選課程';
+	> .block-label{
 		position: absolute;
 		left: -8px;
 		top: -16px;
@@ -697,6 +725,27 @@ a:hover{
 		border-radius: 2px;
 		font-size: 14px;
 		box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+  	> span{
+			margin-right: 8px;
+
+	  	> i{
+				vertical-align: middle;
+				display: inline-block;
+				font-size: 14px !important;
+				color: #fff;
+	  	}
+			> span{
+				vertical-align: middle;
+				display: inline-block;
+				color: #fff;
+				padding-top: 2px;
+			}
+	  	> img{
+	  		display: inline-block;
+	  		vertical-align: middle;
+	  		width: 12px;
+	  	}
+  	}
 	}
 
 	&.active{
@@ -758,7 +807,7 @@ i.mdi-content-clear {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		top: 80px;
+		top: 40px;
 		opacity: 0;
 		visibility: hidden;
 		overflow: auto;
@@ -780,7 +829,7 @@ i.mdi-content-clear {
 	@media screen and (max-width: 992px){
 		position: fixed;
 		width: 100% !important;
-		top: 72px;
+		top: 24px;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -1193,14 +1242,14 @@ section.users{
 
 .mobile-add-course-btn{
   position: fixed;
-  top: 2px;
+  top: 0;
   right: 2px;
   padding: 10px;
   cursor: pointer;
   z-index: 998;
 
 	> i {
-		color: $darker-gray;
+		color: $dark-gray;
 		font-size: 28px !important;
 	}
 
@@ -1556,6 +1605,93 @@ section.users{
     }
   }
 }
+
+.notification-banner{
+
+	position: fixed;
+	width: 100%;
+	height: auto;
+	z-index: 998;
+	padding: 8px 16px 32px 16px;
+	text-align: center;
+	opacity: 1;
+	visibility: visible;
+
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+
+	&.bottom{
+		&.active{
+			bottom: 0;
+			left: 0;
+		}
+		&.hide{
+			bottom: -100%;
+			left: 0;
+			opacity: 0;
+		}
+	}
+
+	> .banner-content{
+		padding: 8px 0;
+		position: relative;
+
+		> .banner-title{
+			font-size: 2em;
+			color: #fff;
+			text-shadow: 1px 1px 1px rgba(0,0,0, .2);
+		}
+
+		> .banner-description{
+			font-size: 1em;
+			color: #fff;
+			text-shadow: 1px 1px 1px rgba(0,0,0, .2);
+		}
+	}
+
+	> .banner-action{
+		position: relative;
+	}
+
+	&.background-image{
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+
+		&.dark::before{
+			content: '';
+			position: absolute;
+			background-color: rgba(0,0,0,.2);
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+		}
+	}
+
+	&.ask-login{
+		background-image: image-url('bg.jpg');
+	}
+
+}
+
+.close-btn{
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    z-index: 990;
+
+    > i{
+			font-size: 40px !important;
+			color: #fff;
+			background-color: rgba(0,0,0,.6);
+    }
+}
+
 /* Isotope */
 /* clear fix */
 .isotope:after {
