@@ -446,7 +446,7 @@ header{
 			-o-transform: translateY(-50%);
 			-ms-transform: translateY(-50%);
 			left: inherit;
-			width: 900px;
+			width: 1100px;
 			height: 631px;
 		}
 		&.table{
@@ -459,8 +459,8 @@ header{
 			-moz-transform: translateY(-50%);
 			-o-transform: translateY(-50%);
 			-ms-transform: translateY(-50%);
-			left: 58%;
-			width: 853px;
+			left: 45%;
+			width: 1100px;
 			height: 630px;
 		}
 	}
@@ -516,8 +516,8 @@ header{
 			-moz-transform: translateY(-50%) translateX(-300px);
 			-o-transform: translateY(-50%) translateX(-300px);
 			-ms-transform: translateY(-50%) translateX(-300px);
-			width: 35%;
-			left: 58%;
+			width: 25%;
+			left: 45%;
 			&.active{
 				opacity: 1;
 				visibility: visible;
@@ -536,7 +536,7 @@ header{
 			-moz-transform: translateY(-50%) translateX(-300px);
 			-o-transform: translateY(-50%) translateX(-300px);
 			-ms-transform: translateY(-50%) translateX(-300px);
-			width: 35%;
+			width: 25%;
 			//left: 58%;
 			&.active{
 				opacity: 1;
