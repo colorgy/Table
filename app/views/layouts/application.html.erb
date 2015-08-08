@@ -7,14 +7,21 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.png' %>
-  <meta property="og:image" content="<%= @user && @user.simulator_image_url %>"/>
+  <% if @user && @user.simulator_image_url %>
+    <meta property="og:image" content="<%= @user && @user.simulator_image_url %>"/>
+  <% else %>
+    <meta property="og:image" content="<%= image_path('table-img.png') %>"/>
+  <% end %>
   <meta property="og:title" content="我的 Colorgy Table 選課課表" />
   <meta property="og:type" content="article">
   <meta property="og:description" content="<%= @user && @user.name %>在 Colorgy Table 上安排課表。觀看別的同學怎麼排課、選了什麼課，馬上變成排課達人！" />
   <meta property="og:url" content="<%= "https://#{request.host}#{request.fullpath}" %>" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src='https://code.createjs.com/createjs-2015.05.21.min.js'></script>
+</head>
+<body>
+<div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {
       FB.init({
@@ -22,6 +29,9 @@
         xfbml      : true,
         version    : 'v2.3'
       });
+      <% if !current_user.blank? %>
+        FB.Event.subscribe('edge.create', page_like_callback);
+      <% end %>
     };
 
     (function(d, s, id){
@@ -31,48 +41,97 @@
        js.src = "//connect.facebook.net/zh_TW/sdk.js";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
+
+    var page_like_callback = function(url, html_element) {
+      $.ajax({
+        method: 'POST',
+        url: '/user_subscribed',
+        dataType: 'json'
+      });
+    }
+
+    // In your onload handler
+    
   </script>
-</head>
-<body>
 <%= render 'partials/navbar' %>
 <%= render 'partials/flash_messages' %>
-<!--
-<div class="navigation-bar">
-  <nav>
-    <div class="container">
-      <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Colorgy Simulator</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="">課程總覽</a></li>
-          <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
-          <% if current_user.blank? %>
-            <li><%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %></li>
-          <% else %>
-            <li class="nav-user-info">
-              <a href="#">
-                <div class="user-avatar">
-                <%= image_tag current_user.avatar_url %>
-                </div>
-                <div class="user-name">
-                  <%= current_user.name %>
-                </div>
-              </a>
-            </li>
-            <li>
-              <%= link_to("登出", sign_out_url) %>
-            </li>
-          <% end %>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-          <li><a href="">課程總覽</a></li>
-          <li><a href="<%= courses_simulator_index_path %>">選課模擬</a></li>
-        </ul>
+<% if !current_user.blank? %>
+  <% if current_user.first_login == true %>
+  <div class="celebration-container">
+    <a class="celebration-close hide"><i class="material-icons" style="color: #fff; font-size: 40px !important;">close</i></a>
+    <canvas id="fireworks"></canvas>
+    <div class="page1 active">
+      <div class="celebration-text">
+        <h3 class="title">恭喜你獲得50元購物金！</h3>
+        <p class="description">因為你登入 Colorgy ，你現在獲得的購物金在八月中開啟的 Colorgy Books 團購原文書服務中可以折抵新台幣50元！</p>
+        <a class="btn btn--large" id="go-to-page2">下一步</a>
       </div>
     </div>
-  </nav>
-</div>
--->
+    <div class="page2">
+      <div class="celebration-text">
+        <h3 class="title">分享按讚之後再拿 50 元購物金！</h3>
+        <p><div class="fb-page" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true" data-show-posts="false"></div></p>
+        <a class="fb-share-table-btn" id="fb-share-table-btn">分享到 Facebook</a>
+      </div>
+    </div>
+    <div class="page3">
+      <div class="celebration-text">
+        <h3 class="title">恭喜你獲得全部共 150 元購物金！</h3>
+        <p class="description"></p>
+        <a class="btn" id="close-celebration-btn">開始進入 Table</a>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $.ajax({
+      method: 'POST',
+      url: '/user_first_login',
+      dataType: 'json'
+    });
+
+    $('#go-to-page2').click(function(){
+      $('.celebration-container .page1').removeClass('active');
+      $('.celebration-container .page2').addClass('active');
+      $('.celebration-close').removeClass('hide');
+    })
+    $('#close-celebration-btn').click(function(){
+      $('.celebration-container').addClass('hide');
+      $('.celebration-container').remove();
+    })
+    $('.celebration-close').click(function(){
+      $('.celebration-container').addClass('hide');
+      $('.celebration-container').remove();
+    })
+    $('.fb-share-table-btn').click(function(){
+      init_share_table();
+    })
+    function init_share_table() {
+      _origin = "https://table.colorgy.io";
+
+      FB.ui(
+        {
+          method: 'share',
+          href: _origin,
+        },
+        // callback
+        function(response) {
+          if (response && !response.error_code) {
+            $('.celebration-container .page2').removeClass('active');
+            $('.celebration-container .page3').addClass('active');
+            $.ajax({
+              method: 'POST',
+              url: '/user_shared',
+              dataType: 'json'
+            });
+          } else {
+            flash.error('分享失敗！請再試一次');
+          }
+        }
+      );
+    }
+  </script>
+  <% end %>
+<% end %>
 <div class="preloader-wrapper" id="perloader-wrapper">
   <div class="spinner-layer spinner-red-only">
     <div class="circle-clipper left">

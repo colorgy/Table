@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   get 'search-users' => 'users#search'
   get 'search-course-comments' => 'course_comments#search'
   post 'upload' => 'proxy#image_upload'
+  post 'user_first_login' => 'users#first_login_callback'
+  post 'user_shared' => 'users#shared_callback'
+  post 'user_subscribed' => 'users#subscribed_callback'
 
   # Example resource route with options:
   #   resources :products do
