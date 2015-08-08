@@ -1624,10 +1624,9 @@ section.users{
 	-ms-transition: all 0.5s;
 
 	&.bottom{
-		&.active{
-			bottom: 0;
-			left: 0;
-		}
+		bottom: 0;
+		left: 0;
+
 		&.hide{
 			bottom: -100%;
 			left: 0;
@@ -1690,6 +1689,87 @@ section.users{
 			color: #fff;
 			background-color: rgba(0,0,0,.6);
     }
+}
+#fireworks{
+  display: block;
+  margin: auto;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-user-select:none;
+}
+.celebration-container{
+		position: fixed;
+    top: 50%;
+    z-index: 998;
+    width: 90%;
+    height: 90%;
+    left: 50%;
+    max-height: 500px;
+    transform: translate(-50%,-50%);
+    overflow: hidden;
+
+    > canvas{
+    	width: auto;
+    	height: 100%;
+    }
+
+    .celebration-text{
+    	text-align: center;
+
+    	> .title{
+    		color: #fff;
+    		text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+    	}
+
+    	> .description{
+    		color: #fff;
+    		text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+    	}
+    }
+
+    .page1, .page2, .page3{
+    	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    	-webkit-transform: translate(-50%, -50%);
+    	-moz-transform: translate(-50%, -50%);
+    	-ms-transform: translate(-50%, -50%);
+    	-o-transform: translate(-50%, -50%);
+    	padding: 16px;
+    	opacity: 0;
+    	visibility: hidden;
+    	display: none;
+    	transition: all 0.6s;
+    	-webkit-transition: all 0.6s;
+    	-moz-transition: all 0.6s;
+    	-ms-transition: all 0.6s;
+    	-o-transition: all 0.6s;
+
+    	&.active{
+    		opacity: 1;
+    		visibility: visible;
+    		display: block;
+    	}
+    }
+
+}
+
+.fb-share-table-btn{
+	background-color: #3B5998;
+	color: #fff;
+	padding: 16px 32px;
+	border-radius: 2px;
+
+	&:hover{
+		color: #fff;
+	}
+}
+
+.celebration-close{
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	background-color: rgba(0,0,0,.5);
 }
 
 /* Isotope */

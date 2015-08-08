@@ -91,5 +91,11 @@
 <%= render 'partials/google_analytics' %>
 <%= render 'partials/footer' %>
 <%= javascript_include_tag 'replace_error_image_url' %>
+<%= javascript_include_tag 'fireworks' %>
+<script type="text/javascript">
+if($('#fireworks').length){
+  fireworks();
+}
+</script>
 </body>
 </html>
