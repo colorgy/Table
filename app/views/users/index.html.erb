@@ -69,8 +69,15 @@
   <div class="user-followed-users-item" followed-user-id="<%= item.followed_user_id %>" item-id="<%= item.id %>"></div>
 <% end %>
 
-
 <script>
+  <% if params[:name].present? && params[:name] != '' && params[:name] != 'undefined' %>
+    var name = '<%= params[:name] %>';
+    $('#user-searchbox').val(name);
+  <% end %>
+  <% if params[:organization_code].present? && params[:organization_code] != 'all' %>
+    var organization_code = '<%= params[:organization_code] %>';
+    $('#school-filter option[value="' + organization_code + '"]').prop('selected', true);
+  <% end %>
 
   function UsersFollowedUsersCheck(){
     $('.user-followed-users-item').each(function(){
@@ -113,12 +120,6 @@
   })
   $(document).ready(function() {
     // init Isotope
-    var $container = $('.isotope').imagesLoaded(function(){
-      $container.isotope({
-        itemSelector: '.user-item',
-        columnWidth: '.grid-sizer',
-      });
-    });
     // End init
 
 
@@ -144,10 +145,30 @@
     // Search Functions
 
     function GetUserSearchResult(event, keyword){
-        
-        var encode_uri = '/search-users?name=' + keyword;
+
+        var organization_code = $('#school-filter option:selected').val();
+        var encode_uri;
+
+        if(keyword != 'undefined' && keyword !='' && keyword != null){
+          if(organization_code != 'all' && organization_code){
+            encode_uri = '/users?name=' + keyword + '&organization_code=' + organization_code;
+          }
+          else{
+            encode_uri = '/users?name=' + keyword;
+          }
+        }
+        else{
+          if(organization_code != 'all' && organization_code){
+            encode_uri = '/users?organization_code=' + organization_code;
+          }
+          else{
+            encode_uri = '/users';
+          }
+        }
+        location.href = encode_uri;
         
         //var encode_uri = encodeURI(uri);
+        /*
         $.get( encode_uri , function(user_response){
             var user = user_response["found_user"];
             var user_counts = user_response["found_user"].length;
@@ -173,7 +194,7 @@
               else{
                 $user_item = $('<div class="card user-item"><span class="user-organization-code">' + user_organization_code  + '</span><div class="card-image"><a href="/users/'+ user_id +'"><img src="' + user_avatar_url + '"><span class="card-title user-info">'+ user_name +'</span></a></div><div class="card-action"><a class="user-item-followers-count"><i class="material-icons">face</i>' + user_followers_count + '</a><a class="follow-user-btn" user-id="' + user_id +'"><i class="material-icons">favorite_border</i></a><a href="'+ '/users/' +  user_id + '"><i class="material-icons">forward</i></a></div></div>');  
               }
-              $container.isotope( 'insert', $user_item );
+              //$container.isotope( 'insert', $user_item );
 
             }
             UsersFollowedUsersCheck();
@@ -186,8 +207,10 @@
               window.location.hash = '?name=' + keyword;
             }
         });
+        */
+        
     }
-
+    /*
     var hash = window.location.hash;
     if(hash.slice(0,7) == '#?name='){
       $('#perloader-wrapper').addClass('active');
@@ -195,10 +218,12 @@
       $('#user-searchbox').val(keyword);
       GetUserSearchResult(event , keyword);
     }
+    */
 
-    $('#school-filter').change(function(){
-      var selected_school_code = $('#school-filter option:selected').val();
-      SchoolFilter(selected_school_code);
+    $('#school-filter').change(function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetUserSearchResult(event , keyword);
     })
 
     $('#search-btn').click(function(event){
