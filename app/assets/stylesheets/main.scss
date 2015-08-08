@@ -1787,6 +1787,10 @@ section.users{
 	margin: 1%;
 }
 
+.card.user-item {
+  display: inline-block;
+  float: left;
+}
 
 @media screen and (min-width: 1425px ){  .followed-user-item { width: 31%; } .user-item{ width: 18%; } }
 @media (max-width: 1425px ) and (min-width: 800px ){ .followed-user-item, .user-item{ width: 23%; } }

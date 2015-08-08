@@ -6,7 +6,7 @@
       <p class="banner-description">Colorgy Table 讓你可以預覽自己的課表，而且還能看到朋友們選了哪些課<br>現在馬上加入！一起來選課吧！</p>
     </div>
     <div class="banner-action">
-      <a class="btn">我也要排課！</a>
+      <%= link_to "我也要排課！", user_omniauth_authorize_path(:colorgy), :class=>'btn btn--large' %>
     </div>
   </div>
 <% end %>
@@ -132,9 +132,7 @@
 
 <script>
 
-$('.close-btn').click(function(){
-  $(this).parent('div').remove();
-})
+
 
 <% if current_user.blank? %>
   var windowPosition;

@@ -1,6 +1,9 @@
 //= require ./colorgy/components/toast.js
 //= require ./colorgy/components/message_bar.js
 
+$('.close-btn').click(function(){
+  $(this).parent('div').remove();
+})
 $(document).on('click', '.popup-btn', function(){
 	$(this).parent().parent('.popup-notification').addClass('close');
 })
