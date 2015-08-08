@@ -179,10 +179,18 @@
     _origin = window.location.origin + "<%= user_path(current_user) %>";
     url = "https://www.facebook.com/sharer/sharer.php?"
       + "u=" + encodeURIComponent(_origin);
-    window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
+    //window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
+
+    FB.ui(
+      {
+        method: 'share',
+        href: _origin,
+      }
+    );
   }
 
   $('.share-simulator-btn').click(function(){
+    initShare();
     html2canvas($('.simulator-table') , {
       onrendered: function(canvas) {
         imagestring = canvas.toDataURL("image/png");
@@ -193,7 +201,6 @@
         });
       }
     });
-    initShare();
   })
 
 
