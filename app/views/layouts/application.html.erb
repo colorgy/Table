@@ -9,13 +9,17 @@
   <%= favicon_link_tag 'favicon.png' %>
   <% if @user && @user.simulator_image_url %>
     <meta property="og:image" content="<%= @user && @user.simulator_image_url %>"/>
+    <meta property="og:url" content="<%= "https://#{request.host}#{request.fullpath}" %>" />
   <% else %>
     <meta property="og:image" content="https://<%= request.host + image_path('fb-social-share.jpg') %>"/>
+    <meta property="og:url" content="<%= "https://table.colorgy.io/landing-page" %>" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
   <% end %>
   <meta property="og:title" content="我的 Colorgy Table 上課從此變得更有樂趣" />
   <meta property="og:type" content="article">
   <meta property="og:description" content="<%= @user && @user.name %>上 Colorgy Table 安排課表，認識更多同班同學，馬上變成排課達人！" />
-  <meta property="og:url" content="<%= "https://#{request.host}#{request.fullpath}" %>" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
   <script src='https://code.createjs.com/createjs-2015.05.21.min.js'></script>
