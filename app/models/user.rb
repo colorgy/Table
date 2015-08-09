@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
     oauth_params = ActionController::Parameters.new(auth.info)
     user_data = oauth_params.slice(*attrs).permit(*attrs)
 
+    user_data['organization_code'] = oauth_params[:possible_organization_code]
+    user_data['department_code'] = oauth_params[:possible_department_code]
+
     user_data['refreshed_at'] = Time.now
     user_data['core_access_token'] = auth.credentials.token
 
