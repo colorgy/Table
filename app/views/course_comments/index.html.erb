@@ -15,35 +15,44 @@
 </div>
 <div class="course-comments-list isotope">
   <div class="grid-sizer"></div>
-  <% @course_comments.each do |course_comment| %>
-    <div class="course-comment">
-      <div class="user-avatar">
-        <%= image_tag User.find(course_comment.user_id).avatar_url %>
-      </div>
-      <div class="user-name">
-        <%= User.find(course_comment.user_id).name %>
-      </div>
-      <div class="course-comment-rating" rating="<%= course_comment.rating %>">
-      </div>
-      <div class="created-at">
-        <small><%= 'commented@' + course_comment.created_at.strftime("%Y-%m-%d") %></small>
-      </div>
-      <div class="course-info">
-        <span class="course-info-title">課程：</span><span class="course-year hide"><%= course_comment.course_year %></span><span class="course-term hide"><%= course_comment.course_term %></span>
-        <span class="course-lecturer"></span>
-        <span class="course-name"></span>
-        <span class="course-general-code"><%= course_comment.course_general_code %></span>
-      </div>
-      <div class="course-comment-body">
-        <%= course_comment.body %>
-      </div>
+  <% if @course_comments.count == 0 %>
+    <div class="page-error-message">
+      <i class="material-icons message-icon">face</i>
+      <p class="message-content">沒有搜尋到任何評論哦！<br>可以換個關鍵字或是搜尋方法試試看 :D</p>
     </div>
+  <% else %>
+    <% @course_comments.each do |course_comment| %>
+      <div class="course-comment">
+        <div class="user-avatar">
+          <%= image_tag User.find(course_comment.user_id).avatar_url %>
+        </div>
+        <div class="user-name">
+          <%= User.find(course_comment.user_id).name %>
+        </div>
+        <div class="course-comment-rating" rating="<%= course_comment.rating %>">
+        </div>
+        <div class="created-at">
+          <small><%= 'commented@' + course_comment.created_at.strftime("%Y-%m-%d") %></small>
+        </div>
+        <div class="course-info">
+          <span class="course-info-title">課程：</span><span class="course-year hide"><%= course_comment.course_year %></span><span class="course-term hide"><%= course_comment.course_term %></span>
+          <span class="course-lecturer"></span>
+          <span class="course-name"></span>
+          <span class="course-general-code"><%= course_comment.course_general_code %></span>
+        </div>
+        <div class="course-comment-body">
+          <%= course_comment.body %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
+  <%= will_paginate %>
 </div>
 <script type="text/javascript">
   var course_organization_code = '<%= current_user.organization_code.downcase %>';
   CourseCommentRatingRenderStar();
   CommentsFetchCourseInfo();
+  replaceErrorImageUrl();
 
   function CourseCommentRatingRenderStar(){
     $('.course-comment-rating').each(function(){
@@ -79,12 +88,14 @@
 
   $(document).ready(function() {
     // init Isotope
+    /*
     var $container = $('.isotope').imagesLoaded(function(){
       $container.isotope({
         itemSelector: '.course-comment',
         columnWidth: '.grid-sizer',
       });
     });
+    */
     // End init
 
 
@@ -92,9 +103,22 @@
 
     function GetCourseCommentsSearchResult(event, keyword){
         var method = $('#search-method').val();
-        console.log(method);
-        var encode_uri = '/search-course-comments?' + method +'=' + keyword;
+        var encode_uri;
 
+        if(method == 'course_name'){
+          encode_uri = '/course_comments?course_name=' + keyword;
+        }
+
+        if(method == 'course_lecturer'){
+          encode_uri = '/course_comments?course_lecturer=' + keyword;
+        }
+
+        if(method == 'course_general_code'){
+          encode_uri = '/course_comments?course_general_code=' + keyword;
+        }
+        location.href = encode_uri;
+
+        /*
         $.get( encode_uri , function(course_comments_response){
             console.log(course_comments_response);
             var course_comments = course_comments_response["course_comments"];
@@ -125,6 +149,8 @@
             //CommentsFetchCourseInfo();
             replaceErrorImageUrl();
         });
+
+        */
     }
 
     $('#search-btn').click(function(event){
