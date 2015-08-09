@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       end
     else
       if current_user.organization_code.blank? || current_user.organization_code == ''
-        flash[:error] = "你沒有驗證學校 email，請至 https://colorgy.io/my_account/emails/new 進行驗證再回來～"
+        flash[:error] = "你沒有驗證學校 email，請至 https://colorgy.io/my-account/emails/new 進行驗證再回來～"
         redirect_to users_path
       else
         @user = User.find(params[:id])

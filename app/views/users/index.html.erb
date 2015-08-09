@@ -1,19 +1,11 @@
 <%= javascript_include_tag 'pages' %>
-<section class="users">  
+<section class="users">
   <div class="search-bar search-bar--center user-search-bar">
     <select class="browser-default school-filter" id="school-filter">
       <option value="all" selected>全部學校</option>
-      <option value="NTUST">台灣科技大學</option>
-      <option value="NTU">台灣大學</option>
-      <option value="CGU">長庚大學</option>
-      <option value="CYCU">中原大學</option>
-      <option value="FJU">輔仁大學</option>
-      <option value="NTHU">清華大學</option>
-      <option value="NTNU">臺灣師範大學</option>
-      <option value="NTPU">臺北大學</option>
-      <option value="TKU">淡江大學</option>
-      <option value="TTU">大同大學</option>
-      <option value="YZU">元智大學</option>
+      <% Organization.all_for_select.each do |selection| %>
+        <option value="<%= selection[1] %>"><%= "#{selection[0]} - #{selection[1]}" %></option>
+      <% end %>
     </select>
     <form class="user-search-form" action="/search-users" method="get" id="chat_form" style="display: inline-block;">
       <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字" style="height: 33px !important;">
@@ -248,4 +240,5 @@
     // Search Functions End
   })
 
+  $('.school-filter').select2();
 </script>

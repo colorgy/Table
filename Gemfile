@@ -50,6 +50,9 @@ gem 'factory_girl_rails', '~> 4.5.0'
 gem 'faker'
 gem 'timecop'
 
+gem 'activeresource', '~> 4.0.0'
+gem 'cached_resource'
+
 # Use Pry as the Rails console
 gem 'pry-rails'
 gem 'pry-byebug'
@@ -95,3 +98,6 @@ gem 'rails_stdout_logging', :require => false
 
 # Monitoring Tools
 gem 'newrelic_rpm'
+
+# Assets related Gems
+gem 'select2-rails', '~> 3.5.9'

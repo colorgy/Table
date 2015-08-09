@@ -1313,15 +1313,17 @@ section.users{
 		display: none;
 	}
 }
-.school-filter{
+
+.school-filter,
+.school-filter.select2-container {
 	max-width: 180px;
-	display: inline-block !important;
+	display: inline-block;
 	height: 34px;
 	color: #717071;
 	border: 1px #d3d2d2 solid;
 
 	@media screen and (max-width: 550px) {
-		display: block !important;
+		display: block;
 		margin: 4px auto 8px auto;
 		max-width: 300px;
 	}
