@@ -10,6 +10,21 @@
                     APP 下載
                   </a>
                 </li>
+                <% if !current_user.blank? %>
+                  <% if current_user.shared %>
+                    <li class="active">
+                      <a class="tooltipped highlights" data-position="bottom" data-delay="0" data-tooltip="你已獲得 100 元 Colorgy 購物金，使用期間 8/15 - 8/30 ，到 Colorgy Books 尋找你需要的教科書、生活用品吧！">
+                        100 元 Colorgy 購物金
+                      </a>
+                    </li>
+                  <% else %>
+                    <li class="active">
+                      <a class="tooltipped highlights" data-position="bottom" data-delay="0" data-tooltip="你已獲得 50 元 Colorgy 購物金，使用期間 8/15 - 8/30 ，到 Colorgy Books 尋找你需要的教科書、生活用品吧！">
+                        50 元 Colorgy 購物金
+                      </a>
+                    </li>
+                  <% end %>
+                <% end %>
                 <% if current_user.blank? %>
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
                 <% else %>
