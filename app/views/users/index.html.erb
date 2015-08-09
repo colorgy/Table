@@ -25,43 +25,50 @@
   </div>
   <div class="users-search-result isotope" id="users-search-result">
     <div class="grid-sizer"></div>
-    <% @users.each do |user| %>
-      <div class="card user-item">
-        <% if user.organization_code == nil || user.organization_code == '' %>
-          <span class="user-organization-code">未認證</span>
-        <% else %>
-          <span class="user-organization-code"><%= user.organization_code %></span>
-        <% end %>
-        <div class="card-image">
-          <a href="<%= user_path(user) %>">
-            <% if user.avatar_url != '' && user.avatar_url %>
-              <%= image_tag user.avatar_url %>
-            <% else %>
-              <%= image_tag ('https://placehold.it/500x500') %>
-            <% end %>
-            <span class="card-title user-info"><%= user.name %></span>
-          </a>
-        </div>
-        <div class="card-action">
-          <a class="user-item-followers-count">
-            <i class="material-icons">face</i><%= user.followers_count %>
-          </a>
-          <% if current_user.id == user.id %>
+    <% if @users.count == 0 %>
+      <div class="page-error-message">
+        <i class="material-icons message-icon">face</i>
+        <p class="message-content">沒有搜尋到任何人哦！<br>可以換個關鍵字或是學校試試看 :D</p>
+      </div>
+    <% else %>
+      <% @users.each do |user| %>
+        <div class="card user-item">
+          <% if user.organization_code == nil || user.organization_code == '' %>
+            <span class="user-organization-code">未認證</span>
           <% else %>
-            <% if !current_user.followed_users.include?(user) %>
-              <a class="follow-user-btn" user-id="<%= user.id %>"><i class="material-icons">favorite_border</i></a>
+            <span class="user-organization-code"><%= user.organization_code %></span>
+          <% end %>
+          <div class="card-image">
+            <a href="<%= user_path(user) %>">
+              <% if user.avatar_url != '' && user.avatar_url %>
+                <%= image_tag user.avatar_url %>
+              <% else %>
+                <%= image_tag ('https://placehold.it/500x500') %>
+              <% end %>
+              <span class="card-title user-info"><%= user.name %></span>
+            </a>
+          </div>
+          <div class="card-action">
+            <a class="user-item-followers-count">
+              <i class="material-icons">face</i><%= user.followers_count %>
+            </a>
+            <% if current_user.id == user.id %>
             <% else %>
-              <% @user_followed_users.each do |user_followed_user| %>
-                <% if user_followed_user.followed_user_id == user.id  %>
-                  <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>" user-id="<%= user_followed_user.followed_user_id %>"><i class="material-icons">favorite</i></a>
+              <% if !current_user.followed_users.include?(user) %>
+                <a class="follow-user-btn" user-id="<%= user.id %>"><i class="material-icons">favorite_border</i></a>
+              <% else %>
+                <% @user_followed_users.each do |user_followed_user| %>
+                  <% if user_followed_user.followed_user_id == user.id  %>
+                    <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>" user-id="<%= user_followed_user.followed_user_id %>"><i class="material-icons">favorite</i></a>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
-          <% end %>
-          <a href="<%= user_path(user) %>"><i class="material-icons">forward</i></a>
+            <a href="<%= user_path(user) %>"><i class="material-icons">forward</i></a>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    <% end %>  
   </div>
   <%= will_paginate %>
 </section>
