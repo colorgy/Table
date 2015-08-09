@@ -3,9 +3,31 @@
   <div class="search-bar search-bar--center user-search-bar">
     <select class="browser-default school-filter" id="school-filter">
       <option value="all" selected>全部學校</option>
-      <% Organization.all_for_select.each do |selection| %>
-        <option value="<%= selection[1] %>"><%= "#{selection[0]} - #{selection[1]}" %></option>
-      <% end %>
+      <option value="NTUST">台灣科技大學</option>
+      <option value="NTUT">台北科技大學</option>
+      <option value="NTIT">台中科技大學</option>
+      <option value="NTU">台灣大學</option>
+      <option value="NCCU">政治大學</option>
+      <option value="NTNU">台灣師範大學</option>
+      <option value="NTHU">清華大學</option>
+      <option value="NCTU">交通大學</option>
+      <option value="NCKU">成功大學</option>
+      <option value="NCU">中央大學</option>
+      <option value="NSYSU">中山大學</option>
+      <option value="NCHU">中興大學</option>
+      <option value="CYCU">中元大學</option>
+      <option value="CCU">中正大學</option>
+      <option value="NTPU">台北大學</option>
+      <option value="CGU">長庚大學</option>
+      <option value="YZU">元智大學</option>
+      <option value="TKU">淡江大學</option>
+      <option value="FJU">輔仁大學</option>
+      <option value="SCU">東吳大學</option>
+      <option value="USC">實踐大學</option>
+      <option value="YUNTECH">雲林科技大學</option>
+      <option value="PCCU">中國文化大學</option>
+      <option value="TTU">大同大學</option>
+      <option value="MCU">銘傳大學</option>
     </select>
     <form class="user-search-form" action="/search-users" method="get" id="chat_form" style="display: inline-block;">
       <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入同學的名字" style="height: 33px !important;">
