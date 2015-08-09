@@ -436,7 +436,20 @@ i{
 	}
 }
 
+.page-error-message{
+	text-align: center;
+	padding: 64px 16px;
+	max-width: 400px;
+	margin: 0 auto;
 
+	> .message-icon{
+		font-size: 40px !important;
+	}
+
+	> .message-content{
+		margin: 8px 0;
+	}
+}
 /*
 @keyframes NAME_YOUR_ANIMATION {
   0%   { opacity: 0; }
@@ -1562,6 +1575,7 @@ section.users{
 	margin: 0 auto 80px auto;
 	max-width: 600px;
   width: 100%;
+  min-height: 565px;
 
 	.course-comment{
 
