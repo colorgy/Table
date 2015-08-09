@@ -4,8 +4,8 @@ class CreateUserCourses < ActiveRecord::Migration
       t.integer :user_id
       t.string :course_code
       t.string :course_organization_code
-      t.integer :year
-      t.integer :term
+      t.integer :year, :default => 2015
+      t.integer :term, :default => 1
 
       t.timestamps null: false
     end
