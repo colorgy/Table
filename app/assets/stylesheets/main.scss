@@ -446,8 +446,13 @@ i{
 		font-size: 40px !important;
 	}
 
+	> .message-title{
+		color: $dark-gray;
+	}
+
 	> .message-content{
 		margin: 8px 0;
+		color: $dark-gray;
 	}
 }
 /*
