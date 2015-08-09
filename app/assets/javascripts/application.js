@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require select2
-//= require select2_locale_zh-TW
 
 //= require replace_error_image_url
 //= require materialize-sprockets
