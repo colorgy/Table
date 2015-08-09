@@ -10,7 +10,7 @@
   <% if @user && @user.simulator_image_url %>
     <meta property="og:image" content="<%= @user && @user.simulator_image_url %>"/>
   <% else %>
-    <meta property="og:image" content="<%= image_path('table-img.png') %>"/>
+    <meta property="og:image" content="https://<%= request.host + image_path('table-img.png') %>"/>
   <% end %>
   <meta property="og:title" content="我的 Colorgy Table 上課從此變得更有樂趣" />
   <meta property="og:type" content="article">
@@ -63,7 +63,7 @@
     <div class="page1 active">
       <div class="celebration-text">
         <h3 class="title">恭喜你獲得 50 元 Colorgy 購物金!</h3>
-        <p class="description">首次進入 Colorgy 的你，我們準備了 50 元的購物金，您可以在 8月15號 到 8月 31號 期間，前往 Colorgy Books 使用，一次買齊上課所需的教科書及用品，為即將到來的開學做好滿滿的準備！</p>
+        <p class="description">首次進入 Colorgy 的你，我們準備了 50 元的購物金，您可以在<span class="mark-up"> 8月15號 到 8月 31號 </span> 期間，前往 <span class="mark-up">Colorgy Books</span>使用，一次買齊上課所需的教科書及用品，為即將到來的開學做好滿滿的準備！</p>
         <a class="btn btn--large" id="go-to-page2">下一步</a>
       </div>
     </div>
@@ -78,7 +78,7 @@
     <div class="page3">
       <div class="celebration-text">
         <h3 class="title">恭喜你獲得全部共 100元的 Colorgy 購物金！</h3>
-        <p class="description">Colorgy 團隊將會在 Colorgy Books 開通時第一時間 Mail 及 簡訊 通知同學前往使用！<br>現在，就盡情享受新的大學生活吧！Color Your College!</p>
+        <p class="description">Colorgy 團隊將會在 Colorgy Books 開通時第一時間 Mail 及 簡訊 通知同學前往使用！現在，就盡情享受新的大學生活吧！Color Your College!</p>
         <a class="btn btn--large" id="close-celebration-btn">開始進入 Table</a>
       </div>
     </div>
@@ -145,6 +145,7 @@
   </div>
 </div>
 <div class="wrapper" id="wrapper">
+  <%= "https://#{request.host}#{request.fullpath}" %>
   <%= yield %>
 </div>
 

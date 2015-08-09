@@ -1755,11 +1755,18 @@ section.users{
     	> .title{
     		color: #fff;
     		text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+    		font-size: 2.6rem;
     	}
 
     	> .description{
     		color: #fff;
     		text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+
+    		> .mark-up{
+    			background-color: $primary-color;
+    			padding: 4px;
+    			margin: 0 4px;
+    		}
     	}
     }
 
