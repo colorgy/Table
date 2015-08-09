@@ -79,6 +79,7 @@
         <div style="clear: both;"></div>
         <div class="simulator-table-field" style="padding-top: 0 !important;">
           <a class="share-simulator-btn btn btn--small"><i class="material-icons">share</i>分享課表</a>
+          <a class="user-guide-btn btn btn--small modal-trigger" href="#modal2"><i class="material-icons">info_outline</i>使用教學</a>
           <table class="simulator-table" id="simulator-table">
             <thead>
               <tr>
@@ -143,6 +144,21 @@
     <a class="modal-action btn-flat" id="modal-course-comment-btn">評論</a>
   </div>
 </div>
+
+<div id="modal2" class="modal modal-fixed-footer">
+  <div class="modal-title">
+    <h5>使用教學</h5>
+  </div>
+  <div class="modal-content">
+    <div>
+      <%= image_tag('user-guide.jpg') %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">我知道了</a>
+  </div>
+</div>
+
 <div class="mobile-bottom-nav">
   <div class="mobile-nav-btn btn-1" id="calendar-trigger">
     <i class="material-icons">dashboard</i>
@@ -157,9 +173,12 @@
     已選課程
   </div>
 </div>
+
 <div id="simulator-help-btn" class="simulator-help-btn">
-  <a href="#"><i class="material-icons">help_outline</i></a>
+  <a href="https://lucas51.typeform.com/to/duGQcX" class="typeform-share tooltipped" data-mode="1" target="_blank"  data-position="top" data-delay="0" data-tooltip="問題回報區，有什麼問題都可以在這裡回報給 Colorgy"><i class="material-icons">help_outline</i></a>
 </div>
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'_';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}})()</script>
+
 <div class="mobile-add-course-btn" id="select-trigger2">
   <i class="material-icons">add</i>
 </div>
@@ -498,13 +517,6 @@ FetchCourseNode();
 splitACourse();
 CourseConflictTest();
 getCourseUsers();
-
-$(document).ready(function() {
-  var window_width = $(window).outerWidth();
-  if( window_width < 992 ){
-    $('ul.tabs').tabs();
-  }
-});
 
 $(document).on({
     mouseenter: function () {
@@ -1202,7 +1214,9 @@ $(document).mousemove(function(e){
     $('.simulator-table-course.on-hover').remove();
   }
 })
- $(document).ready(function(){
-    $('ul.tabs').tabs();
-  });
+$(document).ready(function(){
+  $('ul.tabs').tabs();
+  $('.modal-trigger').leanModal();
+  $('.materialboxed').materialbox();
+});
 </script>
