@@ -79,6 +79,7 @@
         <div style="clear: both;"></div>
         <div class="simulator-table-field" style="padding-top: 0 !important;">
           <a class="share-simulator-btn btn btn--small"><i class="material-icons">share</i>分享課表</a>
+          <a class="copy-course-btn btn btn--small" id="copy-course-btn"><i class="material-icons">content_copy</i>複製代碼</a>
           <a class="user-guide-btn btn btn--small modal-trigger" href="#modal2"><i class="material-icons">info_outline</i>使用教學</a>
           <table class="simulator-table" id="simulator-table">
             <thead>
@@ -159,6 +160,32 @@
   </div>
 </div>
 
+<div id="modal3" class="modal modal-fixed-footer">
+  <div class="modal-title">
+    <h5>複製課程代碼</h5>
+  </div>
+  <div class="modal-content">
+    <p>你可以在這邊看到你所有選擇的課程和課程代碼，可以直接點擊複製到你的選課系統中貼上，再也不用反白按右鍵，快速好方便 :D</p>
+    <div class="course-copy-table-container">
+      <table id="course-copy-table">
+        <thead>
+          <tr>
+            <th>課程名稱</th>
+            <th>課程老師</th>
+            <th>課程代碼</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
+  </div>
+</div>
+
 <div class="mobile-bottom-nav">
   <div class="mobile-nav-btn btn-1" id="calendar-trigger">
     <i class="material-icons">dashboard</i>
@@ -188,6 +215,33 @@
 </div>
 
 <script>
+
+  $('#copy-course-btn').click(function(){
+    $('#course-copy-table tbody').html('');
+    var courseCount = $('.course-hasselect-item').length;
+    $('.course-hasselect-item').each(function(){
+      var course_name = $(this).children('.name').text();
+      var course_code = $(this).children('.code').text();
+      var course_lecturer = $(this).children('.lecturer').text();
+
+      $('<tr><td>'+ course_name +'</td><td>' + course_lecturer +'</td><td id="copy-' + course_code +'">' + course_code + '</td><td><a class="btn btn--small copy-course-code-btn" course-code="'+ course_code +'">複製</a></td></tr>').appendTo('#course-copy-table tbody');
+    });
+    $('#modal3').openModal();
+  })
+
+  $(document).on('click', '.copy-course-code-btn' ,function(){
+    var course_code = $(this).attr('course-code');
+    copyToClipboard('#copy-' + course_code);
+  })
+
+  function copyToClipboard(element) {
+    $("body").append("<input type='text' id='temp' style='position:absolute;opacity:0;'>");
+    $("#temp").val($(element).text()).select();
+    document.execCommand("copy");
+    $("#temp").remove();
+    flash.success('成功複製');
+  }
+
   function LeanOverlayClose(){
     $('div[id="lean-overlay"]').remove();
     $('div[class="lean-overlay"]').remove();

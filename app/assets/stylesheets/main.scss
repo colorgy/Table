@@ -436,6 +436,42 @@ i{
 	}
 }
 
+.copy-course-btn{
+	background-color: $dark-gray;
+	font-size: 14px;
+	padding: 0.2rem 1rem;
+	float: right;
+  margin-right: 8px;
+
+	> i {
+		font-size: 14px !important;
+		margin-right: 8px;
+	}
+
+	@media screen and (max-width: 992px) {
+		display: none;
+	}
+
+	&.mobile{
+		display: block;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    right: 40px;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 10px;
+
+    > i {
+    	color: $dark-gray;
+    	font-size: 20px !important;
+    }
+		@media screen and (min-width: 992px) {
+			display: none;
+		}
+	}
+}
+
 .page-error-message{
 	text-align: center;
 	padding: 64px 16px;
