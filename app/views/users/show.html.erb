@@ -88,12 +88,11 @@
     <h5><span class="modal-course-name"></span> - <span class="modal-course-lecturer"></span></h5>
   </div>
   <div class="modal-content">
-    <h5 class="under-line-title">詳細資訊</h5>
-    <p>
-      學分： <span class="modal-course-credits"></span></br>
-      課程代號： <span class="modal-course-general-code"></span></br>
-      課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a>
-    </p>
+    <ul class="collection">
+      <li class="collection-item">學分： <span class="modal-course-credits"></span></li>
+      <li class="collection-item">課程代號： <span class="modal-course-general-code"></span></li>
+      <li class="collection-item">課程網站： <a class="modal-course-link" href="" target="_blank">前往課程網站</a></li>
+    </ul>
     <div class="row">
       <div class="col s12">
         <ul class="tabs">
@@ -120,7 +119,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">關閉</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="LeanOverlayClose()">關閉</a>
     <a class="modal-action btn-flat" id="modal-course-comment-btn">評課</a>
   </div>
 </div>
@@ -132,7 +131,9 @@
 
 <script>
 
-
+$('.close-btn').click(function(){
+  $(this).parent('div').remove();
+})
 
 <% if current_user.blank? %>
   var windowPosition;
@@ -146,6 +147,11 @@
     }
   })
 <% end %>
+
+function LeanOverlayClose(){
+  $('div[id="lean-overlay"]').remove();
+  $('div[class="lean-overlay"]').remove();
+}
 
 $('#modal-course-comment-btn').click(function(){
   $('.course-comment-form-container').addClass('active');
