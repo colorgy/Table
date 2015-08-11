@@ -1332,6 +1332,24 @@ section.users{
   }
 }
 
+.courses-search-bar{
+	> select{
+		display: inline-block;
+		width: auto;
+    border: 1px solid #D3D2D2;
+    height: 35px;
+    color: $dark-gray;
+	}
+}
+
+.gender-filter, .started-year-filter{
+	display: inline-block !important;
+	width: auto;
+  border: 1px solid #D3D2D2;
+  height: 35px;
+  color: $dark-gray;
+}
+
 .mobile-add-course-btn{
   position: fixed;
   top: 0;

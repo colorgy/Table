@@ -1,6 +1,25 @@
 <%= javascript_include_tag 'pages' %>
 <section class="users">
   <div class="search-bar search-bar--center user-search-bar">
+    <select class="browser-default started-year-filter" id="started-year-filter">
+      <option value="all" selected>全部入學年度</option>
+      <option value="2015">2015</option>
+      <option value="2014">2014</option>
+      <option value="2013">2013</option>
+      <option value="2012">2012</option>
+      <option value="2011">2011</option>
+      <option value="2010">2010</option>
+      <option value="2009">2009</option>
+      <option value="2008">2008</option>
+      <option value="2007">2007</option>
+      <option value="2006">2006</option>
+      <option value="2005">2005</option>
+    </select>
+    <select class="browser-default gender-filter" id="gender-filter">
+      <option value="all" selected>全部性別</option>
+      <option value="male">男生</option>
+      <option value="female">女生</option>
+    </select>
     <select class="browser-default school-filter" id="school-filter">
       <option value="all" selected>全部學校</option>
       <option value="NTUST">台灣科技大學</option>
@@ -99,6 +118,14 @@
     var organization_code = '<%= params[:organization_code] %>';
     $('#school-filter option[value="' + organization_code + '"]').prop('selected', true);
   <% end %>
+  <% if params[:gender].present? %>
+    var gender = '<%= params[:gender] %>';
+    $('#gender-filter option[value="' + gender + '"]').prop('selected', true);
+  <% end %>
+  <% if params[:started_year].present? %>
+    var started_year = '<%= params[:started_year] %>';
+    $('#started-year-filter option[value="' + started_year + '"]').prop('selected', true);
+  <% end %>
 
   function UsersFollowedUsersCheck(){
     $('.user-followed-users-item').each(function(){
@@ -168,23 +195,21 @@
     function GetUserSearchResult(event, keyword){
 
         var organization_code = $('#school-filter option:selected').val();
-        var encode_uri;
+        var gender = $('#gender-filter option:selected').val();
+        var started_year = $('#started-year-filter option:selected').val();
+        var encode_uri = '/users?';
 
         if(keyword != 'undefined' && keyword !='' && keyword != null){
-          if(organization_code != 'all' && organization_code){
-            encode_uri = '/users?name=' + keyword + '&organization_code=' + organization_code;
-          }
-          else{
-            encode_uri = '/users?name=' + keyword;
-          }
+          encode_uri = encode_uri + '&name=' + keyword;
         }
-        else{
-          if(organization_code != 'all' && organization_code){
-            encode_uri = '/users?organization_code=' + organization_code;
-          }
-          else{
-            encode_uri = '/users';
-          }
+        if(organization_code != 'all' && organization_code){
+          encode_uri = encode_uri + '&organization_code=' + organization_code;
+        }
+        if(gender != 'all' && gender){
+          encode_uri = encode_uri + '&gender=' + gender;
+        }
+        if(started_year != 'all' && started_year){
+          encode_uri = encode_uri + '&started_year=' + started_year;
         }
         location.href = encode_uri;
         
@@ -242,6 +267,18 @@
     */
 
     $('#school-filter').change(function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetUserSearchResult(event , keyword);
+    })
+
+    $('#gender-filter').change(function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetUserSearchResult(event , keyword);
+    })
+
+    $('#started-year-filter').change(function(event){
       $('#perloader-wrapper').addClass('active');
       var keyword = $('#user-searchbox').val();
       GetUserSearchResult(event , keyword);
