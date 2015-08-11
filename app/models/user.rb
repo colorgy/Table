@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   devise :trackable, :omniauthable,
          :omniauth_providers => [:colorgy]
+
   has_many :user_courses
   has_many :user_followed_users
   has_many :followed_users, class_name: :User, through: :user_followed_users,
@@ -21,6 +22,7 @@ class User < ActiveRecord::Base
 
     user_data['organization_code'] = oauth_params[:possible_organization_code]
     user_data['department_code'] = oauth_params[:possible_department_code]
+    user_data['started_year'] = oauth_params[:possible_started_year]
 
     user_data['refreshed_at'] = Time.now
     user_data['core_access_token'] = auth.credentials.token
