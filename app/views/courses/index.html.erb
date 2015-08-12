@@ -12,7 +12,7 @@
       <select class="browser-default search-method-filter" id="search-method-filter">
         <option value="name" selected>課程名稱</option>
         <option value="lecturer">老師名稱</option>
-        <option value="organization_code">課程代碼</option>
+        <option value="general_code">課程代碼</option>
       </select>
       <form class="user-search-form" action="/search-users" method="get" id="search-form" style="display: inline-block;">
         <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入關鍵字" style="height: 33px !important;">
@@ -27,7 +27,7 @@
 <div class="container courses-container">
   <div class="row">
     <div class="courses-table-container">
-      <table id="courses-table" class="striped">
+      <table id="courses-table" class="courses-table hoverable-table centered">
         <thead>
           <tr>
             <th>學期</th>
@@ -35,6 +35,7 @@
             <th>老師</th>
             <th>學分</th>
             <th>必/選修</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -42,16 +43,71 @@
         </tbody>
       </table>
     </div>
+    <ul class="pagination courses-pagination">
+    </ul>
   </div>
 </div>
 <script type="text/javascript">
+
+  $(document).on('click', '#courses-table tbody tr', function(){
+    var link_href = $(this).attr('href');
+    location.href = link_href;
+  })
+
+  $('#search-btn').click(function(event){
+    $('#perloader-wrapper').addClass('active');
+    var keyword = $('#user-searchbox').val();
+    GetUserSearchResult(event , keyword);
+  })
+
+  $('#search-form').bind('submit',function(event){
+    $('#perloader-wrapper').addClass('active');
+    var keyword = $('#user-searchbox').val();
+    GetUserSearchResult(event , keyword);
+    return false;
+  })
+
+  function GetUserSearchResult(event, keyword){
+
+      var year = $('#year-filter option:selected').val();
+      var term = $('#term-filter option:selected').val();
+      var search_method = $('#search-method-filter option:selected').val();
+      var uri = '<%= request.path %>?';
+
+      if (year != 'all' && year) {
+        uri = uri + 'year=' + year + '&';
+      }
+      if (term != 'all' && term) {
+        uri = uri + 'term=' + term + '&';
+      }
+      switch(search_method) {
+          case 'name':
+              uri = uri + 'name=' + 'like(%' + keyword + '%)&';
+              break;
+          case 'lecturer':
+              uri = uri + 'lecturer=' + 'like(%' + keyword + '%)&';
+              break;
+          case 'general_code':
+              uri = uri + 'general_code=' + keyword;
+              break;
+          default:
+              break;
+      }
+      location.href = encodeURI(uri);
+      
+  }
+
+
+
+
+  $('#preloader-wrapper').addClass('active');
   var current_user_organization_code = "<%= current_user.organization_code.downcase %>";
-  var get_url = 'https://colorgy.io/api/v1/' + current_user_organization_code + '/courses.json?filter[per_page]=10';
+  var get_url = 'https://colorgy.io/api/v1/' + current_user_organization_code + '/courses.json?per_page=20';
   var string_length;
 
   <% if params[:page].present? && params[:page] != 'all' %>
-    var params_page = "<%= params[:page] %>";
-    get_url = get_url + 'filter[page]=' + params_page;
+    params_page = "<%= params[:page] %>";
+    get_url = get_url + '&page=' + params_page;
   <% end %>
 
   <% if params[:year].present? && params[:year] != 'all' %>
@@ -96,7 +152,6 @@
   <% end %>
 
   get_url = encodeURI(get_url);
-  console.log(get_url);
 
   $.ajax({
     method: 'GET',
@@ -104,10 +159,82 @@
     dataType: 'json',
   }).done(function(courses, textStatus, xhr) {
 
-    console.log(xhr.getResponseHeader('x-pages-count'));
+
+    var page_count = parseInt(xhr.getResponseHeader('x-pages-count'));
+    var location_url;
+    var page_params;
+    var currentUrl = window.location.href;
+    var newUrl;
+    var $pagination_item;
+    var $pagination_prev_btn;
+    var $pagination_next_btn;
+    var nextUrl;
+    var prevUrl;
+    var currentPageNum = 1;
+    var question_mark_count = currentUrl.split("?").length-1;
+
+    <% if params[:page].present? && params[:page] != 'all' %>
+      currentPageNum = parseInt('<%= params[:page] %>');
+    <% end %>
+
+
+    if (page_count > 1) {
+      for (var i = 1; i <= page_count; i++) {
+
+        <% if params[:page].present? && params[:page] != 'all' %>
+          newUrl = currentUrl.replace("page="+currentPageNum, "page="+i);
+        <% else %>
+          if(question_mark_count > 0){
+            newUrl = currentUrl + '&page=' + i;
+          }
+          else{
+            newUrl = currentUrl + '?&page=' + i; 
+          }
+        <% end %>
+
+        console.log(newUrl);
+
+        $pagination_item = $('<li class="waves-effect"><a href="' + newUrl +'">' + i +'</a></li>');
+
+        if (i < 3 || i > (page_count -3) || i == currentPageNum || (i > (currentPageNum - 3) && i < (currentPageNum + 3))){
+          $pagination_item.appendTo('.pagination');
+        }else{
+          if( i < 4 || i > (page_count - 4) || (i > (currentPageNum - 4) && i < (currentPageNum + 4)) ){
+           $('<span>…</span>').appendTo('.pagination'); 
+          }
+        }
+        if(currentPageNum == i){
+          $pagination_item.addClass('active')
+        }
+
+      };
+
+      <% if params[:page].present? && params[:page] != 'all' %>
+        nextUrl = currentUrl.replace("page=" + currentPageNum, "page=" + (currentPageNum + 1));
+        prevUrl = currentUrl.replace("page=" + currentPageNum, "page=" + (currentPageNum - 1));
+      <% else %>
+        if(question_mark_count > 0){
+          nextUrl = currentUrl + '&page=' + (currentPageNum + 1);
+          prevUrl = currentUrl + '&page=' + (currentPageNum - 1);
+        }  
+        else{
+          nextUrl = currentUrl + '?&page=' + (currentPageNum + 1);
+          prevUrl = currentUrl + '?&page=' + (currentPageNum - 1);
+
+        }
+      <% end %>
+
+      $pagination_prev_btn = $('<li class="waves-effect"><a href="' + prevUrl +'">' + '〈上一頁'+'</a></li>');
+      $pagination_next_btn = $('<li class="waves-effect"><a href="' + nextUrl +'">' + '下一頁〉'+'</a></li>');
+      $('.pagination').append($pagination_next_btn).prepend($pagination_prev_btn);
+
+
+
+    };
 
     var courses_count = courses.length;
     var course;
+    $('#preloader-wrapper').removeClass('active');
 
     for (var i = 1; i <= courses_count ; i++) {
       course = courses[i];
@@ -124,58 +251,15 @@
         course_required = '選修';
       };
 
-      $('<tr href="/course?general_code=' + course_general_code + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td></tr>').appendTo('#courses-table');
+
+      $('<tr href="/course?general_code=' + course_general_code + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td><td>' + '<a><i class="material-icons">forward</i></a>' +'</td></tr>').appendTo('#courses-table');
     };
+
 
   });
 
 
-  $(document).on('click', '#courses-table tbody tr', function(){
-    var link_href = $(this).attr('href');
-    location.href = link_href;
-  })
 
-  $('#search-btn').click(function(event){
-    $('#perloader-wrapper').addClass('active');
-    var keyword = $('#user-searchbox').val();
-    GetUserSearchResult(event , keyword);
-  })
 
-  $('#search-form').bind('submit',function(event){
-    $('#perloader-wrapper').addClass('active');
-    var keyword = $('#user-searchbox').val();
-    GetUserSearchResult(event , keyword);
-    return false;
-  })
-
-  function GetUserSearchResult(event, keyword){
-
-      var year = $('#year-filter option:selected').val();
-      var term = $('#term-filter option:selected').val();
-      var search_method = $('#search-method-filter option:selected').val();
-      var uri = '<%= request.path %>?';
-
-      if (year != 'all' && year) {
-        uri = uri + 'year=' + year + '&';
-      }
-      if (term != 'all' && term) {
-        uri = uri + 'term=' + term + '&';
-      }
-      switch(search_method) {
-          case 'name':
-              uri = uri + 'name=' + 'like(%' + keyword + '%)&';
-              break;
-          case 'lecturer':
-              uri = uri + 'lecturer=' + 'like(%' + keyword + '%)&';
-              break;
-          case 'organization_code':
-              uri = uri + 'organization_code=' + 'like(%' +  keyword + '%)&';
-              break;
-          default:
-              break;
-      }
-      location.href = encodeURI(uri);
-      
-  }
 
 </script>

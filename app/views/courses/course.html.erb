@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="course-header">
+      <div class="course-header-bg"></div>
+      <div class="course-header-content container">
+        <h4 class="course-header-info"><span class="course-name" id="course-name"></span> - <span class="course-lecturer" id="course-lecturer"></span></h4>
+        <p class="course-general-code"><%= params["general_code"] %></p>
+        <div class="course-credits-label"><span class="course-credits" id="course-credits"></span><span> 學分</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container course-body">
+  <div class="row">
+    <div class="col m6 s12">
+      <div class="course-wiki">
+        <h5 class="wiki-title"><i class="material-icons">check_box</i>點名頻率</h5>
+        <p class="content">投女少直代太議每才雲著新師旅、化老日……每果口另本手象話民戲數難後力處小這官越每城色士目還是多品顯兩模前底多大害情品視覺其海善人。否致他是兒同場種腦跑到事下身利人在，同灣超性景如音總住人種館是草電使藥理用我他作動養動望由而。起比構但年請歷子法全起自能！語資文支一生。</p>
+        <h5 class="wiki-title"><i class="material-icons">create</i>計分方式</h5>
+        <p class="content">投女少直代太議每才雲著新師旅、化老日……每果口另本手象話民戲數難後力處小這官越每城色士目還是多品顯兩模前底多大害情品視覺其海善人。否致他是兒同場種腦跑到事下身利人在，同灣超性景如音總住人種館是草電使藥理用我他作動養動望由而。起比構但年請歷子法全起自能！語資文支一生。
+
+        為到自助且銀為直友具成表行有回，方能歷信議即度賽現題大；化中子者你；成三裡期回些中人請你到現。慢況此操連子後經。何市臺樹不市師官易個示古，密聲面華狀一……這特這了此來子上來因天林。</p>
+      </div>
+    </div>
+    <div class="col m6 s12">
+      <div class="users-on-course-list" id="users-on-course-list">
+        <h5 class="wiki-title"><i class="material-icons">face</i>選課同學</h5>
+        <ul>
+        </ul>
+      </div>
+      <div id="modal-course-comments" class="modal-course-comments"> 
+        <h5 class="wiki-title"><i class="material-icons list-icon">comment</i>課程評論</h5>
+        <div id="course-comments" class="course-comments-list">
+          <% if @course_comments.count == 0 %>
+            <div class="page-error-message">
+              <i class="material-icons message-icon">face</i>
+              <p class="message-content">沒有搜尋到任何評論哦！<br>可以換個關鍵字或是搜尋方法試試看 :D</p>
+            </div>
+          <% else %>
+            <% @course_comments.each do |course_comment| %>
+              <div class="course-comment">
+                <div class="user-avatar">
+                  <%= image_tag User.find(course_comment.user_id).avatar_url %>
+                </div>
+                <div class="user-name">
+                  <%= User.find(course_comment.user_id).name %>
+                </div>
+                <div class="course-comment-rating" rating="<%= course_comment.rating %>">
+                </div>
+                <div class="created-at">
+                  <small><%= 'commented@' + course_comment.created_at.strftime("%Y-%m-%d") %></small>
+                </div>
+                <div class="course-info">
+                  <span class="course-info-title">課程：</span><span class="course-year hide"><%= course_comment.course_year %></span><span class="course-term hide"><%= course_comment.course_term %></span>
+                  <span class="course-lecturer"></span>
+                  <span class="course-name"></span>
+                  <span class="course-general-code"><%= course_comment.course_general_code %></span>
+                </div>
+                <div class="course-comment-body">
+                  <%= course_comment.body %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <%= will_paginate @course_comments %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var course_organization_code = '<%= current_user.organization_code.downcase %>';
+  var course_general_code = '<%= params["general_code"] %>';
+  var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
+  var course_code;
+
+  function GetCourseInfo(){
+    var course_general_code = '<%= params["general_code"] %>';
+    var get_course_uri = 'https://colorgy.io/api/v1/'+ course_organization_code +'/courses.json?' + 'filter[general_code]=' + course_general_code;
+
+    $.get(get_course_uri, function(course_response){
+      var course = course_response[0];
+      var course_name = course.name;
+      var course_lecturer = course.lecturer;
+      var course_credits = course.credits;
+      $('.course-header-content .course-name').html(course_name);
+      $('.course-header-content .course-lecturer').html(course_lecturer);
+      $('.course-header-content .course-credits').html(course_credits);
+
+    })
+  }
+
+  function CourseCommentRatingRenderStar(){
+    $('.course-comment-rating').each(function(){
+      var rating = $(this).attr('rating');
+      var rating_count = parseInt(rating);
+      var unrating_count = 5 - rating_count;
+
+      $(this).html('');
+
+      for(i = 1; i<= rating_count ; i++){
+        $(this).append('<i class="material-icons">star</i>');
+      }
+      for(j = 1; j<= unrating_count ; j++){
+        $(this).append('<i class="material-icons">star_border</i>');
+      }
+    })
+  }
+  function CommentsFetchCourseInfo(){  
+    $('.course-info').each(function(){
+      var course_general_code = $(this).children('.course-general-code').text();
+      var course_year = $(this).children('.course-year').text();
+      var course_term = $(this).children('.course-term').text();
+      var get_course_uri = 'https://colorgy.io/api/v1/'+ course_organization_code +'/courses.json?' + 'filter[general_code]='+course_general_code+'&filter[year]=' + course_year + '&filter[term]=' + course_term;
+      $.get(get_course_uri, function(course_response){
+        var course = course_response[0];
+        var course_name = course.name;
+        var course_lecturer = course.lecturer;
+        var course_credits = course.credits;
+        course_code = course.code;
+        $(this).children('.course-name').html(course_name);
+        $(this).children('.course-lecturer').html(course_lecturer);
+
+        var getUserCourseUri = '<%= course_users_path %>/' + course_code;
+
+        $.get(getUserCourseUri , function(users_response){
+          $('#users-on-course-list li').remove();
+          $.each( users_response["course_users"] , function(u, user){
+            var user_avatar_url = user.avatar_url;
+            var user_fb_id = user.fbid;
+            var user_id = user.id;
+
+            $('<li><a href="<%= users_path %>/' + user_id +'"><img src="' + user_avatar_url +'"></a></li>').appendTo('#users-on-course-list ul');
+            replaceErrorImageUrl();
+          })
+          $('#preloader-wrapper').removeClass('active');
+        });
+
+
+      }.bind(this));
+    })
+  }
+
+
+
+  CourseCommentRatingRenderStar();
+  CommentsFetchCourseInfo();
+  GetCourseInfo();
+
+</script>
