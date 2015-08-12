@@ -1862,6 +1862,10 @@ section.users{
     left: 50%;
     max-height: 500px;
     transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
     overflow: hidden;
 
     > canvas{
@@ -2087,6 +2091,7 @@ section.users{
 	> i{
 		color: $dark-gray;
 		font-size: 1.4rem !important;
+		margin-right: 8px;
 	}
 }
 
