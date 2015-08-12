@@ -81,7 +81,9 @@
           <a class="share-simulator-btn btn btn--small"><i class="material-icons">share</i>分享課表</a>
           <a class="copy-course-btn btn btn--small" id="copy-course-btn"><i class="material-icons">content_copy</i>複製代碼</a>
           <a class="user-guide-btn btn btn--small modal-trigger" href="#modal2"><i class="material-icons">info_outline</i>使用教學</a>
+          <% if current_user.organization_code == 'NTUST' %>
           <a class="open-map-btn btn btn--small" id="open-map-btn"><i class="material-icons">map</i>校園地圖</a>
+          <% end %>
           <table class="simulator-table" id="simulator-table">
             <thead>
               <tr>
