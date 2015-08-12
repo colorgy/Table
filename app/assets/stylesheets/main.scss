@@ -166,6 +166,10 @@ i{
 	}
 }
 
+.courses-container{
+	min-height: 600px;
+}
+
 .course-select-item{
 	padding: 8px 40px 8px 16px;
 	position: relative;
@@ -1319,7 +1323,7 @@ section.users{
 	}
 }
 
-.user-search-bar{
+.user-search-bar, .courses-search-bar{
 	width: 100%;
   margin: 0 auto;
   padding: 16px 0 4px 0;
