@@ -1,0 +1,181 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="search-bar search-bar--center courses-search-bar">
+      <select class="browser-default year-filter" id="year-filter">
+        <option value="all" selected>全部學年</option>
+        <option value="2015">2015年</option>
+      </select>
+      <select class="browser-default term-filter" id="term-filter">
+        <option value="all" selected>全部學期</option>
+        <option value="1">第1學期</option>
+      </select>
+      <select class="browser-default search-method-filter" id="search-method-filter">
+        <option value="name" selected>課程名稱</option>
+        <option value="lecturer">老師名稱</option>
+        <option value="organization_code">課程代碼</option>
+      </select>
+      <form class="user-search-form" action="/search-users" method="get" id="search-form" style="display: inline-block;">
+        <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入關鍵字" style="height: 33px !important;">
+        <label for="user-searchbox" class="active">
+          <i class="material-icons">search</i>
+        </label>
+      </form>
+      <button id="search-btn" class="btn" style="display: inline-block; vertical-align: top;">搜尋</button>
+    </div>
+  </div>
+</div>
+<div class="container courses-container">
+  <div class="row">
+    <div class="courses-table-container">
+      <table id="courses-table" class="striped">
+        <thead>
+          <tr>
+            <th>學期</th>
+            <th>課名</th>
+            <th>老師</th>
+            <th>學分</th>
+            <th>必/選修</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var current_user_organization_code = "<%= current_user.organization_code.downcase %>";
+  var get_url = 'https://colorgy.io/api/v1/' + current_user_organization_code + '/courses.json?filter[per_page]=10';
+  var string_length;
+
+  <% if params[:page].present? && params[:page] != 'all' %>
+    var params_page = "<%= params[:page] %>";
+    get_url = get_url + 'filter[page]=' + params_page;
+  <% end %>
+
+  <% if params[:year].present? && params[:year] != 'all' %>
+    var params_year = "<%= params[:year] %>";
+    get_url = get_url + '&filter[year]=' + params_year;
+    $('#year-filter option[value="' + params_year +'"]').prop('selected', true);
+  <% end %>
+
+  <% if params[:term].present? && params[:term] != 'all' %>
+    var params_term = "<%= params[:term] %>";
+    get_url = get_url + '&filter[term]=' + params_term;
+    $('#term-filter option[value="' + params_term +'"]').prop('selected', true);
+  <% end %>
+
+  <% if params[:name].present? && params[:name] != '' && params[:name] != 'undefined' %>
+    var params_name = "<%= params[:name] %>";
+    string_length = params_name.length;
+    get_url = get_url + '&filter[name]=' + params_name;
+    $('#search-method-filter option[value="name"]').prop('selected', true);
+    $('#user-searchbox').attr('value', params_name.substring(6,string_length - 2));
+  <% end %>
+
+  <% if params[:lecturer].present? && params[:lecturer] != '' && params[:lecturer] != 'undefined' %>
+    var params_lecturer = "<%= params[:lecturer] %>";
+    string_length = params_lecturer.length;
+    get_url = get_url + '&filter[lecturer]=' + params_lecturer;
+    $('#search-method-filter option[value="lecturer"]').prop('selected', true);
+    $('#user-searchbox').attr('value', params_lecturer.substring(6,string_length - 2));
+  <% end %>
+
+  <% if params[:credits].present? && params[:credits] != 'all' %>
+    var params_credits = "<%= params[:credits] %>";
+    get_url = get_url + '&filter[credits]=' + params_credits;
+  <% end %>
+
+  <% if params[:general_code].present? && params[:general_code] != '' && params[:general_code] != 'undefined'  %>
+    var params_general_code = "<%= params[:general_code] %>";
+    string_length = params_general_code.length;
+    get_url = get_url + '&filter[general_code]=' + params_general_code;
+    $('#search-method-filter option[value="general_code"]').prop('selected', true);
+    $('#user-searchbox').attr('value', params_general_code.substring(6,string_length - 2));
+  <% end %>
+
+  get_url = encodeURI(get_url);
+  console.log(get_url);
+
+  $.ajax({
+    method: 'GET',
+    url: get_url,
+    dataType: 'json',
+  }).done(function(courses, textStatus, xhr) {
+
+    console.log(xhr.getResponseHeader('x-pages-count'));
+
+    var courses_count = courses.length;
+    var course;
+
+    for (var i = 1; i <= courses_count ; i++) {
+      course = courses[i];
+      course_name = course.name;
+      course_year = course.year;
+      course_term = course.term;
+      course_lecturer = course.lecturer;
+      course_credits = course.credits;
+      course_required = course.required;
+      course_general_code = course.general_code;
+      if (course_required) {
+        course_required = '必修';
+      }else{
+        course_required = '選修';
+      };
+
+      $('<tr href="/course?general_code=' + course_general_code + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td></tr>').appendTo('#courses-table');
+    };
+
+  });
+
+
+  $(document).on('click', '#courses-table tbody tr', function(){
+    var link_href = $(this).attr('href');
+    location.href = link_href;
+  })
+
+  $('#search-btn').click(function(event){
+    $('#perloader-wrapper').addClass('active');
+    var keyword = $('#user-searchbox').val();
+    GetUserSearchResult(event , keyword);
+  })
+
+  $('#search-form').bind('submit',function(event){
+    $('#perloader-wrapper').addClass('active');
+    var keyword = $('#user-searchbox').val();
+    GetUserSearchResult(event , keyword);
+    return false;
+  })
+
+  function GetUserSearchResult(event, keyword){
+
+      var year = $('#year-filter option:selected').val();
+      var term = $('#term-filter option:selected').val();
+      var search_method = $('#search-method-filter option:selected').val();
+      var uri = '<%= request.path %>?';
+
+      if (year != 'all' && year) {
+        uri = uri + 'year=' + year + '&';
+      }
+      if (term != 'all' && term) {
+        uri = uri + 'term=' + term + '&';
+      }
+      switch(search_method) {
+          case 'name':
+              uri = uri + 'name=' + 'like(%' + keyword + '%)&';
+              break;
+          case 'lecturer':
+              uri = uri + 'lecturer=' + 'like(%' + keyword + '%)&';
+              break;
+          case 'organization_code':
+              uri = uri + 'organization_code=' + 'like(%' +  keyword + '%)&';
+              break;
+          default:
+              break;
+      }
+      location.href = encodeURI(uri);
+      
+  }
+
+</script>

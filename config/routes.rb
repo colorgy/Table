@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   resources :course_users
   resources :users
   resources :course_comments
+  resources :courses
+
+  get 'course' => 'courses#course'
   get 'search-users' => 'users#search'
   get 'search-course-comments' => 'course_comments#search'
   post 'upload' => 'proxy#image_upload'
