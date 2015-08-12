@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811064713) do
+ActiveRecord::Schema.define(version: 20150812111832) do
 
   create_table "course_comments", force: :cascade do |t|
     t.string   "course_general_code"
@@ -34,8 +34,9 @@ ActiveRecord::Schema.define(version: 20150811064713) do
     t.string   "general_code"
     t.text     "scoring_method"
     t.text     "roll_call_frequency"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "students_count",      default: 0, null: false
   end
 
   create_table "user_courses", force: :cascade do |t|
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150811064713) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "uuid"
+    t.string   "course_general_code"
   end
 
   add_index "user_courses", ["term"], name: "index_user_courses_on_term"

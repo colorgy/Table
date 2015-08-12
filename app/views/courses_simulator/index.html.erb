@@ -650,6 +650,7 @@ $(document).on('click', '.simulator-table-course', function(){
     //var course_time = course["course_time"];
     var course_lecturer = course.lecturer;
     var course_general_code = course.general_code;
+    var course_organization_code = school_code.toUpperCase();
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
@@ -686,6 +687,7 @@ $(document).on('click', '.simulator-table-course', function(){
     $('#modal-del-btn').attr('iid', item_id);
     $('#modal1').attr('course-code', course_code);
     $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('course-organization-code', course_organization_code);
     $('#modal1').attr('year', course_year);
     $('#modal1').attr('term', course_term);
     $('#modal1').openModal();
@@ -800,6 +802,7 @@ $(document).on('click', '.course-select-item .name', function(){
     $('.modal-course-link').attr('href', website_url);
     $('#modal1').attr('course-code', course_code);
     $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('course-organization-code', course_organization_code);
     $('#modal1').attr('year', course_year);
     $('#modal1').attr('term', course_term);
     $('#modal1').openModal();
@@ -914,6 +917,7 @@ $(document).on('click', '.course-hasselect-item .name', function(){
     $('.modal-course-link').attr('href', website_url);
     $('#modal1').attr('course-code', course_code);
     $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('course-organization-code', course_organization_code);
     $('#modal1').attr('year', course_year);
     $('#modal1').attr('term', course_term);
     $('#modal1').openModal();
@@ -965,6 +969,8 @@ $(document).on('click', '.course-hasselect-item .name', function(){
 $(document).on('click', '.add-to-simulator', function(){
   $('#preloader-wrapper').addClass('active');
   course_code = $(this).siblings('.course-id').attr('cid');
+  course_general_code = $(this).siblings('.course-id').attr('cgc');
+  course_organization_code = $(this).siblings('.course-id').attr('coc');
   var ifReselect = true;
 
   $('.item-course-id').each(function(){
@@ -975,7 +981,7 @@ $(document).on('click', '.add-to-simulator', function(){
 
   if(ifReselect){
 
-    $.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
+    $.post('/courses_simulator', { "courses_simulator[course_code]": course_code, "courses_simulator[course_general_code]": course_general_code, "courses_simulator[course_organization_code]": course_organization_code }, function(response) {
         var item = response["item"];
         var item_id = item["id"];
         var school_code = '<%= current_user.organization_code.downcase %>';
@@ -1037,6 +1043,8 @@ $(document).on('click', '.add-to-simulator', function(){
 $(document).on('click', '#modal-add-btn', function(){
   $('#preloader-wrapper').addClass('active');
   course_code = $('#modal1').attr('course-code');
+  course_organization_code = $('#modal1').attr('course-general-code');
+  course_organization_code = $('#modal1').attr('course-organization-code');
   var ifReselect = true;
 
   $('.item-course-id').each(function(){
@@ -1047,7 +1055,7 @@ $(document).on('click', '#modal-add-btn', function(){
 
   if(ifReselect){
 
-    $.post('/courses_simulator', {"courses_simulator[course_code]": course_code}, function(response) {
+    $.post('/courses_simulator', { "courses_simulator[course_code]": course_code, "courses_simulator[course_general_code]": course_general_code, "courses_simulator[course_organization_code]": course_organization_code }, function(response) {
         var item = response["item"];
         var item_id = item["id"];
         var school_code = '<%= current_user.organization_code.downcase %>';
@@ -1178,9 +1186,10 @@ $('#course-searchbox').on('input', function(){
           var course = response[i];
           var course_name = course.name;
           var lecturer_name = course.lecturer;
-          var course_code = course.general_code;
+          var course_general_code = course.general_code;
+          var course_organization_code = school_code.toUpperCase();
           var course_credits = course.credits;
-          var course_id = course.code;
+          var course_code = course.code;
 
            $('<div class="course-select-item">' +
               '<div class="name">' + course_name + '</div>' +
@@ -1191,7 +1200,7 @@ $('#course-searchbox').on('input', function(){
               '<div class="course-location">c.location</div>' +
               '<div class="course-credits">' + course.credits + '</div>'+
               '<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
-              '<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
+              '<div class="course-id" cid="' + course_code + '" cgc="' + course_general_code + '" coc="' + course_organization_code + '"></div></div>').appendTo('.simulator-search-result');
            $('#preloader-wrapper').removeClass('active');
         }
       }

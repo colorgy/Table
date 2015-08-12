@@ -45,7 +45,7 @@ class CoursesSimulatorController < ApplicationController
   private
 
   def courses_simulator_params
-    params.require(:courses_simulator).permit(:course_code, :course_organization_code)
+    params.require(:courses_simulator).permit(:course_code, :course_organization_code, :course_general_code)
   end
 end
 
