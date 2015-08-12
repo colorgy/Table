@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       @users = @users.where("lower(name) LIKE ?", name.downcase).paginate(:page => params[:page], :per_page => 25) if params[:name].present? && params[:name] != '' && params[:name] != 'undefined'
       @users = @users.where("organization_code LIKE ?", organization_code).paginate(:page => params[:page], :per_page => 25) if params[:organization_code].present? && params[:organization_code] != 'all'
       @users = @users.where("gender LIKE ?", gender).paginate(:page => params[:page], :per_page => 25) if params[:gender].present? && params[:gender] != 'all'
-      @users = @users.where("started_year LIKE ?", started_year).paginate(:page => params[:page], :per_page => 25) if params[:started_year].present? && params[:started_year] != 'all'
+      @users = @users.where("started_year = ?", started_year).paginate(:page => params[:page], :per_page => 25) if params[:started_year].present? && params[:started_year] != 'all'
     end
   end
 
