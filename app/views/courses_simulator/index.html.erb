@@ -1184,6 +1184,7 @@ $('#course-searchbox').on('input', function(){
 
     var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
     + 'filter['+ search_method +']=like(%' + keyword + '%)';
+    console.log(uri);
     var encode_uri = encodeURI(uri);
 
     $.get( encode_uri , function(response){
@@ -1192,6 +1193,7 @@ $('#course-searchbox').on('input', function(){
 
       if(response.length == 0){
         $('<p id="simulator-search-result-blank-message" class="simulator-search-result-blank-message">“搜尋不到結果”</br>請輸入完整關鍵字或確認上方搜尋方式。如發現有缺課等問題歡迎聯繫 <a class="colorgy-fans-page-link" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">Colorgy</a></p>').appendTo('.simulator-search-result');
+        $('#preloader-wrapper').removeClass('active');
       }
       else{
         $('#simulator-search-result-blank-message').remove();
@@ -1209,7 +1211,7 @@ $('#course-searchbox').on('input', function(){
            $('<div class="course-select-item">' +
               '<div class="name">' + course_name + '</div>' +
               '<div class="lecturer">' + lecturer_name +'</div>' +
-              '<div class="course-code">' + course_code + '</div>' +
+              '<div class="course-code">' + course_general_code + '</div>' +
               '<br>' +
               '<div class="course-time">c.course_time</div>' +
               '<div class="course-location">c.location</div>' +
@@ -1261,20 +1263,21 @@ $('#search-method-select').on('change', function(){
           var course = response[i];
           var course_name = course.name;
           var lecturer_name = course.lecturer;
-          var course_code = course.general_code;
+          var course_general_code = course.general_code;
+          var course_organization_code = school_code.toUpperCase();
           var course_credits = course.credits;
-          var course_id = course.code;
+          var course_code = course.code;
 
-           $('<div class="course-select-item">' +
+          $('<div class="course-select-item">' +
               '<div class="name">' + course_name + '</div>' +
               '<div class="lecturer">' + lecturer_name +'</div>' +
-              '<div class="course-code">' + course_code + '</div>' +
+              '<div class="course-code">' + course_general_code + '</div>' +
               '<br>' +
               '<div class="course-time">c.course_time</div>' +
               '<div class="course-location">c.location</div>' +
               '<div class="course-credits">' + course.credits + '</div>'+
               '<button class="add-to-simulator"><i class="material-icons">add</i></button>'+
-              '<div class="course-id" cid="' + course_id + '"></div></div>').appendTo('.simulator-search-result');
+              '<div class="course-id" cid="' + course_code + '" cgc="' + course_general_code + '" coc="' + course_organization_code + '"></div></div>').appendTo('.simulator-search-result');
            $('#preloader-wrapper').removeClass('active');
         }
       }
