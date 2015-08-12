@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/landing-page' => 'pages#index'
   get '/app' => 'pages#app'
   get '/not-support-yet' => 'pages#not-support-yet'
+  get '/user-has-courses-count' => 'pages#user_has_courses_count'
 
   resources :courses_simulator, only: [:index, :create, :destroy]
   resources :user_followed_user, only: [:index, :create, :destroy]
