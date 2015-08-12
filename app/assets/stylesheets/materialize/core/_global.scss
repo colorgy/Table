@@ -347,7 +347,7 @@ video.responsive-video {
 .pagination {
 
   li {
-    float: left;
+    float: none;
     font-size: 1.2rem;
     padding: 0 10px;
     line-height: 30px;
@@ -546,7 +546,7 @@ table {
     }
   }
 
-  &.hoverable > tbody > tr {
+  &.hoverable-table > tbody > tr {
     @include transition(background-color .25s ease);
     &:hover {
       background-color: $table-striped-color;
@@ -571,6 +571,10 @@ td, th{
   display: table-cell;
   text-align: left;
   vertical-align: middle;
+}
+
+th, td{
+	color: $darker-gray;
 }
 
 // Responsive Table

@@ -440,6 +440,42 @@ i{
 	}
 }
 
+.open-map-btn{
+	background-color: $dark-gray;
+	font-size: 14px;
+	padding: 0.2rem 1rem;
+	float: right;
+  margin-right: 8px;
+
+	> i {
+		font-size: 14px !important;
+		margin-right: 8px;
+	}
+
+	@media screen and (max-width: 992px) {
+		display: none;
+	}
+
+	&.mobile{
+		display: block;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    right: 40px;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 10px;
+
+    > i {
+    	color: $dark-gray;
+    	font-size: 20px !important;
+    }
+		@media screen and (min-width: 992px) {
+			display: none;
+		}
+	}
+}
+
 .copy-course-btn{
 	background-color: $dark-gray;
 	font-size: 14px;
@@ -1386,6 +1422,7 @@ section.users{
 	}
 }
 
+
 .create-course-comment-form{
   padding: 32px 16px;
   border: 1px solid #C1C1C1;
@@ -1664,12 +1701,13 @@ section.users{
 		}
 	}
 }
+
 // Will Pagination
 
 .pagination {
 
 	text-align: center;
-	margin: 80px 0 24px 0;
+	margin: 56px 0 24px 0;
 
   > a, span{
   	color: #444;
@@ -1720,6 +1758,9 @@ section.users{
       white-space: nowrap;
     }
   }
+}
+.courses-pagination{
+	margin: 32px 0 80px 0;
 }
 
 .notification-banner{
@@ -1794,7 +1835,7 @@ section.users{
 
 }
 
-.close-btn{
+.close-btn, .close-school-map-btn {
     position: absolute;
     right: 16px;
     top: 8px;
@@ -1877,6 +1918,8 @@ section.users{
 
 }
 
+
+
 .fb-share-table-btn{
 	background-color: #3B5998;
 	color: #fff;
@@ -1885,6 +1928,165 @@ section.users{
 
 	&:hover{
 		color: #fff;
+	}
+}
+
+.school-map-container{
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 100%;
+	bottom: 0;
+	overflow: auto;
+	z-index: 1000;
+	text-align: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.6s;
+	-moz-transition: all 0.6s;
+	-ms-transition: all 0.6s;
+	-webkit-transition: all 0.6s;
+	-o-transition: all 0.6s;
+
+	> iframe{
+		width: 100%;
+		height: 100%;
+		min-width: 500px;
+	}
+
+	> img{
+		height: 100%;
+		width: auto;
+	}
+
+	> .close-school-map-btn{
+		position: fixed;
+	}
+
+	&.active{
+		opacity: 1;
+		visibility: visible;
+		left: 0;
+	}
+}
+
+.courses-table-container{
+	background-color: #fff;
+	padding: 24px;
+}
+
+.courses-table{
+	table-layout: fixed;
+
+	>thead{
+		background-color: $primary-color;
+		th{
+			color: #fff;
+		}
+	}
+
+	> tbody{
+		> tr{
+			cursor: pointer;
+		}
+	}
+
+}
+
+
+.course-header{
+	position: relative;
+
+	> .course-header-bg{
+		background-image: url('https://images.unsplash.com/photo-1429305336325-b84ace7eba3b?q=80&fm=jpg&s=8cf84b970497806cc96a06d6aba2b86b');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: blur(2.5px);
+    -moz-filter: blur(2.5px);
+    -o-filter: blur(2.5px);
+    -ms-filter: blur(2.5px);
+    -webkit-filter: blur(2.5px);
+    overflow: hidden;
+	}
+
+	.course-header-content{
+    padding: 24px 8px;
+    position: relative;
+    margin: 0 auto;
+
+		.course-header-info{
+			color: #fff;
+			margin: 1.14rem 0 1rem 0;
+			text-shadow: 1px 1px 2px rgba(0,0,0,.5);
+		}
+
+		> .course-credits-label{
+			color: #fff;
+	    margin: 0px 0 16px 16px;
+	    background-color: #F89680;
+	    display: inline-block;
+	    text-align: center;
+	    padding: 4px 8px;
+	    border-radius: 2px;
+	    font-size: 18px;
+	    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+		}
+
+		> .course-general-code{
+	    color: #fff;
+	    margin: 0rem 0 0 0;
+	    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+	    display: inline-block;
+	    vertical-align: middle;
+	    font-size: 20px;
+		}
+	}
+}
+
+.course-body{
+	padding: 0 8px;
+
+	.users-on-course-list{
+		min-height: 200px;
+		padding: 16px;
+	}
+	.modal-course-comments{
+		padding: 16px;
+	}
+
+}
+
+.course-wiki{
+	padding: 16px 16px;
+
+	> .course-wiki-card{
+		background-color: #fff;
+		padding: 32px 24px;
+		box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+		margin: 16px 0 16px 0;
+	}
+
+	> .content{
+		margin-bottom: 32px;
+		color: $dark-gray;
+		font-size: 1rem;
+	}
+
+}
+
+.wiki-title{
+	color: $dark-gray;
+	font-size: 1.4rem;
+
+	> i{
+		color: $dark-gray;
+		font-size: 1.4rem !important;
 	}
 }
 
