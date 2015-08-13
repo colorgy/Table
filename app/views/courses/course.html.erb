@@ -26,6 +26,16 @@
       <div class="users-on-course-list" id="users-on-course-list">
         <h5 class="wiki-title"><i class="material-icons">face</i>選課同學</h5>
         <ul>
+          <% if @users_on_course.count == 0 %>
+            <div class="page-error-message">
+              <i class="material-icons message-icon">face</i>
+              <p class="message-content">沒有同學排入此課。</p>
+            </div>
+          <% else %>
+            <% @users_on_course.each do |user| %>
+              <li><a href="<%= users_path %>/<%= user.id %>"><img src="<%= user.avatar_url %>"></a></li>
+            <% end %>
+          <% end %>
         </ul>
       </div>
       <div id="modal-course-comments" class="modal-course-comments"> 
@@ -34,7 +44,7 @@
           <% if @course_comments.count == 0 %>
             <div class="page-error-message">
               <i class="material-icons message-icon">face</i>
-              <p class="message-content">沒有搜尋到任何評論哦！<br>可以換個關鍵字或是搜尋方法試試看 :D</p>
+              <p class="message-content">沒有搜尋到任何評論哦！</p>
             </div>
           <% else %>
             <% @course_comments.each do |course_comment| %>
@@ -120,7 +130,7 @@
         course_code = course.code;
         $(this).children('.course-name').html(course_name);
         $(this).children('.course-lecturer').html(course_lecturer);
-
+        /*
         var getUserCourseUri = '<%= course_users_path %>/' + course_code;
 
         $.get(getUserCourseUri , function(users_response){
@@ -135,12 +145,12 @@
           })
           $('#preloader-wrapper').removeClass('active');
         });
+        */
 
 
       }.bind(this));
     })
   }
-
 
 
   CourseCommentRatingRenderStar();

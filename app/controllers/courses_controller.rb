@@ -10,6 +10,8 @@ class CoursesController < ApplicationController
       course_general_code = params[:general_code] if params[:general_code].present?
       @course_comments = CourseComment.where(organization_code: current_user_organization_code ).order('created_at DESC').paginate(:page => params[:page], :per_page => 3)
       @course_comments = @course_comments.where("course_general_code LIKE ?", course_general_code).paginate(:page => params[:page], :per_page => 3)
+      @courses_simulator_item = UserCourse.includes(:user).where(course_code: params[:course_code])
+      @users_on_course = @courses_simulator_item.map(&:user)
     else
       redirect_to root_path
     end

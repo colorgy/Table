@@ -14,7 +14,7 @@
         <option value="lecturer">老師名稱</option>
         <option value="general_code">課程代碼</option>
       </select>
-      <form class="user-search-form" action="/search-users" method="get" id="search-form" style="display: inline-block;">
+      <form class="user-search-form" method="get" id="search-form" style="display: inline-block;">
         <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入關鍵字" style="height: 33px !important;">
         <label for="user-searchbox" class="active">
           <i class="material-icons">search</i>
@@ -80,18 +80,20 @@
       if (term != 'all' && term) {
         uri = uri + 'term=' + term + '&';
       }
-      switch(search_method) {
-          case 'name':
-              uri = uri + 'name=' + 'like(%' + keyword + '%)&';
-              break;
-          case 'lecturer':
-              uri = uri + 'lecturer=' + 'like(%' + keyword + '%)&';
-              break;
-          case 'general_code':
-              uri = uri + 'general_code=' + keyword;
-              break;
-          default:
-              break;
+      if(keyword!='undefined' && keyword != null && keyword != ''){
+        switch(search_method) {
+            case 'name':
+                  uri = uri + 'name=' + 'like(%' + keyword + '%)&';
+                break;
+            case 'lecturer':
+                uri = uri + 'lecturer=' + 'like(%' + keyword + '%)&';
+                break;
+            case 'general_code':
+                uri = uri + 'general_code=' + 'like(%' +  keyword + '%)&';
+                break;
+            default:
+                break;
+        }
       }
       location.href = encodeURI(uri);
       
@@ -102,7 +104,7 @@
 
   $('#preloader-wrapper').addClass('active');
   var current_user_organization_code = "<%= current_user.organization_code.downcase %>";
-  var get_url = 'https://colorgy.io/api/v1/' + current_user_organization_code + '/courses.json?per_page=20';
+  var get_url = 'https://colorgy.io:443/api/v1/' + current_user_organization_code + '/courses.json?per_page=20';
   var string_length;
 
   <% if params[:page].present? && params[:page] != 'all' %>
@@ -148,10 +150,11 @@
     string_length = params_general_code.length;
     get_url = get_url + '&filter[general_code]=' + params_general_code;
     $('#search-method-filter option[value="general_code"]').prop('selected', true);
-    $('#user-searchbox').attr('value', params_general_code.substring(6,string_length - 2));
+    $('#user-searchbox').attr('value', params_general_code);
   <% end %>
 
   get_url = encodeURI(get_url);
+  console.log(get_url);
 
   $.ajax({
     method: 'GET',
@@ -159,7 +162,7 @@
     dataType: 'json',
   }).done(function(courses, textStatus, xhr) {
 
-
+    console.log(courses);
     var page_count = parseInt(xhr.getResponseHeader('x-pages-count'));
     var location_url;
     var page_params;
@@ -236,7 +239,7 @@
     var course;
     $('#preloader-wrapper').removeClass('active');
 
-    for (var i = 1; i <= courses_count ; i++) {
+    for (var i = 0; i <= courses_count - 1 ; i++) {
       course = courses[i];
       course_name = course.name;
       course_year = course.year;
@@ -245,6 +248,7 @@
       course_credits = course.credits;
       course_required = course.required;
       course_general_code = course.general_code;
+      course_code = course.code;
       if (course_required) {
         course_required = '必修';
       }else{
@@ -252,7 +256,7 @@
       };
 
 
-      $('<tr href="/course?general_code=' + course_general_code + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td><td>' + '<a><i class="material-icons">forward</i></a>' +'</td></tr>').appendTo('#courses-table');
+      $('<tr href="/course?general_code=' + course_general_code + '&course_code=' + course_code + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td><td>' + '<a><i class="material-icons">forward</i></a>' +'</td></tr>').appendTo('#courses-table');
     };
 
 
