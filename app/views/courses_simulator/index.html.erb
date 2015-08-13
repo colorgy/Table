@@ -721,6 +721,12 @@ $(document).on('click', '.simulator-table-course', function(){
         var comment_user_name = comment.user_name;
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
+        var comment_anonymous = comment.anonymous;
+
+        if(comment_anonymous){
+          comment_user_avatar_url = 'https://placehold.it/500x500';
+          comment_user_name = '匿名者';
+        }
 
         $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
 
@@ -785,6 +791,7 @@ $(document).on('click', '.course-select-item .name', function(){
     //var course_time = course["course_time"];
     var course_lecturer = course.lecturer;
     var course_general_code = course.general_code;
+    var course_organization_code = school_code.toUpperCase();
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
@@ -836,6 +843,12 @@ $(document).on('click', '.course-select-item .name', function(){
         var comment_user_name = comment.user_name;
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
+        var comment_anonymous = comment.anonymous;
+
+        if(comment_anonymous){
+          comment_user_avatar_url = 'https://placehold.it/500x500';
+          comment_user_name = '匿名者';
+        }
 
         $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
 
@@ -891,6 +904,7 @@ $(document).on('click', '.course-hasselect-item .name', function(){
   var school_code = '<%= current_user.organization_code.downcase %>';
   var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
       'filter[code]=' + course_code;
+
   $.get(getCourseUri , function(course_response){
     var course = course_response[0]
     var course_name = course.name;
@@ -899,6 +913,7 @@ $(document).on('click', '.course-hasselect-item .name', function(){
     //var course_time = course["course_time"];
     var course_lecturer = course.lecturer;
     var course_general_code = course.general_code;
+    var course_organization_code = school_code.toUpperCase();
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
@@ -951,6 +966,12 @@ $(document).on('click', '.course-hasselect-item .name', function(){
         var comment_user_name = comment.user_name;
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
+        var comment_anonymous = comment.anonymous;
+
+        if(comment_anonymous){
+          comment_user_avatar_url = 'https://placehold.it/500x500';
+          comment_user_name = '匿名者';
+        }
 
         $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
 

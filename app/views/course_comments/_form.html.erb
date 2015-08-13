@@ -18,6 +18,15 @@
       <option value="5">5</option>
     </select>
   </div>
+  <p>是否匿名發文</p>
+  <div class="switch">
+    <label>
+      不匿名
+      <input type="checkbox" id="anonymous">
+      <span class="lever"></span>
+      匿名
+    </label>
+  </div>
   <button id="form-submit" class="btn form-submit">提交評論</button>
 </form>
 <script type="text/javascript">
@@ -83,12 +92,13 @@
     var body = $('#course_comment_body').val();
     //var rating = $('#course_comment_rating').val();
     var rating = $('#rating option:selected').val();
+    var anonymous = $('#anonymous').is(':checked');
     var user_id = parseInt('<%= current_user.id %>');
     var user_avatar_url = ('<%= current_user.avatar_url %>');
     var user_name = ('<%= current_user.name %>');
     var organization_code = ('<%= current_user.organization_code %>');
 
-    $.post('/course_comments', {"course_comment[course_general_code]": course_general_code, "course_comment[course_year]": course_year, "course_comment[course_term]": course_term, "course_comment[body]": body, "course_comment[rating]": rating, "course_comment[user_id]": user_id, "course_comment[user_avatar_url]": user_avatar_url, "course_comment[user_name]": user_name, "course_comment[organization_code]": organization_code, "course_comment[course_name]": course_name, "course_comment[course_lecturer]": course_lecturer}, function(response) {
+    $.post('/course_comments', {"course_comment[course_general_code]": course_general_code, "course_comment[course_year]": course_year, "course_comment[course_term]": course_term, "course_comment[body]": body, "course_comment[rating]": rating, "course_comment[user_id]": user_id, "course_comment[user_avatar_url]": user_avatar_url, "course_comment[user_name]": user_name, "course_comment[organization_code]": organization_code, "course_comment[course_name]": course_name, "course_comment[course_lecturer]": course_lecturer,"course_comment[anonymous]": anonymous }, function(response) {
 
         var comment = response["course_comment"];
         var comment_body = comment.body;
@@ -97,8 +107,14 @@
         var comment_user_name = comment.user_name;
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
+        var comment_anonymous = comment.anonymous;
 
-        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+        if(anonymous){
+          comment_user_avatar_url = 'https://placehold.it/500x500';
+          comment_user_name = '匿名者';
+        }
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').prependTo('#course-comments');
 
         
         flash.success('成功添加評論！');

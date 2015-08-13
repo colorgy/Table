@@ -25,10 +25,18 @@
     <% @course_comments.each do |course_comment| %>
       <div class="course-comment">
         <div class="user-avatar">
-          <%= image_tag User.find(course_comment.user_id).avatar_url %>
+          <% if course_comment.anonymous %>
+            <img src="https://placehold.it/500x500">
+          <% else %>
+            <%= image_tag User.find(course_comment.user_id).avatar_url %>
+          <% end %>
         </div>
         <div class="user-name">
-          <%= User.find(course_comment.user_id).name %>
+          <% if course_comment.anonymous %>
+            匿名者
+          <% else %>
+            <%= User.find(course_comment.user_id).name %>
+          <% end %>
         </div>
         <div class="course-comment-rating" rating="<%= course_comment.rating %>">
         </div>

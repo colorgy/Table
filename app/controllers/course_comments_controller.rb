@@ -100,6 +100,6 @@ class CourseCommentsController < ApplicationController
   private
 
   def course_comments_params
-    params.require(:course_comment).permit(:course_general_code, :course_year, :course_term, :body, :rating, :user_id, :user_avatar_url, :user_name, :organization_code, :course_lecturer, :course_name)
+    params.require(:course_comment).permit(:course_general_code, :course_year, :course_term, :body, :rating, :user_id, :user_avatar_url, :user_name, :organization_code, :course_lecturer, :course_name, :anonymous)
   end
 end

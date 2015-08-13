@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813145351) do
+ActiveRecord::Schema.define(version: 20150813160636) do
 
   create_table "course_comments", force: :cascade do |t|
     t.string   "course_general_code"
@@ -22,11 +22,12 @@ ActiveRecord::Schema.define(version: 20150813145351) do
     t.text     "body"
     t.integer  "rating"
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "organization_code"
     t.string   "course_lecturer"
     t.string   "course_name"
+    t.boolean  "anonymous",           default: false
   end
 
   create_table "courses", force: :cascade do |t|
