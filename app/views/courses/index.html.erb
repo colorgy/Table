@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="search-bar search-bar--center courses-search-bar">
+      <h5 class="search-bar-title">課程總覽</h5>
       <select class="browser-default year-filter" id="year-filter">
         <option value="all" selected>全部學年</option>
         <option value="2015">2015年</option>
@@ -20,7 +21,7 @@
           <i class="material-icons">search</i>
         </label>
       </form>
-      <button id="search-btn" class="btn" style="display: inline-block; vertical-align: top;">搜尋</button>
+      <button id="search-btn" class="btn" style="display: inline-block; vertical-align: middle;">搜尋</button>
     </div>
   </div>
 </div>
@@ -49,9 +50,10 @@
 </div>
 <script type="text/javascript">
 
-  $(document).on('click', '#courses-table tbody tr', function(){
+  $(document).on('click', '#courses-table tbody tr', function(e){
+    e.preventDefault(); 
     var link_href = $(this).attr('href');
-    location.href = link_href;
+    window.open(link_href, '_blank');
   })
 
   $('#search-btn').click(function(event){
@@ -256,7 +258,7 @@
       };
 
 
-      $('<tr href="/course?general_code=' + course_general_code + '&course_code=' + course_code + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td><td>' + '<a><i class="material-icons">forward</i></a>' +'</td></tr>').appendTo('#courses-table');
+      $('<tr href="/course?general_code=' + course_general_code + '&course_code=' + course_code + '&year=' + course_year + '&term=' + course_term + '"><td>' + course_year + '年/第' + course_term + '學期</td><td>' + course_name + '</td><td>' + course_lecturer + '</td><td>' + course_credits + '</td><td>' + course_required +'</td><td>' + '<a><i class="material-icons">forward</i></a>' +'</td></tr>').appendTo('#courses-table');
     };
 
 

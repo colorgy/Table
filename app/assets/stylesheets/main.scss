@@ -1,3 +1,6 @@
+*{
+	letter-spacing: 1.5px;
+}
 body{
 	background-color: #fcfcfc;
 }
@@ -1391,6 +1394,10 @@ section.users{
   	padding: 12px 0 !important;
   }
 }
+.search-bar-title {
+    margin: 4px 0 8px 0;
+    color: $darker-gray;
+}
 
 .courses-search-bar{
 	> select{
@@ -1399,6 +1406,11 @@ section.users{
     border: 1px solid #D3D2D2;
     height: 35px;
     color: $dark-gray;
+    margin: 8px 0;
+
+    @media screen and (max-width: 600px) {
+			width: 31%;
+    }
 	}
 }
 
@@ -2005,10 +2017,13 @@ section.users{
 .courses-table-container{
 	background-color: #fff;
 	padding: 24px;
+	box-shadow: 1px 1px 2px rgba(0,0,0,.1);
+	overflow: auto;
 }
 
 .courses-table{
 	table-layout: fixed;
+  min-width: 800px;
 
 	>thead{
 		background-color: $primary-color;

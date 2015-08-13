@@ -24,10 +24,20 @@
   function CourseCommentCounter(){
     var count = $('.course-comment').length;
     if (count == 0){
-      $('#course-comments').html('<p class="course-comment-empty-message" style="text-align: center;"><i class="material-icons">face</i>目前沒有評論唷！可以按下方 "評論此課" 按鈕進行評論</p>');
+      if('<%= request.path %>' == '/course'){
+        $('#course-comments').html('<div class="page-error-message"><i class="material-icons message-icon">face</i><p class="message-content">沒有搜尋到任何評論哦！</p></div>');
+      }else{
+        $('#course-comments').html('<p class="course-comment-empty-message" style="text-align: center;"><i class="material-icons">face</i>目前沒有評論唷！可以按下方 "評論此課" 按鈕進行評論</p>');
+
+      }
     }
     else{
-      $('.course-comment-empty-message').remove();
+      if('<%= request.path %>' == '/course'){
+        $('#course-comments .page-error-message').remove();
+      }else{
+        $('.course-comment-empty-message').remove();
+        
+      }
     }
   }
 
@@ -50,12 +60,27 @@
   }
 
   $('#form-submit').click(function(){
-    var course_general_code = $('#modal1').attr('course-general-code');;
-    var course_year = $('#modal1').attr('year');
-    var course_term = $('#modal1').attr('term');
+
+    var course_general_code;
+    var course_year;
+    var course_term;
+    var course_name;
+    var course_lecturer;
+    if('<%= request.path %>' == '/course'){
+      course_general_code = $('.course-header-content .course-general-code').text();
+      course_year = '<%= params["year"] %>';
+      course_term = '<%= params["term"] %>';
+      course_name = $('.course-header-info .course-name').text();;
+      course_lecturer = $('.course-header-info .course-lecturer').text();;
+    }else{
+      course_general_code = $('#modal1').attr('course-general-code');;
+      course_year = $('#modal1').attr('year');
+      course_term = $('#modal1').attr('term');
+      course_name = $('.modal-course-name').text();
+      course_lecturer = $('.modal-course-lecturer').text();
+    }
+
     var body = $('#course_comment_body').val();
-    var course_name = $('.modal-course-name').text();
-    var course_lecturer = $('.modal-course-lecturer').text();
     //var rating = $('#course_comment_rating').val();
     var rating = $('#rating option:selected').val();
     var user_id = parseInt('<%= current_user.id %>');

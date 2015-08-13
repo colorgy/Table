@@ -21,8 +21,6 @@
 
         為到自助且銀為直友具成表行有回，方能歷信議即度賽現題大；化中子者你；成三裡期回些中人請你到現。慢況此操連子後經。何市臺樹不市師官易個示古，密聲面華狀一……這特這了此來子上來因天林。</p>
       </div>
-    </div>
-    <div class="col m6 s12">
       <div class="users-on-course-list" id="users-on-course-list">
         <h5 class="wiki-title"><i class="material-icons">face</i>選課同學</h5>
         <ul>
@@ -38,8 +36,11 @@
           <% end %>
         </ul>
       </div>
-      <div id="modal-course-comments" class="modal-course-comments"> 
-        <h5 class="wiki-title"><i class="material-icons list-icon">comment</i>課程評論</h5>
+    </div>
+    <div class="col m6 s12">
+      <div id="modal-course-comments" class="modal-course-comments">
+        <h5 class="wiki-title"><i class="material-icons list-icon">comment</i>課程評論<a style="float: right; font-size: 12px; padding: 4px 16px; border-radius: 2px;" id="modal-course-comment-btn">我要評論</a>
+        </h5>
         <div id="course-comments" class="course-comments-list">
           <% if @course_comments.count == 0 %>
             <div class="page-error-message">
@@ -78,7 +79,19 @@
     </div>
   </div>
 </div>
+<div class="course-comment-form-container" id="course-comment-form-container">
+  <%= render "course_comments/form" %>
+</div>
+
 <script type="text/javascript">
+  $('#modal-course-comment-btn').click(function(){
+    $('.course-comment-form-container').addClass('active');
+  })
+  $('#course-comment-form-container-close').click(function(){
+    $('.course-comment-form-container').removeClass('active');
+  })
+
+
   var course_organization_code = '<%= current_user.organization_code.downcase %>';
   var course_general_code = '<%= params["general_code"] %>';
   var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
