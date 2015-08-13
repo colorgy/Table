@@ -107,6 +107,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:fb_visibility, :courses_table_visibility)
+    params.require(:user).permit(:fb_visibility, :courses_table_visibility, :courses_table_visibility_for_guests)
   end
 end
