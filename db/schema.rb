@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812111832) do
+ActiveRecord::Schema.define(version: 20150813145351) do
 
   create_table "course_comments", force: :cascade do |t|
     t.string   "course_general_code"
@@ -67,9 +67,9 @@ ActiveRecord::Schema.define(version: 20150812111832) do
   add_index "user_followed_users", ["user_id"], name: "index_user_followed_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",               default: "",    null: false
+    t.string   "email",                               default: "",    null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,     null: false
+    t.integer  "sign_in_count",                       default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -90,12 +90,15 @@ ActiveRecord::Schema.define(version: 20150812111832) do
     t.string   "department_code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "followers_count",     default: 0
+    t.integer  "followers_count",                     default: 0
     t.string   "simulator_image_url"
-    t.boolean  "first_login",         default: true
-    t.boolean  "shared",              default: false
-    t.boolean  "subscribed",          default: false
+    t.boolean  "first_login",                         default: true
+    t.boolean  "shared",                              default: false
+    t.boolean  "subscribed",                          default: false
     t.integer  "started_year"
+    t.boolean  "courses_table_visibility",            default: true
+    t.boolean  "fb_visibility",                       default: true
+    t.boolean  "courses_table_visibility_for_guests", default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

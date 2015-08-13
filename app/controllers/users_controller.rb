@@ -44,6 +44,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+    flash[:success] = "成功儲存隱私權設定"
+
+    redirect_to :back
+  end
+
   def search
     if current_user.blank?
       flash[:error] = "請先登入才能進行此操作"
@@ -97,4 +105,8 @@ class UsersController < ApplicationController
   end
 
 
+  private
+  def user_params
+    params.require(:user).permit(:fb_visibility, :courses_table_visibility)
+  end
 end

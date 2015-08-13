@@ -30,6 +30,7 @@
           <a onclick="flash.error('你必須登入才能進行此操作')"><i class="material-icons">favorite_border</i>追蹤</a>
         <% else %>
           <% if current_user.id == @user.id %>
+            <li id="settings-btn"><a><i class="material-icons">settings</i>隱私權設定</a></li>
             <li><a href="<%= user_followed_user_index_path %>"><i class="material-icons">people</i>我的追蹤</a></li>
           <% else %>
             <li id="follow-unfollow-btn">
@@ -45,7 +46,9 @@
             </li>
           <% end %>
         <% end %>
-				<li><a class="facebook-link-with-icon" href="https://www.facebook.com/<%= @user.fbid %>" target="_blank">臉書</a></li>
+        <% if @user.fb_visibility %>
+				  <li><a class="facebook-link-with-icon" href="https://www.facebook.com/<%= @user.fbid %>" target="_blank">臉書</a></li>
+        <% end %>
 			</ul>
 			<div style="clear: both;"></div>
 		</div>
@@ -53,34 +56,114 @@
 	<div class="user">
 		<div class="row">
 			<div class="col m12 s12">
+        <% if !current_user.blank? && current_user.id == @user.id %>
+          <div class="settings-field" id="settings-field">
+            <h5>隱私權設定</h5>
+            <%= form_for @user, :url => { :controller => 'users', :action => 'update', :id => @user } do |f| %>
+                <p>能不能讓其他人看到你的 FB 連結</p>
+                <div class="switch">
+                  <label>
+                    不能
+                    <%= f.check_box :fb_visibility %>
+                    <span class="lever"></span>
+                    能
+                  </label>
+                </div>
+                <p>能不能讓使用者看到你的課表</p>
+                <div class="switch">
+                  <label>
+                    不能
+                    <%= f.check_box :courses_table_visibility %>
+                    <span class="lever"></span>
+                    能
+                  </label>
+                </div>
+                <p>能不能讓訪客看到你的課表 (包含你FB朋友從你分享的連結點入你的個人頁面)</p>
+                <div class="switch">
+                  <label>
+                    不能
+                    <%= f.check_box :courses_table_visibility_for_guests %>
+                    <span class="lever"></span>
+                    能
+                  </label>
+                </div>
+                <button class="btn" type="submit">儲存</button>
+            <% end %>
+          </div>
+        <% end %>
 				<div class="simulator-table-field" style="min-width: 0;">
-					<table class="simulator-table">
-						<thead>
-							<tr>
-								<th></th>
-								<th>一</th>
-								<th>二</th>
-								<th>三</th>
-								<th>四</th>
-								<th>五</th>
-								<th>六</th>
-								<th>日</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
+          <% if !current_user.blank? %>
+            <% if @user.courses_table_visibility || current_user.id == @user.id %>
+    					<table class="simulator-table">
+    						<thead>
+    							<tr>
+    								<th></th>
+    								<th>一</th>
+    								<th>二</th>
+    								<th>三</th>
+    								<th>四</th>
+    								<th>五</th>
+    								<th>六</th>
+    								<th>日</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    						</tbody>
+    					</table>
+            <% else %>
+              <div class="page-error-message">
+                <i class="material-icons message-icon">face</i>
+                <p class="message-content">這位同學沒有開放他的課表讓其他人看到唷！很想認識他對吧？真可惜哪..</p>
+              </div>
+            <% end %>
+          <% else %>
+            <% if @user.courses_table_visibility_for_guests %>
+              <table class="simulator-table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                    <th>日</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            <% else %>
+              <div class="page-error-message">
+                <i class="material-icons message-icon">face</i>
+                <p class="message-content">這位同學沒有開放他的課表讓其他人看到唷！很想認識他對吧？真可惜哪..</p>
+              </div>
+            <% end %>
+          <% end %>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
-<% @user_courses.each do |item| %>
-	<div class="course-hasselect-item">
-	  <div class="item-id" iid="<%= item.id %>"></div>
-	  <div class="item-course-id" icd="<%= item.course_code %>"></div>
-  	</div>
+<% if !current_user.blank? %>
+  <% if @user.courses_table_visibility || @user.id == current_user.id %>
+    <% @user_courses.each do |item| %>
+    	<div class="course-hasselect-item">
+    	  <div class="item-id" iid="<%= item.id %>"></div>
+    	  <div class="item-course-id" icd="<%= item.course_code %>"></div>
+      	</div>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if @user.courses_table_visibility_for_guests %>
+    <% @user_courses.each do |item| %>
+      <div class="course-hasselect-item">
+        <div class="item-id" iid="<%= item.id %>"></div>
+        <div class="item-course-id" icd="<%= item.course_code %>"></div>
+        </div>
+    <% end %>
+  <% end %>
 <% end %>
 
 <div id="modal1" class="modal modal-fixed-footer">
@@ -130,6 +213,10 @@
 </div>
 
 <script>
+
+$('#settings-btn').click(function(){
+  $('#settings-field').slideToggle(600);
+})
 
 $('.close-btn').click(function(){
   $(this).parent('div').remove();
