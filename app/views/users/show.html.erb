@@ -209,7 +209,7 @@
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close btn-flat" onclick="LeanOverlayClose()">關閉</a>
-    <% if !current_user.blank? && @user.organization_code != current_user.organization_code  %>
+    <% if !current_user.blank? && @user.organization_code == current_user.organization_code  %>
       <a class="modal-action btn-flat" cid="" id="modal-add-btn" onclick="LeanOverlayClose()">加課</a>
       <a class="modal-action btn-flat" id="modal-course-comment-btn">評課</a>
     <% end %>
@@ -222,7 +222,7 @@
 </div>
 
 <script>
-
+FetchCourseNode();
 $('#settings-btn').click(function(){
   $('#settings-field').slideToggle(600);
 })
@@ -439,23 +439,20 @@ function splitACourse() {
 
       var course = course_response[0];
       var course_name = course.name;
-      //var course_time = course["course_time"];
       var course_lecturer = course.lecturer;
       var course_general_code = course.general_code;
       var course_code = course.code;
       var credits = course.credits;
-      //var item_id = $(this).children(".item-id").attr('iid');
-      //var course_times = $(this).children(".time").text().split(" ");
-      //var counter = course_times.length;
-      for (var i = 1; i <= 9; i++) {
-        var thisCourse_day = course['day_' + i];
-        var thisCourse_period = course['period_' + i];
-        var thisCourse_location = course['location_' + i];
-        $('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
-        };
-        CourseConflictTest();
-        getCourseUsers();
 
+
+        for (var i = 1; i <= 9; i++) {
+          var thisCourse_day = course['day_' + i];
+          var thisCourse_period = course['period_' + i];
+          var thisCourse_location = course['location_' + i];
+          $('<div class="simulator-table-course active" iid="' + item_id +'" icd="' + course_code + '">' + course_name + '</div>').appendTo('.day'+ thisCourse_day + '.period' + thisCourse_period );
+        };
+
+        CourseConflictTest();
       });
   });
 };
@@ -610,12 +607,11 @@ $(document).on('click', '#modal-add-btn', function(){
   }else{
     $('#preloader-wrapper').removeClass('active');
     flash.error('這堂課已經在你的課表內囉！');
+    $('#modal1').closeModal();
   }
 
 });
 
-FetchCourseNode();
 splitACourse();
 CourseConflictTest();
-getCourseUsers();
 </script>
