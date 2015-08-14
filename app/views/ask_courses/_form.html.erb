@@ -1,0 +1,39 @@
+<%= form_for :ask_course, url: ask_courses_path do |f| %>
+  <%= f.label :title, '主題' %><br>
+  <%= f.text_field :title %><br>
+  <br>
+  <%= f.label :body, '內文' %><br>
+  <%= f.text_field :body %><br>
+  <br>
+  <%= f.label :course_name, '課程名稱' %><br>
+  <%= f.text_field :course_name %><br>
+  <br>
+  <%= f.label :course_lecturer, '老師名稱' %><br>
+  <%= f.text_field :course_lecturer %><br>
+  <br>
+  <%= f.label :course_organization_code, '課程學校代碼' %><br>
+  <%= f.text_field :course_organization_code %><br>
+  <br>
+  <%= f.label :course_general_code, '課程代碼' %><br>
+  <%= f.text_field :course_general_code %><br>
+  <br>
+  <%= f.label :course_code, '課程密碼' %><br>
+  <%= f.text_field :course_code %><br>
+  <br>
+  <%= f.label :user_id, '會員id' %><br>
+  <%= f.text_field :user_id , :value => current_user.id %><br>
+  <br>
+  <%= f.label :anonymous, '是否匿名發問' %><br>
+  
+  <div class="switch">
+    <label>
+      Off
+      <%= f.check_box :anonymous %>
+      <span class="lever"></span>
+      On
+    </label>
+  </div>
+
+  <br>
+  <%= f.submit %>
+<% end %>
