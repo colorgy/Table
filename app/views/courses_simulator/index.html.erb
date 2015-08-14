@@ -269,6 +269,7 @@
   function initShare() {
     _origin = window.location.origin + "<%= user_path(current_user) %>" + '#'  + '<%= rand(1000000..30000000) %>';
     //window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
+    console.log(_origin);
 
     FB.ui(
       {

@@ -613,7 +613,9 @@ $(document).on('click', '#modal-add-btn', function(){
     $.post('/courses_simulator', { "courses_simulator[course_code]": course_code, "courses_simulator[course_general_code]": course_general_code, "courses_simulator[course_organization_code]": course_organization_code }, function(response) {
         var item = response["item"];
         var item_id = item["id"];
+        <% if !current_user.blank? %>
         var school_code = '<%= current_user.organization_code.downcase %>';
+        <% end %>
 
         var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
         'filter[code]=' + course_code;
