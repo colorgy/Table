@@ -1,39 +1,241 @@
 <%= form_for :ask_course, url: ask_courses_path do |f| %>
-  <%= f.label :title, '主題' %><br>
-  <%= f.text_field :title %><br>
-  <br>
-  <%= f.label :body, '內文' %><br>
-  <%= f.text_field :body %><br>
-  <br>
-  <%= f.label :course_name, '課程名稱' %><br>
-  <%= f.text_field :course_name %><br>
-  <br>
-  <%= f.label :course_lecturer, '老師名稱' %><br>
-  <%= f.text_field :course_lecturer %><br>
-  <br>
-  <%= f.label :course_organization_code, '課程學校代碼' %><br>
-  <%= f.text_field :course_organization_code %><br>
-  <br>
-  <%= f.label :course_general_code, '課程代碼' %><br>
-  <%= f.text_field :course_general_code %><br>
-  <br>
-  <%= f.label :course_code, '課程密碼' %><br>
-  <%= f.text_field :course_code %><br>
-  <br>
-  <%= f.label :user_id, '會員id' %><br>
-  <%= f.text_field :user_id , :value => current_user.id %><br>
-  <br>
-  <%= f.label :anonymous, '是否匿名發問' %><br>
-  
-  <div class="switch">
-    <label>
-      Off
-      <%= f.check_box :anonymous %>
-      <span class="lever"></span>
-      On
-    </label>
-  </div>
+  <div class="container" style="margin-top: 56px;">
+    <div class="row">
+      <div class="col m5 s12" style="padding: 0 16px; margin-bottom: 16px;">
+        <div class="simulator-sidebar">
+          <div class="block-label">
+            <span class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="你的學校代碼"><%= current_user.organization_code %></span> - 
+            你要問哪堂課呢？
+          </div>
+          <div class="simulator-sidebar-inner">
+            <div class="course-search-field">
+              <div class="course-search-field-inner">
+                <form class="search-method-select-form">
+                  <select class="browser-default" id="search-method-select" style="    border: 1px solid #D3D2D2; height: 2.5rem;">
+                    <option value="name" selected>課程名稱搜尋</option>
+                    <option value="lecturer">老師名字搜尋</option>
+                    <option value="general_code">課程代碼搜尋</option>
+                  </select>
+                </form>
+                <form class="course-search-form" style="margin-top: 8px;">
+                  <input id="course-searchbox" class="course-searchbox" type="search" placeholder="選擇上方搜尋方式並輸入關鍵字">
+                  <label for="course-searchbox">
+                    <i class="material-icons">search</i>
+                  </label>
+                </form>
+              </div>
+            </div>
+            <div class="course-select-field">
+              <div class="simulator-search-result" style="margin-top: 8px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col m7 s12" style="padding: 0 16px; margin-bottom: 40px;">
+        <div class="ask-course-form">
+          <span style="color: #717071">目前選擇的課程為..</span><br>
+          <div class="selected-course-container">
+            <div class="selected-course">
+              <div class="selected-course-name">尚未選擇</div>
+              <div>
+                <span class="selected-course-lecturer">尚未選擇</span><span class="selected-course-general-code">尚未選擇</span>
+              </div>
+            </div>
+          </div>
+          <%= f.label :title, '主旨' %><br>
+          <%= f.text_field :title %><br>
+          <br>
+          <%= f.label :body, '發問內文' %>
+          <br>
+          <%= f.cktext_area :body, :cols => 40, :ckeditor => { :toolbar => 'mini'} %>
+          <br>
+            
+          <div class="hide"> 
+            <%= f.label :course_name, '課程名稱' %><br>
+            <%= f.text_field :course_name %><br>
+            <br>
+            <%= f.label :course_lecturer, '老師名稱' %><br>
+            <%= f.text_field :course_lecturer %><br>
+            <br>
+            <%= f.label :course_general_code, '課程代碼' %><br>
+            <%= f.text_field :course_general_code %><br>
+            <br>
+            <%= f.label :course_code, '課程密碼' %><br>
+            <%= f.text_field :course_code %><br>
+            <br>
+            <%= f.label :course_organization_code, '課程學校代碼' %><br>
+            <%= f.text_field :course_organization_code, :value => current_user.organization_code %><br>
+            <br>
+            <%= f.label :user_id, '會員id' %><br>
+            <%= f.text_field :user_id , :value => current_user.id %><br>
+            <br>
+          </div>
 
-  <br>
-  <%= f.submit %>
+          <%= f.label :anonymous, '是否匿名發問' %><br>
+          <div class="switch">
+            <label>
+              Off
+              <%= f.check_box :anonymous %>
+              <span class="lever"></span>
+              On
+            </label>
+          </div>
+
+          <br>
+          <button id="form-submit" class="btn form-submit" type="submit">提交問課</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
+
+<script type="text/javascript">
+
+$(document).on('click', '.add-to-ask-course', function(){
+  var course_name = $(this).siblings('.name').text();
+  var course_lecturer = $(this).siblings('.lecturer').text();
+  var course_general_code = $(this).siblings('.course-id').attr('cgc');
+  var course_code = $(this).siblings('.course-id').attr('cid');
+
+  $('#ask_course_course_name').attr('value', course_name);
+  $('#ask_course_course_lecturer').attr('value', course_lecturer);
+  $('#ask_course_course_general_code').attr('value', course_general_code);
+  $('#ask_course_course_code').attr('value', course_code);
+
+  $('.selected-course-container').html('<div class="selected-course"><div class="selected-course-name">' + course_name + '</div><div><span class="selected-course-lecturer">' + course_lecturer + '</span><span class="selected-course-general-code">' + course_general_code + '</span></div></div>');
+
+  flash.success('已選擇課程：' + course_name);
+
+  return false;
+})
+
+
+//
+// 課程 Search Box 搜尋事件 
+//
+
+$('#course-searchbox').on('input', function(){
+  $('#preloader-wrapper').addClass('active');
+  var keyword = $('#course-searchbox').val();
+  var search_method = $('#search-method-select option:selected').attr('value');
+  var school_code = '<%= current_user.organization_code.downcase %>';
+
+  if(keyword == ''){
+    $('.simulator-search-result').children('.course-select-item').remove();
+    $('#simulator-search-result-blank-message').remove();
+    $('#preloader-wrapper').removeClass('active');
+  }
+  else{
+
+    var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
+    + 'filter['+ search_method +']=like(%' + keyword + '%)';
+    console.log(uri);
+    var encode_uri = encodeURI(uri);
+
+    $.get( encode_uri , function(response){
+
+      $('#simulator-search-result-blank-message').remove();
+
+      if(response.length == 0){
+        $('<p id="simulator-search-result-blank-message" class="simulator-search-result-blank-message">“搜尋不到結果”</br>請輸入完整關鍵字或確認上方搜尋方式。如發現有缺課等問題歡迎聯繫 <a class="colorgy-fans-page-link" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">Colorgy</a></p>').appendTo('.simulator-search-result');
+        $('#preloader-wrapper').removeClass('active');
+      }
+      else{
+        $('#simulator-search-result-blank-message').remove();
+        var counter = response.length - 1;
+        $('.simulator-search-result').children('.course-select-item').remove();
+        for( i=0 ; i <= counter ; i++ ){
+          var course = response[i];
+          var course_name = course.name;
+          var lecturer_name = course.lecturer;
+          var course_general_code = course.general_code;
+          var course_organization_code = school_code.toUpperCase();
+          var course_credits = course.credits;
+          var course_code = course.code;
+
+           $('<div class="course-select-item">' +
+              '<div class="name">' + course_name + '</div>' +
+              '<div class="lecturer">' + lecturer_name +'</div>' +
+              '<div class="course-code">' + course_general_code + '</div>' +
+              '<br>' +
+              '<div class="course-time">c.course_time</div>' +
+              '<div class="course-location">c.location</div>' +
+              '<div class="course-credits">' + course.credits + '</div>'+
+              '<button class="add-to-simulator add-to-ask-course"><i class="material-icons">add</i></button>'+
+              '<div class="course-id" cid="' + course_code + '" cgc="' + course_general_code + '" coc="' + course_organization_code + '"></div></div>').appendTo('.simulator-search-result');
+           $('#preloader-wrapper').removeClass('active');
+        }
+      }
+    })
+    .fail(function() {
+      flash.error( "連結資料庫失敗，請確認自己的網路或是回報錯誤給 Colorgy ，如造成任何不便我們很抱歉。" );
+      $('#preloader-wrapper').removeClass('active');
+    })
+  }
+
+});
+
+$('#search-method-select').on('change', function(){
+  $('#preloader-wrapper').addClass('active');
+  var keyword = $('#course-searchbox').val();
+  var search_method = $('#search-method-select option:selected').attr('value');
+  var school_code = '<%= current_user.organization_code.downcase %>';
+
+  if(keyword == ''){
+    $('.simulator-search-result').children('.course-select-item').remove();
+    $('#simulator-search-result-blank-message').remove();
+    $('#preloader-wrapper').removeClass('active');
+  }
+  else{
+
+    var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
+    + 'filter['+ search_method +']=like(%' + keyword + '%)';
+    var encode_uri = encodeURI(uri);
+
+    $.get( encode_uri , function(response){
+
+      $('#simulator-search-result-blank-message').remove();
+
+      if(response.length == 0){
+        $('.simulator-search-result').children('.course-select-item').remove();
+        $('<p id="simulator-search-result-blank-message" class="simulator-search-result-blank-message">“搜尋不到結果”</br>請輸入完整關鍵字或確認上方搜尋方式。如發現有缺課等問題歡迎聯繫 <a class="colorgy-fans-page-link" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">Colorgy</a></p>').appendTo('.simulator-search-result');
+      }
+      else{
+        $('#simulator-search-result-blank-message').remove();
+        $('.simulator-search-result').children('.course-select-item').remove();
+        var counter = response.length - 1;
+        for( i=0 ; i <= counter ; i++ ){
+          var course = response[i];
+          var course_name = course.name;
+          var lecturer_name = course.lecturer;
+          var course_general_code = course.general_code;
+          var course_organization_code = school_code.toUpperCase();
+          var course_credits = course.credits;
+          var course_code = course.code;
+
+          $('<div class="course-select-item">' +
+              '<div class="name">' + course_name + '</div>' +
+              '<div class="lecturer">' + lecturer_name +'</div>' +
+              '<div class="course-code">' + course_general_code + '</div>' +
+              '<br>' +
+              '<div class="course-time">c.course_time</div>' +
+              '<div class="course-location">c.location</div>' +
+              '<div class="course-credits">' + course.credits + '</div>'+
+              '<button class="add-to-simulator add-to-ask-course"><i class="material-icons">add</i></button>'+
+              '<div class="course-id" cid="' + course_code + '" cgc="' + course_general_code + '" coc="' + course_organization_code + '"></div></div>').appendTo('.simulator-search-result');
+           $('#preloader-wrapper').removeClass('active');
+        }
+      }
+    })
+    .fail(function() {
+      flash.error( "連結資料庫失敗，請確認自己的網路或是回報錯誤給 Colorgy ，如造成任何不便我們很抱歉。" );
+      $('#preloader-wrapper').removeClass('active');
+    })
+  }
+
+});
+
+
+// 搜尋事件 End
+</script>

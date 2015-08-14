@@ -1,0 +1,10 @@
+<% @ask_courses.each do |ask_courses| %>
+  <p><%= ask_courses.title %></p>
+  <p><%= ask_courses.body.html_safe %></p>
+  <p><%= ask_courses.course_name %></p>
+  <p><%= ask_courses.course_lecturer %></p>
+  <p><%= ask_courses.course_organization_code %></p>
+  <p><%= ask_courses.course_general_code %></p>
+  <p><%= ask_courses.course_code %></p>
+  <p><%= ask_courses.anonymous %></p>
+<% end %>

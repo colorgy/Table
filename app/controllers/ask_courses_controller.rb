@@ -8,25 +8,21 @@ class AskCoursesController < ApplicationController
   end
 
   def create
-    @ask_course = AskCourse.new(course_comments_params)
+    @ask_course = AskCourse.new(ask_courses_params)
 
-    respond_to do |format|
-      if @ask_course.save
-        format.json { render json:
-          {
-            course_comment: @ask_course
-          }
-        }
-      else
-        format.json {render json: { status: "failed" }}
-      end
+    if @ask_course.save
+      redirect_to ask_courses_path
+    else
+      redirect_to root_path
     end
+
   end
 
   def destroy
     @ask_course = AskCourse.find(params[:id])
     @ask_course.destroy
     respond_to do |format|
+      format.html
       format.json { render json:
         {
           status: "Item was successfully destroyed.",
@@ -39,6 +35,6 @@ class AskCoursesController < ApplicationController
   private
 
   def ask_courses_params
-    params.require(:ask_course).permit(:title ,:body ,:course_name ,:course_lecturer ,:course_organization_code ,:course_general_code ,:course_code ,:user_id ,:anonymous)
+    params.require(:ask_course).permit(:title ,:body ,:course_name ,:course_lecturer ,:course_organization_code ,:course_general_code ,:course_code, :user_id ,:anonymous)
   end
 end
