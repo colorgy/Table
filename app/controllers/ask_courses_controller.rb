@@ -1,0 +1,2 @@
+class AskCoursesController < ApplicationController
+end

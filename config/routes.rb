@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :course_users
   resources :users
   resources :course_comments
+  resources :ask_courses
   resources :courses
 
   get 'course' => 'courses#course'
