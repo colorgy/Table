@@ -56,6 +56,7 @@
 	<div class="user">
 		<div class="row">
 			<div class="col m12 s12">
+
         <% if !current_user.blank? && current_user.id == @user.id %>
           <div class="settings-field" id="settings-field">
             <h5>隱私權設定</h5>
@@ -91,6 +92,11 @@
             <% end %>
           </div>
         <% end %>
+
+
+
+        <% if @user.organization_code == "MCU" ||  @user.organization_code == "NTHU" || @user.organization_code == "NTUST" || @user.organization_code == "NCU" || @user.organization_code =="NTUT" || @user.organization_code =="NCKU" || @user.organization_code =="NSYSU" || @user.organization_code =="NCHU" || @user.organization_code =="NTPU" || @user.organization_code =="NTNU" || @user.organization_code =="CGU" || @user.organization_code =="CCU" || @user.organization_code =="NCTU" || @user.organization_code =="NTU" || @user.organization_code =="YZU" || @user.organization_code =="TKU" || @user.organization_code =="FJU" || @user.organization_code =="SCU" || @user.organization_code =="CYCU" || @user.organization_code =="USC" || @user.organization_code =="YUNTECH" || @user.organization_code =="PCCU" || @user.organization_code =="TTU" || @user.organization_code =="NTIT" || @user.organization_code =="NCCU"  %>
+
 				<div class="simulator-table-field" style="min-width: 0;">
           <% if !current_user.blank? %>
             <% if @user.courses_table_visibility || current_user.id == @user.id %>
@@ -142,6 +148,25 @@
             <% end %>
           <% end %>
 				</div>
+
+        <% else %>
+          <div class="not-support-yet">
+            <div class="page-error-message">
+              <i class="material-icons message-icon">face</i>
+              <h4 class="message-title">We are sorry..</h4>
+              <p class="message-content">
+                這位使用者的學校是<%= @user && @user.organization_code %><br>
+                開通每間學校我們都需要時間去搜集課程資料，我們人力有限，目前 Colorgy Table 還沒有提供他們學校的服務..<br><br>
+                真的是不好意思，請幫我們的工程師加油打氣，讓我們知道你希望他的學校也有這樣的服務，我們會更努力加快進行的唷！<br><br>
+              </p>
+              <a class="typeform-share btn btn--large" href="https://lucas51.typeform.com/to/HKPrKK" data-mode="1" target="_blank">幫 Colorgy Table 集氣</a>
+              <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'_';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}})()</script>
+            </div>
+          </div>
+        <% end %>
+
+
+
 			</div>
 		</div>
 	</div>

@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       if @user.organization_code.blank? || @user.organization_code == ''
         flash[:error] = "這位使用者沒有進行 email 認證，沒有個人頁面"
-        redirect_to users_path
+        redirect_to :back
       else
         @user_courses = UserCourse.where(user_id: params[:id])
       end
