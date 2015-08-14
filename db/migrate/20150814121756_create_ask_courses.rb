@@ -9,7 +9,7 @@ class CreateAskCourses < ActiveRecord::Migration
       t.string :course_general_code
       t.string :course_code
       t.integer :user_id
-      t.boolean :anonymous
+      t.boolean :anonymous, :default => false
 
       t.timestamps null: false
     end
