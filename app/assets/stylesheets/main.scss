@@ -1396,7 +1396,7 @@ section.users{
 }
 .search-bar-title {
     margin: 4px 0 8px 0;
-    color: $darker-gray;
+    color: #666;
 }
 
 .courses-search-bar{
@@ -2019,6 +2019,7 @@ section.users{
 	padding: 24px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,.1);
 	overflow: auto;
+  border-radius: 2px;
 }
 
 .courses-table{
@@ -2026,15 +2027,19 @@ section.users{
   min-width: 800px;
 
 	>thead{
-		background-color: $primary-color;
 		th{
-			color: #fff;
+			color: $darker-gray;
 		}
 	}
 
 	> tbody{
 		> tr{
 			cursor: pointer;
+			border-bottom: 1px solid #eee;
+
+			&:last-child{
+				border-bottom: 0px;
+			}
 		}
 	}
 

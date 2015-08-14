@@ -161,8 +161,14 @@
       <div class="course-hasselect-item">
         <div class="item-id" iid="<%= item.id %>"></div>
         <div class="item-course-id" icd="<%= item.course_code %>"></div>
-        </div>
+      </div>
     <% end %>
+  <% end %>
+<% end %>
+
+<% if !current_user.blank? %>
+  <% current_user.user_courses.each do |current_user_courses_item| %>
+    <div class="current-user-course-id" icd="<%= current_user_courses_item.course_code %>"></div>
   <% end %>
 <% end %>
 
@@ -202,8 +208,11 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="LeanOverlayClose()">關閉</a>
-    <a class="modal-action btn-flat" id="modal-course-comment-btn">評課</a>
+    <a href="#!" class="modal-action modal-close btn-flat" onclick="LeanOverlayClose()">關閉</a>
+    <% if !current_user.blank? && @user.organization_code != current_user.organization_code  %>
+      <a class="modal-action btn-flat" cid="" id="modal-add-btn" onclick="LeanOverlayClose()">加課</a>
+      <a class="modal-action btn-flat" id="modal-course-comment-btn">評課</a>
+    <% end %>
   </div>
 </div>
 <div class="course-comment-form-container" id="course-comment-form-container">
@@ -470,30 +479,6 @@ function getStatistics(){
   $('.male-counter').html(male_total);
 }
 
-function getCourseUsers(){
-
-  if($('.item-course-id').length > 0){
-    $('.item-course-id').each(function(){
-      var course_code = $(this).attr('icd');
-      var url = '<%= course_users_path %>' + '/' + course_code;
-
-      $.get(url, function(response){
-        male_count = response["course_male_counter"];
-        female_count = response["course_female_counter"];
-
-        $(this).attr('male-counter', male_count);
-        $(this).attr('female-counter', female_count);
-        getStatistics();
-
-      }.bind(this))
-    })
-  }else{
-    $('.credits-total').html(0);
-    $('.female-counter').html(0);
-    $('.male-counter').html(0);
-  }
-
-}
 
 //
 // 點選已排課表開啟 modal
@@ -513,14 +498,6 @@ $(document).on('click', '.simulator-table-course', function(){
     }
   })
 
-  if (ifselected) {
-    $('#modal-add-btn').addClass('hide');
-    $('#modal-del-btn').removeClass('hide');
-  }else{
-    $('#modal-add-btn').removeClass('hide');
-    $('#modal-del-btn').addClass('hide');
-  };
-
   var item_id = $(this).attr('iid');
   var school_code = '<%= @user.organization_code.downcase %>';
   var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code + '/courses.json?' +
@@ -533,6 +510,7 @@ $(document).on('click', '.simulator-table-course', function(){
     //var course_time = course["course_time"];
     var course_lecturer = course.lecturer;
     var course_general_code = course.general_code;
+    var course_organization_code = school_code.toUpperCase();
     var course_code = course.code;
     var credits = course.credits;
     var website_url = course.url;
@@ -545,13 +523,11 @@ $(document).on('click', '.simulator-table-course', function(){
     $('#modal-del-btn').attr('iid', item_id);
     $('#modal1').attr('course-code', course_code);
     $('#modal1').attr('course-general-code', course_general_code);
+    $('#modal1').attr('course-organization-code', course_organization_code);
     $('#modal1').attr('year', course_year);
     $('#modal1').attr('term', course_term);
     $('#modal1').openModal();
 
-
-
-    var course_general_code = $('#modal1').attr('course-general-code');
     var getCourseCommentsUri = '<%= search_course_comments_path %>' + '?course_general_code=' + course_general_code;
 
 
@@ -590,6 +566,51 @@ $(document).on('click', '.simulator-table-course', function(){
   });
 
 
+
+});
+
+//
+// 從 Modal footer 中的按鈕加入課程
+//
+
+$(document).on('click', '#modal-add-btn', function(){
+  $('#preloader-wrapper').addClass('active');
+  course_code = $('#modal1').attr('course-code');
+  course_organization_code = $('#modal1').attr('course-general-code');
+  course_organization_code = $('#modal1').attr('course-organization-code');
+  var ifReselect = true;
+
+  $('.current-user-course-id').each(function(){
+    if (course_code == $(this).attr('icd')) {
+      ifReselect = false;
+    }
+  })
+
+  if(ifReselect){
+
+    $.post('/courses_simulator', { "courses_simulator[course_code]": course_code, "courses_simulator[course_general_code]": course_general_code, "courses_simulator[course_organization_code]": course_organization_code }, function(response) {
+        var item = response["item"];
+        var item_id = item["id"];
+        var school_code = '<%= current_user.organization_code.downcase %>';
+
+        var getCourseUri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?' +
+        'filter[code]=' + course_code;
+
+        $.get(getCourseUri , function(course_response){
+          var course = course_response[0]
+          var course_name = course.name;
+          flash.success('"' + course_name + '" 已經加入課表！');
+          $('#modal1').closeModal();
+        });
+
+        $('#preloader-wrapper').removeClass('active');
+
+    })
+
+  }else{
+    $('#preloader-wrapper').removeClass('active');
+    flash.error('這堂課已經在你的課表內囉！');
+  }
 
 });
 
