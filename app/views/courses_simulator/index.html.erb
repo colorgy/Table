@@ -267,9 +267,7 @@
 
   image_url = null;
   function initShare() {
-    _origin = window.location.origin + "<%= user_path(current_user) %>";
-    url = "https://www.facebook.com/sharer/sharer.php?"
-      + "u=" + encodeURIComponent(_origin);
+    _origin = window.location.origin + "<%= user_path(current_user) %>" + '#'  + '<%= rand(1000000..30000000) %>';
     //window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
 
     FB.ui(
