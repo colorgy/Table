@@ -30,6 +30,7 @@ gem 'devise'
 gem 'will_paginate', '~> 3.0.6'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'ckeditor', github: 'galetahub/ckeditor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

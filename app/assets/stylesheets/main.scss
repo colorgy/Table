@@ -2172,9 +2172,43 @@ section.users{
 	display: block;
 }
 
+.ask-course-form{
+  padding: 24px 16px;
+  background-color: #fff;
+  border-radius: 2px;
+  border: 1px solid #D3D2D2;
+}
 
 #typeform-wrapper > img{
 	width: auto;
+}
+
+#cke_37{
+	display: none;
+}
+.cke_chrome {
+  border: 1px solid #D3D2D2 !important;
+  box-shadow: none !important;
+}
+.selected-course{
+  padding: 0 8px;
+  display: inline-block;
+  border-left: 2px solid #ADABAB;
+  margin: 8px 0 16px 0;
+
+  > .selected-course-name{
+  	color: $dark-gray;
+  	font-size: 18px;
+  }
+
+  .selected-course-lecturer{
+  	color: $dark-gray;
+  	margin-right: 8px;
+  }
+
+  .selected-course-general-code{
+		color: $dark-gray;
+  }
 }
 
 /* Isotope */
