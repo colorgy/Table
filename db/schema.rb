@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20150814121756) do
     t.string   "course_general_code"
     t.string   "course_code"
     t.integer  "user_id"
-    t.boolean  "anonymous",                default: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.boolean  "anonymous"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "course_comments", force: :cascade do |t|
