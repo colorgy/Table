@@ -1,4 +1,5 @@
 <%= form_for :ask_course, url: ask_courses_path do |f| %>
+
   <div class="container" style="margin-top: 56px;">
     <div class="row">
       <div class="col m5 s12" style="padding: 0 16px; margin-bottom: 16px;">
@@ -82,6 +83,8 @@
             </label>
           </div>
 
+
+
           <br>
           <button id="form-submit" class="btn form-submit" type="submit">提交問課</button>
         </div>
@@ -91,6 +94,18 @@
 <% end %>
 
 <script type="text/javascript">
+
+
+<% if @ask_course.errors.any? %>
+$(document).ready(function(){
+  var error_message = '<%= pluralize(@ask_course.errors.count, "error") %>錯誤產生:<br>';
+  <% @ask_course.errors.full_messages.each do |msg| %>
+    error_message = error_message + '<%= msg %><br>';
+  <% end %>
+
+  flash.error(error_message);
+})
+<% end %>
 
 $(document).on('click', '.add-to-ask-course', function(){
   var course_name = $(this).siblings('.name').text();
