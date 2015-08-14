@@ -44,7 +44,9 @@
                 </div>
                 <div class="followed-user-item-action">
                   <a class="unfollow-user-btn" ufui="<%= user_followed_user.id %>">取消追蹤</a>
-                  <a class="fb-btn" href="https://www.facebook.com/<%= user_followed_user.followed_user.fbid %>" target="_blank">facebook</a>
+                  <% if user_followed_user.followed_user.fb_visibility %>
+                    <a class="fb-btn" href="https://www.facebook.com/<%= user_followed_user.followed_user.fbid %>" target="_blank">facebook</a>
+                  <% end %>
                 </div>
               </div>
             <% end %>
