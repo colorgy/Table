@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814121756) do
+ActiveRecord::Schema.define(version: 20150817091920) do
 
   create_table "ask_courses", force: :cascade do |t|
     t.string   "title"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20150814121756) do
     t.string   "course_lecturer"
     t.string   "course_name"
     t.boolean  "anonymous",           default: false
+    t.integer  "ask_course_id"
   end
 
   create_table "courses", force: :cascade do |t|

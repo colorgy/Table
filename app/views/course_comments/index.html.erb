@@ -126,40 +126,6 @@
           encode_uri = '/course_comments?course_general_code=' + keyword;
         }
         location.href = encode_uri;
-
-        /*
-        $.get( encode_uri , function(course_comments_response){
-            console.log(course_comments_response);
-            var course_comments = course_comments_response["course_comments"];
-            var comments_counts = course_comments_response["course_comments"].length;
-
-            $container.isotope( 'remove', $('.course-comment') ).isotope('layout');
-            
-            for( i=0 ; i<=comments_counts - 1 ; i++){
-              var course_name = course_comments[i].course_name;
-              var course_lecturer = course_comments[i].course_lecturer;
-              var course_general_code = course_comments[i].course_general_code;
-              var course_year = course_comments[i].course_year;
-              var course_term = course_comments[i].course_term;
-              var user_avatar_url = course_comments[i].user_avatar_url;
-              var user_name = course_comments[i].user_name;
-              var comment_body = course_comments[i].body;
-              var comment_rating = course_comments[i].rating;
-              var comment_created_at = course_comments[i].created_at;
-              console.log(user_avatar_url);
-
-              $comment_item = $('<div class="course-comment"><div class="user-avatar"><img src="' + user_avatar_url +'"></div><div class="user-name">' + user_name + '</div><div class="course-comment-rating" rating="' + comment_rating +'"></div><div class="created-at"><small>commented@' + comment_created_at + '</small></div><div class="course-info"><span class="course-info-title">課程：</span><span class="course-year hide">' + course_year + '</span><span class="course-term hide">' + course_term + '</span><span class="course-lecturer">' + course_lecturer + '</span><span class="course-name">' + course_name + '</span><span class="course-general-code">' + course_general_code + '</span></div><div class="course-comment-body">' + comment_body + '</div></div>');  
-        
-              $container.isotope( 'insert', $comment_item );
-
-            }
-
-            $('#perloader-wrapper').removeClass('active');
-            //CommentsFetchCourseInfo();
-            replaceErrorImageUrl();
-        });
-
-        */
     }
 
     $('#search-btn').click(function(event){

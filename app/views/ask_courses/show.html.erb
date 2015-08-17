@@ -1,0 +1,204 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="course-header">
+      <div class="course-header-bg"></div>
+      <div class="course-header-content container">
+        <h4 class="course-header-info">問課：<span class="course-name" id="ask-course-name"><%= @ask_course.course_name %></span> - <span class="course-lecturer" id="ask-course-lecturer"><%= @ask_course.course_lecturer %></span></h4>
+        <p class="course-general-code" id="ask-course-general-code"><%= @ask_course.course_general_code %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col m4 s12">
+      <label>發問者提問</label>
+      <div class="ask-course">
+        <% if @ask_course.anonymous %>
+          <div class="user-avatar"><img src="https://placehold.it/500x500"></div><span class="user-name">匿名者</span><span style="vertical-align: middle;padding-top: 8px;display: inline-block;margin-left: 8px;">問：</span><br>
+        <% else %>
+          <div class="user-avatar"><img src="<%= @user.avatar_url %>"></div><span class="user-name"><%= @user.name %></span><span style="vertical-align: middle;padding-top: 8px;display: inline-block;margin-left: 8px;">問：</span><br>
+        <% end %>
+        <label style="margin-top: 16px; display: block;">主旨</label>
+        <p id="ask-course-title" style="padding-left: 8px;"><%= @ask_course.title %></p>
+        <label>發問內容</label>
+        <div style="padding: 8px;"><%= @ask_course.body.html_safe %></div>
+        <div style="text-align: center;">
+          <a class="btn" id="answer-ask-course-btn">回答他</a>
+        </div>
+      </div>
+    </div>
+    <div class="col m8 s12">
+      <label style="display: block;max-width: 600px;margin: 0 auto;">解答者回覆</label>
+      <div class="course-comments-list" id="course-comments">
+        <% if @course_comments.count == 0 %>
+          <div class="page-error-message">
+            <i class="material-icons message-icon">face</i>
+            <p class="message-content">沒有任何評論回覆哦！<br>趕快回覆幫助這位同學吧 :D</p>
+          </div>
+        <% else %>
+          <% @course_comments.each do |course_comment| %>
+            <div class="course-comment">
+              <div class="user-avatar">
+                <% if course_comment.anonymous %>
+                  <img src="https://placehold.it/500x500">
+                <% else %>
+                  <%= image_tag User.find(course_comment.user_id).avatar_url %>
+                <% end %>
+              </div>
+              <div class="user-name">
+                <% if course_comment.anonymous %>
+                  匿名者
+                <% else %>
+                  <%= User.find(course_comment.user_id).name %>
+                <% end %>
+              </div>
+              <div class="course-comment-rating" rating="<%= course_comment.rating %>">
+              </div>
+              <div class="created-at">
+                <small><%= 'commented@' + course_comment.created_at.strftime("%Y-%m-%d") %></small>
+              </div>
+              <div class="course-info">
+                <span class="course-info-title">課程：</span><span class="course-year hide"><%= course_comment.course_year %></span><span class="course-term hide"><%= course_comment.course_term %></span>
+                <span class="course-lecturer"></span>
+                <span class="course-name"></span>
+                <span class="course-general-code"><%= course_comment.course_general_code %></span>
+              </div>
+              <div class="course-comment-body">
+                <%= course_comment.body %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <%= will_paginate @course_comments %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="course-comment-form-container" id="course-comment-form-container">
+  <form id="create-course-comment-form" class="create-course-comment-form">
+
+    <a id="course-comment-form-container-close" class="course-comment-form-container-close"><i class="material-icons">close</i></a>
+    <div class="user-info">
+      <span class="user-avatar"><%= image_tag current_user.avatar_url %></span><span class="user-name"><%= current_user.name %></span>
+    </div>
+    <div class="input-field">
+      <textarea id="course_comment_body" class="materialize-textarea"></textarea>
+      <label for="course_comment_body">評論</label>
+    </div>
+    <div class="rating-field">
+      <label for="rating">你願意給這堂課幾分呢？</label>
+      <select class="browser-default" id="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <p>是否匿名回覆</p>
+    <div class="switch">
+      <label>
+        不匿名
+        <input type="checkbox" id="anonymous">
+        <span class="lever"></span>
+        匿名
+      </label>
+    </div>
+    <button id="form-submit" class="btn form-submit">提交評論</button>
+  </form>
+</div>
+<script type="text/javascript">
+  CourseCommentRatingRenderStar();
+  $('#course-comment-form-container-close').click(function(){    
+    $('.course-comment-form-container').removeClass('active');
+  })
+  $('#answer-ask-course-btn').click(function(){
+    $('.course-comment-form-container').addClass('active');
+  })
+
+  function CourseCommentCounter(){
+    var count = $('.course-comment').length;
+    if (count == 0){
+      $('#course-comments').html(' <div class="page-error-message"><i class="material-icons message-icon">face</i><p class="message-content">沒有任何評論回覆哦！<br>趕快回覆幫助這位同學吧 :D</p></div>');
+    }
+    else{
+      $('#course-comments .page-error-message').remove();
+    }
+  }
+
+  function CourseCommentRatingRenderStar(){
+    $('.course-comment-rating').each(function(){
+      var rating = $(this).attr('rating');
+      var rating_count = parseInt(rating);
+      var unrating_count = 5 - rating_count;
+
+      $(this).html('');
+
+      for(i = 1; i<= rating_count ; i++){
+        $(this).append('<i class="material-icons">star</i>');
+      }
+      for(j = 1; j<= unrating_count ; j++){
+        $(this).append('<i class="material-icons">star_border</i>');
+      }
+    })
+  }
+
+  $('#form-submit').click(function(){
+
+    var course_general_code;
+    var course_year;
+    var course_term;
+    var course_name;
+    var course_lecturer;
+    course_general_code = $('#ask-course-general-code').text();
+    course_year = '2015';
+    course_term = '1';
+    course_name = $('#ask-course-name').text();
+    course_lecturer = $('#ask-course-lecturer').text();
+  
+
+    var body = $('#course_comment_body').val();
+    //var rating = $('#course_comment_rating').val();
+    var rating = $('#rating option:selected').val();
+    var anonymous = $('#anonymous').is(':checked');
+    var user_id = parseInt('<%= current_user.id %>');
+    var user_avatar_url = ('<%= current_user.avatar_url %>');
+    var user_name = ('<%= current_user.name %>');
+    var organization_code = ('<%= current_user.organization_code %>');
+    var ask_course_id = parseInt('<%= @ask_course.id %>');
+
+    $.post('/course_comments', {"course_comment[course_general_code]": course_general_code, "course_comment[course_year]": course_year, "course_comment[course_term]": course_term, "course_comment[body]": body, "course_comment[rating]": rating, "course_comment[user_id]": user_id, "course_comment[user_avatar_url]": user_avatar_url, "course_comment[user_name]": user_name, "course_comment[organization_code]": organization_code, "course_comment[course_name]": course_name, "course_comment[course_lecturer]": course_lecturer,"course_comment[anonymous]": anonymous, "course_comment[ask_course_id]": ask_course_id }, function(response) {
+
+        var comment = response["course_comment"];
+        var comment_body = comment.body;
+        var comment_rating = comment.rating;
+        var comment_user_id = comment.user_id;
+        var comment_user_name = comment.user_name;
+        var comment_user_avatar_url = comment.user_avatar_url;
+        var comment_create_time = comment.created_at.substr(0,10);
+        var comment_anonymous = comment.anonymous;
+
+        if(anonymous){
+          comment_user_avatar_url = 'https://placehold.it/500x500';
+          comment_user_name = '匿名者';
+        }
+
+        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').prependTo('#course-comments');
+
+        
+        flash.success('成功添加評論！');
+        CourseCommentRatingRenderStar();
+        CourseCommentCounter();
+        $('.course-comment-form-container').removeClass('active');
+        $('#course_comment_body').val('');
+        $('#rating').val(1);
+      
+    })
+
+    
+    return false;
+  })
+</script>

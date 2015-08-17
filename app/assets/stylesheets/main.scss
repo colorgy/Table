@@ -2044,6 +2044,37 @@ section.users{
 	}
 
 }
+.ask-courses-table{
+	table-layout: fixed;
+  min-width: 800px;
+
+	>thead{
+		th{
+			color: $darker-gray;
+		}
+	}
+	> tbody{
+		> tr{
+			cursor: pointer;
+			border-bottom: 1px solid #eee;
+
+			&:last-child{
+				border-bottom: 0px;
+			}
+
+			> td{
+				> .user-avatar{
+					vertical-align: middle;
+				}
+				> .user-name{
+					font-size: 16px;
+					vertical-align: middle;
+			    margin-left: 8px;
+				}
+			}
+		}
+	}
+}
 
 .settings-field {
   background-color: #fff;
@@ -2209,6 +2240,24 @@ section.users{
   .selected-course-general-code{
 		color: $dark-gray;
   }
+}
+
+.ask-course{
+  background-color: #fff;
+  padding: 8px 16px 32px 16px;
+  margin-top: 24px;
+  border: 1px solid #EEEEEE;
+  border-radius: 2px;
+
+	> .user-avatar{
+		vertical-align: middle;
+	}
+
+	> .user-name{
+		vertical-align: middle;
+    font-size: 24px;
+    margin-left: 8px;
+	}
 }
 
 /* Isotope */

@@ -1,10 +1,120 @@
-<% @ask_courses.each do |ask_courses| %>
-  <p><%= ask_courses.title %></p>
-  <p><%= ask_courses.body.html_safe %></p>
-  <p><%= ask_courses.course_name %></p>
-  <p><%= ask_courses.course_lecturer %></p>
-  <p><%= ask_courses.course_organization_code %></p>
-  <p><%= ask_courses.course_general_code %></p>
-  <p><%= ask_courses.course_code %></p>
-  <p><%= ask_courses.anonymous %></p>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="search-bar search-bar--center courses-search-bar">
+      <h5 class="search-bar-title">問課總覽</h5>
+      <select class="browser-default year-filter hide" id="year-filter">
+        <option value="all">全部學年</option>
+        <option value="2015" selected>2015年</option>
+      </select>
+      <select class="browser-default term-filter hide" id="term-filter">
+        <option value="all">全部學期</option>
+        <option value="1" selected>第1學期</option>
+      </select>
+      <select class="browser-default search-method-filter" id="search-method-filter">
+        <option value="course_name" selected>課程名稱</option>
+        <option value="course_lecturer">老師名稱</option>
+        <option value="course_general_code">課程代碼</option>
+      </select>
+      <form class="user-search-form" id="search-form" style="display: inline-block;">
+        <input id="user-searchbox" class="user-searchbox" type="search" placeholder="輸入關鍵字" style="height: 33px !important;">
+        <label for="user-searchbox" class="active">
+          <i class="material-icons">search</i>
+        </label>
+      </form>
+      <button id="search-btn" class="btn" style="display: inline-block; vertical-align: middle;">搜尋</button>
+    </div>
+  </div>
+</div>
+<div class="container courses-container">
+  <div class="row">
+    <div class="courses-table-container">
+        <div style="text-align: center; padding: 0 8px 16px 8px;">
+          <a class="btn" href="<%= new_ask_course_path %>">我也要發問</a>
+        </div>
+        <% if @ask_courses.count == 0 %>
+          <div class="page-error-message">
+            <i class="material-icons message-icon">face</i>
+            <p class="message-content">沒有搜尋到任何問課哦！<br>可以換個關鍵字或是搜尋方法試試看 :D</p>
+          </div>
+        <% else %>
+          <table id="ask-courses-table" class="ask-courses-table hoverable-table centered">
+            <thead>
+              <tr>
+                <th>問課者</th>
+                <th>主旨</th>
+                <th>問課課程</th>
+                <th>課程老師</th>
+                <th>課程代碼</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ask_courses.each do |ask_courses| %>
+                <tr href="<%= ask_course_path(ask_courses.id) %>">
+                  <% if ask_courses.anonymous %>
+                    <td><div class="user-avatar"><img src="https://placehold.it/500x500"></div><span class="user-name">匿名者</span></td>
+                  <% else %>
+                    <% @user = User.find(ask_courses.user_id) %>
+                    <td><div class="user-avatar"><img src="<%= @user.avatar_url %>"></div><span class="user-name"><%= @user.name %></span></td>
+                  <% end %>
+                  <td><%= ask_courses.title %></td>
+                  <td><%= ask_courses.course_name %></td>
+                  <td><%= ask_courses.course_lecturer %></td>
+                  <td><%= ask_courses.course_general_code %></td>
+                </tr>
+              <% end %>
+
+            </tbody>
+          </table>
+        <% end %>
+    </div>
+    <ul class="pagination courses-pagination">
+    </ul>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).on('click', '#ask-courses-table tbody tr', function(e){
+    e.preventDefault();
+    var link_href = $(this).attr('href');
+    window.open(link_href, '_blank');
+  })
+  $(document).ready(function() {
+
+
+    // Search Functions
+
+    function GetAskCourseSearchResult(event, keyword){
+        var method = $('#search-method-filter option:selected').val();
+        var encode_uri;
+
+        if(method == 'course_name'){
+          encode_uri = '/ask_courses?course_name=' + keyword;
+        }
+
+        if(method == 'course_lecturer'){
+          encode_uri = '/ask_courses?course_lecturer=' + keyword;
+        }
+
+        if(method == 'course_general_code'){
+          encode_uri = '/ask_courses?course_general_code=' + keyword;
+        }
+        location.href = encode_uri;
+    }
+
+    $('#search-btn').click(function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetAskCourseSearchResult(event , keyword);
+      return false;
+
+    })
+
+    $('#search-form').bind('submit',function(event){
+      $('#perloader-wrapper').addClass('active');
+      var keyword = $('#user-searchbox').val();
+      GetAskCourseSearchResult(event , keyword);
+
+      return false;
+    })
+    // Search Functions End
+  })
+</script>

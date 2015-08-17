@@ -1,10 +1,18 @@
 class AskCoursesController < ApplicationController
   def index
-    @ask_courses = AskCourse.all
+    @ask_courses = AskCourse.all.paginate(:page => params[:page], :per_page => 10)
+    course_general_code = "%" + params[:course_general_code] + "%" if params[:course_general_code].present?
+    course_name = "%" + params[:course_name] + "%" if params[:course_name].present?
+    course_lecturer = "%" + params[:course_lecturer] + "%" if params[:course_lecturer].present?
+    @ask_courses = @ask_courses.where("course_general_code LIKE ?", course_general_code).paginate(:page => params[:page], :per_page => 10) if params[:course_general_code].present? && params[:course_general_code] != '' && params[:course_general_code] != 'undefined'
+    @ask_courses = @ask_courses.where("course_name LIKE ?", course_name).paginate(:page => params[:page], :per_page => 10) if params[:course_name].present? && params[:course_name] != '' && params[:course_name] != 'undefined'
+    @ask_courses = @ask_courses.where("course_lecturer LIKE ?", course_lecturer).paginate(:page => params[:page], :per_page => 10) if params[:course_lecturer].present? && params[:course_lecturer] != '' && params[:course_lecturer] != 'undefined'
   end
 
   def show
     @ask_course = AskCourse.find(params[:id])
+    @user = User.find(@ask_course.user_id)
+    @course_comments = CourseComment.where(ask_course_id: @ask_course.id).paginate(:page => params[:page], :per_page => 10)
   end
 
   def new
