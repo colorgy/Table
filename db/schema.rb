@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817091920) do
+ActiveRecord::Schema.define(version: 20150817152621) do
 
   create_table "ask_courses", force: :cascade do |t|
     t.string   "title"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20150817091920) do
     t.string   "course_name"
     t.boolean  "anonymous",           default: false
     t.integer  "ask_course_id"
+    t.integer  "practicality_level"
+    t.integer  "sweet_level"
+    t.integer  "difficulty_level"
   end
 
   create_table "courses", force: :cascade do |t|

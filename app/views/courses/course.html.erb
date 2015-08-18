@@ -78,6 +78,21 @@
                 <div class="course-comment-body">
                   <%= course_comment.body %>
                 </div>
+                <div class="other-ratings">
+                  <div class="col m4 s12">
+                    <label>實用度</label>
+                    <div class="course-comment-rating" rating="<%= course_comment.practicality_level %>"></div>
+                  </div>
+                  <div class="col m4 s12">
+                    <label>甜度</label>
+                    <div class="course-comment-rating" rating="<%= course_comment.sweet_level %>"></div>
+                  </div>
+                  <div class="col m4 s12">
+                    <label>難度</label>
+                    <div class="course-comment-rating" rating="<%= course_comment.difficulty_level %>"></div>
+                  </div>
+                  <div style="clear:both;"></div>
+                </div>
               </div>
             <% end %>
           <% end %>
@@ -121,20 +136,25 @@
     })
   }
 
+
   function CourseCommentRatingRenderStar(){
     $('.course-comment-rating').each(function(){
       var rating = $(this).attr('rating');
-      var rating_count = parseInt(rating);
-      var unrating_count = 5 - rating_count;
-
       $(this).html('');
+      if(rating == 'undefined' || rating == '' || rating == null){
+        $(this).html('未評價');
+      }else{
+        var rating_count = parseInt(rating);
+        var unrating_count = 5 - rating_count;
+        for(i = 1; i<= rating_count ; i++){
+          $(this).append('<i class="material-icons">star</i>');
+        }
+        for(j = 1; j<= unrating_count ; j++){
+          $(this).append('<i class="material-icons">star_border</i>');
+        }
+        
+      }
 
-      for(i = 1; i<= rating_count ; i++){
-        $(this).append('<i class="material-icons">star</i>');
-      }
-      for(j = 1; j<= unrating_count ; j++){
-        $(this).append('<i class="material-icons">star_border</i>');
-      }
     })
   }
   function CommentsFetchCourseInfo(){  

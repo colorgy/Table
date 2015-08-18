@@ -70,13 +70,19 @@
           </a>
         </li>
         <li>
+          <a href="<%= ask_courses_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="不知道要選什麼課嗎？來跟其他同學求救吧！">
+            <i class="list-icon ask-course-icon" style="height: 20px !important;"></i>
+            問課總覽
+          </a>
+        </li>
+        <li>
           <a href="<%= course_comments_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="課程評論列表，看同學們都推薦哪些課程！">
             <i class="material-icons list-icon">comment</i>
             課程評論
           </a>
         </li>
         <li>
-          <a href="<%= courses_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="不知道要選什麼課嗎？查查看總共有哪些課程吧！">
+          <a href="<%= courses_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="查查看總共有哪些課程吧！">
             <i class="material-icons list-icon">subject</i>
             課程總覽
           </a>
@@ -111,6 +117,7 @@
         <% end %>
         <li><a href="<%= courses_simulator_index_path %>">我要排課</a></li>
         <li><a href="<%= users_path %>">找同學們</a></li>
+        <li><a href="<%= ask_courses_path %>">問課總覽</a></li>
         <li><a href="<%= course_comments_path %>">課程評論</a></li>
         <li><a href="<%= courses_path %>">課程總覽</a></li>
         <li><a href="<%= app_path %>">APP 下載</a></li>

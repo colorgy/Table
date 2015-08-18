@@ -2260,6 +2260,19 @@ section.users{
 	}
 }
 
+.ask-course-icon{
+	background-image: image-url('discuss.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+  width: 20px;
+}
+
+.other-ratings{
+  padding: 4px 8px;
+  max-width: 400px;
+}
+
 /* Isotope */
 /* clear fix */
 .isotope:after {

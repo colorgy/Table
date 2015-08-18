@@ -45,12 +45,29 @@
         </div>
         <div class="course-info">
           <span class="course-info-title">課程：</span><span class="course-year hide"><%= course_comment.course_year %></span><span class="course-term hide"><%= course_comment.course_term %></span>
-          <span class="course-lecturer"></span>
-          <span class="course-name"></span>
+          <span class="course-lecturer"><%= course_comment.course_lecturer %></span>
+          <span class="course-name"><%= course_comment.course_name %></span>
           <span class="course-general-code"><%= course_comment.course_general_code %></span>
         </div>
         <div class="course-comment-body">
           <%= course_comment.body %>
+        </div>
+        <div class="row">
+          <div class="other-ratings">
+            <div class="col m4 s12">
+              <label>實用度</label>
+              <div class="course-comment-rating" rating="<%= course_comment.practicality_level %>"></div>
+            </div>
+            <div class="col m4 s12">
+              <label>甜度</label>
+              <div class="course-comment-rating" rating="<%= course_comment.sweet_level %>"></div>
+            </div>
+            <div class="col m4 s12">
+              <label>難度</label>
+              <div class="course-comment-rating" rating="<%= course_comment.difficulty_level %>"></div>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
         </div>
       </div>
     <% end %>
@@ -66,17 +83,21 @@
   function CourseCommentRatingRenderStar(){
     $('.course-comment-rating').each(function(){
       var rating = $(this).attr('rating');
-      var rating_count = parseInt(rating);
-      var unrating_count = 5 - rating_count;
-
       $(this).html('');
+      if(rating == 'undefined' || rating == '' || rating == null){
+        $(this).html('未評價');
+      }else{
+        var rating_count = parseInt(rating);
+        var unrating_count = 5 - rating_count;
+        for(i = 1; i<= rating_count ; i++){
+          $(this).append('<i class="material-icons">star</i>');
+        }
+        for(j = 1; j<= unrating_count ; j++){
+          $(this).append('<i class="material-icons">star_border</i>');
+        }
+        
+      }
 
-      for(i = 1; i<= rating_count ; i++){
-        $(this).append('<i class="material-icons">star</i>');
-      }
-      for(j = 1; j<= unrating_count ; j++){
-        $(this).append('<i class="material-icons">star_border</i>');
-      }
     })
   }
   function CommentsFetchCourseInfo(){  

@@ -27,10 +27,10 @@
 </div>
 <div class="container courses-container">
   <div class="row">
+    <div style="text-align: right; padding: 0 8px 16px 8px;">
+      <a class="btn" href="<%= new_ask_course_path %>">我也要發問</a>
+    </div>
     <div class="courses-table-container">
-        <div style="text-align: center; padding: 0 8px 16px 8px;">
-          <a class="btn" href="<%= new_ask_course_path %>">我也要發問</a>
-        </div>
         <% if @ask_courses.count == 0 %>
           <div class="page-error-message">
             <i class="material-icons message-icon">face</i>
@@ -45,6 +45,7 @@
                 <th>問課課程</th>
                 <th>課程老師</th>
                 <th>課程代碼</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -60,6 +61,7 @@
                   <td><%= ask_courses.course_name %></td>
                   <td><%= ask_courses.course_lecturer %></td>
                   <td><%= ask_courses.course_general_code %></td>
+                  <td><a><i class="material-icons">forward</i></a></td>
                 </tr>
               <% end %>
 

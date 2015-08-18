@@ -131,7 +131,7 @@
         </div>
       </div>
       <div id="modal-course-comments" class="col s12"> 
-        <div id="course-comments">
+        <div id="course-comments" class="course-comments-list">
         </div>
       </div>
       <!--
@@ -419,17 +419,21 @@ function CourseCommentCounter(){
 function CourseCommentRatingRenderStar(){
   $('.course-comment-rating').each(function(){
     var rating = $(this).attr('rating');
-    var rating_count = parseInt(rating);
-    var unrating_count = 5 - rating_count;
-
     $(this).html('');
+    if(rating == 'undefined' || rating == '' || rating == 'null'){
+      $(this).html('未評價');
+    }else{
+      var rating_count = parseInt(rating);
+      var unrating_count = 5 - rating_count;
+      for(i = 1; i<= rating_count ; i++){
+        $(this).append('<i class="material-icons">star</i>');
+      }
+      for(j = 1; j<= unrating_count ; j++){
+        $(this).append('<i class="material-icons">star_border</i>');
+      }
+      
+    }
 
-    for(i = 1; i<= rating_count ; i++){
-      $(this).append('<i class="material-icons">star</i>');
-    }
-    for(j = 1; j<= unrating_count ; j++){
-      $(this).append('<i class="material-icons">star_border</i>');
-    }
   })
 }
 //
@@ -721,13 +725,21 @@ $(document).on('click', '.simulator-table-course', function(){
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
         var comment_anonymous = comment.anonymous;
+        var comment_practicality_level = comment.practicality_level;
+        var comment_sweet_level = comment.sweet_level;
+        var comment_difficulty_level = comment.difficulty_level;
+        var comment_course_year = comment.course_year;
+        var comment_course_term = comment.course_term;
+        var comment_course_lecturer = comment.course_lecturer;
+        var comment_course_name = comment.course_name;
+        var comment_course_general_code = comment.course_general_code;
 
         if(comment_anonymous){
           comment_user_avatar_url = 'https://placehold.it/500x500';
           comment_user_name = '匿名者';
         }
 
-        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+        $('<div class="course-comment"><div class="user-avatar"><img src="' + comment_user_avatar_url + '"></div><div class="user-name">' + comment_user_name +'</div><div class="course-comment-rating" rating="' + comment_rating + '"></div><div class="created-at"><small>commented@' + comment_create_time + '</small></div><div class="course-info"><span class="course-info-title">課程：</span><span class="course-year hide">'+ comment_course_year +'</span><span class="course-term hide">'+ comment_course_term +'</span><span class="course-lecturer">' + comment_course_lecturer +'</span><span class="course-name">' + comment_course_name +'</span><span class="course-general-code">'+ comment_course_general_code +'</span></div><div class="course-comment-body">' + comment_body +'</div><div class="row"><div class="other-ratings"><div class="col m4 s12"><label>實用度</label><div class="course-comment-rating" rating="' + comment_practicality_level + '"></div></div><div class="col m4 s12"><label>甜度</label><div class="course-comment-rating" rating="' + comment_sweet_level + '"></div></div><div class="col m4 s12"><label>難度</label><div class="course-comment-rating" rating="' + comment_difficulty_level +'"></div></div><div style="clear:both;"></div></div></div></div>').prependTo('#course-comments');
 
       })
       CourseCommentRatingRenderStar();
@@ -843,13 +855,21 @@ $(document).on('click', '.course-select-item .name', function(){
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
         var comment_anonymous = comment.anonymous;
+        var comment_practicality_level = comment.practicality_level;
+        var comment_sweet_level = comment.sweet_level;
+        var comment_difficulty_level = comment.difficulty_level;
+        var comment_course_year = comment.course_year;
+        var comment_course_term = comment.course_term;
+        var comment_course_lecturer = comment.course_lecturer;
+        var comment_course_name = comment.course_name;
+        var comment_course_general_code = comment.course_general_code;
 
         if(comment_anonymous){
           comment_user_avatar_url = 'https://placehold.it/500x500';
           comment_user_name = '匿名者';
         }
 
-        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+        $('<div class="course-comment"><div class="user-avatar"><img src="' + comment_user_avatar_url + '"></div><div class="user-name">' + comment_user_name +'</div><div class="course-comment-rating" rating="' + comment_rating + '"></div><div class="created-at"><small>commented@' + comment_create_time + '</small></div><div class="course-info"><span class="course-info-title">課程：</span><span class="course-year hide">'+ comment_course_year +'</span><span class="course-term hide">'+ comment_course_term +'</span><span class="course-lecturer">' + comment_course_lecturer +'</span><span class="course-name">' + comment_course_name +'</span><span class="course-general-code">'+ comment_course_general_code +'</span></div><div class="course-comment-body">' + comment_body +'</div><div class="row"><div class="other-ratings"><div class="col m4 s12"><label>實用度</label><div class="course-comment-rating" rating="' + comment_practicality_level + '"></div></div><div class="col m4 s12"><label>甜度</label><div class="course-comment-rating" rating="' + comment_sweet_level + '"></div></div><div class="col m4 s12"><label>難度</label><div class="course-comment-rating" rating="' + comment_difficulty_level +'"></div></div><div style="clear:both;"></div></div></div></div>').prependTo('#course-comments');
 
       })
       CourseCommentRatingRenderStar();
@@ -966,13 +986,21 @@ $(document).on('click', '.course-hasselect-item .name', function(){
         var comment_user_avatar_url = comment.user_avatar_url;
         var comment_create_time = comment.created_at.substr(0,10);
         var comment_anonymous = comment.anonymous;
+        var comment_practicality_level = comment.practicality_level;
+        var comment_sweet_level = comment.sweet_level;
+        var comment_difficulty_level = comment.difficulty_level;
+        var comment_course_year = comment.course_year;
+        var comment_course_term = comment.course_term;
+        var comment_course_lecturer = comment.course_lecturer;
+        var comment_course_name = comment.course_name;
+        var comment_course_general_code = comment.course_general_code;
 
         if(comment_anonymous){
           comment_user_avatar_url = 'https://placehold.it/500x500';
           comment_user_name = '匿名者';
         }
 
-        $('<div class="course-comment"><div class="user-info"><span class="user-avatar"><img src="' + comment_user_avatar_url + '"></span><span class="user-name">' + comment_user_name +'</span><div class="course-comment-rating" rating="' + comment_rating + '"></div><small>' + comment_create_time + '</small></div><div class="course-comment-body">' + comment_body +'</div></div>').appendTo('#course-comments');
+        $('<div class="course-comment"><div class="user-avatar"><img src="' + comment_user_avatar_url + '"></div><div class="user-name">' + comment_user_name +'</div><div class="course-comment-rating" rating="' + comment_rating + '"></div><div class="created-at"><small>commented@' + comment_create_time + '</small></div><div class="course-info"><span class="course-info-title">課程：</span><span class="course-year hide">'+ comment_course_year +'</span><span class="course-term hide">'+ comment_course_term +'</span><span class="course-lecturer">' + comment_course_lecturer +'</span><span class="course-name">' + comment_course_name +'</span><span class="course-general-code">'+ comment_course_general_code +'</span></div><div class="course-comment-body">' + comment_body +'</div><div class="row"><div class="other-ratings"><div class="col m4 s12"><label>實用度</label><div class="course-comment-rating" rating="' + comment_practicality_level + '"></div></div><div class="col m4 s12"><label>甜度</label><div class="course-comment-rating" rating="' + comment_sweet_level + '"></div></div><div class="col m4 s12"><label>難度</label><div class="course-comment-rating" rating="' + comment_difficulty_level +'"></div></div><div style="clear:both;"></div></div></div></div>').prependTo('#course-comments');
 
       })
       CourseCommentRatingRenderStar();
