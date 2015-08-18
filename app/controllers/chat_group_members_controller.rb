@@ -1,4 +1,4 @@
-class ChatGroupMemberController < ApplicationController
+class ChatGroupMembersController < ApplicationController
   def create
     @chat_group_member = ChatGroupMember.new(chat_group_members_params)
 

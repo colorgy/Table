@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :user_courses
   has_many :course_comments
-  has_many :chat_messgaes
+  has_many :chat_messages
   has_many :user_followed_users
   has_many :followed_users, class_name: :User, through: :user_followed_users,
                             source: :followed_user

@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   resources :course_comments
   resources :ask_courses
   resources :courses
+  resources :chat_groups
+  resources :chat_group_members
+  resources :chat_messages
 
   get 'course' => 'courses#course'
   get 'search-users' => 'users#search'

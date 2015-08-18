@@ -1,4 +1,4 @@
-class ChatMessageController < ApplicationController
+class ChatMessagesController < ApplicationController
 
   def create
     @chat_message = ChatMessage.new(chat_messages_params)

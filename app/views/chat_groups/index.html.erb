@@ -1,0 +1,3 @@
+<% @chat_groups.each do |chat_group| %>
+  <a href="<%= chat_group_path(chat_group) %>"><%= chat_group.name %></a>
+<% end %>

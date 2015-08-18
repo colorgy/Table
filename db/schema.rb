@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817152621) do
+ActiveRecord::Schema.define(version: 20150818150658) do
 
   create_table "ask_courses", force: :cascade do |t|
     t.string   "title"
@@ -25,6 +25,30 @@ ActiveRecord::Schema.define(version: 20150817152621) do
     t.boolean  "anonymous"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "chat_group_members", force: :cascade do |t|
+    t.integer  "chat_group_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "chat_groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "organization_code"
+    t.string   "course_code"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "creator_user_id"
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "message"
+    t.integer  "chat_group_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "course_comments", force: :cascade do |t|
