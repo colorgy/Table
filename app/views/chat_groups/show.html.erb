@@ -1,0 +1,114 @@
+<style type="text/css">
+  .user-name, .user-avatar{
+    display: inline-block;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col m8 s12">
+      <div class="chat-messages" id="chat-messages">
+        <% @chat_messages.each do |chat_message| %>
+          <div class="user-message" user-id="<%= chat_message.user_id %>">
+            <div class="user-avatar"><img src="<%= chat_message.user_avatar_url %>"></div><div class="user-name"><%= chat_message.user_name %></div>
+            <p>說： <%= chat_message.message %></p>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <form>
+          <textarea row="4" id="message-send-box"></textarea>
+          <button id="message-submit-btn">送出</button>
+        </form>
+      </div>
+    </div>
+    <div class="col m4 s12">
+      <div class="chat-group-members" id="chat-group-members">
+      </div>
+    </div>
+  </div>
+</div>
+<span id="current-user-member-item" item-id=""></span>
+<script type="text/javascript">
+  var chat_group_id = parseInt('<%= @chat_group.id %>');
+  var current_user_id = parseInt('<%= current_user.id %>');
+  $.post('<%= chat_group_members_path %>', { "chat_group_member[chat_group_id]": chat_group_id , "chat_group_member[user_id]": current_user_id }, function(response) {
+    var chat_group_member = response["chat_group_member"];
+    var current_user_item_id = chat_group_member.id;
+    $('#current-user-member-item').attr('item-id', current_user_item_id);
+  })
+  
+
+  function getUsersList(){
+
+  }
+
+  function getMessages(){
+    var uri = '/get_messages?chat_group_id=' + chat_group_id;
+    $.get(uri, function(response){
+      console.log(response);
+    })
+  }
+
+  function autoUpdateContent(){
+    var uri = '/get_messages?chat_group_id=' + chat_group_id;
+    console.log(uri);
+    $.get(uri, function(response){
+      var messages = response["messages"];
+      var messages_count = messages.length;
+      var message_item;
+      var message_content;
+      var get_user_url;
+      var append_content = ''; 
+
+      for(i = 0 ; i <= messages_count - 1 ; i++){
+        message_item = messages[i];
+        message_content = message_item.message;
+        message_user_id = message_item.user_id;
+        message_user_name = message_item.user_name;
+        message_user_avatar_url = message_item.user_avatar_url;
+        append_content = append_content +  '<div class="user-message" user-id="' + message_user_id +'"><div class="user-avatar"><img src="' + message_user_avatar_url +'"></div><div class="user-name">' + message_user_name + '</div><p>說： ' + message_content +'</p></div>';
+      }
+      console.log(append_content);
+      $('#chat-messages').html(append_content);
+      
+
+    })
+  }
+
+
+
+  function deleteMember(){
+    var current_user_member_item_id = parseInt($('#current-user-member-item').attr('item-id'));
+    var delete_url = '/chat_group_members/' + current_user_member_item_id;
+    console.log(delete_url);
+    $.ajax({
+      url: delete_url,
+      type: 'DELETE',
+      success: function(response) {
+        console.log('ok');
+      }
+    })
+  }
+
+  function sendMessage(){
+    var message = $('#message-send-box').val();
+    var user_name = '<%= current_user.name %>';
+    var user_avatar_url = '<%= current_user.avatar_url %>';
+    $.post('<%= chat_messages_path %>', { "chat_message[chat_group_id]": chat_group_id , "chat_message[user_id]": current_user_id, "chat_message[message]": message, "chat_message[user_name]": user_name, "chat_message[user_avatar_url]": user_avatar_url }, function(response) {
+      $('#message-send-box').val('');
+    })
+  }
+
+  var hander = setInterval("autoUpdateContent()", 500);
+
+  $('#message-submit-btn').click(function(){
+    sendMessage();
+    return false;
+  })
+
+  $(window).unload(function(){
+    deleteMember();
+  })
+</script>

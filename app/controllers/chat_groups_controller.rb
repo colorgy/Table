@@ -1,4 +1,5 @@
 class ChatGroupsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @chat_groups = ChatGroup.all
   end

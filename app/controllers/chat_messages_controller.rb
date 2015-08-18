@@ -16,9 +16,25 @@ class ChatMessagesController < ApplicationController
     end
   end
 
+  def get_messages
+    chat_group_id = params[:chat_group_id]
+    @messages = ChatMessage.where(chat_group_id: chat_group_id)
+    respond_to do |format|
+      if @messages
+        format.json { render json:
+          {
+            messages: @messages
+          }
+        }
+      else
+        format.json {render json: { status: "failed" }}
+      end
+    end
+  end
+
   private
 
   def chat_messages_params
-    params.require(:chat_message).permit(:user_id,:message,:chat_group_id)
+    params.require(:chat_message).permit(:user_id,:message,:chat_group_id, :user_name, :user_avatar_url)
   end
 end

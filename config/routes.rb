@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   resources :chat_groups
   resources :chat_group_members
   resources :chat_messages
-
+  get 'find_user_by_user_id' => 'users#find_user_by_user_id'
+  get 'get_messages' => 'chat_messages#get_messages'
   get 'course' => 'courses#course'
   get 'search-users' => 'users#search'
   get 'search-course-comments' => 'course_comments#search'

@@ -15,6 +15,19 @@ class ChatGroupMembersController < ApplicationController
     end
   end
 
+  def destroy
+    @chat_group_member = ChatGroupMember.find(params[:id])
+    @chat_group_member.destroy
+    respond_to do |format|
+      format.json { render json:
+        {
+          status: "Item was successfully destroyed.",
+          chat_group_member: @chat_group_member
+        }
+      }
+    end
+  end
+
   private
 
   def chat_group_members_params

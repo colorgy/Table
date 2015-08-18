@@ -77,6 +77,23 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def find_user_by_user_id
+    user_id = params[:user_id]
+    @user = User.find(user_id)
+    respond_to do |format|
+      if @user
+        format.json { render json:
+          {
+            user: @user
+          }
+        }
+      else
+        format.json {render json: { status: "failed" }}
+      end
+    end
+  end
+
   def shared_callback
     if current_user
       current_user.shared = true
