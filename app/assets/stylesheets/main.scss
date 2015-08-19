@@ -1498,9 +1498,12 @@ section.users{
 	background-color: #fff;
   border: 1px solid #eee;
   border-radius: 2px;
-  padding: 8px 16px;
+  padding: 12px 16px;
   margin: 24px auto 8px auto;
   width: 100%;
+  > .row{
+  	margin-bottom: 0;
+  }
 	> .user-info{
 	  border-bottom: 1px solid #ddd;
 
@@ -1531,8 +1534,8 @@ section.users{
 	}
 
 	> .course-comment-body{
-	  padding: 8px;
-	  font-size: 16px;
+	  padding: 8px 0;
+	  font-size: 18px;
 	}
 }
 
@@ -1724,21 +1727,25 @@ section.users{
 
 		> .user-name{
 			display: inline-block;
-	    font-size: 1.6em;
+	    font-size: 20px;
       margin-left: 4px;
+      vertical-align: bottom;
 		}
 
 		> .course-comment-rating{
 			display: inline-block;
+	    vertical-align: super;
 		}
 
 		> .created-at{
 			display: inline-block;
+	    vertical-align: text-bottom;
 		}
 		> .course-info{
 			color: $dark-gray;
 			border-bottom: 1px solid #ddd;
-	    padding: 4px 8px;
+	    padding: 4px 0;
+	    font-size: 18px;
 		}
 	}
 }
@@ -2270,7 +2277,7 @@ section.users{
 }
 
 .other-ratings{
-  padding: 4px 8px;
+  padding: 4px 0;
   max-width: 400px;
 
 	/*
