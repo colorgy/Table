@@ -4,7 +4,7 @@ class AskCoursesController < ApplicationController
       flash[:error] = "請先登入才能進行此操作"
       redirect_to landing_page_path
     else
-      @ask_courses = AskCourse.where(course_organization_code: current_user.organization_code).paginate(:page => params[:page], :per_page => 10)
+      @ask_courses = AskCourse.where(course_organization_code: current_user.organization_code).order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
       course_general_code = "%" + params[:course_general_code] + "%" if params[:course_general_code].present?
       course_name = "%" + params[:course_name] + "%" if params[:course_name].present?
       course_lecturer = "%" + params[:course_lecturer] + "%" if params[:course_lecturer].present?

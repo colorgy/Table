@@ -40,27 +40,29 @@
           <table id="ask-courses-table" class="ask-courses-table hoverable-table centered">
             <thead>
               <tr>
-                <th>問課者</th>
-                <th>主旨</th>
                 <th>問課課程</th>
                 <th>課程老師</th>
                 <th>課程代碼</th>
+                <th>主旨</th>
+                <th>問課者</th>
+                <th>回應數量</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <% @ask_courses.each do |ask_courses| %>
                 <tr href="<%= ask_course_path(ask_courses.id) %>">
+                  <td><%= ask_courses.course_name %></td>
+                  <td><%= ask_courses.course_lecturer %></td>
+                  <td><%= ask_courses.course_general_code %></td>
+                  <td><%= ask_courses.title %></td>
                   <% if ask_courses.anonymous %>
                     <td><div class="user-avatar"><%= image_tag('angel1.png') %></div><span class="user-name">匿名者</span></td>
                   <% else %>
                     <% @user = User.find(ask_courses.user_id) %>
                     <td><div class="user-avatar"><img src="<%= @user.avatar_url %>"></div><span class="user-name"><%= @user.name %></span></td>
                   <% end %>
-                  <td><%= ask_courses.title %></td>
-                  <td><%= ask_courses.course_name %></td>
-                  <td><%= ask_courses.course_lecturer %></td>
-                  <td><%= ask_courses.course_general_code %></td>
+                  <td><%= ask_courses.course_comments.count %></td>
                   <td><a><i class="material-icons">forward</i></a></td>
                 </tr>
               <% end %>
