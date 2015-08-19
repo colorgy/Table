@@ -29,7 +29,7 @@
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
                 <% else %>
                 <li class="nav-bar-drop-down">
-                  <a href="">
+                  <a>
                     Hi, <%= current_user.name %> ( <span class="current-user-followed-user-count"><%= current_user.followed_users.count %></span> ) <i class="material-icons list-icon" style="color: #fff;">expand_more</i>
 
                   </a>
