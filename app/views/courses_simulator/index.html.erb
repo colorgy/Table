@@ -265,7 +265,7 @@
   function initShare() {
     _origin = window.location.origin + "<%= user_path(current_user) %>" + '#'  + '<%= rand(1000000..30000000) %>';
     //window.open(url, 'facebook-share-dialog', 'status=0,width=626,height=436');
-    console.log(_origin);
+    
 
     FB.ui(
       {
@@ -669,17 +669,27 @@ $(document).on('click', '.simulator-table-course', function(){
     var credits = course.credits;
     var website_url = course.url;
     $('.modal-course-location').html('');
+    var thisCourse_day;
+    var thisCourse_period;
+    var thisCourse_location;
+    var getCourseNodeUri;
+    var location_string;
 
     // Course location
     for (var i = 1 ; i <= 9; i++) {
-      var thisCourse_day = course['day_' + i];
-      if(thisCourse_day != '' && thisCourse_day != null){
+      thisCourse_day = course['day_' + i];
+      
 
-        var thisCourse_period = course['period_' + i];
-        var thisCourse_location = course['location_' + i];
-        var getCourseNodeUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+      if(thisCourse_day != '' && thisCourse_day != null && thisCourse_day != 'null'){
+        thisCourse_period = course['period_' + i];
+        thisCourse_location = course['location_' + i];
+        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+
+        location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
+        location_string = (location_string + ' (' + thisCourse_location +  ')</span>');
+        $('.modal-course-location').append(location_string);
         
-        
+        /*
         $.get(getCourseNodeUri, function(data_response){
           
           var thisCourse_day = parseInt(getCourseNodeUri.split('#')[1]);
@@ -689,6 +699,7 @@ $(document).on('click', '.simulator-table-course', function(){
           $('.modal-course-location').append(location_string);
 
         });
+        */
       }
     };
 
@@ -803,16 +814,27 @@ $(document).on('click', '.course-select-item .name', function(){
     var credits = course.credits;
     var website_url = course.url;
     $('.modal-course-location').html('');
+    var thisCourse_day;
+    var thisCourse_period;
+    var thisCourse_location;
+    var getCourseNodeUri;
+    var location_string;
 
     // Course location
     for (var i = 1 ; i <= 9; i++) {
-      var thisCourse_day = course['day_' + i];
-      if(thisCourse_day != '' && thisCourse_day != null){
+      thisCourse_day = course['day_' + i];
+      
 
-        var thisCourse_period = course['period_' + i];
-        var thisCourse_location = course['location_' + i];
-        var getCourseNodeUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+      if(thisCourse_day != '' && thisCourse_day != null && thisCourse_day != 'null'){
+        thisCourse_period = course['period_' + i];
+        thisCourse_location = course['location_' + i];
+        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+
+        location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
+        location_string = (location_string + ' (' + thisCourse_location +  ')</span>');
+        $('.modal-course-location').append(location_string);
         
+        /*
         $.get(getCourseNodeUri, function(data_response){
           var thisCourse_day = parseInt(getCourseNodeUri.split('#')[1]);
           var data_response = data_response[0];
@@ -821,6 +843,7 @@ $(document).on('click', '.course-select-item .name', function(){
           $('.modal-course-location').append(location_string);
 
         });
+        */
       }
     };
 
@@ -934,24 +957,43 @@ $(document).on('click', '.course-hasselect-item .name', function(){
     var website_url = course.url;
     $('.modal-course-location').html('');
 
+    var thisCourse_day;
+    var thisCourse_period;
+    var thisCourse_location;
+    var getCourseNodeUri;
+    var location_string;
+
     // Course location
     for (var i = 1 ; i <= 9; i++) {
-      var thisCourse_day = course['day_' + i];
+      thisCourse_day = course['day_' + i];
+      
 
-      if(thisCourse_day != '' && thisCourse_day != null){
-        var thisCourse_period = course['period_' + i];
-        var thisCourse_location = course['location_' + i];
-        var getCourseNodeUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+      if(thisCourse_day != '' && thisCourse_day != null && thisCourse_day != 'null'){
+        thisCourse_period = course['period_' + i];
+        thisCourse_location = course['location_' + i];
+        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+
+        location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
+        location_string = (location_string + ' (' + thisCourse_location +  ')</span>');
+        $('.modal-course-location').append(location_string);
+
+        /*
         
         $.get(getCourseNodeUri, function(data_response){
-          
+
+          console.log(getCourseNodeUri);
           var thisCourse_day = parseInt(getCourseNodeUri.split('#')[1]);
+          var location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
+          //console.log(thisCourse_day);
+          //console.log(location_string);
           var data_response = data_response[0];
           var thisCourse_node = data_response.code;
-          var location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day + ' 第' + thisCourse_node + '節' + ' (' + thisCourse_location +  ')</span>');
+          location_string = (location_string + ' 第' + thisCourse_node + '節' + ' (' + thisCourse_location +  ')</span>');
           $('.modal-course-location').append(location_string);
 
         });
+
+        */
       }
     };
 
@@ -1228,7 +1270,7 @@ $('#course-searchbox').on('input', function(){
 
     var uri = 'https://colorgy.io/api/v1/'+ school_code +'/courses.json?filter[year]=2015&filter[term]=1&'
     + 'filter['+ search_method +']=like(%' + keyword + '%)';
-    console.log(uri);
+    
     var encode_uri = encodeURI(uri);
 
     $.get( encode_uri , function(response){
