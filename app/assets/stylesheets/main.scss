@@ -1463,6 +1463,10 @@ section.users{
   background-color: #ffffff;
   border-radius: 2px;
 
+  select{
+  	border-color: #CECECE;
+  }
+
   > .user-info{
   	margin-bottom: 24px;
 
@@ -2031,7 +2035,6 @@ section.users{
 }
 
 .courses-table{
-	table-layout: fixed;
   min-width: 800px;
 
 	>thead{

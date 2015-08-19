@@ -46,6 +46,7 @@
                 <th>主旨</th>
                 <th>問課者</th>
                 <th>回應數量</th>
+                <th>發問時間</th>
                 <th></th>
               </tr>
             </thead>
@@ -63,6 +64,7 @@
                     <td><div class="user-avatar"><img src="<%= @user.avatar_url %>"></div><span class="user-name"><%= @user.name %></span></td>
                   <% end %>
                   <td><%= ask_courses.course_comments.count %></td>
+                  <td><%= ask_courses.created_at.strftime("%Y-%m-%d") %></td>
                   <td><a><i class="material-icons">forward</i></a></td>
                 </tr>
               <% end %>

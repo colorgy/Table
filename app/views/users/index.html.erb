@@ -78,7 +78,11 @@
               <% if user.avatar_url != '' && user.avatar_url %>
                 <%= image_tag user.avatar_url %>
               <% else %>
-                <%= image_tag ('https://placehold.it/500x500') %>
+                <% if user.gender == 'male' %>
+                  <%= image_tag ('angel2.png') %>
+                <% else %>
+                  <%= image_tag ('angel1.png') %>
+                <% end %>
               <% end %>
               <span class="card-title user-info"><%= user.name %></span>
             </a>
