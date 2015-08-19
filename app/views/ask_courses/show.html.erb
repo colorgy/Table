@@ -15,7 +15,12 @@
       <label>發問者提問</label>
       <div class="ask-course">
         <% if @ask_course.anonymous %>
-          <div class="user-avatar"><img src="https://placehold.it/500x500"></div><span class="user-name">匿名者</span><span style="vertical-align: middle;padding-top: 8px;display: inline-block;margin-left: 8px;">問：</span><br>
+          <% if @user.gender == 'male' %>
+            <div class="user-avatar"><%= image_tag('angel2.png') %></div>
+          <% else %>
+            <div class="user-avatar"><%= image_tag('angel1.png') %></div>
+          <% end %>
+          <span class="user-name">匿名者</span><span style="vertical-align: middle;padding-top: 8px;display: inline-block;margin-left: 8px;">問：</span><br>
         <% else %>
           <div class="user-avatar"><img src="<%= @user.avatar_url %>"></div><span class="user-name"><%= @user.name %></span><span style="vertical-align: middle;padding-top: 8px;display: inline-block;margin-left: 8px;">問：</span><br>
         <% end %>
@@ -41,7 +46,7 @@
             <div class="course-comment">
               <div class="user-avatar">
                 <% if course_comment.anonymous %>
-                  <img src="https://placehold.it/500x500">
+                  <%= image_tag('angel1.png') %>
                 <% else %>
                   <%= image_tag User.find(course_comment.user_id).avatar_url %>
                 <% end %>
@@ -243,7 +248,7 @@
         var comment_course_general_code = comment.course_general_code;
 
         if(anonymous){
-          comment_user_avatar_url = 'https://placehold.it/500x500';
+          comment_user_avatar_url = '<%= image_path('angel1.png') %>';
           comment_user_name = '匿名者';
         }
 

@@ -52,7 +52,7 @@
               <% @ask_courses.each do |ask_courses| %>
                 <tr href="<%= ask_course_path(ask_courses.id) %>">
                   <% if ask_courses.anonymous %>
-                    <td><div class="user-avatar"><img src="https://placehold.it/500x500"></div><span class="user-name">匿名者</span></td>
+                    <td><div class="user-avatar"><%= image_tag('angel1.png') %></div><span class="user-name">匿名者</span></td>
                   <% else %>
                     <% @user = User.find(ask_courses.user_id) %>
                     <td><div class="user-avatar"><img src="<%= @user.avatar_url %>"></div><span class="user-name"><%= @user.name %></span></td>
