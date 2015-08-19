@@ -11,7 +11,7 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col m4 s12">
+    <div class="col m4 s12" style="padding: 0 8px; margin-bottom: 24px;">
       <label>發問者提問</label>
       <div class="ask-course">
         <% if @ask_course.anonymous %>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="col m8 s12">
+    <div class="col m8 s12" style="padding: 0 8px; margin-bottom: 24px;">
       <label style="display: block;max-width: 600px;margin: 0 auto;">解答者回覆</label>
       <div class="course-comments-list" id="course-comments">
         <% if @course_comments.count == 0 %>

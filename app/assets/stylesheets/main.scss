@@ -1389,6 +1389,7 @@ section.users{
   text-align: center;
   max-width: 100% !important;
   background-color: #E4E4E4;
+  box-shadow: 1px 1px 2px rgba(0,0,0,.3);
 
   @media screen and (max-width: 500px) {
   	padding: 12px 0 !important;
@@ -1530,7 +1531,7 @@ section.users{
 	}
 
 	> .course-comment-body{
-	  padding: 8px 16px 16px 16px;
+	  padding: 8px;
 	  font-size: 16px;
 	}
 }
@@ -1567,7 +1568,7 @@ section.users{
 		-webkit-transform: translate(-50%, -50%);
 		-o-transform: translate(-50%, -50%);
 		-ms-transform: translate(-50%, -50%);
-		max-height: 500px;
+		max-height: 800px;
 		max-width: 600px;
 		margin: 0 auto;
   	overflow: auto;
@@ -2271,6 +2272,41 @@ section.users{
 .other-ratings{
   padding: 4px 8px;
   max-width: 400px;
+
+	/*
+  > .practicality-level{
+  	label{
+  		color: blue;
+  	}
+		.course-comment-rating{
+			> i{
+				color: blue;
+			}
+		}
+  }
+
+  > .sweet-level{
+  	label{
+  		color: pink;
+  	}
+		.course-comment-rating{
+			> i{
+				color: pink;
+			}
+		}
+  }
+
+  > .difficulty-level{
+  	label{
+  		color: red;
+  	}
+		.course-comment-rating{
+			> i{
+				color: red;
+			}
+		}
+  }
+  */
 }
 
 /* Isotope */
