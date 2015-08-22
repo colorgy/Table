@@ -20,23 +20,29 @@ Rails.application.routes.draw do
   get '/app' => 'pages#app'
   get '/not-support-yet' => 'pages#not-support-yet'
   get '/user-has-courses-count' => 'pages#user_has_courses_count'
+  get '/polls/male' => 'polls#male_poll'
+  get '/polls/female' => 'polls#female_poll'
+  get '/get-poll-result' => 'polls#get_poll_result'
 
   resources :courses_simulator, only: [:index, :create, :destroy]
   resources :user_followed_user, only: [:index, :create, :destroy]
 
   resources :course_users
   resources :users
+  resources :polls
   resources :course_comments
   resources :ask_courses
   resources :courses
   resources :chat_groups
   resources :chat_group_members
   resources :chat_messages
-  get 'find_user_by_user_id' => 'users#find_user_by_user_id'
-  get 'get_messages' => 'chat_messages#get_messages'
-  get 'course' => 'courses#course'
-  get 'search-users' => 'users#search'
-  get 'search-course-comments' => 'course_comments#search'
+
+  get '/get-poll-sample' => 'users#get_poll_sample'
+  get '/find_user_by_user_id' => 'users#find_user_by_user_id'
+  get '/get_messages' => 'chat_messages#get_messages'
+  get '/course' => 'courses#course'
+  get '/search-users' => 'users#search'
+  get '/search-course-comments' => 'course_comments#search'
   post 'upload' => 'proxy#image_upload'
   post 'user_first_login' => 'users#first_login_callback'
   post 'user_shared' => 'users#shared_callback'

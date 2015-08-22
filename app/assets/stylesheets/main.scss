@@ -35,7 +35,7 @@ i{
 
 @media screen and (max-width: 600px) {
 	.btn, .btn-flat{
-		padding: 0.4rem 1.6rem;
+		padding: 1rem 1.6rem;
 	}
 }
 .list-icon{
@@ -2317,6 +2317,92 @@ section.users{
 		}
   }
   */
+}
+
+.poll-statistics{
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 16px 0;
+	color: #fff;
+
+	> .poll-statistics-bar--fresh{
+		margin: 4px 0;
+		background-color: $primary-color;
+		height: 24px;
+		width: 0;
+	}
+
+	> .poll-statistics-bar--notfresh{
+		margin: 4px 0;
+		background-color: $primary-color;
+		height: 24px;
+		width: 0;
+	}
+
+	> .poll-statistics-bar--fresh, .poll-statistics-bar--notfresh{
+		text-align: right;
+		transition: width 1s;
+		-webkit-transition: width 1s;
+		-moz-transition: width 1s;
+		-o-transition: width 1s;
+		-ms-transition: width 1s;
+	}
+}
+
+.poll{
+	> .poll-inner{
+		> .poll-user-item{
+			width: 45%;
+			float: left;
+			text-align: center;
+			padding: 12px;
+			opacity: 0;
+			transition: all 1.2s;
+			-webkit-transition: all 1.2s;
+			-moz-transition: all 1.2s;
+			-o-transition: all 1.2s;
+			-ms-transition: all 1.2s;
+
+			> .poll-user-avatar{
+				max-width: 400px;
+				margin: 0 auto;
+			}
+
+
+			&.user-one{
+				transform: translateX(-500px);
+				-webkit-transform: translateX(-500px);
+				-moz-transform: translateX(-500px);
+				-o-transform: translateX(-500px);
+				-ms-transform: translateX(-500px);
+			}
+			&.user-two{
+				transform: translateX(500px);
+				-webkit-transform: translateX(500px);
+				-moz-transform: translateX(500px);
+				-o-transform: translateX(500px);
+				-ms-transform: translateX(500px);
+			}
+
+			&.user-one.active , &.user-two.active{
+				transform: translateX(0);
+				-webkit-transform: translateX(0);
+				-moz-transform: translateX(0);
+				-o-transform: translateX(0);
+				-ms-transform: translateX(0);
+				opacity: 1;
+
+			}
+		}
+
+		> .vs-field{
+			width: 10%;
+			float: left;
+			text-align: center;
+			font-size: 30px;
+		}
+	}
 }
 
 /* Isotope */

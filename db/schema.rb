@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818170835) do
+ActiveRecord::Schema.define(version: 20150822185240) do
 
   create_table "ask_courses", force: :cascade do |t|
     t.string   "title"
@@ -82,6 +82,15 @@ ActiveRecord::Schema.define(version: 20150818170835) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "students_count",      default: 0, null: false
+  end
+
+  create_table "polls", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "user_polled_user_id"
+    t.string   "user_polled_user_gender"
+    t.integer  "user_polled_user_started_year"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "user_courses", force: :cascade do |t|

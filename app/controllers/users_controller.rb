@@ -78,6 +78,27 @@ class UsersController < ApplicationController
   end
 
 
+  def get_poll_sample
+
+    gender = params[:gender] if params[:gender].present?
+    @found_user = User.all.where(gender: gender)
+    @found_user_fresh = @found_user.where(started_year: 2015)
+    @found_user_not_fresh = @found_user.where("started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? ", 2014,2013,2012,2011,2010,2009,2008,2005)
+
+    respond_to do |format|
+      if @found_user_fresh && @found_user_not_fresh
+        format.json { render json:
+          {
+            found_user_fresh: @found_user_fresh,
+            found_user_not_fresh: @found_user_not_fresh
+          }
+        }
+      else
+        format.json {render json: { status: "failed" }}
+      end
+    end
+  end
+
   def find_user_by_user_id
     user_id = params[:user_id]
     @user = User.find(user_id)

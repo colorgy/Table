@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
          :omniauth_providers => [:colorgy]
 
   has_many :user_courses
+  has_many :polls
   has_many :course_comments
   has_many :chat_messages
   has_many :user_followed_users
