@@ -2342,11 +2342,11 @@ section.users{
 
 	> .poll-statistics-bar--fresh, .poll-statistics-bar--notfresh{
 		text-align: right;
-		transition: width 1s;
-		-webkit-transition: width 1s;
-		-moz-transition: width 1s;
-		-o-transition: width 1s;
-		-ms-transition: width 1s;
+		transition: width 0.8s;
+		-webkit-transition: width 0.8s;
+		-moz-transition: width 0.8s;
+		-o-transition: width 0.8s;
+		-ms-transition: width 0.8s;
 	}
 }
 
@@ -2358,11 +2358,11 @@ section.users{
 			text-align: center;
 			padding: 12px;
 			opacity: 0;
-			transition: all 1.2s;
-			-webkit-transition: all 1.2s;
-			-moz-transition: all 1.2s;
-			-o-transition: all 1.2s;
-			-ms-transition: all 1.2s;
+			transition: all 0.8s;
+			-webkit-transition: all 0.8s;
+			-moz-transition: all 0.8s;
+			-o-transition: all 0.8s;
+			-ms-transition: all 0.8s;
 
 			> .poll-user-avatar{
 				max-width: 400px;

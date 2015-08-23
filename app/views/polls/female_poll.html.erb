@@ -1,0 +1,158 @@
+<div class="container-fluid">
+  <div class="row row-inner">
+    <div class="poll-statistics">
+      <div class="poll-statistics-bar--fresh">
+        小嫩妹(<span class="fresh-percent"></span>%)
+      </div>
+      <div class="poll-statistics-bar--notfresh">
+        熟御姐(<span class="notfresh-percent"></span>%)
+      </div>
+    </div>
+    <div class="poll">
+      <div class="poll-inner">
+        <div class="poll-user-item user-one" user-id="">
+          <div class="poll-user-avatar user-one">
+            
+          </div>
+          <div>
+            <a class="btn poll-user-btn user-one" user-id="" fresh-key="">
+              <i class="material-icons">favorite</i>投她
+            </a>
+          </div>
+        </div>
+        <div class="vs-field">
+          <p>vs.</p>
+        </div>
+        <div class="poll-user-item user-two" user-id="">
+          <div class="poll-user-avatar user-two">
+            
+          </div>
+          <div>
+            <a class="btn poll-user-btn user-two" user-id="" fresh-key="">
+              <i class="material-icons">favorite</i>投她
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var fresh_user_id;
+  var not_fresh_user_id;
+  var fresh_key;
+  var not_fresh_key;
+  var not_fresh_user_started_year;
+
+  function get_user_sample(){
+    var get_url = '/get-poll-sample?gender=female';
+    $.get(get_url, function(response){
+      var fresh = response["found_user_fresh"];
+      var not_fresh = response["found_user_not_fresh"];
+      var fresh_user = fresh[0];
+      var not_fresh_user = not_fresh[0];
+      var random_integer = Math.floor((Math.random() * 2) + 1);
+      var fresh_user_avatar;
+      var not_fresh_user_avatar;
+
+      fresh_user_id = fresh_user.id;
+      not_fresh_user_id = not_fresh_user.id;
+      not_fresh_user_started_year = not_fresh_user.started_year;
+      fresh_key = Math.floor((Math.random() * 2) + 1);
+
+      if( fresh_key == 1 ){
+        not_fresh_key = 2;
+      }else{
+        not_fresh_key = 1;
+      }
+
+      if (fresh_user.avatar_url == '' || fresh_user.avatar_url == 'undefined' || fresh_user.avatar_url == null || fresh_user.avatar_url == 'null'){
+        fresh_user_avatar = '<%= image_path('angel2.png') %>';
+      }else{
+        fresh_user_avatar = fresh_user.avatar_url;
+      }
+
+      if (not_fresh_user.avatar_url == '' || not_fresh_user.avatar_url == 'undefined' || not_fresh_user.avatar_url == null || not_fresh_user.avatar_url == 'null'){
+        not_fresh_user_avatar = '<%= image_path('angel2.png') %>';
+      }else{
+        not_fresh_user_avatar = not_fresh_user.avatar_url;
+      }
+      
+      if(random_integer == 1){
+        $('.poll-user-avatar.user-one').html('<img src="' + fresh_user_avatar + '">');
+        $('.poll-user-avatar.user-two').html('<img src="' + not_fresh_user_avatar + '">');
+        $('.poll-user-btn.user-one').attr('user-id', fresh_user.id);
+        $('.poll-user-btn.user-two').attr('user-id', not_fresh_user.id);
+        $('.poll-user-btn.user-one').attr('fresh-key', fresh_key);
+        $('.poll-user-btn.user-two').attr('fresh-key', not_fresh_key);
+
+      }else{
+        $('.poll-user-avatar.user-two').html('<img src="' + fresh_user_avatar + '">');
+        $('.poll-user-avatar.user-one').html('<img src="' + not_fresh_user_avatar + '">');
+        $('.poll-user-btn.user-two').attr('user-id', fresh_user.id);
+        $('.poll-user-btn.user-one').attr('user-id', not_fresh_user.id);
+        $('.poll-user-btn.user-two').attr('fresh-key', fresh_key);
+        $('.poll-user-btn.user-one').attr('fresh-key', not_fresh_key);
+      }
+
+      $('.poll-user-item.user-one').addClass('active');
+      $('.poll-user-item.user-two').addClass('active');
+    })
+  }
+
+  function poll(user_polled_user_id, target_fresh_key){
+    var gender = 'female';
+    var user_started_year;
+    var user_id = '<%= current_user.id %>';
+
+    if(parseInt(target_fresh_key) == fresh_key){
+      user_started_year = 2015;
+
+    }else{
+      user_started_year = not_fresh_user_started_year;
+    }
+
+    $.post('<%= polls_path %>', { "poll[user_id]": user_id, "poll[user_polled_user_id]": user_polled_user_id, "poll[user_polled_user_gender]": gender, "poll[user_polled_user_started_year]": user_started_year } ,function(response){
+
+      $('.poll-user-item.user-one').removeClass('active');
+      $('.poll-user-item.user-two').removeClass('active');
+
+      console.log(response);
+      flash.success('成功投票');
+      get_poll_result();
+      setTimeout(function() {
+        get_user_sample();
+      }, 1000);
+    })
+  }
+
+  function get_poll_result(){
+    var get_url = '/get-poll-result?gender=female';
+    $.get(get_url, function(response){
+      var poll_total = response["poll_total"];
+      var poll_fresh_total = response["poll_fresh_total"];
+      var poll_fresh_percentage = Math.round((poll_fresh_total * 100 / poll_total),2);
+      var poll_not_fresh_percentage = Math.round((100 - poll_fresh_percentage),2);
+
+      $('.fresh-percent').html(poll_fresh_percentage);
+      $('.notfresh-percent').html(poll_not_fresh_percentage);
+
+      $('.poll-statistics-bar--fresh').css({ 'width' : poll_fresh_percentage + '%' });
+      $('.poll-statistics-bar--notfresh').css({ 'width' : poll_not_fresh_percentage + '%' });
+
+
+    })
+  }
+
+  $('.poll-user-btn').click(function(){
+    var user_polled_user_id = parseInt($(this).attr('user-id'));
+    var target_fresh_key = parseInt($(this).attr('fresh-key'));
+    poll(user_polled_user_id, target_fresh_key);
+  })
+  $(document).ready(function(){
+    setTimeout(function() {}, 1000);
+    get_user_sample();
+    get_poll_result();
+
+  })
+</script>

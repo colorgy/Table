@@ -82,8 +82,8 @@ class UsersController < ApplicationController
 
     gender = params[:gender] if params[:gender].present?
     @found_user = User.all.where(gender: gender)
-    @found_user_fresh = @found_user.where(started_year: 2015)
-    @found_user_not_fresh = @found_user.where("started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? ", 2014,2013,2012,2011,2010,2009,2008,2005)
+    @found_user_fresh = @found_user.where(started_year: 2015).sample
+    @found_user_not_fresh = @found_user.where("started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ?  ", 2014,2013,2012,2011,2010,2009,2008,2007,2006,2005).sample
 
     respond_to do |format|
       if @found_user_fresh && @found_user_not_fresh
