@@ -47,10 +47,8 @@
   function get_user_sample(){
     var get_url = '/get-poll-sample?gender=female';
     $.get(get_url, function(response){
-      var fresh = response["found_user_fresh"];
-      var not_fresh = response["found_user_not_fresh"];
-      var fresh_user = fresh[0];
-      var not_fresh_user = not_fresh[0];
+      var fresh_user = response["found_user_fresh"];
+      var not_fresh_user = response["found_user_not_fresh"];
       var random_integer = Math.floor((Math.random() * 2) + 1);
       var fresh_user_avatar;
       var not_fresh_user_avatar;
