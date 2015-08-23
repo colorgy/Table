@@ -92,9 +92,12 @@
         $('.poll-user-btn.user-two').attr('fresh-key', fresh_key);
         $('.poll-user-btn.user-one').attr('fresh-key', not_fresh_key);
       }
+      
+      setTimeout(function() {
+        $('.poll-user-item.user-one').addClass('active');
+        $('.poll-user-item.user-two').addClass('active');
+      }, 1000);
 
-      $('.poll-user-item.user-one').addClass('active');
-      $('.poll-user-item.user-two').addClass('active');
     })
   }
 
@@ -119,8 +122,9 @@
       flash.success('成功投票');
       get_poll_result();
       setTimeout(function() {
-        get_user_sample();
-      }, 1000);
+        get_user_sample();        
+      }, 500);
+      
     })
   }
 
@@ -148,7 +152,6 @@
     poll(user_polled_user_id, target_fresh_key);
   })
   $(document).ready(function(){
-    setTimeout(function() {}, 1000);
     get_user_sample();
     get_poll_result();
 
