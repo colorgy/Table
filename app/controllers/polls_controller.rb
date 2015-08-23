@@ -2,6 +2,7 @@ class PollsController < ApplicationController
 
   def index
 
+
   end
 
   def create
@@ -16,6 +17,20 @@ class PollsController < ApplicationController
       else
         format.json {render json: { status: "failed" }}
       end
+    end
+  end
+
+  def female_poll
+    if current_user.blank?
+      flash[:error] = "請先登入才能進行投票活動"
+      redirect_to :back
+    end
+  end
+
+  def male_poll
+    if current_user.blank?
+      flash[:error] = "請先登入才能進行投票活動"
+      redirect_to :back
     end
   end
 

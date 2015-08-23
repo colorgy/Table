@@ -2321,27 +2321,34 @@ section.users{
 
 .poll-statistics{
 	width: 100%;
-	max-width: 800px;
 	margin: 0 auto;
 	padding: 16px 0;
 	color: #fff;
+  background-color: #999;
+  box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+
+  > h5{
+  	text-align: center;
+  	text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+  }
 
 	> .poll-statistics-bar--fresh{
 		margin: 4px 0;
 		background-color: $primary-color;
-		height: 24px;
+		height: 32px;
 		width: 0;
 	}
 
 	> .poll-statistics-bar--notfresh{
 		margin: 4px 0;
 		background-color: $primary-color;
-		height: 24px;
+		height: 32px;
 		width: 0;
 	}
 
 	> .poll-statistics-bar--fresh, .poll-statistics-bar--notfresh{
 		text-align: right;
+    font-size: 19px;
 		transition: width 0.5s;
 		-webkit-transition: width 0.5s;
 		-moz-transition: width 0.5s;
@@ -2352,8 +2359,10 @@ section.users{
 
 .poll{
 	> .poll-inner{
+		min-height: 800px;
+
 		> .poll-user-item{
-			width: 45%;
+			width: 50%;
 			float: left;
 			text-align: center;
 			padding: 12px;
@@ -2367,6 +2376,10 @@ section.users{
 			> .poll-user-avatar{
 				max-width: 400px;
 				margin: 0 auto;
+
+				> img{
+					border-radius: 2px;
+				}
 			}
 
 
@@ -2394,13 +2407,36 @@ section.users{
 				opacity: 1;
 
 			}
+
+			.poll-user-btn{
+				padding: 0.6rem 1.6rem;
+			}
 		}
 
 		> .vs-field{
-			width: 10%;
+			width: 100%;
 			float: left;
 			text-align: center;
 			font-size: 30px;
+	    padding: 4px;
+
+			> p{
+				line-height: 1.2;
+				margin: 0;
+			}
+		}
+
+		.give-up-block{
+			float: left;
+			text-align: center;
+			float: right;
+	    padding: 0 24px;
+
+			> .give-up-btn{
+				background-color: #555;
+				padding: 4px 16px;
+				font-size: 18px;
+			}
 		}
 	}
 }

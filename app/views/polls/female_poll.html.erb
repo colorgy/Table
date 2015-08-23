@@ -1,6 +1,7 @@
 <div class="container-fluid">
-  <div class="row row-inner">
+  <div class="row">
     <div class="poll-statistics">
+      <h5>戰況分析</h5>
       <div class="poll-statistics-bar--fresh">
         小嫩妹(<span class="fresh-percent"></span>%)
       </div>
@@ -8,8 +9,21 @@
         熟御姐(<span class="notfresh-percent"></span>%)
       </div>
     </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row row-inner">
     <div class="poll">
       <div class="poll-inner">
+        <div class="vs-field">
+          <p>v.s</p>
+          <div class="give-up-block">
+            <a class="btn btn--small give-up-btn" id="give-up-btn">
+              棄票
+            </a>
+          </div>
+          <div style="clear:both;"></div>
+        </div>
         <div class="poll-user-item user-one" user-id="">
           <div class="poll-user-avatar user-one">
             
@@ -19,9 +33,6 @@
               <i class="material-icons">favorite</i>投她
             </a>
           </div>
-        </div>
-        <div class="vs-field">
-          <p>vs.</p>
         </div>
         <div class="poll-user-item user-two" user-id="">
           <div class="poll-user-avatar user-two">
@@ -33,6 +44,7 @@
             </a>
           </div>
         </div>
+        <div style="clear:both;"></div>
       </div>
     </div>
   </div>
@@ -92,7 +104,7 @@
         $('.poll-user-btn.user-two').attr('fresh-key', fresh_key);
         $('.poll-user-btn.user-one').attr('fresh-key', not_fresh_key);
       }
-      
+
       setTimeout(function() {
         $('.poll-user-item.user-one').addClass('active');
         $('.poll-user-item.user-two').addClass('active');
@@ -133,8 +145,8 @@
     $.get(get_url, function(response){
       var poll_total = response["poll_total"];
       var poll_fresh_total = response["poll_fresh_total"];
-      var poll_fresh_percentage = Math.round((poll_fresh_total * 100 / poll_total),2);
-      var poll_not_fresh_percentage = Math.round((100 - poll_fresh_percentage),2);
+      var poll_fresh_percentage = (poll_fresh_total * 100 / poll_total).toFixed(2);
+      var poll_not_fresh_percentage = (100 - poll_fresh_percentage).toFixed(2);
 
       $('.fresh-percent').html(poll_fresh_percentage);
       $('.notfresh-percent').html(poll_not_fresh_percentage);
@@ -146,14 +158,38 @@
     })
   }
 
+  function replaceErrorImageUrl(){
+    var image_url = '<%= image_path('angel1.png') %>';
+    $('img').error(function(){
+      $(this).attr('src', image_url);
+    });
+    $('img').each(function(){
+      if( $(this).attr('src') == ''){
+        $(this).attr('src', image_url);
+      }
+    });
+  }
+
   $('.poll-user-btn').click(function(){
     var user_polled_user_id = parseInt($(this).attr('user-id'));
     var target_fresh_key = parseInt($(this).attr('fresh-key'));
     poll(user_polled_user_id, target_fresh_key);
   })
+
+  $('#give-up-btn').click(function(){
+    $('.poll-user-item.user-one').removeClass('active');
+    $('.poll-user-item.user-two').removeClass('active');
+    flash.success('你棄票囉！');
+      setTimeout(function() {
+        get_user_sample();        
+      }, 500);
+
+  })
+
   $(document).ready(function(){
     get_user_sample();
     get_poll_result();
+    replaceErrorImageUrl();
 
   })
 </script>
