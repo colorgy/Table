@@ -2,8 +2,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="poll-statistics">
-      <h5>即時戰況</h5>
+      <h5>妙齡姊 vs. 小嫩妹大對決</h5>
+      <p class="poll-push-notification">其中有一個是小嫩妹、另一人是妙齡姊，作出你的決定吧！</p>
+      <div class="actions">
+        <a class="btn watch-result-btn" id="watch-result-btn">觀看結果</a>
+      </div>
       <div class="poll-statistics-inner">
+        <h6>全台統計</h6>
         <div class="poll-statistics-bar--fresh">
           小嫩妹(<span class="fresh-percent"></span>%)
         </div>
@@ -11,6 +16,13 @@
           妙齡姊(<span class="notfresh-percent"></span>%)
         </div>
         <div style="clear:both;"></div>
+      </div>
+      <div class="user-results">
+        <h5>'你的結果分析！'</h5>
+        <div class="user-results-inner">
+          <p>你總共投了<span class="user-poll-fresh-count"></span>次小嫩妹、<span class="user-poll-not-fresh-count"></span>次妙齡姊，根據我們的數據分析顯示你是“<span class="user-analyse-result"></span>”！</p>
+          <a class="btn play-again-btn" id="play-again-btn">再玩一次</a>
+        </div>
       </div>
     </div>
   </div>
@@ -60,6 +72,21 @@
   var fresh_key;
   var not_fresh_key;
   var not_fresh_user_started_year;
+  var user_poll_count = 0;
+  var user_poll_fresh_count = 0;
+  var user_poll_not_fresh_count = 0;
+  var notification_number;
+
+  var notifications = [
+    "<span><strong>你知道嗎：</strong>Colorgy Books 即將在8月底開始服務了，服務各種安心、便利的原文書團購，大家可以多多關注。</span>",
+    "<span><strong>你知道嗎：</strong>Colorgy 是由 8 個大學生創立的，謝謝大家的支持，我們會更努力的。</span>",
+    "<span><strong>你知道嗎：</strong>Colorgy Table 上註冊的女生比男生還要多。</span>",
+    "<span><strong>你知道嗎：</strong>Colorgy Bus 已經開始服務了！讓大家用更便宜的票價搭到直達學校的客運，再也不用轉車或是多花轉車冤望錢，詳情請洽首頁或粉專。</span>",
+    "<span><strong>你知道嗎：</strong>Colorgy Books 第一次在一間學校服務時，服務同學們 3000 多本書，獲得不錯的評價呢！</span>",
+    "<span><strong>你知道嗎：</strong>Colorgy 現在已經跟全台灣 100 多個系會合作了。</span>",
+    "<span><strong>你知道嗎：</strong>Colorgy Books 現在為了體恤同學，跟許多企業拉贊助，提供同學許多購物金，讓同學們做一點小動作就能折抵省錢</span>"
+  ];
+
 
   function get_user_sample(){
     var get_url = '/get-poll-sample?gender=female';
@@ -132,12 +159,25 @@
 
     $.post('<%= polls_path %>', { "poll[user_id]": user_id, "poll[user_polled_user_id]": user_polled_user_id, "poll[user_polled_user_gender]": gender, "poll[user_polled_user_started_year]": user_started_year } ,function(response){
 
+      flash.success('成功投票');
       $('.poll-user-item.user-one').removeClass('active');
       $('.poll-user-item.user-two').removeClass('active');
 
-      console.log(response);
-      flash.success('成功投票');
-      get_poll_result();
+      if (user_started_year == 2015) {
+        user_poll_fresh_count = user_poll_fresh_count + 1;
+      }else{
+        user_poll_not_fresh_count = user_poll_not_fresh_count + 1;
+      };
+
+      user_poll_count = user_poll_count + 1;
+
+      if(parseInt(user_poll_count) >= 5 && !$('.poll-statistics .actions').hasClass('already') ){
+        $('.poll-push-notification').html('你已經投票超過五次了！可以觀看全台目前的結果，還有我們為你做的一點分析唷！當然你還是能繼續玩～');
+        $('.poll-statistics .actions').slideToggle(500).addClass('already');
+      }else{
+        notification_number = Math.floor((Math.random() * (notifications.length)));
+        $('.poll-push-notification').html(notifications[notification_number]);
+      };
       setTimeout(function() {
         get_user_sample();        
       }, 500);
@@ -155,6 +195,10 @@
 
       $('.fresh-percent').html(poll_fresh_percentage);
       $('.notfresh-percent').html(poll_not_fresh_percentage);
+
+
+      $('.poll-statistics-inner').slideToggle(300);
+      $('.user-results').slideToggle(300);
 
       $('.poll-statistics-bar--fresh').css({ 'width' : poll_fresh_percentage + '%' });
       $('.poll-statistics-bar--notfresh').css({ 'width' : poll_not_fresh_percentage + '%' });
@@ -190,9 +234,33 @@
 
   })
 
+  $('#watch-result-btn').click(function(){
+    $('.poll-statistics .actions').slideToggle(500);
+    $('.user-poll-fresh-count').html(user_poll_fresh_count);
+    $('.user-poll-not-fresh-count').html(user_poll_not_fresh_count);
+    if(user_poll_fresh_count > user_poll_not_fresh_count){
+      $('.user-analyse-result').html('嫩妹殺手');
+    }else{
+      if(user_poll_fresh_count < user_poll_not_fresh_count){
+        $('.user-analyse-result').html('輕熟女小太陽');
+      }else{
+        $('.user-analyse-result').html('大小通吃');
+      }
+    }
+    get_poll_result();
+  })
+
+  $('#play-again-btn').click(function(){
+    $('.user-results').slideToggle(300);
+    $('.poll-statistics-inner').slideToggle(300);
+    $('.poll-statistics .actions').removeClass('already');
+    user_poll_count = 0;
+    user_poll_fresh_count = 0;
+    user_poll_not_fresh_count = 0;
+  })
+
   $(document).ready(function(){
     get_user_sample();
-    get_poll_result();
     replaceErrorImageUrl();
 
   })
