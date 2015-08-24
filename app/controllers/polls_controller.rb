@@ -20,6 +20,24 @@ class PollsController < ApplicationController
     end
   end
 
+  def add_poll
+    user_polled_user_id = params[:userid]
+    @user = User.all.find(user_polled_user_id)
+    @user.get_polled = @user.get_polled + 1
+
+    respond_to do |format|
+      if @user.save
+        format.json {
+          render json:{
+            user: @user
+          }
+        }
+      else
+        format.json {render json: { status: "failed" }}
+      end
+    end
+  end
+
   def female_poll
     if current_user.blank?
       flash[:error] = "請先登入才能進行投票活動"
@@ -59,6 +77,6 @@ class PollsController < ApplicationController
   private
 
   def poll_params
-    params.require(:poll).permit(:user_id,:user_polled_user_id,:user_polled_user_gender,:user_polled_user_started_year)
+    params.require(:poll).permit(:user_id,:user_polled_user_id,:user_polled_user_gender,:user_polled_user_started_year, :organization_code)
   end
 end

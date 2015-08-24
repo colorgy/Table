@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/polls/male' => 'polls#male_poll'
   get '/polls/female' => 'polls#female_poll'
   get '/get-poll-result' => 'polls#get_poll_result'
+  post '/add-poll' => 'polls#add_poll'
 
   resources :courses_simulator, only: [:index, :create, :destroy]
   resources :user_followed_user, only: [:index, :create, :destroy]

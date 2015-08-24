@@ -46,7 +46,7 @@
             
           </div>
           <div>
-            <a class="poll-user-btn user-one" user-id="" fresh-key="">
+            <a class="poll-user-btn user-one" user-id="" fresh-key="" organization-code="">
               <i class="material-icons">favorite</i>投她
             </a>
           </div>
@@ -56,7 +56,7 @@
             
           </div>
           <div>
-            <a class="poll-user-btn user-two" user-id="" fresh-key="">
+            <a class="poll-user-btn user-two" user-id="" fresh-key="" organization-code="">
               <i class="material-icons">favorite</i>投她
             </a>
           </div>
@@ -96,6 +96,8 @@
       var random_integer = Math.floor((Math.random() * 2) + 1);
       var fresh_user_avatar;
       var not_fresh_user_avatar;
+      var fresh_user_organization_code = fresh_user.organization_code;
+      var not_fresh_user_organization_code = not_fresh_user.organization_code;
 
       fresh_user_id = fresh_user.id;
       not_fresh_user_id = not_fresh_user.id;
@@ -127,6 +129,8 @@
         $('.poll-user-btn.user-two').attr('user-id', not_fresh_user.id);
         $('.poll-user-btn.user-one').attr('fresh-key', fresh_key);
         $('.poll-user-btn.user-two').attr('fresh-key', not_fresh_key);
+        $('.poll-user-btn.user-one').attr('organization-code', fresh_user_organization_code);
+        $('.poll-user-btn.user-two').attr('organization-code', not_fresh_user_organization_code);
 
       }else{
         $('.poll-user-avatar.user-two').html('<img src="' + fresh_user_avatar + '">');
@@ -135,6 +139,8 @@
         $('.poll-user-btn.user-one').attr('user-id', not_fresh_user.id);
         $('.poll-user-btn.user-two').attr('fresh-key', fresh_key);
         $('.poll-user-btn.user-one').attr('fresh-key', not_fresh_key);
+        $('.poll-user-btn.user-two').attr('organization-code', fresh_user_organization_code);
+        $('.poll-user-btn.user-one').attr('organization-code', not_fresh_user_organization_code);
       }
 
       setTimeout(function() {
@@ -145,10 +151,11 @@
     })
   }
 
-  function poll(user_polled_user_id, target_fresh_key){
+  function poll(user_polled_user_id, target_fresh_key, organization_code){
     var gender = 'female';
     var user_started_year;
     var user_id = '<%= current_user.id %>';
+    var add_poll_url = '/add-poll?userid=' + user_polled_user_id;
 
     if(parseInt(target_fresh_key) == fresh_key){
       user_started_year = 2015;
@@ -157,7 +164,7 @@
       user_started_year = not_fresh_user_started_year;
     }
 
-    $.post('<%= polls_path %>', { "poll[user_id]": user_id, "poll[user_polled_user_id]": user_polled_user_id, "poll[user_polled_user_gender]": gender, "poll[user_polled_user_started_year]": user_started_year } ,function(response){
+    $.post('<%= polls_path %>', { "poll[user_id]": user_id, "poll[user_polled_user_id]": user_polled_user_id, "poll[user_polled_user_gender]": gender, "poll[user_polled_user_started_year]": user_started_year, "poll[organization_code]": organization_code } ,function(response){
 
       flash.success('成功投票');
       $('.poll-user-item.user-one').removeClass('active');
@@ -183,6 +190,12 @@
       }, 500);
       
     })
+
+    $.ajax({
+        method: 'POST',
+        url: add_poll_url,
+        dataType: 'json'
+      });
   }
 
   function get_poll_result(){
@@ -222,7 +235,8 @@
   $('.poll-user-btn').click(function(){
     var user_polled_user_id = parseInt($(this).attr('user-id'));
     var target_fresh_key = parseInt($(this).attr('fresh-key'));
-    poll(user_polled_user_id, target_fresh_key);
+    var organization_code = $(this).attr('organization-code');
+    poll(user_polled_user_id, target_fresh_key, organization_code);
   })
 
   $('#give-up-btn').click(function(){
