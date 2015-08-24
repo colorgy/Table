@@ -105,7 +105,7 @@ function fireworks(){
     //ctx.fillStyle = "rgba(248, 150, 128, 0.1)";
     ctx.fillStyle = "rgba(20, 20, 20, 0.2)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }, 40);
+  }, 50);
 
   setInterval(function() {
     var x, y;
@@ -113,7 +113,7 @@ function fireworks(){
     y = Math.random() * canvas.height | 0;
     fireBoss.push(new Fireworks(x, y));
     return fireBoss.push(new Fireworks(x, y));
-  }, 100);
+  }, 800);
 
   repeat = function() {
     var fireworks, j, ref;

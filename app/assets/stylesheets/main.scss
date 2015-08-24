@@ -2324,36 +2324,50 @@ section.users{
 	margin: 0 auto;
 	padding: 16px 0;
 	color: #fff;
-  background-color: #999;
+  background-color: $primary-color;
   box-shadow: 1px 1px 2px rgba(0,0,0,.3);
 
   > h5{
   	text-align: center;
   	text-shadow: 1px 1px 2px rgba(0,0,0,.2);
   }
+	> .poll-statistics-inner{
+			max-width: 1000px;
+	    margin: 0 auto;
+	    width: 95%;
 
-	> .poll-statistics-bar--fresh{
-		margin: 4px 0;
-		background-color: $primary-color;
-		height: 32px;
-		width: 0;
-	}
+		> .poll-statistics-bar--fresh{
+			margin: 4px 0;
+			background-color: #FFF;
+			width: 0;
+			text-align: left;
+			border-left: 3px solid #fff;
+			border-bottom: 3px solid #fff;
+			border-top: 3px solid #fff;
+			color: $primary-color;
+		}
 
-	> .poll-statistics-bar--notfresh{
-		margin: 4px 0;
-		background-color: $primary-color;
-		height: 32px;
-		width: 0;
-	}
+		> .poll-statistics-bar--notfresh{
+			margin: 4px 0;
+			background-color: $primary-color;
+			width: 0;
+			text-align: right;
+			border-right: 3px solid #fff;
+			border-bottom: 3px solid #fff;
+			border-top: 3px solid #fff;
+		}
 
-	> .poll-statistics-bar--fresh, .poll-statistics-bar--notfresh{
-		text-align: right;
-    font-size: 19px;
-		transition: width 0.5s;
-		-webkit-transition: width 0.5s;
-		-moz-transition: width 0.5s;
-		-o-transition: width 0.5s;
-		-ms-transition: width 0.5s;
+		> .poll-statistics-bar--fresh, .poll-statistics-bar--notfresh{
+			float: left;
+	    font-size: 19px;
+			transition: width 0.5s;
+			padding: 4px;
+			-webkit-transition: width 0.5s;
+			-moz-transition: width 0.5s;
+			-o-transition: width 0.5s;
+			-ms-transition: width 0.5s;
+			overflow: hidden;
+		}
 	}
 }
 
@@ -2374,11 +2388,12 @@ section.users{
 			-ms-transition: all 0.5s;
 
 			> .poll-user-avatar{
-				max-width: 400px;
+				max-width: 350px;
 				margin: 0 auto;
 
 				> img{
-					border-radius: 2px;
+			    border-radius: 2000px;
+			    background-color: #fff;
 				}
 			}
 
@@ -2409,7 +2424,22 @@ section.users{
 			}
 
 			.poll-user-btn{
-				padding: 0.6rem 1.6rem;
+				background-image: image-url('polls/name-label.png');
+		    padding: 8px 24px;
+		    font-size: 24px;
+		    color: #fff;
+		    background-repeat: no-repeat;
+		    background-size: 100% 100%;
+		    width: 90%;
+		    max-width: 280px;
+		    background-position: center;
+
+				> i {
+					color: #fff;
+			    font-size: 26px !important;
+			    margin-right: 4px;
+				}
+
 			}
 		}
 
@@ -2419,24 +2449,43 @@ section.users{
 			text-align: center;
 			font-size: 30px;
 	    padding: 4px;
+	    position: relative;
 
 			> p{
 				line-height: 1.2;
-				margin: 0;
+		    margin: 0 auto;
+		    display: inline-block;
+		    border: 5px solid $primary-color;
+		    color: $primary-color;
+		    padding: 12px;
+		    border-radius: 1000px;
+		    font-weight: 700;
+		    font-size: 32px;
 			}
 		}
 
-		.give-up-block{
-			float: left;
-			text-align: center;
-			float: right;
-	    padding: 0 24px;
+	}
+}
+.give-up-block{
+	position: absolute;
+  bottom: 18px;
+  right: 0;
 
-			> .give-up-btn{
-				background-color: #555;
-				padding: 4px 16px;
-				font-size: 18px;
-			}
+	> .give-up-btn{
+		background-color: #fff;
+		padding: 8px 32px;
+		font-size: 20px;
+		color: $primary-color;
+		box-shadow: 1px 1px 2px rgba(0,0,0,.5);
+
+		> span{
+			vertical-align: middle;
+		}
+
+		> i{
+			color: $primary-color;
+			font-size: 32px !important;
+			vertical-align: middle;
 		}
 	}
 }

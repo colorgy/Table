@@ -23,14 +23,14 @@ class PollsController < ApplicationController
   def female_poll
     if current_user.blank?
       flash[:error] = "請先登入才能進行投票活動"
-      redirect_to :back
+      redirect_to polls_path
     end
   end
 
   def male_poll
     if current_user.blank?
       flash[:error] = "請先登入才能進行投票活動"
-      redirect_to :back
+      redirect_to polls_path
     end
   end
 

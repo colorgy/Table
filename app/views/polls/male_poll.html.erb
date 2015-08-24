@@ -1,12 +1,16 @@
+<%= stylesheet_link_tag 'polls' %>
 <div class="container-fluid">
   <div class="row">
     <div class="poll-statistics">
-      <h5>戰況分析</h5>
-      <div class="poll-statistics-bar--fresh">
-        小鮮肉(<span class="fresh-percent"></span>%)
-      </div>
-      <div class="poll-statistics-bar--notfresh">
-        老油條(<span class="notfresh-percent"></span>%)
+      <h5>即時戰況</h5>
+      <div class="poll-statistics-inner">
+        <div class="poll-statistics-bar--fresh">
+          小鮮肉(<span class="fresh-percent"></span>%)
+        </div>
+        <div class="poll-statistics-bar--notfresh">
+          熟質男(<span class="notfresh-percent"></span>%)
+        </div>
+        <div style="clear:both;"></div>
       </div>
     </div>
   </div>
@@ -18,8 +22,9 @@
         <div class="vs-field">
           <p>v.s</p>
           <div class="give-up-block">
-            <a class="btn btn--small give-up-btn" id="give-up-btn">
-              棄票
+            <a class="give-up-btn" id="give-up-btn">
+              <span>下一組</span>
+              <i class="material-icons">keyboard_arrow_right</i>
             </a>
           </div>
           <div style="clear:both;"></div>
@@ -29,7 +34,7 @@
             
           </div>
           <div>
-            <a class="btn poll-user-btn user-one" user-id="" fresh-key="">
+            <a class="poll-user-btn user-one" user-id="" fresh-key="">
               <i class="material-icons">favorite</i>投他
             </a>
           </div>
@@ -39,7 +44,7 @@
             
           </div>
           <div>
-            <a class="btn poll-user-btn user-two" user-id="" fresh-key="">
+            <a class="poll-user-btn user-two" user-id="" fresh-key="">
               <i class="material-icons">favorite</i>投他
             </a>
           </div>
@@ -132,8 +137,13 @@
 
       $('.poll-user-item.user-one').removeClass('active');
       $('.poll-user-item.user-two').removeClass('active');
+
+      if( user_started_year == 2015 ){
+        flash.success('恭喜你投了小鮮肉');
+      }else{
+        flash.success('熟質男');
+      }
       
-      flash.success('成功投票');
       get_poll_result();
       setTimeout(function() {
         get_user_sample();        
@@ -180,7 +190,6 @@
   $('#give-up-btn').click(function(){
     $('.poll-user-item.user-one').removeClass('active');
     $('.poll-user-item.user-two').removeClass('active');
-    flash.success('你棄票囉！');
       setTimeout(function() {
         get_user_sample();        
       }, 500);

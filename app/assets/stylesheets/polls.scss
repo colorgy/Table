@@ -1,3 +1,13 @@
 // Place all the styles related to the polls controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#wrapper{
+	background-image: image-url('polls/bg-line.png');
+	background-repeat: repeat;
+  background-size: 150% auto;
+  background-color: #F9EFED;
+}
+.row.row-inner{
+	margin-bottom: 0;
+}
