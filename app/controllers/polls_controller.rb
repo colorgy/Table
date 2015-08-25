@@ -52,6 +52,20 @@ class PollsController < ApplicationController
     end
   end
 
+  def female_poll_my_school
+    if current_user.blank?
+      flash[:error] = "請先登入才能進行投票活動"
+      redirect_to polls_path
+    end
+  end
+
+  def male_poll_my_school
+    if current_user.blank?
+      flash[:error] = "請先登入才能進行投票活動"
+      redirect_to polls_path
+    end
+  end
+
   def get_poll_result
     gender = params[:gender]
     @poll = Poll.all.where(user_polled_user_gender: gender)

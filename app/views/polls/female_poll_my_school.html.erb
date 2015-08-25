@@ -2,25 +2,25 @@
 <div class="container-fluid">
   <div class="row">
     <div class="poll-statistics">
-      <h5>熟質男 vs. 小鮮肉大對決</h5>
-      <p class="poll-push-notification">其中有人是小鮮肉、另一人是熟質男，作出你的決定吧！</p>
+      <h5>妙齡姊 vs. 小嫩妹大對決</h5>
+      <p class="poll-push-notification">其中有一個是小嫩妹、另一人是妙齡姊，作出你的決定吧！</p>
       <div class="actions">
         <a class="btn watch-result-btn" id="watch-result-btn">觀看結果</a>
       </div>
       <div class="poll-statistics-inner">
         <h6>全台統計</h6>
         <div class="poll-statistics-bar--fresh">
-          小鮮肉(<span class="fresh-percent"></span>%)
+          小嫩妹(<span class="fresh-percent"></span>%)
         </div>
         <div class="poll-statistics-bar--notfresh">
-          熟質男(<span class="notfresh-percent"></span>%)
+          妙齡姊(<span class="notfresh-percent"></span>%)
         </div>
         <div style="clear:both;"></div>
       </div>
       <div class="user-results">
         <h5>'你的結果分析！'</h5>
         <div class="user-results-inner">
-          <p>你總共投了<span class="user-poll-fresh-count"></span>次小鮮肉、<span class="user-poll-not-fresh-count"></span>次熟男，根據我們的數據分析顯示你是“<span class="user-analyse-result"></span>”！</p>
+          <p>你總共投了<span class="user-poll-fresh-count"></span>次小嫩妹、<span class="user-poll-not-fresh-count"></span>次妙齡姊，根據我們的數據分析顯示你是“<span class="user-analyse-result"></span>”！</p>
           <a class="btn play-again-btn" id="play-again-btn">繼續玩</a>
         </div>
       </div>
@@ -47,7 +47,7 @@
           </div>
           <div>
             <a class="poll-user-btn user-one" user-id="" fresh-key="" organization-code="">
-              <i class="material-icons">favorite</i>投他
+              <i class="material-icons">favorite</i>投她
             </a>
           </div>
         </div>
@@ -57,7 +57,7 @@
           </div>
           <div>
             <a class="poll-user-btn user-two" user-id="" fresh-key="" organization-code="">
-              <i class="material-icons">favorite</i>投他
+              <i class="material-icons">favorite</i>投她
             </a>
           </div>
         </div>
@@ -87,8 +87,10 @@
     "<span><strong>你知道嗎：</strong>Colorgy Books 現在為了體恤同學，跟許多企業拉贊助，提供同學許多購物金，讓同學們做一點小動作就能折抵省錢，用更便宜的價格買書</span>"
   ];
 
+
   function get_user_sample(){
-    var get_url = '/get-poll-sample?gender=male';
+    var current_user_organization_code = '<%= current_user.organization_code %>';
+    var get_url = '/get-poll-sample?gender=female&myschool=' + current_user_organization_code;
     $.get(get_url, function(response){
       var fresh_user = response["found_user_fresh"];
       var not_fresh_user = response["found_user_not_fresh"];
@@ -151,7 +153,7 @@
   }
 
   function poll(user_polled_user_id, target_fresh_key, organization_code){
-    var gender = 'male';
+    var gender = 'female';
     var user_started_year;
     var user_id = '<%= current_user.id %>';
     var add_poll_url = '/add-poll?userid=' + user_polled_user_id;
@@ -163,12 +165,11 @@
       user_started_year = not_fresh_user_started_year;
     }
 
-    $.post('<%= polls_path %>', { "poll[user_id]": user_id, "poll[user_polled_user_id]": user_polled_user_id, "poll[user_polled_user_gender]": gender, "poll[user_polled_user_started_year]": user_started_year, "poll[organization_code]": organization_code} ,function(response){
+    $.post('<%= polls_path %>', { "poll[user_id]": user_id, "poll[user_polled_user_id]": user_polled_user_id, "poll[user_polled_user_gender]": gender, "poll[user_polled_user_started_year]": user_started_year, "poll[organization_code]": organization_code } ,function(response){
 
-      flash.success('投票成功');
+      flash.success('成功投票');
       $('.poll-user-item.user-one').removeClass('active');
       $('.poll-user-item.user-two').removeClass('active');
-
 
       if (user_started_year == 2015) {
         user_poll_fresh_count = user_poll_fresh_count + 1;
@@ -185,23 +186,21 @@
         notification_number = Math.floor((Math.random() * (notifications.length)));
         $('.poll-push-notification').html(notifications[notification_number]);
       };
-
       setTimeout(function() {
         get_user_sample();        
       }, 500);
-    });
+      
+    })
 
     $.ajax({
         method: 'POST',
         url: add_poll_url,
         dataType: 'json'
       });
-
-    
   }
 
   function get_poll_result(){
-    var get_url = '/get-poll-result?gender=male';
+    var get_url = '/get-poll-result?gender=female';
     $.get(get_url, function(response){
       var poll_total = response["poll_total"];
       var poll_fresh_total = response["poll_fresh_total"];
@@ -210,6 +209,7 @@
 
       $('.fresh-percent').html(poll_fresh_percentage);
       $('.notfresh-percent').html(poll_not_fresh_percentage);
+
 
       $('.poll-statistics-inner').slideToggle(300);
       $('.user-results').slideToggle(300);
@@ -254,10 +254,10 @@
     $('.user-poll-fresh-count').html(user_poll_fresh_count);
     $('.user-poll-not-fresh-count').html(user_poll_not_fresh_count);
     if(user_poll_fresh_count > user_poll_not_fresh_count){
-      $('.user-analyse-result').html('鮮肉達人');
+      $('.user-analyse-result').html('嫩妹殺手');
     }else{
       if(user_poll_fresh_count < user_poll_not_fresh_count){
-        $('.user-analyse-result').html('熟男獵手');
+        $('.user-analyse-result').html('御姐小太陽');
       }else{
         $('.user-analyse-result').html('大小通吃');
       }

@@ -22,8 +22,10 @@ Rails.application.routes.draw do
   get '/user-has-courses-count' => 'pages#user_has_courses_count'
   get '/polls/male' => 'polls#male_poll'
   get '/polls/female' => 'polls#female_poll'
+  get '/polls/male/myschool' => 'polls#male_poll_my_school'
+  get '/polls/female/myschool' => 'polls#female_poll_my_school'
   get '/get-poll-result' => 'polls#get_poll_result'
-  post '/add-poll' => 'polls#add_poll'
+  get '/settings' => 'users#settings'
 
   resources :courses_simulator, only: [:index, :create, :destroy]
   resources :user_followed_user, only: [:index, :create, :destroy]
@@ -44,6 +46,7 @@ Rails.application.routes.draw do
   get '/course' => 'courses#course'
   get '/search-users' => 'users#search'
   get '/search-course-comments' => 'course_comments#search'
+  post '/add-poll' => 'polls#add_poll'
   post 'upload' => 'proxy#image_upload'
   post 'user_first_login' => 'users#first_login_callback'
   post 'user_shared' => 'users#shared_callback'

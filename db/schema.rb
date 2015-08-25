@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20150824201520) do
     t.boolean  "fb_visibility",                       default: true
     t.boolean  "courses_table_visibility_for_guests", default: true
     t.integer  "get_polled",                          default: 0,     null: false
-    t.boolean  "poll_anonymous"
+    t.boolean  "poll_anonymous",                      default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

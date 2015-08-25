@@ -77,11 +77,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def settings
+
+  end
 
   def get_poll_sample
 
     gender = params[:gender] if params[:gender].present?
     @found_user = User.all.where(gender: gender)
+    if params[:myschool].present?
+      organization_code = params[:myschool]
+      @found_user = User.all.where("gender = ? AND organization_code = ? ", gender, organization_code)
+    end
+    @found_user = @found_user.where(poll_anonymous: false)
     @found_user_fresh = @found_user.where(started_year: 2015).sample
     @found_user_not_fresh = @found_user.where("started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ? OR started_year = ?  ", 2014,2013,2012,2011,2010,2009,2008,2007,2006,2005).sample
 
@@ -145,6 +153,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:fb_visibility, :courses_table_visibility, :courses_table_visibility_for_guests)
+    params.require(:user).permit(:fb_visibility, :courses_table_visibility, :courses_table_visibility_for_guests, :poll_anonymous)
   end
 end

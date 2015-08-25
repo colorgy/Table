@@ -1,2 +1,116 @@
-<a href="<%= polls_male_path %>" class="btn">男生</a>
-<a href="<%= polls_female_path %>" class="btn">女生</a>
+<%= stylesheet_link_tag 'polls' %>
+<div class="container-fluid polls">
+  <div class="row row-inner" style="padding-bottom: 24px;">
+    <div class="col m12 s12">
+      <div class="polls-index">
+        <div class="polls-index-inner">
+          <h4 class="polls-index-title">老皮 v.s 嫩肉 大作戰</h4>
+          <div class="polls-index-text">
+            <p>
+              新的學期即將到來，大家都對嶄新的這一學期充滿期待、抱負，稚嫩的一批心血也即將注入校園，大家都引頸期盼這些新的火花，大學新鮮人的入注，跟學長學姊們又會產生什麼新的火花？學長對於學妹們躍躍欲試、學弟期待認識新朋友、學妹期待甜美的大學戀情、學姊誓死捍衛自己的萬人迷地位！
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col m3 s6">
+      <div class="poll-story-item">
+        <div class="poll-story-item-avatar">
+          <%= image_tag('polls/female-young.png') %>
+        </div>
+        <div class="poll-story-item-text">
+          <h5>學妹</h5>
+          <p>
+            哎呦這樣的遊戲，好像會傷和氣>
+            妹妹剛上大一，對很多東西不了解
+            如果有得罪學姊之處真的很抱歉<br><br>
+            但......恩，有件事情我很清楚，大家應該也都明白
+            就～年輕就是本錢
+            所以，姊姊們抱歉囉（啾咪
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col m3 s6">
+      <div class="poll-story-item">
+        <div class="poll-story-item-avatar">
+          <%= image_tag('polls/female-old.png') %>
+        </div>
+        <div class="poll-story-item-text">
+          <h5>學姊</h5>
+          <p>
+            有些事情，只是姐不說，
+            關於美貌，皮膚保養得宜，我的手依舊很嫩，
+            但這些日子累積的智慧與人生歷練，
+            將成為姐致勝的關鍵。<br><br>
+            你知道我眼神流露的是魅力，是會對你溫柔的宣言
+            別用老來敘述我，姐這叫做成熟。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col m3 s6">
+      <div class="poll-story-item">
+        <div class="poll-story-item-avatar">
+          <%= image_tag('polls/male-old.png') %>
+        </div>
+        <div class="poll-story-item-text">
+          <h5>學長</h5>
+          <p>哼！男人可是越老越值錢的！年輕的學弟比得上成熟學長的體貼魅力嗎？</p>
+        </div>
+      </div>
+    </div>
+    <div class="col m3 s6">
+      <div class="poll-story-item">
+        <div class="poll-story-item-avatar">
+          <%= image_tag('polls/male-young.png') %>
+        </div>
+        <div class="poll-story-item-text">
+          <h5>學弟</h5>
+          <p>學校裡面才沒分什麼學長學弟勒！我才是第一名！</p>
+        </div>
+      </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="polls-index-text" style="margin-bottom: 0;">
+      <br><br><br>
+      <strong>Colorgy 隆重鉅獻： '老皮嫩肉大作戰'</strong>
+      <br><br>
+      <h5>遊戲規則</h5>
+      <p>
+        進入遊戲之後，每次會隨機跳出一位大學新鮮人跟另一位學長姐，使用者隨機投票給自己喜愛的一方，投票超過五次之後，可以繼續玩或是觀看全台灣統計票數，系統會顯示你總共投給多少學長姐和多少學弟妹，快來玩玩看吧！
+        <small>註：如果你對這個活動感到不舒服，可以至'設定'選擇不讓自己的大頭貼在遊戲中出現</small>
+      </p>
+    </div>
+  </div>
+  <div class="row" style="background-color: #fff; margin-bottom: 0; padding: 40px 0;">
+    <h5 class="enter-game-title" style="margin: 0 auto 40px auto;"><strong>開始投票，選擇性別和範圍！</strong></h5>
+    <div style="clear: both;"></div>
+    <div class="col s12 m6">
+      <div class="enter-game">
+        <div class="enter-game-inner">
+          <div class="enter-game-mask"></div>
+          <div class="enter-game-text">
+            <span class="enter-game-text-title">男生</span>
+            <a href="/polls/male" class="btn">全台大亂鬥</a>
+            <a href="/polls/male/myschool" class="btn">自己的學校</a>
+          </div>
+          <%= image_tag('polls/male-logo.png') %>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="enter-game">
+        <div class="enter-game-inner">
+          <div class="enter-game-mask"></div>
+          <div class="enter-game-text">
+            <span class="enter-game-text-title">女生</span>
+            <a href="/polls/female" class="btn">全台大亂鬥</a>
+            <a href="/polls/female/myschool" class="btn">自己的學校</a>
+          </div>
+          <%= image_tag('polls/female-logo.png') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

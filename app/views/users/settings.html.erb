@@ -1,0 +1,71 @@
+<section class="user-panel">
+  <div class="cover-photo" style="background-image: url('<%= current_user.cover_photo_url %>');">
+    <div class="user-info">
+      <div class="avatar" id="user-avatar">
+        <% if current_user.avatar_url != '' && current_user.avatar_url %>
+          <%= image_tag current_user.avatar_url %>
+        <% else %>
+          <%= image_tag ('https://placehold.it/500x500') %>
+        <% end %>
+      </div>
+      <h4 class="user-name"><small><%= current_user.organization_code %></small><br><%= current_user.name %><hr><span class="breadcrumb">的個人頁面</span></h4>
+    </div>
+  </div>
+  <div class="actions-bar">
+    <div class="inner">
+      <ul class="pull-right">
+        <li id="settings-btn"><a href="<%= user_path(current_user.id) %>">回個人頁面</a></li>
+      </ul>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+  <div class="user">
+    <div class="row">
+      <div class="col m12 s12">
+        <div class="settings-field" id="settings-field" style="display: block;">
+          <h5>隱私權設定</h5>
+          <%= form_for current_user, :url => { :controller => 'users', :action => 'update', :id => current_user } do |f| %>
+              <p>能不能讓其他人看到你的 FB 連結</p>
+              <div class="switch">
+                <label>
+                  不能
+                  <%= f.check_box :fb_visibility %>
+                  <span class="lever"></span>
+                  能
+                </label>
+              </div>
+              <p>能不能讓使用者看到你的課表</p>
+              <div class="switch">
+                <label>
+                  不能
+                  <%= f.check_box :courses_table_visibility %>
+                  <span class="lever"></span>
+                  能
+                </label>
+              </div>
+              <p>能不能讓訪客看到你的課表 (包含你FB朋友從你分享的連結點入你的個人頁面)</p>
+              <div class="switch">
+                <label>
+                  不能
+                  <%= f.check_box :courses_table_visibility_for_guests %>
+                  <span class="lever"></span>
+                  能
+                </label>
+              </div>
+              <p>願不願意參加老皮嫩肉大對決活動</p>
+              <div class="switch">
+                <label>
+                  願意
+                  <%= f.check_box :poll_anonymous %>
+                  <span class="lever"></span>
+                  不願意
+                </label>
+              </div>
+              <button class="btn" type="submit">儲存</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

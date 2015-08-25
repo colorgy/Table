@@ -45,6 +45,11 @@
                       </a>
                     </li>
                     <li>
+                      <a href="/settings">
+                        設定
+                      </a>
+                    </li>
+                    <li>
                       <a href="<%= sign_out_url %>">登出</a>
                     </li>
                   </ul>
@@ -57,6 +62,12 @@
       <a href="<%= root_path %>" class="brand-logo"><%= image_tag('TABLE.svg') %></a>
       <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">dehaze</i></a>
       <ul class="right hide-on-med-and-down main-nav">
+        <li>
+          <a href="<%= polls_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="Colorgy 隆重鉅獻: '老皮嫩肉大作戰'，快點來玩！">
+            <i class="material-icons list-icon">favorite</i>
+            老皮嫩肉大作戰
+          </a>
+        </li>
         <li>
           <a href="<%= courses_simulator_index_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊選課、排課，然後看有哪些同學跟你一起上課唷！">
             <i class="material-icons list-icon">dashboard</i>
@@ -113,9 +124,15 @@
                 個人頁面
               </a>
             </li>
+            <li>
+              <a href="/settings">
+                設定
+              </a>
+            </li>
           </ul>
         <% end %>
         <li><a href="<%= courses_simulator_index_path %>">我要排課</a></li>
+        <li><a href="<%= polls_path %>">老皮嫩肉大作戰</a></li>
         <li><a href="<%= users_path %>">找同學們</a></li>
         <li><a href="<%= ask_courses_path %>">問課總覽</a></li>
         <li><a href="<%= course_comments_path %>">課程評論</a></li>

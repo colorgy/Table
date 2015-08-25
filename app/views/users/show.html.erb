@@ -30,7 +30,7 @@
           <a onclick="flash.error('你必須登入才能進行此操作')"><i class="material-icons">favorite_border</i>追蹤</a>
         <% else %>
           <% if current_user.id == @user.id %>
-            <li id="settings-btn"><a><i class="material-icons">settings</i>隱私權設定</a></li>
+            <li id="settings-btn"><a href="/settings"><i class="material-icons">settings</i>隱私權設定</a></li>
             <li><a href="<%= user_followed_user_index_path %>"><i class="material-icons">people</i>我的追蹤</a></li>
           <% else %>
             <li id="follow-unfollow-btn">
@@ -56,45 +56,6 @@
 	<div class="user">
 		<div class="row">
 			<div class="col m12 s12">
-
-        <% if !current_user.blank? && current_user.id == @user.id %>
-          <div class="settings-field" id="settings-field">
-            <h5>隱私權設定</h5>
-            <%= form_for @user, :url => { :controller => 'users', :action => 'update', :id => @user } do |f| %>
-                <p>能不能讓其他人看到你的 FB 連結</p>
-                <div class="switch">
-                  <label>
-                    不能
-                    <%= f.check_box :fb_visibility %>
-                    <span class="lever"></span>
-                    能
-                  </label>
-                </div>
-                <p>能不能讓使用者看到你的課表</p>
-                <div class="switch">
-                  <label>
-                    不能
-                    <%= f.check_box :courses_table_visibility %>
-                    <span class="lever"></span>
-                    能
-                  </label>
-                </div>
-                <p>能不能讓訪客看到你的課表 (包含你FB朋友從你分享的連結點入你的個人頁面)</p>
-                <div class="switch">
-                  <label>
-                    不能
-                    <%= f.check_box :courses_table_visibility_for_guests %>
-                    <span class="lever"></span>
-                    能
-                  </label>
-                </div>
-                <button class="btn" type="submit">儲存</button>
-            <% end %>
-          </div>
-        <% end %>
-
-
-
         <% if @user.organization_code == "MCU" ||  @user.organization_code == "NTHU" || @user.organization_code == "NTUST" || @user.organization_code == "NCU" || @user.organization_code =="NTUT" || @user.organization_code =="NCKU" || @user.organization_code =="NSYSU" || @user.organization_code =="NCHU" || @user.organization_code =="NTPU" || @user.organization_code =="NTNU" || @user.organization_code =="CGU" || @user.organization_code =="CCU" || @user.organization_code =="NCTU" || @user.organization_code =="NTU" || @user.organization_code =="YZU" || @user.organization_code =="TKU" || @user.organization_code =="FJU" || @user.organization_code =="SCU" || @user.organization_code =="CYCU" || @user.organization_code =="USC" || @user.organization_code =="USCKH" || @user.organization_code =="YUNTECH" || @user.organization_code =="PCCU" || @user.organization_code =="TTU" || @user.organization_code =="NTIT" || @user.organization_code =="NCCU"  %>
 
 				<div class="simulator-table-field" style="min-width: 0;">
@@ -248,9 +209,6 @@
 
 <script>
 FetchCourseNode();
-$('#settings-btn').click(function(){
-  $('#settings-field').slideToggle(600);
-})
 
 $('.close-btn').click(function(){
   $(this).parent('div').remove();
