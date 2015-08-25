@@ -90,7 +90,7 @@
 
   function get_user_sample(){
     var current_user_organization_code = '<%= current_user.organization_code %>';
-    var get_url = '/get-poll-sample?gender=female&myschool=' + current_user_organization_code;
+    var get_url = '/get-poll-sample?gender=female&organization_code=' + current_user_organization_code;
     $.get(get_url, function(response){
       var fresh_user = response["found_user_fresh"];
       var not_fresh_user = response["found_user_not_fresh"];

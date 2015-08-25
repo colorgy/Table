@@ -85,9 +85,9 @@ class UsersController < ApplicationController
 
     gender = params[:gender] if params[:gender].present?
     @found_user = User.all.where(gender: gender)
-    if params[:myschool].present?
-      organization_code = params[:myschool]
-      @found_user = User.all.where("gender = ? AND organization_code = ? ", gender, organization_code)
+    if params[:organization_code].present?
+      organization_code = params[:organization_code]
+      @found_user = @found_user.where(organization_code: organization_code)
     end
     @found_user = @found_user.where(poll_anonymous: false)
     @found_user_fresh = @found_user.where(started_year: 2015).sample
