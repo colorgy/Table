@@ -23,7 +23,7 @@
 </head>
 <body>
 <% if !current_user.blank? %>
-  <% if current_user.organization_code != "MCU" &&  current_user.organization_code != "NTHU" && current_user.organization_code != "NTUST" && current_user.organization_code != "NCU" && current_user.organization_code !="NTUT" && current_user.organization_code !="NCKU" && current_user.organization_code !="NSYSU" && current_user.organization_code !="NCHU" && current_user.organization_code !="NTPU" && current_user.organization_code !="NTNU" && current_user.organization_code !="CGU" && current_user.organization_code !="CCU" && current_user.organization_code !="NCTU" && current_user.organization_code !="NTU" && current_user.organization_code !="YZU" && current_user.organization_code !="TKU" && current_user.organization_code !="FJU" && current_user.organization_code !="SCU" && current_user.organization_code !="CYCU" && current_user.organization_code !="USC" && current_user.organization_code !="USCKH" && current_user.organization_code !="YUNTECH" && current_user.organization_code !="PCCU" && current_user.organization_code !="TTU" && current_user.organization_code !="NTIT" && current_user.organization_code !="NCCU"  %>
+  <% if current_user.organization_code != "MCU" &&  current_user.organization_code != "NTHU" && current_user.organization_code != "NTUST" && current_user.organization_code != "NCU" && current_user.organization_code !="NTUT" && current_user.organization_code !="NCKU" && current_user.organization_code !="NSYSU" && current_user.organization_code !="NCHU" && current_user.organization_code !="NTPU" && current_user.organization_code !="NTNU" && current_user.organization_code !="CGU" && current_user.organization_code !="CCU" && current_user.organization_code !="NCTU" && current_user.organization_code !="NTU" && current_user.organization_code !="YZU" && current_user.organization_code !="TKU" && current_user.organization_code !="FJU" && current_user.organization_code !="SCU" && current_user.organization_code !="CYCU" && current_user.organization_code !="USC" && current_user.organization_code !="USCKH" && current_user.organization_code !="YUNTECH" && current_user.organization_code !="PCCU" && current_user.organization_code !="TTU" && current_user.organization_code !="NTIT" && current_user.organization_code !="NCCU" && current_user.organization_code !="ISU" %>
     <% if current_user.organization_code != nil && current_user.organization_code != '' && current_user.organization_code != 'undefined' %>
       <% if request.path != '/not-support-yet' %>
         <script type="text/javascript">
@@ -76,7 +76,6 @@
   <% if current_user.first_login == true %>
   <div class="celebration-container">
     <a class="celebration-close hide"><i class="material-icons" style="color: #fff; font-size: 40px !important;">close</i></a>
-    <canvas id="fireworks"></canvas>
     <div class="page1 active">
       <div class="celebration-text">
         <h3 class="title">恭喜你獲得 50 元 Colorgy 購物金!</h3>
@@ -172,7 +171,6 @@
 <%= render 'partials/google_analytics' %>
 <%= render 'partials/footer' %>
 <%= javascript_include_tag 'replace_error_image_url' %>
-<%= javascript_include_tag 'fireworks' %>
 <script type="text/javascript">
 if($('#fireworks').length){
   fireworks();

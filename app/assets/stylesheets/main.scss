@@ -1919,11 +1919,15 @@ section.users{
     -o-transform: translate(-50%,-50%);
     -moz-transform: translate(-50%,-50%);
     overflow: hidden;
-
-    > canvas{
-    	width: auto;
-    	height: 100%;
-    }
+		background-image: image-url('bg-sky.jpg');
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+    box-shadow: 8px 8px 0 #CCCCCC;
+    -webkit-box-shadow: 8px 8px 0 #CCCCCC;
+    -o-box-shadow: 8px 8px 0 #CCCCCC;
+    -ms-box-shadow: 8px 8px 0 #CCCCCC;
+    -moz-box-shadow: 8px 8px 0 #CCCCCC;
 
     .celebration-text{
     	text-align: center;
