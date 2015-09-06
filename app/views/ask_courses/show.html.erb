@@ -70,7 +70,7 @@
                 <span class="course-general-code"><%= course_comment.course_general_code %></span>
               </div>
               <div class="course-comment-body">
-                <%= course_comment.body %>
+                <%= simple_format(course_comment.body) %>
               </div>
               <div class="other-ratings">
                 <div class="col m4 s12">
