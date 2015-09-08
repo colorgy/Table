@@ -331,7 +331,7 @@ $(document).on('mouseout' ,'.simulator-table td',function(e){
 function FetchCourseNode(){
 
   var school_code = '<%= @user.organization_code.downcase %>';
-  var getCourseUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json';
+  var getCourseUri = 'https://colorgy.io/api/v1/' + school_code + '/period_data.json';
   $.get(getCourseUri, function(data_response){
 
     for(i=0 ; i <= data_response.length - 1 ; i++){

@@ -383,7 +383,7 @@ $(document).on('mouseout' ,'.simulator-table td',function(e){
 function FetchCourseNode(){
 
   var school_code = '<%= current_user.organization_code.downcase %>';
-  var getCourseUri = 'https://colorgy.io/api/v1/' + school_code + '_period_data.json';
+  var getCourseUri = 'https://colorgy.io/api/v1/' + school_code + '/period_data.json';
   $.get(getCourseUri, function(data_response){
 
     for(i=0 ; i <= data_response.length - 1 ; i++){
@@ -683,7 +683,7 @@ $(document).on('click', '.simulator-table-course', function(){
       if(thisCourse_day != '' && thisCourse_day != null && thisCourse_day != 'null'){
         thisCourse_period = course['period_' + i];
         thisCourse_location = course['location_' + i];
-        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '/period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
 
         location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
         location_string = (location_string + ' (' + thisCourse_location +  ')</span>');
@@ -828,7 +828,7 @@ $(document).on('click', '.course-select-item .name', function(){
       if(thisCourse_day != '' && thisCourse_day != null && thisCourse_day != 'null'){
         thisCourse_period = course['period_' + i];
         thisCourse_location = course['location_' + i];
-        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '/period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
 
         location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
         location_string = (location_string + ' (' + thisCourse_location +  ')</span>');
@@ -971,7 +971,7 @@ $(document).on('click', '.course-hasselect-item .name', function(){
       if(thisCourse_day != '' && thisCourse_day != null && thisCourse_day != 'null'){
         thisCourse_period = course['period_' + i];
         thisCourse_location = course['location_' + i];
-        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '_period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
+        getCourseNodeUri= 'https://colorgy.io/api/v1/' + school_code + '/period_data.json?filter%5Border%5D=' + thisCourse_period + '#' + thisCourse_day;
 
         location_string = ('<span class="modal-course-location-item">星期' + thisCourse_day);
         location_string = (location_string + ' (' + thisCourse_location +  ')</span>');
