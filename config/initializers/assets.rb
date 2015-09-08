@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( polls.css pages.css pages.js replace_error_image_url.js html2canvas.js ckeditor/* )
+Rails.application.config.assets.precompile += %w( pace.css pace.js polls.css pages.css pages.js replace_error_image_url.js html2canvas.js ckeditor/* )

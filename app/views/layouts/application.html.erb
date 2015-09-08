@@ -20,6 +20,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
   <script src='https://code.createjs.com/createjs-2015.05.21.min.js'></script>
+  <%= javascript_include_tag 'pace' %>
+  <%= stylesheet_link_tag 'pace' %>
 </head>
 <body>
 <% if !current_user.blank? %>
